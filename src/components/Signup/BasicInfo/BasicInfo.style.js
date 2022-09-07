@@ -4,7 +4,6 @@ const Wrapper = styled.div`
 	width: 39rem;
 	height: 77.7rem;
 `;
-
 const TitleWrapper = styled.div`
 	top: 0rem;
 	left: 0rem;
@@ -26,7 +25,6 @@ const Title = styled.h1`
 	line-height: 4rem;
 	letter-spacing: 0.1rem;
 `;
-
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -44,7 +42,6 @@ const Content = styled.div`
 		display: none;
 	}
 `;
-
 const BasicInfoWrapper = styled.div`
 	width: 39rem;
 	height: 8.8rem;
@@ -53,7 +50,6 @@ const BasicInfoWrapper = styled.div`
 	flex-grow: 0;
 	margin-bottom: 0.5rem;
 `;
-
 const WideInfoWrapper = styled.div`
 	width: 39rem;
 	height: 15.3rem;
@@ -73,10 +69,7 @@ const Label = styled.label`
 	font-size: 1.7rem;
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
-	color: #212121;
-	//color: ${error => `${error ? `#000000` : `#212121`}`};
 `;
-
 const BasicInput = styled.input`
 	position: relative;
 	width: 34.2rem;
@@ -86,11 +79,14 @@ const BasicInput = styled.input`
 	background: #eeeeee;
 	border: none;
 	border-radius: 0.8rem;
-	&::placeholder {
-		//
-	}
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.3rem;
+	line-height: 2.8rem;
+	letter-spacing: 0.08rem;
+	padding-left: 1.6rem;
 `;
-
 const NarrowDiv = styled.div`
 	position: relative;
 	width: 16rem;
@@ -101,7 +97,6 @@ const NarrowDiv = styled.div`
 	background: #eeeeee;
 	border-radius: 0.8rem;
 `;
-
 const NarrowInput = styled.button`
 	position: relative;
 	width: 16rem;
@@ -114,9 +109,7 @@ const NarrowInput = styled.button`
 	background: #eeeeee;
 	border-radius: 0.8rem;
 `;
-
 const Form = styled.form``;
-
 const BtnWrapper = styled.div`
 	position: fixed;
 	display: flex;
@@ -126,7 +119,6 @@ const BtnWrapper = styled.div`
 	height: 8.8rem;
 	top: 71rem;
 `;
-
 const NoticeWrapper = styled.div`
 	width: 39rem;
 	height: 8.8rem;
@@ -141,16 +133,14 @@ const NoticeText = styled.h1`
 	width: 12rem;
 	height: 2.8rem;
 	left: 2.4rem;
-
 	font-family: 'Pretendard';
 	font-style: normal;
 	font-weight: 700;
 	font-size: 1.7rem;
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
-	color: #f45e5f;
+	color: ${({ checked }) => (checked ? `#212121` : `#f45e5f`)};
 `;
-
 const NoticeIcon = styled.div`
 	display: flex;
 	justify-content: center;
@@ -161,52 +151,41 @@ const NoticeIcon = styled.div`
 	left: 2.4rem;
 	top: 4rem;
 	cursor: pointer;
-	background: ${checked => (checked ? `rgba(238, 238, 238, 1)` : `rgba(244, 94, 95, 1)`)};
 	border-radius: 0.8rem;
-
 	.logo {
 		color: #e0e0e0;
 		width: 2rem;
 		height: 2rem;
 	}
+	background: ${({ checked }) => (checked ? `rgba(244, 94, 95, 1)` : `rgba(238, 238, 238, 1)`)};
 `;
-
 const NoticeDetailText = styled.h1`
 	position: relative;
 	width: 29rem;
 	height: 4.8rem;
 	left: 8rem;
-
-	/* Caption */
-
 	font-family: 'Pretendard';
 	font-style: normal;
 	font-weight: bolder;
 	font-size: 1rem;
 	line-height: 1.8rem;
-	/* or 164% */
-
 	display: flex;
 	align-items: flex-end;
 	letter-spacing: 0.02rem;
-
 	color: #000000;
 `;
-
 const ErrorMessage = styled.span`
 	position: relative;
 	width: 14.4rem;
 	height: 2.8rem;
 	left: 2.4rem;
 	top: 0rem;
-
 	font-family: 'Pretendard';
 	font-style: normal;
 	font-weight: bolder;
 	font-size: 1.7rem;
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
-
 	color: #f45e5f;
 `;
 const NextBtn = styled.button`
@@ -214,11 +193,7 @@ const NextBtn = styled.button`
 	height: 5.8rem;
 	left: 2.4rem;
 	top: 0rem;
-
-	// 적용 x
-	background-color: ${next =>
-		next === true ? `rgba(244, 94, 95, 1);` : `rgba(244, 94, 95, 0.65);`};
-
+	background-color: rgba(244, 94, 95, 1);
 	font-family: 'Inter';
 	font-style: normal;
 	font-weight: 700;
@@ -229,12 +204,10 @@ const NextBtn = styled.button`
 	color: rgba(250, 250, 250, 1);
 	border: none;
 	border-radius: 1.6rem;
-	//pointer-events: ${next => (next === true ? `auto` : `none`)};
 	&:hover {
 		color: #000000;
 	}
 `;
-
 export {
 	Wrapper,
 	TitleWrapper,

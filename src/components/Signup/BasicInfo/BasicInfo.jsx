@@ -1,36 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsCheckLg } from 'react-icons/bs';
+// import { useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
 
 function BasicInfo() {
 	const { register, handleSubmit, formState } = useForm();
-	const [checked, setchecked] = useState(false); // 동의하기 버틑
-	const [next, setNext] = useState(false); // 다음 버튼 할성화
-
+	const [checked, setchecked] = useState(false); // 동의하기 버튼
+	const [radio, setRadio] = useState({
+		gender: '',
+		occupation: '',
+	});
+	const genderChange = e => {
+		const { gender, value } = e.target;
+		setRadio({
+			[gender]: value,
+		});
+	};
+	// const navigate = useNavigate();
 	const onValid = data => {
-		if (checked === true) {
-			console.log('성공', data);
-			setNext(true);
-		} else {
-			setNext(false);
+		if (checked) {
+			console.log(data);
+			// navigate('/location');
 		}
 	};
 
-	const onInvalid = errors => {
-		console.log('실패', errors);
-		setNext(false);
+	const onInvalid = e => {
+		console.log(e);
 	};
-
-	const onClick = checked => {
-		setchecked(checked => !checked);
-	};
-
-	useEffect(() => {
-		console.log(next);
-	}, [next]);
-
-	// 아이콘 배경색이랑 다음 버튼 배경색 변경 x
+	console.log(radio);
 	// 라디오 버튼 적용 x
 	return (
 		<S.Wrapper>
@@ -68,16 +66,20 @@ function BasicInfo() {
 						<S.NarrowInput
 							type="button"
 							name="gender"
-							value="Male"
-							{...register('gender', { required: true })}
+							value={radio.gender}
+							checked={radio.gender === 'Male'}
+							onClick={genderChange}
+							{...register('gender')}
 						>
 							남자
 						</S.NarrowInput>
 						<S.NarrowInput
 							type="button"
 							name="gender"
-							value="Female"
-							{...register('gender', { required: true })}
+							value={radio.gender}
+							checked={radio.gender === 'Female'}
+							onClick={genderChange}
+							{...register('gender')}
 						>
 							여자
 						</S.NarrowInput>
@@ -159,14 +161,13 @@ function BasicInfo() {
 							})}
 						/>
 					</S.BasicInfoWrapper>
-
 					<S.NoticeWrapper>
 						{checked ? (
-							<S.NoticeText>확인했습니다</S.NoticeText>
+							<S.NoticeText checked={checked}>확인했습니다</S.NoticeText>
 						) : (
 							<S.NoticeText>확인해주세요</S.NoticeText>
 						)}
-						<S.NoticeIcon checked={checked} onClick={onClick}>
+						<S.NoticeIcon checked={checked} onClick={() => setchecked(!checked)}>
 							<BsCheckLg className="logo" />
 						</S.NoticeIcon>
 						<S.NoticeDetailText>
@@ -176,9 +177,7 @@ function BasicInfo() {
 					</S.NoticeWrapper>
 				</S.Content>
 				<S.BtnWrapper>
-					<S.NextBtn next={next} type="submit">
-						다음
-					</S.NextBtn>
+					<S.NextBtn type="submit">다음</S.NextBtn>
 				</S.BtnWrapper>
 			</S.Form>
 		</S.Wrapper>
