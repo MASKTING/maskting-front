@@ -4,6 +4,7 @@ const Wrapper = styled.div`
 	width: 39rem;
 	height: 77.7rem;
 `;
+
 const TitleWrapper = styled.div`
 	top: 0rem;
 	left: 0rem;
@@ -11,6 +12,7 @@ const TitleWrapper = styled.div`
 	width: 39rem;
 	height: 12rem;
 `;
+
 const Title = styled.h1`
 	top: 2rem;
 	left: 2.4rem;
