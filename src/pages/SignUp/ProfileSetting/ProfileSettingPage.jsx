@@ -1,4 +1,4 @@
-import ProfileSetting from '../../components/Signup/ProfileSetting';
+import ProfileSetting from '../../../components/Signup/ProfileSetting';
 
 function BasicInfoPage() {
 	return <ProfileSetting />;

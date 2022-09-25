@@ -1,4 +1,4 @@
-import BasicInfo from '../../components/Signup/BasicInfo';
+import BasicInfo from '../../../components/Signup/BasicInfo';
 
 function BasicInfoPage() {
 	return <BasicInfo />;

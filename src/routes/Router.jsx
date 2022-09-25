@@ -1,10 +1,10 @@
 import { BrowserRouter as Routers, Routes, Route } from 'react-router-dom';
-import BasicInfoPage from '../pages/BasicInfo';
+import BasicInfoPage from '../pages/SignUp/BasicInfo';
 // import LocationPage from '../pages/LocationPage';
-import MoreInfoPage from '../pages/MoreInfo';
-import ProfilePhotoPage from '../pages/ProfilePhoto';
-import ProfileSettingPage from '../pages/ProfileSetting';
-import ProfileMaskPage from '../pages/ProfileMask';
+import MoreInfoPage from '../pages/SignUp/MoreInfo';
+import ProfilePhotoPage from '../pages/SignUp/ProfilePhoto';
+import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
+import ProfileMaskPage from '../pages/SignUp/ProfileMask';
 
 function Router() {
 	return (
