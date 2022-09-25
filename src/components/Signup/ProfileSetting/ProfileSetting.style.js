@@ -303,6 +303,7 @@ const Modal = styled.div`
 const ModalMessageWrapper = styled.div`
 	width: 18.8rem;
 	height: 8.5rem;
+	margin-top: 1.2rem;
 `;
 
 const ModalMessage = styled.p`

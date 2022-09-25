@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [profileImageSrc, setProfileImageSrc] = useState('');
 	const [isSelectMask, setIsSelectMask] = useState(false);
 
@@ -11,11 +12,11 @@ const ProfileMask = () => {
 		navigate('/profilePhoto');
 	};
 	const handleNextBtn = () => {
-		navigate('/profileSetting');
+		navigate('/profileSetting', { state: { profileImageSrc } });
 	};
 	useEffect(() => {
-		const localImageSrc = localStorage.getItem('profileImgData');
-		setProfileImageSrc(localImageSrc);
+		const profileImageSrc = location.state.profileImageSrc;
+		setProfileImageSrc(profileImageSrc);
 	}, []);
 
 	return (

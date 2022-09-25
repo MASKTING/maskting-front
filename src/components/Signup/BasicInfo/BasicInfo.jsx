@@ -12,9 +12,8 @@ function BasicInfo() {
 		occupation: '',
 	});
 	const genderChange = e => {
-		const { gender, value } = e.target;
 		setRadio({
-			[gender]: value,
+			[e.target.name]: e.target.id,
 		});
 	};
 	// const navigate = useNavigate();
@@ -66,7 +65,7 @@ function BasicInfo() {
 						<S.NarrowInput
 							type="button"
 							name="gender"
-							value={radio.gender}
+							id="man"
 							checked={radio.gender === 'Male'}
 							onClick={genderChange}
 							{...register('gender')}
@@ -76,7 +75,7 @@ function BasicInfo() {
 						<S.NarrowInput
 							type="button"
 							name="gender"
-							value={radio.gender}
+							id="woman"
 							checked={radio.gender === 'Female'}
 							onClick={genderChange}
 							{...register('gender')}

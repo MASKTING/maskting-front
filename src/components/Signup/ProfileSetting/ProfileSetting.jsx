@@ -1,12 +1,14 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal/Modal';
 import * as S from './ProfileSetting.style';
 
 function ProfileSetting() {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
 			nickname: JSON.parse(localStorage.getItem('profileData'))?.nickname,
@@ -14,6 +16,7 @@ function ProfileSetting() {
 		},
 	});
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
+	const [profileImageSrc, setProfileImageSrc] = useState(null);
 
 	// MODAL
 	const [isModal, setIsModal] = useState(false);
@@ -27,12 +30,9 @@ function ProfileSetting() {
 		navigate('/');
 	};
 
-	const [profileImgData, setProfileImgData] = useState(null);
-	const getProfileImageData = () => {
-		setProfileImgData(localStorage.getItem('profileImgData'));
-	};
 	useEffect(() => {
-		getProfileImageData();
+		const profileImageSrc = location?.state?.profileImageSrc;
+		if (profileImageSrc) setProfileImageSrc(profileImageSrc);
 	}, []);
 
 	// 1. PHOTO
@@ -82,6 +82,25 @@ function ProfileSetting() {
 	};
 	const onValid = data => {
 		if (!isThereImage()) return;
+
+		// 서버로 데이터 전송
+		// 아래는 TEST용임
+		axios({
+			method: 'POST',
+			url: 'https://reqres.in/api/login',
+			data: {
+				email: 'eve.holt@reqres.in',
+				password: 'cityslicka',
+			},
+		})
+			.then(res => {
+				console.log(res);
+			})
+			.catch(error => {
+				console.log(error);
+				throw new Error(error);
+			});
+
 		localStorage.setItem(
 			'profileData',
 			JSON.stringify({ nickname: data.nickname, introduce: data.introduce }),
@@ -95,29 +114,28 @@ function ProfileSetting() {
 	return (
 		<S.Wrapper>
 			{isModal && (
-				<S.ModalWrapper onClick={onCloseModal}>
-					<S.Modal onClick={e => e.stopPropagation()}>
-						<S.ModalMessageWrapper>
-							<S.ModalMessage>프로필이 완성되었어요!</S.ModalMessage>
-							<S.ModalMessage>승인신청을 통해 상대방을 만나보세요</S.ModalMessage>
-						</S.ModalMessageWrapper>
-						<S.ModalBtnWrapper>
-							<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
-							<S.NextBtn onClick={handleModalNextBtn}>좋아요</S.NextBtn>
-						</S.ModalBtnWrapper>
-					</S.Modal>
-				</S.ModalWrapper>
+				<Modal onCloseModal={onCloseModal} width={27.8} height={19.7}>
+					<S.ModalMessageWrapper>
+						<S.ModalMessage>프로필이 완성되었어요!</S.ModalMessage>
+						<S.ModalMessage>승인신청을 통해 상대방을 만나보세요</S.ModalMessage>
+					</S.ModalMessageWrapper>
+					<S.ModalBtnWrapper>
+						<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
+						<S.NextBtn onClick={handleModalNextBtn}>좋아요</S.NextBtn>
+					</S.ModalBtnWrapper>
+				</Modal>
 			)}
 			<S.TitleWrapper>
 				<S.Title>당신의 프로필을 완성해주세요</S.Title>
 			</S.TitleWrapper>
+
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<S.Content>
 					{/* 프로필 사진 */}
 					<S.PhotoInfoWrapper>
 						{photoErrorMessage && <S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>}
 						<S.PhotoBox>
-							<S.PhotoImage htmlFor="ProfilePhoto" src={profileImgData} />
+							<S.PhotoImage htmlFor="ProfilePhoto" src={profileImageSrc} />
 							<S.PhotoLogo className="material-icons" onClick={handlePhoto}>
 								edit
 							</S.PhotoLogo>

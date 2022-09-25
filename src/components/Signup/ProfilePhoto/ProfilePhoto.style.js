@@ -147,23 +147,11 @@ const ModalWrapper = styled.div`
 	z-index: 1;
 `;
 
-const Modal = styled.ul`
-	position: absolute;
-	width: 22.5rem;
-	height: 13.2rem;
-	background-color: #fff;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
-	border-radius: 1.6rem;
-	z-index: 5;
-	padding: 1.5rem;
+const ModalInner = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
 `;
 
 const ModalSelectLabel = styled.label`
@@ -196,7 +184,7 @@ export {
 	Content,
 	Form,
 	ModalWrapper,
-	Modal,
+	ModalInner,
 	ModalSelectLabel,
 	ModalSelectInput,
 };

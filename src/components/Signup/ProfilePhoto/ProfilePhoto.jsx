@@ -1,16 +1,15 @@
-import React, { useCallback, useReducer, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import * as S from './ProfilePhoto.style';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import pick_example1 from '../../../assets/pic_example1.svg';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
+	const imgRef = useRef();
 	const handleGoBackButton = () => {
 		navigate('/profileSetting');
-	};
-	const handleGoNextButton = () => {
-		navigate('/profileMask');
 	};
 
 	const [isModal, setIsModal] = useState(false);
@@ -28,29 +27,29 @@ const ProfilePhoto = () => {
 			return;
 		}
 		const reader = new FileReader();
+		reader.readAsDataURL(imgRef.current.files[0]);
 		reader.onload = async () => {
-			const dataURL = reader.result;
-			localStorage.setItem('profileImgData', dataURL);
+			const profileImageSrc = reader.result;
+			navigate('/profileMask', { state: { profileImageSrc } });
 		};
-		const a = reader.readAsDataURL(e.target.files[0]);
-		handleGoNextButton();
 	}, []);
 
 	return (
 		<S.Wrapper>
 			{isModal && (
-				<S.ModalWrapper onClick={onCloseModal}>
-					<S.Modal onClick={e => e.stopPropagation()}>
+				<Modal onCloseModal={onCloseModal} width={22.5} height={13.2}>
+					<S.ModalInner>
 						<S.ModalSelectLabel>카메라로 촬영</S.ModalSelectLabel>
 						<S.ModalSelectInput
 							id="pick_in_gallery"
+							ref={imgRef}
 							type="file"
 							accept="image/*"
 							onChange={onUploadImage}
 						/>
 						<S.ModalSelectLabel htmlFor="pick_in_gallery">갤러리에서 사진 선택</S.ModalSelectLabel>
-					</S.Modal>
-				</S.ModalWrapper>
+					</S.ModalInner>
+				</Modal>
 			)}
 			<S.TitleWrapper>
 				<S.BtnGoBack className="material-icons" onClick={handleGoBackButton}>
