@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Modal = styled.div`
 	width: 39rem;
 	height: 84.4rem;
 	position: relative;
@@ -15,10 +15,10 @@ const Wrapper = styled.div`
 	z-index: 1;
 `;
 
-const Modal = styled.div`
+const ModalInner = styled.div`
 	position: absolute;
-	width: 22.5rem;
-	height: 13.2rem;
+	width: ${props => `${props.width}rem`};
+	height: ${props => `${props.height}rem`};
 	background-color: #fff;
 	left: 0;
 	right: 0;
@@ -26,6 +26,8 @@ const Modal = styled.div`
 	margin: auto;
 	border-radius: 1.6rem;
 	z-index: 5;
+	display: flex;
+	justify-content: center;
 `;
 
-export { Wrapper, Modal };
+export { Modal, ModalInner };

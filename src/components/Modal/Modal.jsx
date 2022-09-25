@@ -2,11 +2,19 @@ import * as S from './Modal.style.js';
 
 import React from 'react';
 
-const Modal = props => {
+/**
+ *
+ * @param {int} width
+ * @param {int} height
+ * @param {function} onCloseModal
+ */
+const Modal = ({ children, width, height, onCloseModal }) => {
 	return (
-		<S.Wrapper onClick={props.onCloseModal}>
-			<S.Modal onClick={e => e.stopPropagation()}>{props.children}</S.Modal>
-		</S.Wrapper>
+		<S.Modal onClick={onCloseModal}>
+			<S.ModalInner onClick={e => e.stopPropagation()} width={width} height={height}>
+				{children}
+			</S.ModalInner>
+		</S.Modal>
 	);
 };
 
