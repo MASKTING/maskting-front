@@ -119,12 +119,11 @@ const BtnWrapper = styled.div`
 	position: absolute;
 	width: 39rem;
 	height: 8.8rem;
-	top: 71rem;
+	bottom: 2rem;
 `;
 const NoticeWrapper = styled.div`
 	width: 39rem;
 	height: 8.8rem;
-
 	flex: none;
 	order: 5;
 	flex-grow: 0;
@@ -193,8 +192,6 @@ const ErrorMessage = styled.span`
 const NextBtn = styled.button`
 	width: 34.2rem;
 	height: 5.8rem;
-	left: 2.4rem;
-	top: 0rem;
 	background-color: rgba(244, 94, 95, 1);
 	font-family: 'Inter';
 	font-style: normal;
@@ -211,7 +208,6 @@ const NextBtn = styled.button`
 	}
 `;
 export {
-	Wrapper,
 	TitleWrapper,
 	Title,
 	BasicInfoWrapper,

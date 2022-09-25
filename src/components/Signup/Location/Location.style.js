@@ -11,6 +11,7 @@ const CitySelectWrapper = styled.section`
 const CitySelectInput = styled.input`
 	display: none;
 `;
+
 const CitySelectLabel = styled.label`
 	position: relative;
 	display: block;

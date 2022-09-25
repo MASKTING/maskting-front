@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal/Modal';
+import Wrapper from '../../Wrapper';
 import * as S from './ProfileSetting.style';
+import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
 	const navigate = useNavigate();
@@ -112,7 +114,7 @@ function ProfileSetting() {
 	};
 
 	return (
-		<S.Wrapper>
+		<Wrapper>
 			{isModal && (
 				<Modal onCloseModal={onCloseModal} width={27.8} height={19.7}>
 					<S.ModalMessageWrapper>
@@ -187,14 +189,9 @@ function ProfileSetting() {
 						/>
 					</S.WideInfoWrapper>
 				</S.Content>
-				<S.BtnWrapper>
-					<S.PrevBtn type="button" onClick={handlePrevBtn}>
-						이전
-					</S.PrevBtn>
-					<S.NextBtn type="submit">완료</S.NextBtn>
-				</S.BtnWrapper>
 			</S.Form>
-		</S.Wrapper>
+			<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={onOpenModal} />
+		</Wrapper>
 	);
 }
 

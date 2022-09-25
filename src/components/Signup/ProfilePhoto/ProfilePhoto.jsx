@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useReducer, useRef, useState } from 'rea
 import * as S from './ProfilePhoto.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
+import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
 
 const ProfilePhoto = () => {
@@ -35,7 +36,7 @@ const ProfilePhoto = () => {
 	}, []);
 
 	return (
-		<S.Wrapper>
+		<Wrapper>
 			{isModal && (
 				<Modal onCloseModal={onCloseModal} width={22.5} height={13.2}>
 					<S.ModalInner>
@@ -83,7 +84,7 @@ const ProfilePhoto = () => {
 					</S.InfoImageWrapper>
 				</S.Content>
 			</S.Form>
-		</S.Wrapper>
+		</Wrapper>
 	);
 };
 

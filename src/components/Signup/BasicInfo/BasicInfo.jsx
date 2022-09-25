@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { BsCheckLg } from 'react-icons/bs';
 // import { useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
+import Wrapper from '../../Wrapper';
 
 function BasicInfo() {
 	const { register, handleSubmit, formState } = useForm();
@@ -31,10 +32,7 @@ function BasicInfo() {
 	console.log(radio);
 	// 라디오 버튼 적용 x
 	return (
-		<S.Wrapper>
-			<S.TitleWrapper>
-				<S.Title>당신이 누구인지 알려주세요!</S.Title>
-			</S.TitleWrapper>
+		<Wrapper titleMessage={'당신이 누구인지 알려주세요!'} titleWidth={20}>
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<S.Content>
 					<S.BasicInfoWrapper>
@@ -180,7 +178,7 @@ function BasicInfo() {
 					<S.NextBtn type="submit">다음</S.NextBtn>
 				</S.BtnWrapper>
 			</S.Form>
-		</S.Wrapper>
+		</Wrapper>
 	);
 }
 

@@ -1,3 +1,3 @@
-import { NavigateButton, SelectSquareButton } from './Button';
+import { NavigateButton } from './Button';
 
-export { NavigateButton, SelectSquareButton };
+export { NavigateButton };

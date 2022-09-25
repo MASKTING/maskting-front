@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 const BtnWrapper = styled.div`
-	position: fixed;
 	display: flex;
 	justify-content: space-between;
-	padding: 0 2rem;
+	align-items: center;
 	position: absolute;
-	width: 39rem;
-	height: 8.8rem;
-	top: 71rem;
+	width: 35rem;
+	height: 9.5rem;
+	bottom: 0;
 `;
 
 const PrevBtn = styled.button`
 	width: 9.5rem;
 	height: 5.8rem;
-	left: 2.4rem;
+	/* left: 2.4rem; */
 	top: 0rem;
 	background-color: white;
 	font-family: 'Inter';
@@ -34,7 +33,7 @@ const PrevBtn = styled.button`
 const NextBtn = styled.button`
 	width: 9.5rem;
 	height: 5.8rem;
-	left: 2.4rem;
+	/* left: 2.4rem; */
 	top: 0rem;
 	background-color: rgba(244, 94, 95, 1);
 	font-family: 'Inter';

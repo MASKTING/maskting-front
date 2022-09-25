@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
+import Wrapper from '../../Wrapper';
+import { NavigateButton } from '../../Button';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
@@ -20,7 +22,7 @@ const ProfileMask = () => {
 	}, []);
 
 	return (
-		<S.Wrapper>
+		<Wrapper>
 			<S.TitleWrapper>
 				<S.Title>가면을 씌어주세요</S.Title>
 				<S.InfoText>
@@ -44,15 +46,8 @@ const ProfileMask = () => {
 					</S.MaskList>
 				</S.MaskListWrapper>
 			</S.Content>
-			<S.BtnWrapper>
-				<S.PrevBtn type="button" onClick={handlePrevBtn}>
-					이전
-				</S.PrevBtn>
-				<S.NextBtn type="button" onClick={handleNextBtn}>
-					다음
-				</S.NextBtn>
-			</S.BtnWrapper>
-		</S.Wrapper>
+			<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={handleNextBtn} />
+		</Wrapper>
 	);
 };
 

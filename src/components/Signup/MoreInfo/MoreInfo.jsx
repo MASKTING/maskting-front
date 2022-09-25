@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './MoreInfo.style';
+import Wrapper from '../../Wrapper';
+import { NavigateButton } from '../../Button';
 
 function MoreInfo() {
 	const { register, handleSubmit, formState } = useForm();
@@ -43,7 +45,7 @@ function MoreInfo() {
 		setSubmit(true);
 		// navigate('')
 	};
-	const onMoveBefore = () => {
+	const handlePrevBtn = () => {
 		navigate('/');
 	};
 	const onSelected = e => {
@@ -60,14 +62,11 @@ function MoreInfo() {
 			[name]: value,
 		}));
 	};
+	const handleNextBtn = () => {};
 
 	return (
-		<S.Wrapper>
-			<S.TitleWrapper>
-				<S.Title>마지막 질문이에요!</S.Title>
-				<S.NoticeText>매칭 시에만 활용되며, 상대방에게는 정보가 공개되지 않아요</S.NoticeText>
-			</S.TitleWrapper>
-
+		<Wrapper titleMessage={'마지막 질문이에요!'}>
+			<S.NoticeText>매칭 시에만 활용되며, 상대방에게는 정보가 공개되지 않아요</S.NoticeText>
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<S.Content>
 					<S.BasicInfoWrapper>
@@ -229,14 +228,9 @@ function MoreInfo() {
 					<S.WideInfoWrapper />
 					<S.WideInfoWrapper />
 				</S.Content>
-				<S.BtnWrapper>
-					<S.BeforeBtn type="radio" onClick={onMoveBefore}>
-						이전
-					</S.BeforeBtn>
-					<S.NextBtn type="submit">다음</S.NextBtn>
-				</S.BtnWrapper>
+				<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={handleNextBtn} />
 			</S.Form>
-		</S.Wrapper>
+		</Wrapper>
 	);
 }
 

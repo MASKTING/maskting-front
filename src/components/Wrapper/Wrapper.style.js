@@ -2,10 +2,15 @@ import styled from 'styled-components';
 import FONTSIZE from '../../constants/fontsize';
 
 const Wrapper = styled.div`
+	left: 0;
+	right: 0;
+	margin: auto;
 	width: 39rem;
-	height: 77.7rem;
-	border: black 1px solid; // 임시용
+	height: 100rem;
+	border: #eeeeee 1px solid; // 임시용
 	padding: 0 2rem;
+	box-sizing: border-box;
+	position: relative;
 `;
 const TitleWrapper = styled.div`
 	top: 0rem;
@@ -21,6 +26,8 @@ const Title = styled.h1`
 	font-style: normal;
 	font-weight: 700;
 	font-size: ${FONTSIZE.Title};
+	width: ${props => props.titleWidth && `${props.titleWidth}rem`};
+	line-height: 4rem;
 
 	letter-spacing: 0.1rem;
 `;

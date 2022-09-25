@@ -1,33 +1,8 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-	width: 39rem;
-	height: 77.7rem;
-`;
-const TitleWrapper = styled.div`
-	top: 0rem;
-	left: 0rem;
-	position: absolute;
-	width: 39rem;
-	height: 10.8rem;
-`;
-const Title = styled.h1`
-	top: 2rem;
-	left: 2.4rem;
-	position: absolute;
-	width: 20.3em;
-	height: 4rem;
-	color: #212121;
-	font-family: 'Pretendard';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 2.6rem;
-	line-height: 4rem;
-	letter-spacing: 0.1rem;
-`;
 const NoticeText = styled.h1`
-	top: 6.8rem;
-	left: 2.4rem;
+	top: 8rem;
+	left: 1.8rem;
 	position: absolute;
 	width: 39rem;
 	height: 2rem;
@@ -222,9 +197,6 @@ const NextBtn = styled.button`
 	}
 `;
 export {
-	Wrapper,
-	TitleWrapper,
-	Title,
 	Content,
 	NoticeText,
 	BasicInfoWrapper,

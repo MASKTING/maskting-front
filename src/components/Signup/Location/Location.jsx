@@ -15,7 +15,6 @@ const Location = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-	console.log(radio);
 
 	return (
 		<Wrapper titleMessage={'거주 지역이 어디인가요?'}>
@@ -30,7 +29,6 @@ const Location = () => {
 					name="city"
 					value="SeoulArea"
 					onClick={cityChange}
-					// focused={radio.city === 'SeoulArea' && 'focused'}
 				/>
 				<S.CitySelectLabel htmlFor="SeoulArea" focused={radio.city === 'SeoulArea'}>
 					경기/인천
