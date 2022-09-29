@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BsCheckLg } from 'react-icons/bs';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
 
 function BasicInfo() {
 	const { register, handleSubmit, formState } = useForm();
-	const [checked, setchecked] = useState(false); // 동의하기 버튼
+	const [checked, setchecked] = useState(false);
+
+	const navigate = useNavigate();
 	const [radio, setRadio] = useState({
-		gender: null,
-		occupation: null,
+		gender: '',
+		occupation: '',
 	});
+
 	const radioChange = e => {
 		e.preventDefault();
 		setRadio({
@@ -19,14 +22,14 @@ function BasicInfo() {
 			[e.target.name]: e.target.value,
 		});
 	};
-	// const navigate = useNavigate();
+
 	const onValid = data => {
+		console.log(data);
 		if (checked) {
-			console.log(data);
-			// navigate('/location');
+			navigate('/location');
+			localStorage.setItem('basicInfo', JSON.stringify(data));
 		}
 	};
-
 	const onInvalid = e => {
 		console.log(e);
 	};
@@ -59,40 +62,34 @@ function BasicInfo() {
 						{formState.errors?.gender ? (
 							<S.ErrorMessage>{formState.errors?.gender?.message}</S.ErrorMessage>
 						) : (
-							<S.Label
-								htmlFor="Gender"
-								{...register('gender', {
-									required: {
-										value: true,
-										message: '성별을 선택해주세요',
-									},
-								})}
-							>
-								성별
-							</S.Label>
+							<S.Label>성별</S.Label>
 						)}
-						<S.NarrowDiv>
-							<S.NarrowInput
-								type="radio"
-								name="gender"
-								id="Gender"
-								value="Male"
-								focused={radio.gender === 'Male'}
-								onClick={radioChange}
-							>
+						<S.NarrowButton focused={radio.gender === 'Male'}>
+							<S.RadioLabel htmlFor="Male">
 								남자
-							</S.NarrowInput>
-							<S.NarrowInput
-								type="radio"
-								name="gender"
-								id="Gender"
-								value="Female"
-								focused={radio.gender === 'Female'}
-								onClick={radioChange}
-							>
+								<S.NarrowInput
+									type="radio"
+									name="gender"
+									id="Male"
+									value="Male"
+									onClick={radioChange}
+									{...register('gender')}
+								/>
+							</S.RadioLabel>
+						</S.NarrowButton>
+						<S.NarrowButton focused={radio.gender === 'Female'}>
+							<S.RadioLabel htmlFor="Female">
 								여자
-							</S.NarrowInput>
-						</S.NarrowDiv>
+								<S.NarrowInput
+									type="radio"
+									name="gender"
+									id="Female"
+									value="Female"
+									onClick={radioChange}
+									{...register('gender')}
+								/>
+							</S.RadioLabel>
+						</S.NarrowButton>
 					</S.BasicInfoWrapper>
 					<S.BasicInfoWrapper>
 						{formState.errors?.birth ? (
@@ -118,59 +115,61 @@ function BasicInfo() {
 						{formState.errors?.occupation ? (
 							<S.ErrorMessage>{formState.errors?.occupation?.message}</S.ErrorMessage>
 						) : (
-							<S.Label
-								htmlFor="Occupation"
-								{...register('occupation', {
-									required: {
-										value: true,
-										message: '직업을 선택해주세요',
-									},
-								})}
-							>
-								직업
-							</S.Label>
+							<S.Label>직업</S.Label>
 						)}
 						<S.NarrowDiv>
-							<S.NarrowInput
-								type="radio"
-								id="Occupation"
-								name="occupation"
-								value="대학생"
-								focused={radio.occupation === '대학생'}
-								onClick={radioChange}
-							>
-								대학생
-							</S.NarrowInput>
-							<S.NarrowInput
-								type="radio"
-								id="Occupation"
-								name="occupation"
-								value="대학원생"
-								focused={radio.occupation === '대학원생'}
-								onClick={radioChange}
-							>
-								대학원생
-							</S.NarrowInput>
-							<S.NarrowInput
-								type="radio"
-								id="Occupation"
-								name="occupation"
-								value="취준생"
-								focused={radio.occupation === '취준생'}
-								onClick={radioChange}
-							>
-								취준생
-							</S.NarrowInput>
-							<S.NarrowInput
-								type="radio"
-								id="Occupation"
-								name="occupation"
-								value="직장인"
-								focused={radio.occupation === '직장인'}
-								onClick={radioChange}
-							>
-								직장인
-							</S.NarrowInput>
+							<S.NarrowButton focused={radio.occupation === '대학생'}>
+								<S.RadioLabel htmlFor="대학생">
+									대학생
+									<S.NarrowInput
+										type="radio"
+										name="occupation"
+										id="대학생"
+										value="대학생"
+										onClick={radioChange}
+										{...register('occupation')}
+									/>
+								</S.RadioLabel>
+							</S.NarrowButton>
+							<S.NarrowButton focused={radio.occupation === '대학원생'}>
+								<S.RadioLabel htmlFor="대학원생">
+									대학원생
+									<S.NarrowInput
+										type="radio"
+										name="occupation"
+										id="대학원생"
+										value="대학원생"
+										onClick={radioChange}
+										{...register('occupation')}
+									/>
+								</S.RadioLabel>
+							</S.NarrowButton>
+							<S.NarrowButton focused={radio.occupation === '직장인'}>
+								<S.RadioLabel htmlFor="직장인">
+									직장인
+									<S.NarrowInput
+										type="radio"
+										name="occupation"
+										id="직장인"
+										value="직장인"
+										onClick={radioChange}
+										{...register('occupation')}
+									/>
+								</S.RadioLabel>
+							</S.NarrowButton>
+							<S.NarrowButton focused={radio.occupation === '취준생'}>
+								<S.RadioLabel htmlFor="취준생">
+									취준생
+									<S.NarrowInput
+										type="radio"
+										name="occupation"
+										id="취준생"
+										value="취준생"
+										onClick={radioChange}
+										{...register('occupation')}
+									/>
+								</S.RadioLabel>
+							</S.NarrowButton>
 						</S.NarrowDiv>
 					</S.WideInfoWrapper>
 					<S.BasicInfoWrapper>
