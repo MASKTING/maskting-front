@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-
-const Wrapper = styled.div`
-	width: 39rem;
-	height: 77.7rem;
-`;
+import FONTSIZE from '../../../constants/fontsize';
+import PALETTE from '../../../constants/palette';
 
 const TitleWrapper = styled.div`
 	top: 0rem;
@@ -108,8 +105,10 @@ const NarrowInput = styled.button`
 	margin-bottom: 1.8rem;
 	top: 1.2rem;
 	border: none;
-	background: #eeeeee;
+	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
+	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border-radius: 0.8rem;
+	font-size: ${FONTSIZE.Text};
 `;
 const Form = styled.form``;
 const BtnWrapper = styled.div`
