@@ -8,16 +8,16 @@ const Wrapper = styled.div`
 	width: 39rem;
 	height: 100rem;
 	border: #eeeeee 1px solid; // 임시용
-	padding: 0 2rem;
-	box-sizing: border-box;
 	position: relative;
 `;
 const TitleWrapper = styled.div`
 	top: 0rem;
 	width: 39rem;
+	padding: 0 0 0 2rem;
 	height: 12.2rem;
 	display: flex;
 	align-items: center;
+	background-color: blue;
 `;
 
 const Title = styled.h1`
@@ -28,7 +28,6 @@ const Title = styled.h1`
 	font-size: ${FONTSIZE.Title};
 	width: ${props => props.titleWidth && `${props.titleWidth}rem`};
 	line-height: 4rem;
-
 	letter-spacing: 0.1rem;
 `;
 export { Wrapper, TitleWrapper, Title };
