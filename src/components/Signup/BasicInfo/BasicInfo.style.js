@@ -86,16 +86,7 @@ const BasicInput = styled.input`
 	letter-spacing: 0.08rem;
 	padding-left: 1.6rem;
 `;
-const NarrowDiv = styled.div`
-	position: relative;
-	width: 16rem;
-	height: 4.8rem;
-	left: 2.4rem;
-	top: 1.2rem;
-	border: none;
-	background: #eeeeee;
-	border-radius: 0.8rem;
-`;
+const NarrowDiv = styled.div``;
 const NarrowInput = styled.button`
 	position: relative;
 	width: 16rem;
