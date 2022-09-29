@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 	right: 0;
 	margin: auto;
 	width: 39rem;
-	height: 100rem;
+	height: 84.4rem;
 	border: #eeeeee 1px solid; // 임시용
 	position: relative;
 `;
@@ -17,7 +17,6 @@ const TitleWrapper = styled.div`
 	height: 12.2rem;
 	display: flex;
 	align-items: center;
-	background-color: blue;
 `;
 
 const Title = styled.h1`
