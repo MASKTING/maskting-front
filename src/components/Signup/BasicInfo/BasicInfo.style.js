@@ -9,7 +9,6 @@ const TitleWrapper = styled.div`
 	width: 39rem;
 	height: 12rem;
 `;
-
 const Title = styled.h1`
 	top: 2rem;
 	left: 2.4rem;
@@ -69,6 +68,11 @@ const Label = styled.label`
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
 `;
+const RadioLabel = styled.label`
+	position: relative;
+	width: 10rem;
+	height: 2.8rem;
+`;
 const BasicInput = styled.input`
 	position: relative;
 	width: 34.2rem;
@@ -87,19 +91,22 @@ const BasicInput = styled.input`
 	padding-left: 1.6rem;
 `;
 const NarrowDiv = styled.div``;
-const NarrowInput = styled.button`
+const NarrowButton = styled.button`
 	position: relative;
 	width: 16rem;
 	height: 4.8rem;
 	left: 2.4rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
-	top: 1.2rem;
-	border: none;
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
 	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
+	top: 1.2rem;
+	border: none;
 	border-radius: 0.8rem;
 	font-size: ${FONTSIZE.Text};
+`;
+const NarrowInput = styled.input`
+	display: none;
 `;
 const Form = styled.form``;
 const BtnWrapper = styled.div`
@@ -204,8 +211,10 @@ export {
 	WideInfoWrapper,
 	Content,
 	Label,
+	RadioLabel,
 	BasicInput,
 	NarrowDiv,
+	NarrowButton,
 	NarrowInput,
 	Form,
 	BtnWrapper,
