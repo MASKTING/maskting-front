@@ -3,6 +3,7 @@ import { NavigateButton, SelectSquareButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper';
 import * as S from './Location.style';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const SEOUL_DETAIL_LIST = [
 	{ id: 'cityDetail2', cityDetailName: '종로·용산·중구' },
@@ -26,7 +27,7 @@ const CAPITAL_AREA_DETAIL_LIST = [
 ];
 
 const TOWNINFOTETXT = (
-	<p>
+	<span>
 		경기중부: 과천시·군포시·성남시·수원시·안양시·의왕시 <br />
 		경기북부: 가평군·고양시·구리시·남양주시·동두천시·양주시· <br />
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;연천군·의정부시·파주시·포천시
@@ -35,13 +36,29 @@ const TOWNINFOTETXT = (
 		경기동부: 광주시·양평군·여주군·이천시·하남시
 		<br />
 		경기서부: 광명시·김포시·부천시·시흥시·안산시
-	</p>
+	</span>
 );
 
 const Location = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const handlePrevBtn = () => {};
+	const [basicInfo, setBasicInfo] = useState({});
+	const [radio, setRadio] = useState({ city: null, cityDetail: null });
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
+	console.log(basicInfo);
+	const handlePrevBtn = () => {
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({
+				...basicInfo,
+				location: radio.cityDetail,
+			}),
+		);
+		navigate('/');
+	};
 	const handleNextBtn = () => {
 		console.log(radio);
 		if (!radio.cityDetail) {
@@ -50,7 +67,6 @@ const Location = () => {
 			navigate('/hobby');
 		}
 	};
-	const [radio, setRadio] = useState({ city: null, cityDetail: null });
 	const cityChange = e => {
 		setRadio({
 			...radio,
