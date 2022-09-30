@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { NavigateButton, SelectSquareButton } from '../../Button/Button';
-import Wrapper from '../../Wrapper';
-import * as S from './Location.style';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { NavigateButton } from '../../Button/Button';
+import Wrapper from '../../Wrapper/Wrapper';
+import * as S from './WantLocation.style';
 
 const SEOUL_DETAIL_LIST = [
 	{ id: 'cityDetail2', cityDetailName: '종로·용산·중구' },
@@ -39,39 +38,42 @@ const TOWNINFOTETXT = (
 	</span>
 );
 
-const Location = () => {
+const WantLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState({});
-	const [radio, setRadio] = useState({ city: null, cityDetail: null });
-
+	const [wantBasicInfo, setWantBasicInfo] = useState({});
+	const [radio, setRadio] = useState({ city: null, cityDetail: wantBasicInfo?.location });
 	useEffect(() => {
-		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+		setWantBasicInfo(JSON.parse(localStorage.getItem('wantBasicInfo')));
 	}, []);
-	console.log(basicInfo);
+	useEffect(() => {
+		if (radio.cityDetail) {
+			setErrorMessage(false);
+		}
+	}, [radio.cityDetail]);
+
 	const handlePrevBtn = () => {
 		localStorage.setItem(
-			'basicInfo',
+			'wantBasicInfo',
 			JSON.stringify({
-				...basicInfo,
+				...wantBasicInfo,
 				location: radio.cityDetail,
 			}),
 		);
-		navigate('/');
+		navigate('/moreInfo');
 	};
 	const handleNextBtn = () => {
-		console.log(radio);
 		if (!radio.cityDetail) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem(
-				'basicInfo',
+				'wantBasicInfo',
 				JSON.stringify({
-					...basicInfo,
+					...wantBasicInfo,
 					location: radio.cityDetail,
 				}),
 			);
-			navigate('/hobby');
+			navigate('/wantBasicInfo');
 		}
 	};
 	const cityChange = e => {
@@ -80,10 +82,12 @@ const Location = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-
 	return (
-		<Wrapper titleMessage={'거주 지역이 어디인가요?'}>
+		<Wrapper titleMessage={'만나기 편한 지역을 알려주세요'} titleWidth={'39rem'}>
 			{errorMessage && <S.ErrorMessage>지역을 선택해주세요</S.ErrorMessage>}
+			<S.InfoMessage>
+				<S.Red>다중선택 가능하며,</S.Red> 많이 선택할수록 매칭확률이 올라갑니다
+			</S.InfoMessage>
 
 			<S.CitySelectWrapper>
 				<S.CitySelectInput type="radio" id="Seoul" name="city" value="Seoul" onClick={cityChange} />
@@ -138,10 +142,9 @@ const Location = () => {
 					<S.TownInfoText>{TOWNINFOTETXT}</S.TownInfoText>
 				</S.TownSelectWrapper>
 			)}
-
 			<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={handleNextBtn}></NavigateButton>
 		</Wrapper>
 	);
 };
 
-export default Location;
+export default WantLocation;
