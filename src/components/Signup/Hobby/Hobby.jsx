@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '../../Button/Button';
@@ -8,11 +8,15 @@ import Wrapper from '../../Wrapper';
 function Hobby() {
 	const onValid = () => {};
 	const onInvalid = () => {};
-
 	const [errorMessage, setErrorMessage] = useState(false);
+	const [basicInfo, setBasicInfo] = useState({});
 	const [radio, setRadio] = useState({ hobby: null });
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
 
 	const HOBBY_LIST = [
 		{ id: 1, name: '운동' },
@@ -50,7 +54,13 @@ function Hobby() {
 		if (!radio.hobby) {
 			setErrorMessage(true);
 		} else {
-			localStorage.setItem('hobby', radio.hobby);
+			localStorage.setItem(
+				'basicInfo',
+				JSON.stringify({
+					...basicInfo,
+					hobby: radio.hobby,
+				}),
+			);
 			setErrorMessage(false);
 			navigate('/moreInfo');
 		}
