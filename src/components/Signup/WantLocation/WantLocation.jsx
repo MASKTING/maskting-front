@@ -38,6 +38,8 @@ const TOWNINFOTETXT = (
 	</span>
 );
 
+let SelectContainer = [];
+
 const WantLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
@@ -77,11 +79,25 @@ const WantLocation = () => {
 		}
 	};
 	const cityChange = e => {
+		console.log(e.target.name);
+		if (e.target.name === 'city') {
+			setRadio({
+				...radio,
+				[e.target.name]: e.target.value,
+			});
+			return;
+		}
+		if (SelectContainer.includes(e.target.value)) {
+			SelectContainer = SelectContainer.filter(it => it !== e.target.value);
+		} else {
+			SelectContainer.push(e.target.value);
+		}
 		setRadio({
 			...radio,
-			[e.target.name]: e.target.value,
+			[e.target.name]: SelectContainer,
 		});
 	};
+	console.log(radio);
 	return (
 		<Wrapper titleMessage={'만나기 편한 지역을 알려주세요'} titleWidth={'39rem'}>
 			{errorMessage && <S.ErrorMessage>지역을 선택해주세요</S.ErrorMessage>}
@@ -110,19 +126,29 @@ const WantLocation = () => {
 					{SEOUL_DETAIL_LIST.map(city => (
 						<div key={city.id}>
 							<S.TownSelectInput
-								type="radio"
+								type="checkbox"
 								id={city.id}
 								name="cityDetail"
 								value={city.id}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={radio.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={SelectContainer.includes(city.id)}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
 					))}
 				</S.TownSelectWrapper>
 			)}
+			{/* {radio.city === 'Seoul' && (
+				<S.TownSelectWrapper wrapperWidth={'39rem'} wrapperHeight={'50rem'}>
+					<S.TownSelect>
+						{SEOUL_DETAIL_LIST.map(city => (
+							<S.TownSelectOption>{city.cityDetailName}</S.TownSelectOption>
+						))}
+					</S.TownSelect>
+				</S.TownSelectWrapper>
+			)} */}
+
 			{radio.city === 'CapitalArea' && (
 				<S.TownSelectWrapper wrapperWidth={'30rem'} wrapperHeight={'30rem'}>
 					{CAPITAL_AREA_DETAIL_LIST.map(city => (

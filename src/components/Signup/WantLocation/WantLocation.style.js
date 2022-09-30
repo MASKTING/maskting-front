@@ -63,6 +63,8 @@ const TownSelectWrapper = styled.section`
 const TownSelectInput = styled.input`
 	display: none;
 `;
+const TownSelect = styled.select``;
+const TownSelectOption = styled.option``;
 
 const TownSelectLabel = styled.label`
 	padding: 0 2rem;
@@ -101,6 +103,8 @@ export {
 	TownSelectWrapper,
 	TownSelectInput,
 	TownSelectLabel,
+	TownSelect,
+	TownSelectOption,
 	TownInfoText,
 	InfoMessage,
 	Red,
