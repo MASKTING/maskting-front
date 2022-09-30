@@ -46,7 +46,7 @@ function MoreInfo() {
 		// navigate('')
 	};
 	const handlePrevBtn = () => {
-		navigate('/');
+		navigate('/hobby');
 	};
 	const onSelected = e => {
 		const { name, value } = e.target;
@@ -65,7 +65,7 @@ function MoreInfo() {
 	const handleNextBtn = () => {};
 
 	return (
-		<Wrapper titleMessage={'마지막 질문이에요!'}>
+		<Wrapper titleMessage="마지막 질문이에요!">
 			<S.NoticeText>매칭 시에만 활용되며, 상대방에게는 정보가 공개되지 않아요</S.NoticeText>
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<S.Content>
