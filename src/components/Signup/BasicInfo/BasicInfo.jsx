@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
@@ -6,9 +6,14 @@ import Wrapper from '../../Wrapper';
 
 function BasicInfo() {
 	const [checked, setchecked] = useState(false);
-
+	const [basicInfo, setBasicInfo] = useState({});
 	const [submit, setSubmit] = useState(false);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
+
 	const [radio, setRadio] = useState({
 		name: null,
 		gender: null,
@@ -28,7 +33,17 @@ function BasicInfo() {
 	const handleNextBtn = () => {
 		setSubmit(true);
 		if (checked) {
-			console.log(radio);
+			if (basicInfo) {
+				localStorage.setItem(
+					'basicInfo',
+					JSON.stringify({
+						...basicInfo,
+						location: radio,
+					}),
+				);
+			} else {
+				localStorage.setItem('basicInfo', JSON.stringify(radio));
+			}
 			navigate('/location');
 		}
 	};

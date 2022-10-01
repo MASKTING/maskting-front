@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './MoreInfo.style';
 import Wrapper from '../../Wrapper';
@@ -7,6 +7,12 @@ import { NavigateButton } from '../../Button';
 function MoreInfo() {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
+	const [basicInfo, setBasicInfo] = useState({});
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
+
 	const [radio, setRadio] = useState({
 		duty: null,
 		smoking: null,
@@ -55,8 +61,19 @@ function MoreInfo() {
 			radio.height &&
 			radio.bodyType
 		) {
-			console.log(radio);
-			// navigate('/');
+			localStorage.setItem(
+				'basicInfo',
+				JSON.stringify({
+					...basicInfo,
+					duty: radio.duty,
+					smoking: radio.smoking,
+					religion: radio.religion,
+					drinking: radio.drinking,
+					height: radio.height,
+					bodyType: radio.bodyType,
+				}),
+			);
+			navigate('/');
 		}
 	};
 	return (
