@@ -63,14 +63,6 @@ function Hobby() {
 			);
 			setErrorMessage(false);
 			navigate('/moreInfo');
-
-			const data = localStorage.getItem('basicInfo');
-			fetch('http://localhost:8080/api/user/signup', {
-				method: 'POST',
-				body: JSON.stringify({
-					data,
-				}),
-			});
 		}
 	};
 
