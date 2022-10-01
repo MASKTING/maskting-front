@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import FONTSIZE from '../../../constants/fontsize';
+import PALETTE from '../../../constants/palette';
 
 const NoticeText = styled.h1`
 	top: 8rem;
@@ -22,7 +24,7 @@ const Content = styled.div`
 	left: 0rem;
 	position: absolute;
 	width: 39rem;
-	height: 69.3rem;
+	height: 59.3rem;
 	gap: 3rem;
 	padding: 2rem 0rem;
 	overflow-y: scroll;
@@ -58,7 +60,12 @@ const WideInfoWrapper = styled.div`
 	width: 39rem;
 	height: 22rem;
 `;
-const NarrowInput = styled.input`
+const RadioLabel = styled.label`
+	position: relative;
+	width: 10rem;
+	height: 2.8rem;
+`;
+const NarrowButton = styled.button`
 	top: 1.2rem;
 	left: 2.4rem;
 	position: relative;
@@ -66,11 +73,16 @@ const NarrowInput = styled.input`
 	height: 4.8rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
+	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
+	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border: none;
-	background: #eeeeee;
 	border-radius: 0.8rem;
+	font-size: ${FONTSIZE.Text};
 `;
-const WideInput = styled.input`
+const NarrowInput = styled.input`
+	display: none;
+`;
+const WideButton = styled.button`
 	top: 1.8rem;
 	left: 2.4rem;
 	position: relative;
@@ -78,8 +90,9 @@ const WideInput = styled.input`
 	height: 4.8rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
+	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
+	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border: none;
-	background: #eeeeee;
 	border-radius: 0.8rem;
 `;
 const Label = styled.label`
@@ -120,10 +133,11 @@ const Slider = styled.input`
 	}
 `;
 const ErrorMessage = styled.span`
+	display: block;
 	top: 0rem;
 	left: 2.4rem;
 	position: relative;
-	width: 14.4rem;
+	width: 25rem;
 	height: 2.8rem;
 	color: #f45e5f;
 	font-family: 'Pretendard';
@@ -203,13 +217,15 @@ export {
 	WideInfoWrapper,
 	Label,
 	LongLabel,
+	NarrowButton,
+	RadioLabel,
 	ErrorMessage,
 	Slider,
 	DegreeMessage,
 	Form,
 	NarrowInput,
 	BasicInput,
-	WideInput,
+	WideButton,
 	BtnWrapper,
 	BeforeBtn,
 	NextBtn,
