@@ -173,8 +173,9 @@ const NoticeDetailText = styled.h1`
 	color: #000000;
 `;
 const ErrorMessage = styled.span`
+	display: block;
 	position: relative;
-	width: 14.4rem;
+	width: 25rem;
 	height: 2.8rem;
 	left: 2.4rem;
 	top: 0rem;
