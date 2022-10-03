@@ -73,12 +73,14 @@ function MoreInfo() {
 					bodyType: radio.bodyType,
 				}),
 			);
-			navigate('/');
+			navigate('/wantLocation');
 		}
 	};
 	return (
 		<Wrapper titleMessage="마지막 질문이에요!">
-			<S.NoticeText>매칭 시에만 활용되며, 상대방에게는 정보가 공개되지 않아요</S.NoticeText>
+			<S.InfoMessage>
+				<S.Red>매칭 시에만 활용</S.Red>되며, 상대방에게는 정보가 공개되지 않아요
+			</S.InfoMessage>
 			<S.Content>
 				<S.BasicInfoWrapper>
 					{submit && radio.duty === null ? (

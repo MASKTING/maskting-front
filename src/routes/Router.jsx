@@ -6,7 +6,8 @@ import LocationPage from '../pages/SignUp/Location';
 import ProfilePhotoPage from '../pages/SignUp/ProfilePhoto';
 import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
 import ProfileMaskPage from '../pages/SignUp/ProfileMask';
-import WantLocationPage from '../pages/SignUp/WantLocation/WantLocationPage';
+import WantLocationPage from '../pages/SignUp/WantLocation';
+import WantMoreInfoPage from '../pages/SignUp/WantMoreInfo';
 
 function Router() {
 	return (
@@ -20,6 +21,7 @@ function Router() {
 				<Route path="/profilePhoto" element={<ProfilePhotoPage />} />
 				<Route path="/profileMask" element={<ProfileMaskPage />} />
 				<Route path="/wantLocation" element={<WantLocationPage />} />
+				<Route path="/wantMoreInfo" element={<WantMoreInfoPage />} />
 			</Routes>
 		</Routers>
 	);

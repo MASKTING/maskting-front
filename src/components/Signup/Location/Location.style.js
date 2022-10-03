@@ -3,9 +3,9 @@ import FONTSIZE from '../../../constants/fontsize';
 import PALETTE from '../../../constants/palette';
 
 const ErrorMessage = styled.p`
-	color: red;
+	color: ${PALETTE.PINK600};
 	position: absolute;
-	top: 10rem;
+	top: 9rem;
 	left: 2rem;
 	font-weight: 700;
 	font-size: ${FONTSIZE.InfoText};

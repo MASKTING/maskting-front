@@ -2,25 +2,22 @@ import styled from 'styled-components';
 import FONTSIZE from '../../../constants/fontsize';
 import PALETTE from '../../../constants/palette';
 
-const NoticeText = styled.h1`
-	top: 8rem;
-	left: 1.8rem;
+const InfoMessage = styled.p`
+	font-size: ${FONTSIZE.InfoText};
+	font-weight: 700;
+	line-height: 1.5rem;
 	position: absolute;
-	width: 39rem;
-	height: 2rem;
-	color: #212121;
-	font-family: 'Pretendard';
-	font-style: normal;
-	font-weight: 500;
-	font-size: 1.3rem;
-	line-height: 2rem;
-	letter-spacing: 0.05rem;
+	top: 9rem;
+	left: 2rem;
+`;
+const Red = styled.span`
+	color: ${PALETTE.PINK600};
 `;
 const Content = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	top: 10.8rem;
+	top: 13rem;
 	left: 0rem;
 	position: absolute;
 	width: 39rem;
@@ -33,7 +30,6 @@ const Content = styled.div`
 		display: none;
 	}
 `;
-const Form = styled.form``;
 const BasicInfoWrapper = styled.div`
 	width: 39rem;
 	height: 8.9rem;
@@ -118,6 +114,7 @@ const Slider = styled.input`
 	position: relative;
 	width: 34.1rem;
 	height: 2rem;
+	margin-bottom: 3.1rem;
 	border-radius: 0.8rem;
 	background: #eeeeee;
 	outline: none;
@@ -168,51 +165,10 @@ const BtnWrapper = styled.div`
 	height: 7.8rem;
 	background: white;
 `;
-const BeforeBtn = styled.button`
-	position: absolute;
-	width: 9.5rem;
-	height: 5.8rem;
-	background-color: inherit;
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 1.7rem;
-	line-height: 3.6rem;
-	text-align: center;
-	letter-spacing: 0.1rem;
-	color: #212121;
-	border: none;
-	border-radius: 1.6rem;
-	cursor: pointer;
-	&:hover {
-		color: #000000;
-	}
-`;
-const NextBtn = styled.button`
-	position: absolute;
-	width: 9.5rem;
-	height: 5.8rem;
-	left: 26rem;
-	top: 0rem;
-	background-color: rgba(244, 94, 95, 1);
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 1.7rem;
-	line-height: 3.6rem;
-	text-align: center;
-	letter-spacing: 0.1rem;
-	color: rgba(250, 250, 250, 1);
-	border: none;
-	border-radius: 1.6rem;
-	cursor: pointer;
-	&:hover {
-		color: #000000;
-	}
-`;
 export {
 	Content,
-	NoticeText,
+	InfoMessage,
+	Red,
 	BasicInfoWrapper,
 	WideInfoWrapper,
 	Label,
@@ -222,11 +178,8 @@ export {
 	ErrorMessage,
 	Slider,
 	DegreeMessage,
-	Form,
 	NarrowInput,
 	BasicInput,
 	WideButton,
 	BtnWrapper,
-	BeforeBtn,
-	NextBtn,
 };
