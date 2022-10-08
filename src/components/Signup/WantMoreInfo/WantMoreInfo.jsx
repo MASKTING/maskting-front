@@ -12,6 +12,7 @@ const WantMoreInfo = () => {
 	};
 	const handleNextBtn = () => {
 		setSubmit(true);
+		navigate('/profilePhoto');
 	};
 
 	const [radio, setRadio] = useState({
