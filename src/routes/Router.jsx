@@ -8,12 +8,16 @@ import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
 import ProfileMaskPage from '../pages/SignUp/ProfileMask';
 import WantLocationPage from '../pages/SignUp/WantLocation';
 import WantMoreInfoPage from '../pages/SignUp/WantMoreInfo';
+import LoginPage from '../pages/Login';
+import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
 
 function Router() {
 	return (
 		<Routers>
 			<Routes>
-				<Route exact path="/" element={<BasicInfoPage />} />
+				<Route exact path="/" element={<LoginPage />} />
+				<Route path="/oauth2/redirect" element={<LoginAuth />} />
+				<Route exact path="/basicInfo" element={<BasicInfoPage />} />
 				<Route path="/location" element={<LocationPage />} />
 				<Route path="/hobby" element={<HobbyPage />} />
 				<Route path="/moreInfo" element={<MoreInfoPage />} />
