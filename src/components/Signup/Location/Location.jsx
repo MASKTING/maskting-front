@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavigateButton, SelectSquareButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper';
 import * as S from './Location.style';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const SEOUL_DETAIL_LIST = [
@@ -41,26 +41,29 @@ const TOWNINFOTETXT = (
 
 const Location = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState({});
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage.getItem('basicInfo')));
 	const [radio, setRadio] = useState({ city: null, cityDetail: null });
 
 	useEffect(() => {
+		if (location?.state?.basicInfo) setBasicInfo(location?.state?.basicInfo);
 		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
 	}, []);
 	console.log(basicInfo);
+
 	const handlePrevBtn = () => {
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				location: radio.cityDetail,
-			}),
-		);
-		navigate('/');
+		// localStorage.setItem(
+		// 	'basicInfo',
+		// 	JSON.stringify({
+		// 		...basicInfo,
+		// 		location: radio.cityDetail,
+		// 	}),
+		// );
+		navigate('/basicInfo', { state: { basicInfo } });
 	};
+
 	const handleNextBtn = () => {
-		console.log(radio);
 		if (!radio.cityDetail) {
 			setErrorMessage(true);
 		} else {

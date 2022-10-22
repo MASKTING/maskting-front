@@ -8,6 +8,7 @@ import pick_example1 from '../../../assets/pic_example1.svg';
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
+
 	const imgRef = useRef();
 	const handleGoBackButton = () => {
 		navigate('/profileSetting');

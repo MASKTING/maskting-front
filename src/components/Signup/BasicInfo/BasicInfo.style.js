@@ -89,6 +89,8 @@ const NarrowDiv = styled.div``;
 const NarrowButton = styled.button`
 	cursor: pointer;
 	position: relative;
+	width: 16rem;
+	height: 4.8rem;
 	left: 2.4rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
@@ -101,8 +103,8 @@ const NarrowButton = styled.button`
 `;
 const RadioLabel = styled.label`
 	position: relative;
-	width: 16rem;
-	height: 4.8rem;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -204,6 +206,7 @@ const NextBtn = styled.button`
 	color: rgba(250, 250, 250, 1);
 	border: none;
 	border-radius: 1.6rem;
+	cursor: pointer;
 	&:hover {
 		color: #000000;
 	}

@@ -1,25 +1,21 @@
 import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
 
 function BasicInfo() {
-	const [checked, setchecked] = useState(false);
-	const [basicInfo, setBasicInfo] = useState({});
-	const [submit, setSubmit] = useState(false);
+	const location = useLocation();
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
-	}, []);
-
+	const [checked, setchecked] = useState(false);
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
+	const [submit, setSubmit] = useState(false);
 	const [radio, setRadio] = useState({
-		name: null,
-		gender: null,
-		birth: null,
-		occupation: null,
-		phone: null,
+		name: basicInfo?.name,
+		gender: basicInfo?.gender,
+		birth: basicInfo?.birth,
+		occupation: basicInfo?.occupation,
+		phone: basicInfo?.phone,
 	});
 
 	const radioChange = e => {
@@ -30,6 +26,8 @@ function BasicInfo() {
 		});
 	};
 
+	console.log(basicInfo, radio);
+
 	const handleNextBtn = () => {
 		setSubmit(true);
 		if (checked) {
@@ -38,15 +36,16 @@ function BasicInfo() {
 					'basicInfo',
 					JSON.stringify({
 						...basicInfo,
-						location: radio,
+						...radio,
 					}),
 				);
 			} else {
 				localStorage.setItem('basicInfo', JSON.stringify(radio));
 			}
-			navigate('/location');
+			navigate('/location', { state: { basicInfo } });
 		}
 	};
+
 	return (
 		<Wrapper titleMessage="당신이 누구인지 알려주세요!" titleWidth={20}>
 			<S.Content>
@@ -56,7 +55,12 @@ function BasicInfo() {
 					) : (
 						<S.Label htmlFor="Name">이름</S.Label>
 					)}
-					<S.BasicInput placeholder="홍길동" name="name" onChange={radioChange} />
+					<S.BasicInput
+						placeholder="홍길동"
+						name="name"
+						onChange={radioChange}
+						value={radio?.name}
+					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
 					{submit && radio.gender === null ? (
@@ -91,7 +95,12 @@ function BasicInfo() {
 					) : (
 						<S.Label htmlFor="Birthday">생년월일</S.Label>
 					)}
-					<S.BasicInput placeholder="19000101" onChange={radioChange} name="birth" />
+					<S.BasicInput
+						placeholder="19000101"
+						onChange={radioChange}
+						name="birth"
+						value={radio?.birth}
+					/>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
 					{submit && radio.occupation === null ? (
@@ -156,7 +165,12 @@ function BasicInfo() {
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
 					)}
-					<S.BasicInput placeholder="01012345678" onChange={radioChange} name="phone" />
+					<S.BasicInput
+						placeholder="01012345678"
+						onChange={radioChange}
+						name="phone"
+						value={radio?.phone}
+					/>
 				</S.BasicInfoWrapper>
 				<S.NoticeWrapper>
 					{checked ? (
