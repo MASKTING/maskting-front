@@ -43,43 +43,38 @@ const Location = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage.getItem('basicInfo')));
-	const [radio, setRadio] = useState({ city: null, cityDetail: null });
-
-	useEffect(() => {
-		if (location?.state?.basicInfo) setBasicInfo(location?.state?.basicInfo);
-		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
-	}, []);
-	console.log(basicInfo);
+	// const [basicInfo, setBasicInfo] = useState();
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
 
 	const handlePrevBtn = () => {
-		// localStorage.setItem(
-		// 	'basicInfo',
-		// 	JSON.stringify({
-		// 		...basicInfo,
-		// 		location: radio.cityDetail,
-		// 	}),
-		// );
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({
+				...basicInfo,
+				city: basicInfo.city,
+				cityDetail: basicInfo.cityDetail,
+			}),
+		);
 		navigate('/basicInfo', { state: { basicInfo } });
 	};
 
 	const handleNextBtn = () => {
-		if (!radio.cityDetail) {
+		if (!basicInfo.cityDetail) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem(
 				'basicInfo',
 				JSON.stringify({
 					...basicInfo,
-					location: radio.cityDetail,
+					location: basicInfo.cityDetail,
 				}),
 			);
 			navigate('/hobby');
 		}
 	};
 	const cityChange = e => {
-		setRadio({
-			...radio,
+		setBasicInfo({
+			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
@@ -90,7 +85,7 @@ const Location = () => {
 
 			<S.CitySelectWrapper>
 				<S.CitySelectInput type="radio" id="Seoul" name="city" value="Seoul" onClick={cityChange} />
-				<S.CitySelectLabel htmlFor="Seoul" focused={radio.city === 'Seoul'}>
+				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo.city === 'Seoul'}>
 					서울
 				</S.CitySelectLabel>
 				<S.CitySelectInput
@@ -100,11 +95,11 @@ const Location = () => {
 					value="CapitalArea"
 					onClick={cityChange}
 				/>
-				<S.CitySelectLabel htmlFor="CapitalArea" focused={radio.city === 'CapitalArea'}>
+				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo.city === 'CapitalArea'}>
 					경기/인천
 				</S.CitySelectLabel>
 			</S.CitySelectWrapper>
-			{radio.city === 'Seoul' && (
+			{basicInfo.city === 'Seoul' && (
 				<S.TownSelectWrapper wrapperWidth={'39rem'} wrapperHeight={'50rem'}>
 					{SEOUL_DETAIL_LIST.map(city => (
 						<div key={city.id}>
@@ -115,14 +110,14 @@ const Location = () => {
 								value={city.id}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={radio.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo.cityDetail === city.id}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
 					))}
 				</S.TownSelectWrapper>
 			)}
-			{radio.city === 'CapitalArea' && (
+			{basicInfo.city === 'CapitalArea' && (
 				<S.TownSelectWrapper wrapperWidth={'30rem'} wrapperHeight={'30rem'}>
 					{CAPITAL_AREA_DETAIL_LIST.map(city => (
 						<div key={city.id}>
@@ -133,7 +128,7 @@ const Location = () => {
 								value={city.id}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={radio.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo.cityDetail === city.id}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>

@@ -8,25 +8,19 @@ function BasicInfo() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [checked, setchecked] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
 	const [submit, setSubmit] = useState(false);
-	const [radio, setRadio] = useState({
-		name: basicInfo?.name,
-		gender: basicInfo?.gender,
-		birth: basicInfo?.birth,
-		occupation: basicInfo?.occupation,
-		phone: basicInfo?.phone,
-	});
+	// const [basicInfo, setBasicInfo] = useState();
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
 
 	const radioChange = e => {
 		e.preventDefault();
-		setRadio({
-			...radio,
+		setBasicInfo({
+			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
 
-	console.log(basicInfo, radio);
+	// console.log(basicInfo, basicInfo);
 
 	const handleNextBtn = () => {
 		setSubmit(true);
@@ -36,11 +30,11 @@ function BasicInfo() {
 					'basicInfo',
 					JSON.stringify({
 						...basicInfo,
-						...radio,
+						...basicInfo,
 					}),
 				);
 			} else {
-				localStorage.setItem('basicInfo', JSON.stringify(radio));
+				localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			}
 			navigate('/location', { state: { basicInfo } });
 		}
@@ -50,7 +44,7 @@ function BasicInfo() {
 		<Wrapper titleMessage="당신이 누구인지 알려주세요!" titleWidth={20}>
 			<S.Content>
 				<S.BasicInfoWrapper>
-					{submit && radio.name === null ? (
+					{submit && basicInfo.name === null ? (
 						<S.ErrorMessage>이름을 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Name">이름</S.Label>
@@ -59,16 +53,16 @@ function BasicInfo() {
 						placeholder="홍길동"
 						name="name"
 						onChange={radioChange}
-						value={radio?.name}
+						value={basicInfo?.name}
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && radio.gender === null ? (
+					{submit && basicInfo.gender === null ? (
 						<S.ErrorMessage>성별을 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>성별</S.Label>
 					)}
-					<S.NarrowButton focused={radio.gender === 'Male'}>
+					<S.NarrowButton focused={basicInfo.gender === 'Male'}>
 						<S.NarrowInput
 							type="radio"
 							name="gender"
@@ -78,7 +72,7 @@ function BasicInfo() {
 						/>
 						<S.RadioLabel htmlFor="Male">남자</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={radio.gender === 'Female'}>
+					<S.NarrowButton focused={basicInfo.gender === 'Female'}>
 						<S.RadioLabel htmlFor="Female">여자</S.RadioLabel>
 						<S.NarrowInput
 							type="radio"
@@ -90,7 +84,7 @@ function BasicInfo() {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && radio.birth === null ? (
+					{submit && basicInfo.birth === null ? (
 						<S.ErrorMessage>생년월일을 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Birthday">생년월일</S.Label>
@@ -99,17 +93,17 @@ function BasicInfo() {
 						placeholder="19000101"
 						onChange={radioChange}
 						name="birth"
-						value={radio?.birth}
+						value={basicInfo?.birth}
 					/>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && radio.occupation === null ? (
+					{submit && basicInfo.occupation === null ? (
 						<S.ErrorMessage>직업을 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>직업</S.Label>
 					)}
 					<S.NarrowDiv>
-						<S.NarrowButton focused={radio.occupation === '대학생'}>
+						<S.NarrowButton focused={basicInfo.occupation === '대학생'}>
 							<S.RadioLabel htmlFor="대학생">
 								대학생
 								<S.NarrowInput
@@ -121,7 +115,7 @@ function BasicInfo() {
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
-						<S.NarrowButton focused={radio.occupation === '대학원생'}>
+						<S.NarrowButton focused={basicInfo.occupation === '대학원생'}>
 							<S.RadioLabel htmlFor="대학원생">
 								대학원생
 								<S.NarrowInput
@@ -133,7 +127,7 @@ function BasicInfo() {
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
-						<S.NarrowButton focused={radio.occupation === '직장인'}>
+						<S.NarrowButton focused={basicInfo.occupation === '직장인'}>
 							<S.RadioLabel htmlFor="직장인">
 								직장인
 								<S.NarrowInput
@@ -145,7 +139,7 @@ function BasicInfo() {
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
-						<S.NarrowButton focused={radio.occupation === '취준생'}>
+						<S.NarrowButton focused={basicInfo.occupation === '취준생'}>
 							<S.RadioLabel htmlFor="취준생">
 								취준생
 								<S.NarrowInput
@@ -160,7 +154,7 @@ function BasicInfo() {
 					</S.NarrowDiv>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && radio.phone === null ? (
+					{submit && basicInfo.phone === null ? (
 						<S.ErrorMessage>전화번호를 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
@@ -169,7 +163,7 @@ function BasicInfo() {
 						placeholder="01012345678"
 						onChange={radioChange}
 						name="phone"
-						value={radio?.phone}
+						value={basicInfo?.phone}
 					/>
 				</S.BasicInfoWrapper>
 				<S.NoticeWrapper>
