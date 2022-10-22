@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
-import * as S from './WantMoreInfo.style';
+import * as S from './PartnerMoreInfo.style';
 
-const WantMoreInfo = () => {
+const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
 	const handlePrevBtn = () => {
-		navigate('/wantLocation');
+		navigate('/partnerLocation');
 	};
 	const handleNextBtn = () => {
 		setSubmit(true);
@@ -303,4 +303,4 @@ const WantMoreInfo = () => {
 	);
 };
 
-export default WantMoreInfo;
+export default PartnerMoreInfo;

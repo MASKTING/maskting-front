@@ -6,8 +6,8 @@ import LocationPage from '../pages/SignUp/Location';
 import ProfilePhotoPage from '../pages/SignUp/ProfilePhoto';
 import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
 import ProfileMaskPage from '../pages/SignUp/ProfileMask';
-import WantLocationPage from '../pages/SignUp/WantLocation';
-import WantMoreInfoPage from '../pages/SignUp/WantMoreInfo';
+import PartnerLocationPage from '../pages/SignUp/PartnerLocation';
+import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
 import LoginPage from '../pages/Login';
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
 
@@ -24,8 +24,8 @@ function Router() {
 				<Route path="/profileSetting" element={<ProfileSettingPage />} />
 				<Route path="/profilePhoto" element={<ProfilePhotoPage />} />
 				<Route path="/profileMask" element={<ProfileMaskPage />} />
-				<Route path="/wantLocation" element={<WantLocationPage />} />
-				<Route path="/wantMoreInfo" element={<WantMoreInfoPage />} />
+				<Route path="/partnerLocation" element={<PartnerLocationPage />} />
+				<Route path="/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
 			</Routes>
 		</Routers>
 	);

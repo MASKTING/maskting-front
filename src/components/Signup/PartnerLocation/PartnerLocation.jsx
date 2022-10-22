@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
-import * as S from './WantLocation.style';
+import * as S from './PartnerLocation.style';
 
 const SEOUL_DETAIL_LIST = [
 	{ id: '1', cityDetailName: '종로·용산·중구' },
@@ -40,7 +40,7 @@ const TOWNINFOTETXT = (
 
 let SelectContainer = [];
 
-const WantLocation = () => {
+const PartnerLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
@@ -66,7 +66,7 @@ const WantLocation = () => {
 					partnerLocation: basicInfo.cityDetail,
 				}),
 			);
-			navigate('/wantMoreInfo');
+			navigate('/partnerMoreInfo');
 		}
 	};
 	const cityChange = e => {
@@ -154,4 +154,4 @@ const WantLocation = () => {
 	);
 };
 
-export default WantLocation;
+export default PartnerLocation;

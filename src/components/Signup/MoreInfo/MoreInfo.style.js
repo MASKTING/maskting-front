@@ -60,13 +60,17 @@ const RadioLabel = styled.label`
 	position: relative;
 	width: 10rem;
 	height: 2.8rem;
+	width: 16rem;
+	height: 4.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
 `;
 const NarrowButton = styled.button`
 	top: 1.2rem;
-	left: 2.4rem;
+	left: 1.2rem;
 	position: relative;
-	width: 16rem;
-	height: 4.8rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
@@ -80,16 +84,22 @@ const NarrowInput = styled.input`
 `;
 const WideButton = styled.button`
 	top: 1.8rem;
-	left: 2.4rem;
+	left: 1.8rem;
 	position: relative;
-	width: 34.2rem;
-	height: 4.8rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
 	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border: none;
 	border-radius: 0.8rem;
+`;
+export const WideRadioLabel = styled.label`
+	width: 34.2rem;
+	height: 4.8rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 `;
 const Label = styled.label`
 	display: flex;

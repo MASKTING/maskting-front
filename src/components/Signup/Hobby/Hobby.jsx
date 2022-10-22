@@ -42,6 +42,13 @@ function Hobby() {
 	};
 
 	const handlePrevBtn = () => {
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({
+				...basicInfo,
+			}),
+		);
+		setErrorMessage(false);
 		navigate('/location');
 	};
 	const handleNextBtn = () => {
