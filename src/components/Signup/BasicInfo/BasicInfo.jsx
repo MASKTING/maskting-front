@@ -65,28 +65,24 @@ function BasicInfo() {
 						<S.Label>성별</S.Label>
 					)}
 					<S.NarrowButton focused={radio.gender === 'Male'}>
-						<S.RadioLabel htmlFor="Male">
-							남자
-							<S.NarrowInput
-								type="radio"
-								name="gender"
-								id="Male"
-								value="Male"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
+						<S.NarrowInput
+							type="radio"
+							name="gender"
+							id="Male"
+							value="Male"
+							onClick={radioChange}
+						/>
+						<S.RadioLabel htmlFor="Male">남자</S.RadioLabel>
 					</S.NarrowButton>
 					<S.NarrowButton focused={radio.gender === 'Female'}>
-						<S.RadioLabel htmlFor="Female">
-							여자
-							<S.NarrowInput
-								type="radio"
-								name="gender"
-								id="Female"
-								value="Female"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
+						<S.RadioLabel htmlFor="Female">여자</S.RadioLabel>
+						<S.NarrowInput
+							type="radio"
+							name="gender"
+							id="Female"
+							value="Female"
+							onClick={radioChange}
+						/>
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>

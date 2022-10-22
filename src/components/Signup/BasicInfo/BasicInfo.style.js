@@ -68,11 +68,6 @@ const Label = styled.label`
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
 `;
-const RadioLabel = styled.label`
-	position: relative;
-	width: 10rem;
-	height: 2.8rem;
-`;
 const BasicInput = styled.input`
 	position: relative;
 	width: 34.2rem;
@@ -92,9 +87,8 @@ const BasicInput = styled.input`
 `;
 const NarrowDiv = styled.div``;
 const NarrowButton = styled.button`
+	cursor: pointer;
 	position: relative;
-	width: 16rem;
-	height: 4.8rem;
 	left: 2.4rem;
 	margin-right: 2.2rem;
 	margin-bottom: 1.8rem;
@@ -104,6 +98,15 @@ const NarrowButton = styled.button`
 	border: none;
 	border-radius: 0.8rem;
 	font-size: ${FONTSIZE.Text};
+`;
+const RadioLabel = styled.label`
+	position: relative;
+	width: 16rem;
+	height: 4.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
 `;
 const NarrowInput = styled.input`
 	display: none;
