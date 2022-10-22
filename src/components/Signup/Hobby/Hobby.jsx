@@ -30,7 +30,7 @@ function Hobby() {
 	const onValid = () => {};
 	const onInvalid = () => {};
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
 
@@ -71,7 +71,6 @@ function Hobby() {
 					{HOBBY_LIST.map(hobby =>
 						hobby.id % 2 === 0 ? (
 							<S.HobbySelectWrapper key={hobby.id} focused={basicInfo.hobby === hobby.name}>
-								<S.HobbySelectLabel htmlFor={hobby.name}>{hobby.name}</S.HobbySelectLabel>
 								<S.HobbySelectInput
 									type="radio"
 									id={hobby.name}
@@ -79,6 +78,7 @@ function Hobby() {
 									value={hobby.name}
 									onClick={hobbyChange}
 								/>
+								<S.HobbySelectLabel htmlFor={hobby.name}>{hobby.name}</S.HobbySelectLabel>
 							</S.HobbySelectWrapper>
 						) : (
 							<S.HobbySelectWrapper

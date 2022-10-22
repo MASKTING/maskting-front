@@ -44,13 +44,10 @@ const ErrorMessage = styled.h1`
 	letter-spacing: 0.08rem;
 `;
 const HobbySelectWrapper = styled.button`
+	background-color: blue;
 	top: 0rem;
 	left: 2.4rem;
 	position: relative;
-	width: auto;
-	height: 4.8rem;
-	padding-left: 6.2rem;
-	padding-right: 2.4rem;
 	margin-right: ${props => (props.right ? `1.6rem` : null)};
 	margin-bottom: 3rem;
 	border: none;
@@ -61,8 +58,12 @@ const HobbySelectWrapper = styled.button`
 `;
 const HobbySelectLabel = styled.label`
 	position: relative;
-	width: 10rem;
-	height: 2.8rem;
+	width: 100%;
+	height: 4.8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0 4.2rem;
 	cursor: pointer;
 `;
 const HobbySelectInput = styled.input`
