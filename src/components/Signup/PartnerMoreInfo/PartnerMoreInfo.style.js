@@ -68,6 +68,7 @@ const RadioLabel = styled.label`
 	width: 7.9rem;
 	height: 4.8rem;
 `;
+
 export const RadioMediumLabel = styled.label`
 	position: relative;
 	width: 16rem;

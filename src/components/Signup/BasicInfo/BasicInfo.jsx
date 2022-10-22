@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
 
 function BasicInfo() {
-	const location = useLocation();
 	const navigate = useNavigate();
-	const [checked, setchecked] = useState(false);
 	const [submit, setSubmit] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-
+	const [basicInfo, setBasicInfo] = useState(
+		JSON.parse(localStorage?.getItem('basicInfo')) || {
+			name: '',
+			birth: '',
+			phone: '',
+			privateCheck: false,
+		},
+	);
+	console.log(basicInfo);
 	const radioChange = e => {
 		e.preventDefault();
 		setBasicInfo({
@@ -18,10 +23,9 @@ function BasicInfo() {
 			[e.target.name]: e.target.value,
 		});
 	};
-
 	const handleNextBtn = () => {
 		setSubmit(true);
-		if (checked) {
+		if (basicInfo.privateCheck) {
 			if (basicInfo) {
 				localStorage.setItem(
 					'basicInfo',
@@ -40,7 +44,7 @@ function BasicInfo() {
 		<Wrapper titleMessage="당신이 누구인지 알려주세요!" titleWidth={20}>
 			<S.Content>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.name === null ? (
+					{submit && basicInfo?.name === '' ? (
 						<S.ErrorMessage>이름을 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Name">이름</S.Label>
@@ -53,7 +57,7 @@ function BasicInfo() {
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.gender === null ? (
+					{submit && !basicInfo.gender ? (
 						<S.ErrorMessage>성별을 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>성별</S.Label>
@@ -80,7 +84,7 @@ function BasicInfo() {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.birth === null ? (
+					{submit && basicInfo.birth === '' ? (
 						<S.ErrorMessage>생년월일을 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Birthday">생년월일</S.Label>
@@ -93,7 +97,7 @@ function BasicInfo() {
 					/>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && basicInfo.occupation === null ? (
+					{submit && !basicInfo.occupation ? (
 						<S.ErrorMessage>직업을 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>직업</S.Label>
@@ -150,7 +154,7 @@ function BasicInfo() {
 					</S.NarrowDiv>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.phone === null ? (
+					{submit && basicInfo.phone === '' ? (
 						<S.ErrorMessage>전화번호를 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
@@ -163,12 +167,20 @@ function BasicInfo() {
 					/>
 				</S.BasicInfoWrapper>
 				<S.NoticeWrapper>
-					{checked ? (
-						<S.NoticeText checked={checked}>확인했습니다</S.NoticeText>
+					{basicInfo.privateCheck ? (
+						<S.NoticeText checked={basicInfo.privateCheck}>확인했습니다</S.NoticeText>
 					) : (
 						<S.NoticeText>확인해주세요</S.NoticeText>
 					)}
-					<S.NoticeIcon checked={checked} onClick={() => setchecked(!checked)}>
+					<S.NoticeIcon
+						checked={basicInfo.privateCheck}
+						onClick={() =>
+							setBasicInfo({
+								...basicInfo,
+								privateCheck: !basicInfo.privateCheck,
+							})
+						}
+					>
 						<BsCheckLg className="logo" />
 					</S.NoticeIcon>
 					<S.NoticeDetailText>

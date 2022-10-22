@@ -24,7 +24,6 @@ const msg = {
 function MoreInfo() {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
-	// const [basicInfo, setBasicInfo] = useState({});
 
 	useEffect(() => {
 		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
@@ -47,25 +46,14 @@ function MoreInfo() {
 	const handleNextBtn = () => {
 		setSubmit(true);
 		if (
-			basicInfo.duty &&
-			basicInfo.smoking &&
-			basicInfo.religion &&
-			basicInfo.drinking &&
-			basicInfo.height &&
-			basicInfo.bodyType
+			basicInfo?.duty &&
+			basicInfo?.smoking &&
+			basicInfo?.religion &&
+			basicInfo?.drinking &&
+			basicInfo?.height &&
+			basicInfo?.bodyType
 		) {
-			localStorage.setItem(
-				'basicInfo',
-				JSON.stringify({
-					...basicInfo,
-					duty: basicInfo.duty,
-					smoking: basicInfo.smoking,
-					religion: basicInfo.religion,
-					drinking: basicInfo.drinking,
-					height: basicInfo.height,
-					bodyType: basicInfo.bodyType,
-				}),
-			);
+			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/partnerLocation');
 		}
 	};
@@ -76,27 +64,27 @@ function MoreInfo() {
 			</S.InfoMessage>
 			<S.Content>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.duty === null ? (
+					{submit && basicInfo?.duty === undefined ? (
 						<S.ErrorMessage>군대 여부를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>군대 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo.duty === '군필'}>
+					<S.NarrowButton focused={basicInfo?.duty === '군필'}>
 						<S.RadioLabel htmlFor="군필">군필</S.RadioLabel>
 						<S.NarrowInput type="radio" name="duty" id="군필" value="군필" onClick={radioChange} />
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.duty === '미필'}>
+					<S.NarrowButton focused={basicInfo?.duty === '미필'}>
 						<S.RadioLabel htmlFor="미필">미필</S.RadioLabel>
 						<S.NarrowInput type="radio" name="duty" id="미필" value="미필" onClick={radioChange} />
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.smoking === null ? (
+					{submit && basicInfo?.smoking === undefined ? (
 						<S.ErrorMessage>흡연 여부를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>흡연 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo.smoking === '흡연'}>
+					<S.NarrowButton focused={basicInfo?.smoking === '흡연'}>
 						<S.RadioLabel htmlFor="흡연">
 							흡연
 							<S.NarrowInput
@@ -108,7 +96,7 @@ function MoreInfo() {
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.smoking === '비흡연'}>
+					<S.NarrowButton focused={basicInfo?.smoking === '비흡연'}>
 						<S.RadioLabel htmlFor="비흡연">
 							비흡연
 							<S.NarrowInput
@@ -122,12 +110,12 @@ function MoreInfo() {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && basicInfo.religion === null ? (
+					{submit && basicInfo?.religion === undefined ? (
 						<S.ErrorMessage>종교를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel>종교</S.LongLabel>
 					)}
-					<S.NarrowButton focused={basicInfo.religion === '기독교'}>
+					<S.NarrowButton focused={basicInfo?.religion === '기독교'}>
 						<S.RadioLabel htmlFor="기독교">
 							기독교
 							<S.NarrowInput
@@ -139,7 +127,7 @@ function MoreInfo() {
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.religion === '천주교'}>
+					<S.NarrowButton focused={basicInfo?.religion === '천주교'}>
 						<S.RadioLabel htmlFor="천주교">
 							천주교
 							<S.NarrowInput
@@ -151,7 +139,7 @@ function MoreInfo() {
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.religion === '불교'}>
+					<S.NarrowButton focused={basicInfo?.religion === '불교'}>
 						<S.RadioLabel htmlFor="불교">
 							불교
 							<S.NarrowInput
@@ -163,7 +151,7 @@ function MoreInfo() {
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.religion === '기타'}>
+					<S.NarrowButton focused={basicInfo?.religion === '기타'}>
 						<S.RadioLabel htmlFor="기타">기타</S.RadioLabel>
 						<S.NarrowInput
 							type="radio"
@@ -173,7 +161,7 @@ function MoreInfo() {
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.WideButton focused={basicInfo.religion === '무교'}>
+					<S.WideButton focused={basicInfo?.religion === '무교'}>
 						<S.WideRadioLabel htmlFor="무교">무교</S.WideRadioLabel>
 						<S.NarrowInput
 							type="radio"
@@ -185,11 +173,11 @@ function MoreInfo() {
 					</S.WideButton>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.drinking === null ? (
+					{submit && basicInfo?.drinking === undefined ? (
 						<S.ErrorMessage>음주 빈도를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel htmlFor="drinking">
-							음주 빈도 <S.DegreeMessage>{msg.drinking[basicInfo.drinking]}</S.DegreeMessage>
+							음주 빈도 <S.DegreeMessage>{msg.drinking[basicInfo?.drinking]}</S.DegreeMessage>
 						</S.LongLabel>
 					)}
 					<S.Slider
@@ -199,24 +187,24 @@ function MoreInfo() {
 						max="5"
 						// radio="1"
 						step="1"
-						degree={(parseInt(basicInfo.drinking) - 1) * 25}
+						degree={(parseInt(basicInfo?.drinking) - 1) * 25}
 						onChange={radioChange}
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.height === null ? (
+					{submit && basicInfo?.height === '' ? (
 						<S.ErrorMessage>키를 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Height">키</S.Label>
 					)}
-					<S.BasicInput name="height" onChange={radioChange} value={basicInfo.height} />
+					<S.BasicInput name="height" onChange={radioChange} value={basicInfo?.height} />
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.bodyType === null ? (
+					{submit && basicInfo?.bodyType === undefined ? (
 						<S.ErrorMessage>체형을 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel htmlFor="bodyType">
-							체형 <S.DegreeMessage>{msg.bodyType[basicInfo.bodyType]}</S.DegreeMessage>
+							체형 <S.DegreeMessage>{msg.bodyType[basicInfo?.bodyType]}</S.DegreeMessage>
 						</S.LongLabel>
 					)}
 					<S.Slider
@@ -226,7 +214,7 @@ function MoreInfo() {
 						max="5"
 						// radio="1"
 						step="1"
-						degree={(parseInt(basicInfo.bodyType) - 1) * 25}
+						degree={(parseInt(basicInfo?.bodyType) - 1) * 25}
 						onChange={radioChange}
 					/>
 				</S.BasicInfoWrapper>

@@ -7,11 +7,10 @@ import pick_example1 from '../../../assets/pic_example1.svg';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const imgRef = useRef();
-	const handleGoBackButton = () => {
-		navigate('/profileSetting');
+	const handlePrevButton = () => {
+		navigate('/partnerMoreInfo');
 	};
 
 	const [isModal, setIsModal] = useState(false);
@@ -54,7 +53,7 @@ const ProfilePhoto = () => {
 				</Modal>
 			)}
 			<S.TitleWrapper>
-				<S.BtnGoBack className="material-icons" onClick={handleGoBackButton}>
+				<S.BtnGoBack className="material-icons" onClick={handlePrevButton}>
 					navigate_before
 				</S.BtnGoBack>
 				<S.Title>프로필 사진을 설정해주세요</S.Title>

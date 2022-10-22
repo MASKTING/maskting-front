@@ -43,51 +43,42 @@ let SelectContainer = [];
 const PartnerLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+	const [basicInfo, setBasicInfo] = useState(
+		{ ...JSON.parse(localStorage?.getItem('basicInfo')), partnerLocation: [] } || {
+			partnerLocation: [],
+		},
+	);
 
 	const handlePrevBtn = () => {
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				partnerLocation: basicInfo.cityDetail,
-			}),
-		);
+		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		navigate('/moreInfo');
 	};
 	const handleNextBtn = () => {
-		if (!basicInfo.cityDetail) {
+		if (!basicInfo.partnerLocation) {
 			setErrorMessage(true);
 		} else {
-			localStorage.setItem(
-				'basicInfo',
-				JSON.stringify({
-					...basicInfo,
-					partnerLocation: basicInfo.cityDetail,
-				}),
-			);
+			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/partnerMoreInfo');
 		}
 	};
 	const cityChange = e => {
-		if (e.target.name === 'city') {
+		if (e.target.name === 'partnerCity') {
 			setBasicInfo({
 				...basicInfo,
 				[e.target.name]: e.target.value,
 			});
 			return;
 		}
-		if (SelectContainer.includes(e.target.value)) {
-			SelectContainer = SelectContainer.filter(it => it !== e.target.value);
+		if (basicInfo.partnerLocation.includes(e.target.value)) {
+			basicInfo.partnerLocation = basicInfo.partnerLocation.filter(it => it !== e.target.value);
 		} else {
-			SelectContainer.push(e.target.value);
+			basicInfo.partnerLocation.push(e.target.value);
 		}
 		setBasicInfo({
 			...basicInfo,
-			[e.target.name]: SelectContainer,
+			[e.target.name]: basicInfo.partnerLocation,
 		});
 	};
-	console.log(basicInfo);
 	return (
 		<Wrapper titleMessage="만나기 편한 지역을 알려주세요" titleWidth="39rem">
 			{errorMessage && <S.ErrorMessage>지역을 선택해주세요</S.ErrorMessage>}
@@ -96,53 +87,65 @@ const PartnerLocation = () => {
 			</S.InfoMessage>
 
 			<S.CitySelectWrapper>
-				<S.CitySelectInput type="radio" id="Seoul" name="city" value="Seoul" onClick={cityChange} />
-				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo?.city === 'Seoul'}>
+				<S.CitySelectInput
+					type="radio"
+					id="Seoul"
+					name="partnerCity"
+					value="Seoul"
+					onClick={cityChange}
+				/>
+				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo?.partnerCity === 'Seoul'}>
 					서울
 				</S.CitySelectLabel>
 				<S.CitySelectInput
 					type="radio"
 					id="CapitalArea"
-					name="city"
+					name="partnerCity"
 					value="CapitalArea"
 					onClick={cityChange}
 				/>
-				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo?.city === 'CapitalArea'}>
+				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo?.partnerCity === 'CapitalArea'}>
 					경기/인천
 				</S.CitySelectLabel>
 			</S.CitySelectWrapper>
-			{basicInfo.city === 'Seoul' && (
+			{basicInfo.partnerCity === 'Seoul' && (
 				<S.TownSelectWrapper wrapperWidth="39rem" wrapperHeight="50rem">
-					{SEOUL_DETAIL_LIST.map(city => (
-						<div key={city.id}>
+					{SEOUL_DETAIL_LIST.map(citySelect => (
+						<div key={citySelect.id}>
 							<S.TownSelectInput
 								type="checkbox"
-								id={city.id}
-								name="cityDetail"
-								value={city.id}
+								id={citySelect.id}
+								name="partnerLocation"
+								value={citySelect.id}
 								onClick={cityChange}
 							/>
-							<S.TownSelectLabel htmlFor={city.id} focused={SelectContainer.includes(city.id)}>
-								{city.cityDetailName}
+							<S.TownSelectLabel
+								htmlFor={citySelect.id}
+								focused={basicInfo.partnerLocation.includes(citySelect.id)}
+							>
+								{citySelect.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
 					))}
 				</S.TownSelectWrapper>
 			)}
 
-			{basicInfo.city === 'CapitalArea' && (
+			{basicInfo.partnerCity === 'CapitalArea' && (
 				<S.TownSelectWrapper wrapperWidth="30rem" wrapperHeight="30rem">
-					{CAPITAL_AREA_DETAIL_LIST.map(city => (
-						<div key={city.id}>
+					{CAPITAL_AREA_DETAIL_LIST.map(citySelect => (
+						<div key={citySelect.id}>
 							<S.TownSelectInput
 								type="radio"
-								id={city.id}
-								name="cityDetail"
-								value={city.id}
+								id={citySelect.id}
+								name="partnerLocation"
+								value={citySelect.id}
 								onClick={cityChange}
 							/>
-							<S.TownSelectLabel htmlFor={city.id} focused={SelectContainer.includes(city.id)}>
-								{city.cityDetailName}
+							<S.TownSelectLabel
+								htmlFor={citySelect.id}
+								focused={basicInfo.partnerLocation.includes(citySelect.id)}
+							>
+								{citySelect.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
 					))}
