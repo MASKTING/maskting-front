@@ -59,15 +59,31 @@ const WideInfoWrapper = styled.div`
 `;
 const RadioLabel = styled.label`
 	position: relative;
-	width: 10rem;
-	height: 2.8rem;
+	width: 7.9rem;
+	height: 4.8rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 7.9rem;
+	height: 4.8rem;
+`;
+export const RadioMediumLabel = styled.label`
+	position: relative;
+	width: 16rem;
+	height: 4.8rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 16rem;
+	height: 4.8rem;
 `;
 const NarrowButton = styled.button`
+	text-align: center;
 	top: 1.2rem;
 	left: 2.4rem;
 	position: relative;
-	width: 7.9rem;
-	height: 4.8rem;
 	margin-right: 1.2rem;
 	margin-bottom: 1.8rem;
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
@@ -76,20 +92,16 @@ const NarrowButton = styled.button`
 	border-radius: 0.8rem;
 	font-size: ${FONTSIZE.Text};
 `;
-const MediumButton = styled.button`
-	top: 1.2rem;
-	left: 2.4rem;
+export const RadioWideLabel = styled.label`
 	position: relative;
-	width: 16rem;
+	width: 34.2rem;
 	height: 4.8rem;
-	margin-right: 2.2rem;
-	margin-bottom: 1.8rem;
-	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
-	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
-	border: none;
-	border-radius: 0.8rem;
-	font-size: ${FONTSIZE.Text};
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
+
 const NarrowInput = styled.input`
 	display: none;
 `;
@@ -212,7 +224,6 @@ export {
 	Label,
 	LongLabel,
 	NarrowButton,
-	MediumButton,
 	RadioLabel,
 	Slider,
 	FakeSlider,

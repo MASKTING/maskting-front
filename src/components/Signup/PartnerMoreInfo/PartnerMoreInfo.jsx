@@ -71,31 +71,15 @@ const PartnerMoreInfo = () => {
 						<S.Label>군대 여부</S.Label>
 					)}
 					<S.NarrowButton focused={radio.duty === '군필'}>
-						<S.RadioLabel htmlFor="군필">
-							군필
-							<S.NarrowInput
-								type="radio"
-								name="duty"
-								id="군필"
-								value="군필"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
+						<S.RadioLabel htmlFor="군필">군필</S.RadioLabel>
+						<S.NarrowInput type="radio" name="duty" id="군필" value="군필" onClick={radioChange} />
 					</S.NarrowButton>
 					<S.NarrowButton focused={radio.duty === '미필'}>
-						<S.RadioLabel htmlFor="미필">
-							미필
-							<S.NarrowInput
-								type="radio"
-								name="duty"
-								id="미필"
-								value="미필"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
+						<S.RadioLabel htmlFor="미필">미필</S.RadioLabel>
+						<S.NarrowInput type="radio" name="duty" id="미필" value="미필" onClick={radioChange} />
 					</S.NarrowButton>
-					<S.MediumButton focused={radio.duty === 'dutyAny'}>
-						<S.RadioLabel htmlFor="dutyAny">
+					<S.NarrowButton focused={radio.duty === 'dutyAny'}>
+						<S.RadioMediumLabel htmlFor="dutyAny">
 							상관없어요
 							<S.NarrowInput
 								type="radio"
@@ -104,8 +88,8 @@ const PartnerMoreInfo = () => {
 								value="dutyAny"
 								onClick={radioChange}
 							/>
-						</S.RadioLabel>
-					</S.MediumButton>
+						</S.RadioMediumLabel>
+					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
 					{submit && radio.smoking === null ? (
@@ -137,8 +121,8 @@ const PartnerMoreInfo = () => {
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.MediumButton focused={radio.smoking === 'smokingAny'}>
-						<S.RadioLabel htmlFor="smokingAny">
+					<S.NarrowButton focused={radio.smoking === 'smokingAny'}>
+						<S.RadioMediumLabel htmlFor="smokingAny">
 							상관없어요
 							<S.NarrowInput
 								type="radio"
@@ -147,8 +131,8 @@ const PartnerMoreInfo = () => {
 								value="smokingAny"
 								onClick={radioChange}
 							/>
-						</S.RadioLabel>
-					</S.MediumButton>
+						</S.RadioMediumLabel>
+					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
 					{submit && radio.religion === null ? (
@@ -156,66 +140,56 @@ const PartnerMoreInfo = () => {
 					) : (
 						<S.LongLabel>종교</S.LongLabel>
 					)}
-					<S.MediumButton focused={radio.religion === '기독교'}>
-						<S.RadioLabel htmlFor="기독교">
-							기독교
-							<S.NarrowInput
-								type="radio"
-								name="religion"
-								id="기독교"
-								value="기독교"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
-					</S.MediumButton>
-					<S.MediumButton focused={radio.religion === '천주교'}>
-						<S.RadioLabel htmlFor="천주교">
-							천주교
-							<S.NarrowInput
-								type="radio"
-								name="religion"
-								id="천주교"
-								value="천주교"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
-					</S.MediumButton>
-					<S.MediumButton focused={radio.religion === '불교'}>
-						<S.RadioLabel htmlFor="불교">
-							불교
-							<S.NarrowInput
-								type="radio"
-								name="religion"
-								id="불교"
-								value="불교"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
-					</S.MediumButton>
-					<S.MediumButton focused={radio.religion === '기타'}>
-						<S.RadioLabel htmlFor="기타">
-							기타
-							<S.NarrowInput
-								type="radio"
-								name="religion"
-								id="기타"
-								value="기타"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
-					</S.MediumButton>
-					<S.WideButton focused={radio.religion === '무교'}>
-						<S.RadioLabel htmlFor="무교">
-							무교
-							<S.NarrowInput
-								type="radio"
-								name="religion"
-								id="무교"
-								value="무교"
-								onClick={radioChange}
-							/>
-						</S.RadioLabel>
-					</S.WideButton>
+					<S.NarrowButton focused={radio.religion === '기독교'}>
+						<S.RadioMediumLabel htmlFor="기독교">기독교</S.RadioMediumLabel>
+						<S.NarrowInput
+							type="radio"
+							name="religion"
+							id="기독교"
+							value="기독교"
+							onClick={radioChange}
+						/>
+					</S.NarrowButton>
+					<S.NarrowButton focused={radio.religion === '천주교'}>
+						<S.RadioMediumLabel htmlFor="천주교">천주교</S.RadioMediumLabel>
+						<S.NarrowInput
+							type="radio"
+							name="religion"
+							id="천주교"
+							value="천주교"
+							onClick={radioChange}
+						/>
+					</S.NarrowButton>
+					<S.NarrowButton focused={radio.religion === '불교'}>
+						<S.RadioMediumLabel htmlFor="불교">불교</S.RadioMediumLabel>
+						<S.NarrowInput
+							type="radio"
+							name="religion"
+							id="불교"
+							value="불교"
+							onClick={radioChange}
+						/>
+					</S.NarrowButton>
+					<S.NarrowButton focused={radio.religion === '기타'}>
+						<S.RadioMediumLabel htmlFor="기타">기타</S.RadioMediumLabel>
+						<S.NarrowInput
+							type="radio"
+							name="religion"
+							id="기타"
+							value="기타"
+							onClick={radioChange}
+						/>
+					</S.NarrowButton>
+					<S.NarrowButton focused={radio.religion === '무교'}>
+						<S.RadioWideLabel htmlFor="무교">무교</S.RadioWideLabel>
+						<S.NarrowInput
+							type="radio"
+							name="religion"
+							id="무교"
+							value="무교"
+							onClick={radioChange}
+						/>
+					</S.NarrowButton>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
 					{submit && radio.drinking === null ? (
