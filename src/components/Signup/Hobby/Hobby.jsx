@@ -5,43 +5,38 @@ import { NavigateButton } from '../../Button/Button';
 import * as S from './Hobby.style';
 import Wrapper from '../../Wrapper';
 
+const HOBBY_LIST = [
+	{ id: 1, name: '운동' },
+	{ id: 2, name: '요리' },
+	{ id: 3, name: '자기계발' },
+	{ id: 4, name: '맛집/카페탐방' },
+	{ id: 5, name: '전시회/공연' },
+	{ id: 6, name: '투자' },
+	{ id: 7, name: '유튜브/넷플릭스' },
+	{ id: 8, name: '술' },
+	{ id: 9, name: '여행' },
+	{ id: 10, name: '음악' },
+	{ id: 11, name: '친구들과 만남' },
+	{ id: 12, name: '게임' },
+	{ id: 13, name: '집돌이/집순이' },
+	{ id: 14, name: '패션' },
+	{ id: 15, name: '드라이브' },
+	{ id: 16, name: '핫플 가기' },
+	{ id: 17, name: '사진 촬영' },
+	{ id: 18, name: '영화' },
+];
+
 function Hobby() {
 	const onValid = () => {};
 	const onInvalid = () => {};
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState({});
-	const [radio, setRadio] = useState({ hobby: null });
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
-	}, []);
-
-	const HOBBY_LIST = [
-		{ id: 1, name: '운동' },
-		{ id: 2, name: '요리' },
-		{ id: 3, name: '자기계발' },
-		{ id: 4, name: '맛집/카페탐방' },
-		{ id: 5, name: '전시회/공연' },
-		{ id: 6, name: '투자' },
-		{ id: 7, name: '유튜브/넷플릭스' },
-		{ id: 8, name: '술' },
-		{ id: 9, name: '여행' },
-		{ id: 10, name: '음악' },
-		{ id: 11, name: '친구들과 만남' },
-		{ id: 12, name: '게임' },
-		{ id: 13, name: '집돌이/집순이' },
-		{ id: 14, name: '패션' },
-		{ id: 15, name: '드라이브' },
-		{ id: 16, name: '핫플 가기' },
-		{ id: 17, name: '사진 촬영' },
-		{ id: 18, name: '영화' },
-	];
-
 	const hobbyChange = e => {
-		setRadio({
-			...radio,
+		setBasicInfo({
+			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
@@ -49,16 +44,14 @@ function Hobby() {
 	const handlePrevBtn = () => {
 		navigate('/location');
 	};
-
 	const handleNextBtn = () => {
-		if (!radio.hobby) {
+		if (!basicInfo.hobby) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem(
 				'basicInfo',
 				JSON.stringify({
 					...basicInfo,
-					hobby: radio.hobby,
 				}),
 			);
 			setErrorMessage(false);
@@ -77,7 +70,7 @@ function Hobby() {
 				<S.Content>
 					{HOBBY_LIST.map(hobby =>
 						hobby.id % 2 === 0 ? (
-							<S.HobbySelectWrapper key={hobby.id} focused={radio.hobby === hobby.name}>
+							<S.HobbySelectWrapper key={hobby.id} focused={basicInfo.hobby === hobby.name}>
 								<S.HobbySelectLabel htmlFor={hobby.name}>{hobby.name}</S.HobbySelectLabel>
 								<S.HobbySelectInput
 									type="radio"
@@ -91,7 +84,7 @@ function Hobby() {
 							<S.HobbySelectWrapper
 								right={true}
 								key={hobby.id}
-								focused={radio.hobby === hobby.name}
+								focused={basicInfo.hobby === hobby.name}
 							>
 								<S.HobbySelectLabel htmlFor={hobby.name}>{hobby.name}</S.HobbySelectLabel>
 								<S.HobbySelectInput

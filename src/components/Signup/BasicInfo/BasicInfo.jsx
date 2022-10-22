@@ -9,8 +9,7 @@ function BasicInfo() {
 	const navigate = useNavigate();
 	const [checked, setchecked] = useState(false);
 	const [submit, setSubmit] = useState(false);
-	// const [basicInfo, setBasicInfo] = useState();
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
 	const radioChange = e => {
 		e.preventDefault();
@@ -20,8 +19,6 @@ function BasicInfo() {
 		});
 	};
 
-	// console.log(basicInfo, basicInfo);
-
 	const handleNextBtn = () => {
 		setSubmit(true);
 		if (checked) {
@@ -29,7 +26,6 @@ function BasicInfo() {
 				localStorage.setItem(
 					'basicInfo',
 					JSON.stringify({
-						...basicInfo,
 						...basicInfo,
 					}),
 				);

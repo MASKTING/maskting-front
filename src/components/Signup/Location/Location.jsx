@@ -3,27 +3,26 @@ import { NavigateButton, SelectSquareButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper';
 import * as S from './Location.style';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const SEOUL_DETAIL_LIST = [
-	{ id: 'cityDetail2', cityDetailName: '종로·용산·중구' },
-	{ id: 'cityDetail3', cityDetailName: '양천·강서구' },
-	{ id: 'cityDetail4', cityDetailName: '동대문·성동·광진·중랑구' },
-	{ id: 'cityDetail5', cityDetailName: '은평·서대문·마포구' },
-	{ id: 'cityDetail6', cityDetailName: '서초·강남구' },
-	{ id: 'cityDetail7', cityDetailName: '동작·관악구' },
-	{ id: 'cityDetail8', cityDetailName: '구로·금천·영등포구' },
-	{ id: 'cityDetail9', cityDetailName: '성북·강북·도봉·노원구' },
-	{ id: 'cityDetail10', cityDetailName: '송파·강동구' },
+	{ id: '1', cityDetailName: '종로·용산·중구' },
+	{ id: '2', cityDetailName: '양천·강서구' },
+	{ id: '3', cityDetailName: '동대문·성동·광진·중랑구' },
+	{ id: '4', cityDetailName: '은평·서대문·마포구' },
+	{ id: '5', cityDetailName: '서초·강남구' },
+	{ id: '6', cityDetailName: '동작·관악구' },
+	{ id: '7', cityDetailName: '구로·금천·영등포구' },
+	{ id: '8', cityDetailName: '성북·강북·도봉·노원구' },
+	{ id: '9', cityDetailName: '송파·강동구' },
 ];
 
 const CAPITAL_AREA_DETAIL_LIST = [
-	{ id: 'cityDetail11', cityDetailName: '인천' },
-	{ id: 'cityDetail12', cityDetailName: '경기 중부' },
-	{ id: 'cityDetail13', cityDetailName: '경기 북부' },
-	{ id: 'cityDetail14', cityDetailName: '경기 남부' },
-	{ id: 'cityDetail15', cityDetailName: '경기 동부' },
-	{ id: 'cityDetail16', cityDetailName: '경기 서부' },
+	{ id: '11', cityDetailName: '인천' },
+	{ id: '12', cityDetailName: '경기 중부' },
+	{ id: '13', cityDetailName: '경기 북부' },
+	{ id: '14', cityDetailName: '경기 남부' },
+	{ id: '15', cityDetailName: '경기 동부' },
+	{ id: '16', cityDetailName: '경기 서부' },
 ];
 
 const TOWNINFOTETXT = (
@@ -41,18 +40,15 @@ const TOWNINFOTETXT = (
 
 const Location = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
 	const [errorMessage, setErrorMessage] = useState(false);
-	// const [basicInfo, setBasicInfo] = useState();
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')));
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
 	const handlePrevBtn = () => {
 		localStorage.setItem(
 			'basicInfo',
 			JSON.stringify({
 				...basicInfo,
-				city: basicInfo.city,
-				cityDetail: basicInfo.cityDetail,
+				location: basicInfo.cityDetail,
 			}),
 		);
 		navigate('/basicInfo', { state: { basicInfo } });
@@ -78,14 +74,13 @@ const Location = () => {
 			[e.target.name]: e.target.value,
 		});
 	};
-
 	return (
 		<Wrapper titleMessage={'거주 지역이 어디인가요?'}>
 			{errorMessage && <S.ErrorMessage>지역을 선택해주세요</S.ErrorMessage>}
 
 			<S.CitySelectWrapper>
 				<S.CitySelectInput type="radio" id="Seoul" name="city" value="Seoul" onClick={cityChange} />
-				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo.city === 'Seoul'}>
+				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo?.city === 'Seoul'}>
 					서울
 				</S.CitySelectLabel>
 				<S.CitySelectInput
@@ -95,7 +90,7 @@ const Location = () => {
 					value="CapitalArea"
 					onClick={cityChange}
 				/>
-				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo.city === 'CapitalArea'}>
+				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo?.city === 'CapitalArea'}>
 					경기/인천
 				</S.CitySelectLabel>
 			</S.CitySelectWrapper>
@@ -110,7 +105,7 @@ const Location = () => {
 								value={city.id}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo?.cityDetail === city.id}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
@@ -128,7 +123,7 @@ const Location = () => {
 								value={city.id}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo?.cityDetail === city.id}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>

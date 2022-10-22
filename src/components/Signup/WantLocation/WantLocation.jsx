@@ -5,24 +5,24 @@ import Wrapper from '../../Wrapper/Wrapper';
 import * as S from './WantLocation.style';
 
 const SEOUL_DETAIL_LIST = [
-	{ id: 'cityDetail2', cityDetailName: '종로·용산·중구' },
-	{ id: 'cityDetail3', cityDetailName: '양천·강서구' },
-	{ id: 'cityDetail4', cityDetailName: '동대문·성동·광진·중랑구' },
-	{ id: 'cityDetail5', cityDetailName: '은평·서대문·마포구' },
-	{ id: 'cityDetail6', cityDetailName: '서초·강남구' },
-	{ id: 'cityDetail7', cityDetailName: '동작·관악구' },
-	{ id: 'cityDetail8', cityDetailName: '구로·금천·영등포구' },
-	{ id: 'cityDetail9', cityDetailName: '성북·강북·도봉·노원구' },
-	{ id: 'cityDetail10', cityDetailName: '송파·강동구' },
+	{ id: '1', cityDetailName: '종로·용산·중구' },
+	{ id: '2', cityDetailName: '양천·강서구' },
+	{ id: '3', cityDetailName: '동대문·성동·광진·중랑구' },
+	{ id: '4', cityDetailName: '은평·서대문·마포구' },
+	{ id: '5', cityDetailName: '서초·강남구' },
+	{ id: '6', cityDetailName: '동작·관악구' },
+	{ id: '7', cityDetailName: '구로·금천·영등포구' },
+	{ id: '8', cityDetailName: '성북·강북·도봉·노원구' },
+	{ id: '9', cityDetailName: '송파·강동구' },
 ];
 
 const CAPITAL_AREA_DETAIL_LIST = [
-	{ id: 'cityDetail11', cityDetailName: '인천' },
-	{ id: 'cityDetail12', cityDetailName: '경기 중부' },
-	{ id: 'cityDetail13', cityDetailName: '경기 북부' },
-	{ id: 'cityDetail14', cityDetailName: '경기 남부' },
-	{ id: 'cityDetail15', cityDetailName: '경기 동부' },
-	{ id: 'cityDetail16', cityDetailName: '경기 서부' },
+	{ id: '11', cityDetailName: '인천' },
+	{ id: '12', cityDetailName: '경기 중부' },
+	{ id: '13', cityDetailName: '경기 북부' },
+	{ id: '14', cityDetailName: '경기 남부' },
+	{ id: '15', cityDetailName: '경기 동부' },
+	{ id: '16', cityDetailName: '경기 서부' },
 ];
 
 const TOWNINFOTETXT = (
@@ -43,46 +43,36 @@ let SelectContainer = [];
 const WantLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [wantBasicInfo, setWantBasicInfo] = useState({});
-	const [radio, setRadio] = useState({ city: null, cityDetail: wantBasicInfo?.location });
-	useEffect(() => {
-		setWantBasicInfo(JSON.parse(localStorage.getItem('wantBasicInfo')));
-	}, []);
-	useEffect(() => {
-		if (radio.cityDetail) {
-			setErrorMessage(false);
-		}
-	}, [radio.cityDetail]);
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
 	const handlePrevBtn = () => {
 		localStorage.setItem(
-			'wantBasicInfo',
+			'basicInfo',
 			JSON.stringify({
-				...wantBasicInfo,
-				location: radio.cityDetail,
+				...basicInfo,
+				partnerLocation: basicInfo.cityDetail,
 			}),
 		);
 		navigate('/moreInfo');
 	};
 	const handleNextBtn = () => {
-		if (!radio.cityDetail) {
+		if (!basicInfo.cityDetail) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem(
-				'wantBasicInfo',
+				'basicInfo',
 				JSON.stringify({
-					...wantBasicInfo,
-					location: radio.cityDetail,
+					...basicInfo,
+					partnerLocation: basicInfo.cityDetail,
 				}),
 			);
 			navigate('/wantMoreInfo');
 		}
 	};
 	const cityChange = e => {
-		console.log(e.target.name);
 		if (e.target.name === 'city') {
-			setRadio({
-				...radio,
+			setBasicInfo({
+				...basicInfo,
 				[e.target.name]: e.target.value,
 			});
 			return;
@@ -92,12 +82,12 @@ const WantLocation = () => {
 		} else {
 			SelectContainer.push(e.target.value);
 		}
-		setRadio({
-			...radio,
+		setBasicInfo({
+			...basicInfo,
 			[e.target.name]: SelectContainer,
 		});
 	};
-	console.log(radio);
+	console.log(basicInfo);
 	return (
 		<Wrapper titleMessage="만나기 편한 지역을 알려주세요" titleWidth="39rem">
 			{errorMessage && <S.ErrorMessage>지역을 선택해주세요</S.ErrorMessage>}
@@ -107,7 +97,7 @@ const WantLocation = () => {
 
 			<S.CitySelectWrapper>
 				<S.CitySelectInput type="radio" id="Seoul" name="city" value="Seoul" onClick={cityChange} />
-				<S.CitySelectLabel htmlFor="Seoul" focused={radio.city === 'Seoul'}>
+				<S.CitySelectLabel htmlFor="Seoul" focused={basicInfo?.city === 'Seoul'}>
 					서울
 				</S.CitySelectLabel>
 				<S.CitySelectInput
@@ -117,11 +107,11 @@ const WantLocation = () => {
 					value="CapitalArea"
 					onClick={cityChange}
 				/>
-				<S.CitySelectLabel htmlFor="CapitalArea" focused={radio.city === 'CapitalArea'}>
+				<S.CitySelectLabel htmlFor="CapitalArea" focused={basicInfo?.city === 'CapitalArea'}>
 					경기/인천
 				</S.CitySelectLabel>
 			</S.CitySelectWrapper>
-			{radio.city === 'Seoul' && (
+			{basicInfo.city === 'Seoul' && (
 				<S.TownSelectWrapper wrapperWidth="39rem" wrapperHeight="50rem">
 					{SEOUL_DETAIL_LIST.map(city => (
 						<div key={city.id}>
@@ -139,17 +129,8 @@ const WantLocation = () => {
 					))}
 				</S.TownSelectWrapper>
 			)}
-			{/* {radio.city === 'Seoul' && (
-				<S.TownSelectWrapper wrapperWidth={'39rem'} wrapperHeight={'50rem'}>
-					<S.TownSelect>
-						{SEOUL_DETAIL_LIST.map(city => (
-							<S.TownSelectOption>{city.cityDetailName}</S.TownSelectOption>
-						))}
-					</S.TownSelect>
-				</S.TownSelectWrapper>
-			)} */}
 
-			{radio.city === 'CapitalArea' && (
+			{basicInfo.city === 'CapitalArea' && (
 				<S.TownSelectWrapper wrapperWidth="30rem" wrapperHeight="30rem">
 					{CAPITAL_AREA_DETAIL_LIST.map(city => (
 						<div key={city.id}>
@@ -160,7 +141,7 @@ const WantLocation = () => {
 								value={city.id}
 								onClick={cityChange}
 							/>
-							<S.TownSelectLabel htmlFor={city.id} focused={radio.cityDetail === city.id}>
+							<S.TownSelectLabel htmlFor={city.id} focused={SelectContainer.includes(city.id)}>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
