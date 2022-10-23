@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
@@ -37,8 +37,6 @@ const TOWNINFOTETXT = (
 		경기서부: 광명시·김포시·부천시·시흥시·안산시
 	</span>
 );
-
-let SelectContainer = [];
 
 const PartnerLocation = () => {
 	const navigate = useNavigate();

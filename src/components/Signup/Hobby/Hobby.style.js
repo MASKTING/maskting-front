@@ -44,23 +44,24 @@ const ErrorMessage = styled.h1`
 	letter-spacing: 0.08rem;
 `;
 const HobbySelectWrapper = styled.button`
-	background-color: blue;
 	top: 0rem;
 	left: 2.4rem;
 	position: relative;
 	margin-right: ${props => (props.right ? `1.6rem` : null)};
 	margin-bottom: 3rem;
+	cursor: pointer;
+	border: none;
+`;
+
+const HobbySelectLabel = styled.label`
+	display: flex;
 	border: none;
 	border-radius: 2.4rem;
 	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
-	cursor: pointer;
-`;
-const HobbySelectLabel = styled.label`
 	position: relative;
 	width: 100%;
 	height: 4.8rem;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: 0 4.2rem;
