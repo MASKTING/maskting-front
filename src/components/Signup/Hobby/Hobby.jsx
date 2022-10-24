@@ -31,11 +31,14 @@ function Hobby() {
 	const onInvalid = () => {};
 	const [errorMessage, setErrorMessage] = useState(false);
 	const [basicInfo, setBasicInfo] = useState(
-		JSON.parse(localStorage?.getItem('basicInfo')) || { hobby: [] },
+		{
+			...JSON.parse(localStorage?.getItem('basicInfo')),
+			hobby: localStorage?.getItem('basicInfo').hobby || [],
+		} || { hobby: [] },
 	);
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
-	console.log(basicInfo.hobby);
+	console.log(basicInfo.hobby, basicInfo);
 	const hobbyChange = e => {
 		let tmpArr = basicInfo.hobby;
 		if (basicInfo.hobby.includes(e.target.value.toString())) {
