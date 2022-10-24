@@ -42,9 +42,10 @@ const PartnerLocation = () => {
 	const navigate = useNavigate();
 	const [errorMessage, setErrorMessage] = useState(false);
 	const [basicInfo, setBasicInfo] = useState(
-		{ ...JSON.parse(localStorage?.getItem('basicInfo')), partnerLocation: [] } || {
-			partnerLocation: [],
-		},
+		{
+			...JSON.parse(localStorage?.getItem('basicInfo')),
+			partnerLocation: localStorage?.getItem('basicInfo').partnerLocation || [],
+		} || { partnerLocation: [] },
 	);
 
 	const handlePrevBtn = () => {

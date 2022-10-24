@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import * as S from './ProfilePhoto.style';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
@@ -22,6 +22,8 @@ const ProfilePhoto = () => {
 		setIsModal(false);
 	};
 
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+
 	// 이미지 업로드
 	const onUploadImage = useCallback(async e => {
 		if (!e.target.files) {
@@ -31,6 +33,10 @@ const ProfilePhoto = () => {
 		reader.readAsDataURL(imgRef.current.files[0]);
 		reader.onload = async () => {
 			const profileImageSrc = reader.result;
+			localStorage.setItem(
+				'basicInfo',
+				JSON.stringify({ ...basicInfo, profileImage: profileImageSrc }),
+			);
 			navigate('/profileMask', { state: { profileImageSrc } });
 		};
 	}, []);

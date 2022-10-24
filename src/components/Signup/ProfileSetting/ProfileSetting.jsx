@@ -19,10 +19,15 @@ function ProfileSetting() {
 	});
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
 	const [profileImageSrc, setProfileImageSrc] = useState(null);
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
 	// MODAL
 	const [isModal, setIsModal] = useState(false);
 	const onOpenModal = () => {
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
+		);
 		setIsModal(true);
 	};
 	const onCloseModal = () => {
@@ -110,7 +115,7 @@ function ProfileSetting() {
 		onOpenModal();
 	};
 	const handlePrevBtn = () => {
-		navigate('/moreInfo');
+		navigate('/profileMask');
 	};
 
 	return (
