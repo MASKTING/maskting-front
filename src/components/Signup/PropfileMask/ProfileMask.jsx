@@ -6,7 +6,8 @@ import { NavigateButton } from '../../Button';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
-	const [profileImageSrc, setProfileImageSrc] = useState('');
+	const location = useLocation();
+	// const [profileImageSrc, setProfileImageSrc] = useState('');
 	const [isSelectMask, setIsSelectMask] = useState(false);
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
@@ -14,12 +15,8 @@ const ProfileMask = () => {
 		navigate('/profilePhoto');
 	};
 	const handleNextBtn = () => {
-		navigate('/profileSetting', { state: { profileImageSrc } });
+		navigate('/profileSetting');
 	};
-	useEffect(() => {
-		setProfileImageSrc(basicInfo.profileImage);
-	}, []);
-
 	return (
 		<Wrapper>
 			<S.TitleWrapper>
@@ -30,7 +27,7 @@ const ProfileMask = () => {
 			</S.TitleWrapper>
 			<S.Content>
 				<S.ImageWrapper>
-					<S.Image src={profileImageSrc} />
+					<S.Image src={basicInfo.imageDataTemp} />
 				</S.ImageWrapper>
 				{!isSelectMask && (
 					<S.InfoMessage>

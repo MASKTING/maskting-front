@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import * as S from './ProfilePhoto.style';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
+import axios from 'axios';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
-
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const imgRef = useRef();
 	const handlePrevButton = () => {
 		navigate('/partnerMoreInfo');
@@ -22,8 +23,6 @@ const ProfilePhoto = () => {
 		setIsModal(false);
 	};
 
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-
 	// 이미지 업로드
 	const onUploadImage = useCallback(async e => {
 		if (!e.target.files) {
@@ -31,13 +30,19 @@ const ProfilePhoto = () => {
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(imgRef.current.files[0]);
+
+		localStorage.setItem('imageData', e.target.files[0]);
 		reader.onload = async () => {
-			const profileImageSrc = reader.result;
+			console.log(e.target.files[0]);
 			localStorage.setItem(
 				'basicInfo',
-				JSON.stringify({ ...basicInfo, profileImage: profileImageSrc }),
+				JSON.stringify({
+					...basicInfo,
+					imageDataTemp: reader.result,
+				}),
 			);
-			navigate('/profileMask', { state: { profileImageSrc } });
+
+			navigate('/profileMask');
 		};
 	}, []);
 
