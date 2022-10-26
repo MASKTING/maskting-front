@@ -4,10 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
+import axios from 'axios';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
-
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const imgRef = useRef();
 	const handlePrevButton = () => {
 		navigate('/partnerMoreInfo');
@@ -29,9 +30,19 @@ const ProfilePhoto = () => {
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(imgRef.current.files[0]);
+
+		localStorage.setItem('imageData', e.target.files[0]);
 		reader.onload = async () => {
-			const profileImageSrc = reader.result;
-			navigate('/profileMask', { state: { profileImageSrc } });
+			console.log(e.target.files[0]);
+			localStorage.setItem(
+				'basicInfo',
+				JSON.stringify({
+					...basicInfo,
+					imageDataTemp: reader.result,
+				}),
+			);
+
+			navigate('/profileMask');
 		};
 	}, []);
 
