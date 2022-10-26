@@ -30,21 +30,27 @@ function Hobby() {
 	const onValid = () => {};
 	const onInvalid = () => {};
 	const [errorMessage, setErrorMessage] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(
-		{
-			...JSON.parse(localStorage?.getItem('basicInfo')),
-			hobby: localStorage?.getItem('basicInfo').hobby || [],
-		} || { hobby: [] },
-	);
+	const [basicInfo, setBasicInfo] = useState({
+		...JSON.parse(localStorage?.getItem('basicInfo')),
+		hobby: localStorage?.getItem('basicInfo').hobby || [],
+	});
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
+
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
-	console.log(basicInfo.hobby, basicInfo);
 	const hobbyChange = e => {
 		let tmpArr = basicInfo.hobby;
 		if (basicInfo.hobby.includes(e.target.value.toString())) {
-			tmpArr = tmpArr.filter(it => it != e.target.value.toString());
+			tmpArr = tmpArr.filter(it => it !== e.target.value.toString());
 		} else {
-			tmpArr.push(e.target.value);
+			if (basicInfo.hobby.length === 5) {
+				alert('취미는 5개까지 선택 가능합니다.');
+			} else {
+				tmpArr.push(e.target.value);
+			}
 		}
 		setBasicInfo({
 			...basicInfo,
@@ -57,6 +63,7 @@ function Hobby() {
 		setErrorMessage(false);
 		navigate('/location');
 	};
+
 	const handleNextBtn = () => {
 		if (!basicInfo.hobby) {
 			setErrorMessage(true);
@@ -66,7 +73,7 @@ function Hobby() {
 			navigate('/moreInfo');
 		}
 	};
-	console.log(basicInfo.hobby);
+
 	return (
 		<Wrapper titleMessage="무엇에 관심이 있으신가요?" titleWidth={40}>
 			{errorMessage ? (
