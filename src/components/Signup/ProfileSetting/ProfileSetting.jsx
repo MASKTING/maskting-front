@@ -30,22 +30,22 @@ function ProfileSetting() {
 		setIsModal(false);
 	};
 	const handleModalNextBtn = () => {
+		const nicknameInput = watch('nickname');
+		const introduceInput = watch('introduce');
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({ ...basicInfo, nickname: nicknameInput, introduce: introduceInput }),
+		);
 		navigate('/');
 	};
 
 	useEffect(() => {
-		const profileImageSrc = location?.state?.profileImageSrc;
+		const profileImageSrc = basicInfo?.imageDataTemp || '';
 		if (profileImageSrc) setProfileImageSrc(profileImageSrc);
 	}, []);
 
 	// 1. PHOTO
 	const handlePhoto = () => {
-		const nicknameInput = watch('nickname');
-		const introduceInput = watch('introduce');
-		localStorage.setItem(
-			'profileData',
-			JSON.stringify({ nickname: nicknameInput, introduce: introduceInput }),
-		);
 		navigate('/profilePhoto');
 	};
 
