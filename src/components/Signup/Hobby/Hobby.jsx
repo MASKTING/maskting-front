@@ -38,13 +38,16 @@ function Hobby() {
 	);
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
-	console.log(basicInfo.hobby, basicInfo);
 	const hobbyChange = e => {
 		let tmpArr = basicInfo.hobby;
 		if (basicInfo.hobby.includes(e.target.value.toString())) {
 			tmpArr = tmpArr.filter(it => it != e.target.value.toString());
 		} else {
-			tmpArr.push(e.target.value);
+			if (basicInfo.hobby.length === 5) {
+				alert('취미는 5개까지 선택 가능합니다.');
+			} else {
+				tmpArr.push(e.target.value);
+			}
 		}
 		setBasicInfo({
 			...basicInfo,
