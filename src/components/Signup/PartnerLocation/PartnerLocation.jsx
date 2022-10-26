@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
@@ -46,6 +46,10 @@ const PartnerLocation = () => {
 			partnerLocation: [],
 		},
 	);
+
+	useEffect(() => {
+		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
+	}, []);
 
 	const handlePrevBtn = () => {
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
