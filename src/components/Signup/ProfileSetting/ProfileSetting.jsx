@@ -11,10 +11,11 @@ import { NavigateButton } from '../../Button';
 function ProfileSetting() {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
-			nickname: JSON.parse(localStorage.getItem('profileData'))?.nickname,
-			introduce: JSON.parse(localStorage.getItem('profileData'))?.introduce,
+			nickname: basicInfo?.nickname,
+			introduce: basicInfo?.introduce,
 		},
 	});
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
@@ -85,32 +86,18 @@ function ProfileSetting() {
 	const onValid = data => {
 		if (!isThereImage()) return;
 
-		// 서버로 데이터 전송
-		// 아래는 TEST용임
-		axios({
-			method: 'POST',
-			url: 'https://reqres.in/api/login',
-			data: {
-				email: 'eve.holt@reqres.in',
-				password: 'cityslicka',
-			},
-		})
-			.then(res => {
-				console.log(res);
-			})
-			.catch(error => {
-				console.log(error);
-				throw new Error(error);
-			});
-
 		localStorage.setItem(
-			'profileData',
-			JSON.stringify({ nickname: data.nickname, introduce: data.introduce }),
+			'basicInfo',
+			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
 		);
 		onOpenModal();
 	};
 	const handlePrevBtn = () => {
-		navigate('/moreInfo');
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
+		);
+		navigate('/profileMask');
 	};
 
 	return (
