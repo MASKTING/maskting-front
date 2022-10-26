@@ -49,10 +49,10 @@ const HobbySelectWrapper = styled.button`
 	position: relative;
 	margin-right: ${props => (props.right ? `1.6rem` : null)};
 	margin-bottom: 3rem;
-	cursor: pointer;
 	border: none;
+	background: none;
+	cursor: pointer;
 `;
-
 const HobbySelectLabel = styled.label`
 	display: flex;
 	border: none;
