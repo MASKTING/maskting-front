@@ -65,6 +65,7 @@ const PartnerLocation = () => {
 		}
 	};
 	const cityChange = e => {
+		let locArr = basicInfo.partnerLocation || [];
 		if (e.target.name === 'partnerCity') {
 			setBasicInfo({
 				...basicInfo,
@@ -72,14 +73,14 @@ const PartnerLocation = () => {
 			});
 			return;
 		}
-		if (basicInfo.partnerLocation.includes(e.target.value)) {
-			basicInfo.partnerLocation = basicInfo.partnerLocation.filter(it => it !== e.target.value);
+		if (locArr?.includes(e.target.value)) {
+			locArr = locArr.filter(it => it !== e.target.value);
 		} else {
-			basicInfo.partnerLocation.push(e.target.value);
+			locArr.push(e.target.value);
 		}
 		setBasicInfo({
 			...basicInfo,
-			[e.target.name]: basicInfo.partnerLocation,
+			[e.target.name]: locArr,
 		});
 	};
 	return (
@@ -124,7 +125,7 @@ const PartnerLocation = () => {
 							/>
 							<S.TownSelectLabel
 								htmlFor={citySelect.id}
-								focused={basicInfo.partnerLocation.includes(citySelect.id)}
+								focused={basicInfo.partnerLocation?.includes(citySelect.id)}
 							>
 								{citySelect.cityDetailName}
 							</S.TownSelectLabel>
@@ -146,7 +147,7 @@ const PartnerLocation = () => {
 							/>
 							<S.TownSelectLabel
 								htmlFor={citySelect.id}
-								focused={basicInfo.partnerLocation.includes(citySelect.id)}
+								focused={basicInfo.partnerLocation?.includes(citySelect.id)}
 							>
 								{citySelect.cityDetailName}
 							</S.TownSelectLabel>
