@@ -42,11 +42,11 @@ function Hobby() {
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
 	const hobbyChange = e => {
-		let tmpArr = basicInfo.hobby;
-		if (basicInfo.hobby.includes(e.target.value.toString())) {
+		let tmpArr = basicInfo.hobby || [];
+		if (basicInfo.hobby?.includes(e.target.value.toString())) {
 			tmpArr = tmpArr.filter(it => it !== e.target.value.toString());
 		} else {
-			if (basicInfo.hobby.length === 5) {
+			if (basicInfo.hobby?.length === 5) {
 				alert('취미는 5개까지 선택 가능합니다.');
 			} else {
 				tmpArr.push(e.target.value);
@@ -93,13 +93,19 @@ function Hobby() {
 									value={hobby.id}
 									onClick={hobbyChange}
 								/>
-								<S.HobbySelectLabel htmlFor={hobby.id} focused={basicInfo.hobby.includes(hobby.id)}>
+								<S.HobbySelectLabel
+									htmlFor={hobby.id}
+									focused={basicInfo.hobby?.includes(hobby.id)}
+								>
 									{hobby.name}
 								</S.HobbySelectLabel>
 							</S.HobbySelectWrapper>
 						) : (
 							<S.HobbySelectWrapper right={true} key={hobby.id}>
-								<S.HobbySelectLabel htmlFor={hobby.id} focused={basicInfo.hobby.includes(hobby.id)}>
+								<S.HobbySelectLabel
+									htmlFor={hobby.id}
+									focused={basicInfo.hobby?.includes(hobby.id)}
+								>
 									{hobby.name}
 								</S.HobbySelectLabel>
 								<S.HobbySelectInput
