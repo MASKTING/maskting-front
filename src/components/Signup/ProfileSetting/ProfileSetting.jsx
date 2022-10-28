@@ -30,11 +30,18 @@ function ProfileSetting() {
 		setIsModal(false);
 	};
 	const handleModalNextBtn = () => {
-		navigate('/');
+		const formData = new FormData();
+		formData.append('Info', basicInfo);
+		axios.post('/api/user/signup', basicInfo, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		// navigate('/');
 	};
 
 	useEffect(() => {
-		const profileImageSrc = location?.state?.profileImageSrc;
+		const profileImageSrc = basicInfo.profiles || '';
 		if (profileImageSrc) setProfileImageSrc(profileImageSrc);
 	}, []);
 
@@ -72,7 +79,7 @@ function ProfileSetting() {
 
 	// 완료 버튼
 	const isThereImage = () => {
-		const imageSrc = localStorage.getItem('profileImgData');
+		const imageSrc = localStorage.getItem('profiles');
 		if (imageSrc) return true;
 		else {
 			setPhotoErrorMessage('프로필 사진을 설정해주세요');
