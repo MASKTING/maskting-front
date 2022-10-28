@@ -44,8 +44,8 @@ const PartnerLocation = () => {
 	const [basicInfo, setBasicInfo] = useState(
 		{
 			...JSON.parse(localStorage?.getItem('basicInfo')),
-			partnerLocation: localStorage?.getItem('basicInfo').partnerLocation || [],
-		} || { partnerLocation: [] },
+			partnerLocations: localStorage?.getItem('basicInfo').partnerLocations || [],
+		} || { partnerLocations: [] },
 	);
 
 	useEffect(() => {
@@ -57,7 +57,7 @@ const PartnerLocation = () => {
 		navigate('/moreInfo');
 	};
 	const handleNextBtn = () => {
-		if (!basicInfo.partnerLocation) {
+		if (!basicInfo.partnerLocations) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
@@ -65,7 +65,7 @@ const PartnerLocation = () => {
 		}
 	};
 	const cityChange = e => {
-		let locArr = basicInfo.partnerLocation || [];
+		let locArr = basicInfo.partnerLocations || [];
 		if (e.target.name === 'partnerCity') {
 			setBasicInfo({
 				...basicInfo,
@@ -118,14 +118,14 @@ const PartnerLocation = () => {
 						<div key={citySelect.id}>
 							<S.TownSelectInput
 								type="checkbox"
-								id={citySelect.id}
-								name="partnerLocation"
-								value={citySelect.id}
+								id={citySelect.cityDetailName}
+								name="partnerLocations"
+								value={citySelect.cityDetailName}
 								onClick={cityChange}
 							/>
 							<S.TownSelectLabel
-								htmlFor={citySelect.id}
-								focused={basicInfo.partnerLocation?.includes(citySelect.id)}
+								htmlFor={citySelect.cityDetailName}
+								focused={basicInfo.partnerLocations?.includes(citySelect.cityDetailName)}
 							>
 								{citySelect.cityDetailName}
 							</S.TownSelectLabel>
@@ -140,14 +140,14 @@ const PartnerLocation = () => {
 						<div key={citySelect.id}>
 							<S.TownSelectInput
 								type="radio"
-								id={citySelect.id}
-								name="partnerLocation"
-								value={citySelect.id}
+								id={citySelect.cityDetailName}
+								name="partnerLocations"
+								value={citySelect.cityDetailName}
 								onClick={cityChange}
 							/>
 							<S.TownSelectLabel
-								htmlFor={citySelect.id}
-								focused={basicInfo.partnerLocation?.includes(citySelect.id)}
+								htmlFor={citySelect.cityDetailName}
+								focused={basicInfo.partnerLocations?.includes(citySelect.cityDetailName)}
 							>
 								{citySelect.cityDetailName}
 							</S.TownSelectLabel>

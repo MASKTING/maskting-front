@@ -20,7 +20,7 @@ const msg = {
 		4: '+10cm',
 		5: '20cm',
 	},
-	PartnerBodyType: {
+	partnerBodyTypes: {
 		1: '마른',
 		2: '슬림 탄탄한',
 		3: '보통',
@@ -63,34 +63,34 @@ const PartnerMoreInfo = () => {
 					) : (
 						<S.Label>군대 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo.partnerDuty === '군필'}>
+					<S.NarrowButton focused={basicInfo.partnerDuty === 'true'}>
 						<S.RadioLabel htmlFor="군필">군필</S.RadioLabel>
 						<S.NarrowInput
 							type="radio"
 							name="partnerDuty"
 							id="군필"
-							value="군필"
+							value={true}
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerDuty === '미필'}>
+					<S.NarrowButton focused={basicInfo.partnerDuty === 'false'}>
 						<S.RadioLabel htmlFor="미필">미필</S.RadioLabel>
 						<S.NarrowInput
 							type="radio"
 							name="partnerDuty"
 							id="미필"
-							value="미필"
+							value={false}
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerDuty === 'dutyAny'}>
+					<S.NarrowButton focused={basicInfo.partnerDuty === 'any'}>
 						<S.RadioMediumLabel htmlFor="dutyAny">
 							상관없어요
 							<S.NarrowInput
 								type="radio"
 								name="partnerDuty"
 								id="dutyAny"
-								value="dutyAny"
+								value="any"
 								onClick={radioChange}
 							/>
 						</S.RadioMediumLabel>
@@ -102,94 +102,94 @@ const PartnerMoreInfo = () => {
 					) : (
 						<S.Label>흡연 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo.partnerSmoking === '흡연'}>
+					<S.NarrowButton focused={basicInfo.partnerSmoking === 'true'}>
 						<S.RadioLabel htmlFor="흡연">
 							흡연
 							<S.NarrowInput
 								type="radio"
 								name="partnerSmoking"
 								id="흡연"
-								value="흡연"
+								value={true}
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerSmoking === '비흡연'}>
+					<S.NarrowButton focused={basicInfo.partnerSmoking === 'false'}>
 						<S.RadioLabel htmlFor="비흡연">
 							비흡연
 							<S.NarrowInput
 								type="radio"
 								name="partnerSmoking"
 								id="비흡연"
-								value="비흡연"
+								value={false}
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerSmoking === 'smokingAny'}>
+					<S.NarrowButton focused={basicInfo.partnerSmoking === 'any'}>
 						<S.RadioMediumLabel htmlFor="smokingAny">
 							상관없어요
 							<S.NarrowInput
 								type="radio"
 								name="partnerSmoking"
 								id="smokingAny"
-								value="smokingAny"
+								value="any"
 								onClick={radioChange}
 							/>
 						</S.RadioMediumLabel>
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && basicInfo.partnerReligion === null ? (
+					{submit && basicInfo.partnerReligions === null ? (
 						<S.ErrorMessage>종교를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel>종교</S.LongLabel>
 					)}
-					<S.NarrowButton focused={basicInfo.partnerReligion === '기독교'}>
+					<S.NarrowButton focused={basicInfo.partnerReligions === '기독교'}>
 						<S.RadioMediumLabel htmlFor="기독교">기독교</S.RadioMediumLabel>
 						<S.NarrowInput
 							type="radio"
-							name="partnerReligion"
+							name="partnerReligions"
 							id="기독교"
 							value="기독교"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerReligion === '천주교'}>
+					<S.NarrowButton focused={basicInfo.partnerReligions === '천주교'}>
 						<S.RadioMediumLabel htmlFor="천주교">천주교</S.RadioMediumLabel>
 						<S.NarrowInput
 							type="radio"
-							name="partnerReligion"
+							name="partnerReligions"
 							id="천주교"
 							value="천주교"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerReligion === '불교'}>
+					<S.NarrowButton focused={basicInfo.partnerReligions === '불교'}>
 						<S.RadioMediumLabel htmlFor="불교">불교</S.RadioMediumLabel>
 						<S.NarrowInput
 							type="radio"
-							name="partnerReligion"
+							name="partnerReligions"
 							id="불교"
 							value="불교"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerReligion === '기타'}>
+					<S.NarrowButton focused={basicInfo.partnerReligions === '기타'}>
 						<S.RadioMediumLabel htmlFor="기타">기타</S.RadioMediumLabel>
 						<S.NarrowInput
 							type="radio"
-							name="partnerReligion"
+							name="partnerReligions"
 							id="기타"
 							value="기타"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.partnerReligion === '무교'}>
+					<S.NarrowButton focused={basicInfo.partnerReligions === '무교'}>
 						<S.RadioWideLabel htmlFor="무교">무교</S.RadioWideLabel>
 						<S.NarrowInput
 							type="radio"
-							name="partnerReligion"
+							name="partnerReligions"
 							id="무교"
 							value="무교"
 							onClick={radioChange}
@@ -254,25 +254,25 @@ const PartnerMoreInfo = () => {
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.PartnerBodyType === null ? (
+					{submit && basicInfo.partnerBodyTypes === null ? (
 						<S.ErrorMessage>체형을 선택해주세요</S.ErrorMessage>
 					) : (
-						<S.LongLabel htmlFor="PartnerBodyType">
+						<S.LongLabel htmlFor="partnerBodyTypes">
 							체형
-							{basicInfo.PartnerBodyType !== null ? (
+							{basicInfo.partnerBodyTypes !== null ? (
 								<S.DegreeMessage>
-									<S.Red>{msg.PartnerBodyType[basicInfo.PartnerBodyType]}</S.Red> 체형이 좋아요
+									<S.Red>{msg.partnerBodyTypes[basicInfo.partnerBodyTypes]}</S.Red> 체형이 좋아요
 								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
 					)}
 					<S.Slider
 						type="range"
-						name="PartnerBodyType"
+						name="partnerBodyTypes"
 						min="1"
 						max="6"
 						step="1"
-						degree={(parseInt(basicInfo.PartnerBodyType) - 1) * 20}
+						degree={(parseInt(basicInfo.partnerBodyTypes) - 1) * 20}
 						onChange={radioChange}
 					/>
 				</S.BasicInfoWrapper>

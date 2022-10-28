@@ -38,7 +38,7 @@ const ProfilePhoto = () => {
 				'basicInfo',
 				JSON.stringify({
 					...basicInfo,
-					imageDataTemp: reader.result,
+					profiles: reader.result,
 				}),
 			);
 
