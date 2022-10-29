@@ -10,7 +10,6 @@ import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
 	const navigate = useNavigate();
-	const location = useLocation();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
@@ -30,7 +29,6 @@ function ProfileSetting() {
 		setIsModal(false);
 	};
 	const handleModalNextBtn = () => {
-
 		const formData = new FormData();
 		formData.append('Info', basicInfo);
 		axios.post('/api/user/signup', basicInfo, {
@@ -41,23 +39,16 @@ function ProfileSetting() {
 		// navigate('/');
 	};
 
-	useEffect(() => {
-		const profileImageSrc = basicInfo.profiles || '';
+	// useEffect(() => {
 
-		const nicknameInput = watch('nickname');
-		const introduceInput = watch('introduce');
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({ ...basicInfo, nickname: nicknameInput, introduce: introduceInput }),
-		);
-		navigate('/');
-	};
-
-	useEffect(() => {
-		const profileImageSrc = basicInfo?.imageDataTemp || '';
-
-		if (profileImageSrc) setProfileImageSrc(profileImageSrc);
-	}, []);
+	// 	const nicknameInput = watch('nickname');
+	// 	const introduceInput = watch('introduce');
+	// 	localStorage.setItem(
+	// 		'basicInfo',
+	// 		JSON.stringify({ ...basicInfo, nickname: nicknameInput, introduce: introduceInput }),
+	// 	);
+	// 	navigate('/');
+	// }
 
 	// 1. PHOTO
 	const handlePhoto = () => {
