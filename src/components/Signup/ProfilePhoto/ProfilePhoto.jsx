@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
-import axios from 'axios';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
@@ -29,8 +28,9 @@ const ProfilePhoto = () => {
 			return;
 		}
 		const reader = new FileReader();
-		reader.readAsDataURL(imgRef.current.files[0]);
+		// reader.readAsDataURL(imgRef.current.files[0]);
 		localStorage.setItem('imageData', e.target.files[0]);
+
 		reader.onload = async () => {
 			localStorage.setItem('profilePreview', reader.result);
 			navigate('/profileMask');

@@ -9,6 +9,18 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
+	const dataURLtoFile = (dataurl, fileName) => {
+		var arr = dataurl.split(','),
+			mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]),
+			n = bstr.length,
+			u8arr = new Uint8Array(n);
+
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+		return new File([u8arr], fileName, { type: mime });
+	};
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(
@@ -32,7 +44,6 @@ function ProfileSetting() {
 	};
 
 	const testData = {
-		profiles: 'test.png',
 		name: 'test',
 		email: 'test@gmail.com',
 		gender: 'male',
@@ -49,7 +60,7 @@ function ProfileSetting() {
 		height: 181,
 		bodyType: 3,
 		religion: '무교',
-		nicknam: '알콜쟁이 라이언',
+		nickname: '알콜쟁이 라이언',
 		partnerLocations: '경기 북부',
 		partnerDuty: 'any',
 		partnerSmoking: 'any',
@@ -58,42 +69,27 @@ function ProfileSetting() {
 		partnerMinHeight: 160,
 		partnerMaxHeight: 170,
 		partnerBodyTypes: 2,
+		bio: 'aa',
 	};
-
+	// readAsDataURl;
 	const handleModalNextBtn = async () => {
 		const formData = new FormData();
-		// const blob = new Blob(
-		// 	[
-		// 		JSON.stringify({
-		// 			...basicInfo,
-		// 			nickname: watch('nickname'),
-		// 			introduce: watch('introduce'),
-		// 			profiles: localStorage.getItem('imageData'),
-		// 		}),
-		// 	],
-		// 	{ type: 'application/json' },
-		// );
+		// formData.append('profiles[]', JSON.stringify(testData));
+		formData.append('profiles', dataURLtoFile(localStorage.getItem('profilePreview'), 'image.png'));
+		// base64>file
+		formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
+		// const reader = new FileReader();
 
-		// const blob = new Blob([JSON.stringify(testData)]);
-
-		formData.append('profiles', 'test.png');
-		formData.append('name', 'test');
-
-		// formData.append('Info', blob);
-
-		// axios
-		// 	.post(`/api/user/signup`, formData)
-		// 	.then(response => console.log(response))
-		// 	.catch(error => console.log(error));
+		// console.log(new Blob([reader.readAsDataURL(localStorage.getItem('profilePreview'))]));
 
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
-			mode: 'cors',
+			// mode: 'cors',
 			headers: {
 				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
 			},
-			data: basicInfo, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
 		}).then(response => {
 			console.log(response);
 		});
