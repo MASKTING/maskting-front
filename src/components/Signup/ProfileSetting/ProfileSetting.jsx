@@ -30,6 +30,7 @@ function ProfileSetting() {
 		setIsModal(false);
 	};
 	const handleModalNextBtn = () => {
+
 		const formData = new FormData();
 		formData.append('Info', basicInfo);
 		axios.post('/api/user/signup', basicInfo, {
@@ -42,17 +43,24 @@ function ProfileSetting() {
 
 	useEffect(() => {
 		const profileImageSrc = basicInfo.profiles || '';
+
+		const nicknameInput = watch('nickname');
+		const introduceInput = watch('introduce');
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({ ...basicInfo, nickname: nicknameInput, introduce: introduceInput }),
+		);
+		navigate('/');
+	};
+
+	useEffect(() => {
+		const profileImageSrc = basicInfo?.imageDataTemp || '';
+
 		if (profileImageSrc) setProfileImageSrc(profileImageSrc);
 	}, []);
 
 	// 1. PHOTO
 	const handlePhoto = () => {
-		const nicknameInput = watch('nickname');
-		const introduceInput = watch('introduce');
-		localStorage.setItem(
-			'profileData',
-			JSON.stringify({ nickname: nicknameInput, introduce: introduceInput }),
-		);
 		navigate('/profilePhoto');
 	};
 
