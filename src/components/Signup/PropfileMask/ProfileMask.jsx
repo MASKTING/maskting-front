@@ -10,6 +10,9 @@ const ProfileMask = () => {
 	// const [profileImageSrc, setProfileImageSrc] = useState('');
 	const [isSelectMask, setIsSelectMask] = useState(false);
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+	const [profilePreview, setProfilePreview] = useState(
+		localStorage?.getItem('profilePreview') || {},
+	);
 
 	const handlePrevBtn = () => {
 		navigate('/profilePhoto');
@@ -27,7 +30,7 @@ const ProfileMask = () => {
 			</S.TitleWrapper>
 			<S.Content>
 				<S.ImageWrapper>
-					<S.Image src={basicInfo.profiles} />
+					<S.Image src={profilePreview} />
 				</S.ImageWrapper>
 				{!isSelectMask && (
 					<S.InfoMessage>

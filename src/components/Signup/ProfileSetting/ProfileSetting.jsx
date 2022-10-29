@@ -11,6 +11,9 @@ import { NavigateButton } from '../../Button';
 function ProfileSetting() {
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+	const [profilePreview, setProfilePreview] = useState(
+		localStorage?.getItem('profilePreview') || {},
+	);
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
@@ -18,7 +21,6 @@ function ProfileSetting() {
 		},
 	});
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
-	const [profileImageSrc, setProfileImageSrc] = useState(null);
 
 	// MODAL
 	const [isModal, setIsModal] = useState(false);
@@ -28,27 +30,22 @@ function ProfileSetting() {
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
+	console.log(watch('nickname'));
 	const handleModalNextBtn = () => {
 		const formData = new FormData();
 		formData.append('Info', basicInfo);
-		axios.post('/api/user/signup', basicInfo, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
+
+		axios.post(
+			'/api/user/signup',
+			{ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') },
+			{
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
 			},
-		});
+		);
 		// navigate('/');
 	};
-
-	// useEffect(() => {
-
-	// 	const nicknameInput = watch('nickname');
-	// 	const introduceInput = watch('introduce');
-	// 	localStorage.setItem(
-	// 		'basicInfo',
-	// 		JSON.stringify({ ...basicInfo, nickname: nicknameInput, introduce: introduceInput }),
-	// 	);
-	// 	navigate('/');
-	// }
 
 	// 1. PHOTO
 	const handlePhoto = () => {
@@ -105,6 +102,7 @@ function ProfileSetting() {
 		);
 		navigate('/profileMask');
 	};
+	// console.log(basicInfo.profiles);
 
 	return (
 		<Wrapper>
@@ -130,7 +128,7 @@ function ProfileSetting() {
 					<S.PhotoInfoWrapper>
 						{photoErrorMessage && <S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>}
 						<S.PhotoBox>
-							<S.PhotoImage htmlFor="ProfilePhoto" src={profileImageSrc} />
+							<S.PhotoImage htmlFor="ProfilePhoto" src={profilePreview} />
 							<S.PhotoLogo className="material-icons" onClick={handlePhoto}>
 								edit
 							</S.PhotoLogo>
