@@ -30,6 +30,7 @@ function ProfileSetting() {
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
+
 	const testData = {
 		profiles: 'test.png',
 		name: 'test',
@@ -58,6 +59,7 @@ function ProfileSetting() {
 		partnerMaxHeight: 170,
 		partnerBodyTypes: 2,
 	};
+
 	const handleModalNextBtn = async () => {
 		const formData = new FormData();
 		// const blob = new Blob(
@@ -71,10 +73,19 @@ function ProfileSetting() {
 		// 	],
 		// 	{ type: 'application/json' },
 		// );
-		const blob = new Blob([JSON.stringify(testData)]);
 
-		formData.append('Info', blob);
-		console.log(blob, formData);
+		// const blob = new Blob([JSON.stringify(testData)]);
+
+		formData.append('profiles', 'test.png');
+		formData.append('name', 'test');
+
+		// formData.append('Info', blob);
+
+		// axios
+		// 	.post(`/api/user/signup`, formData)
+		// 	.then(response => console.log(response))
+		// 	.catch(error => console.log(error));
+
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
@@ -82,7 +93,7 @@ function ProfileSetting() {
 			headers: {
 				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
 			},
-			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+			data: basicInfo, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
 		}).then(response => {
 			console.log(response);
 		});
