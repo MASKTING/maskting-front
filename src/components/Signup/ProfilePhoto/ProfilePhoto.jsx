@@ -30,17 +30,8 @@ const ProfilePhoto = () => {
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(imgRef.current.files[0]);
-
-		// localStorage.setItem('imageData', );
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				profiles: e.target.files[0],
-			}),
-		);
+		localStorage.setItem('imageData', e.target.files[0]);
 		reader.onload = async () => {
-			console.log(e.target.files[0]);
 			localStorage.setItem('profilePreview', reader.result);
 			navigate('/profileMask');
 		};
