@@ -30,21 +30,62 @@ function ProfileSetting() {
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
-	console.log(watch('nickname'));
-	const handleModalNextBtn = () => {
+	const testData = {
+		profiles: 'test.png',
+		name: 'test',
+		email: 'test@gmail.com',
+		gender: 'male',
+		birth: '19990815',
+		location: '경기 북부',
+		occupation: '대학생',
+		phone: '01012345678',
+		providerId: 'testProviderId',
+		provider: 'google',
+		interests: '산책',
+		duty: true,
+		smoking: false,
+		drinking: 5,
+		height: 181,
+		bodyType: 3,
+		religion: '무교',
+		nicknam: '알콜쟁이 라이언',
+		partnerLocations: '경기 북부',
+		partnerDuty: 'any',
+		partnerSmoking: 'any',
+		partnerReligions: '무교',
+		partnerDrinking: 1,
+		partnerMinHeight: 160,
+		partnerMaxHeight: 170,
+		partnerBodyTypes: 2,
+	};
+	const handleModalNextBtn = async () => {
 		const formData = new FormData();
-		formData.append('Info', basicInfo);
+		// const blob = new Blob(
+		// 	[
+		// 		JSON.stringify({
+		// 			...basicInfo,
+		// 			nickname: watch('nickname'),
+		// 			introduce: watch('introduce'),
+		// 			profiles: localStorage.getItem('imageData'),
+		// 		}),
+		// 	],
+		// 	{ type: 'application/json' },
+		// );
+		const blob = new Blob([JSON.stringify(testData)]);
 
-		axios.post(
-			'/api/user/signup',
-			{ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') },
-			{
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
+		formData.append('Info', blob);
+		console.log(blob, formData);
+		await axios({
+			method: 'POST',
+			url: `/api/user/signup`,
+			mode: 'cors',
+			headers: {
+				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
 			},
-		);
-		// navigate('/');
+			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+		}).then(response => {
+			console.log(response);
+		});
 	};
 
 	// 1. PHOTO
