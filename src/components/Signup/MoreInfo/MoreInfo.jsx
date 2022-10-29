@@ -33,6 +33,7 @@ function MoreInfo() {
 
 	const radioChange = e => {
 		e.preventDefault();
+		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
@@ -69,13 +70,13 @@ function MoreInfo() {
 					) : (
 						<S.Label>군대 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo?.duty === '군필'}>
+					<S.NarrowButton focused={basicInfo?.duty === 'true'}>
 						<S.RadioLabel htmlFor="군필">군필</S.RadioLabel>
-						<S.NarrowInput type="radio" name="duty" id="군필" value="군필" onClick={radioChange} />
+						<S.NarrowInput type="radio" name="duty" id="군필" value={true} onClick={radioChange} />
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo?.duty === '미필'}>
+					<S.NarrowButton focused={basicInfo?.duty === 'false'}>
 						<S.RadioLabel htmlFor="미필">미필</S.RadioLabel>
-						<S.NarrowInput type="radio" name="duty" id="미필" value="미필" onClick={radioChange} />
+						<S.NarrowInput type="radio" name="duty" id="미필" value={false} onClick={radioChange} />
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
@@ -84,26 +85,26 @@ function MoreInfo() {
 					) : (
 						<S.Label>흡연 여부</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo?.smoking === '흡연'}>
+					<S.NarrowButton focused={basicInfo?.smoking === 'true'}>
 						<S.RadioLabel htmlFor="흡연">
 							흡연
 							<S.NarrowInput
 								type="radio"
 								name="smoking"
 								id="흡연"
-								value="흡연"
+								value={true}
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo?.smoking === '비흡연'}>
+					<S.NarrowButton focused={basicInfo?.smoking === 'false'}>
 						<S.RadioLabel htmlFor="비흡연">
 							비흡연
 							<S.NarrowInput
 								type="radio"
 								name="smoking"
 								id="비흡연"
-								value="비흡연"
+								value={false}
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>

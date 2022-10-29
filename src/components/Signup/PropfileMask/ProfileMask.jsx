@@ -27,7 +27,7 @@ const ProfileMask = () => {
 			</S.TitleWrapper>
 			<S.Content>
 				<S.ImageWrapper>
-					<S.Image src={basicInfo.imageDataTemp} />
+					<S.Image src={basicInfo.profiles} />
 				</S.ImageWrapper>
 				{!isSelectMask && (
 					<S.InfoMessage>

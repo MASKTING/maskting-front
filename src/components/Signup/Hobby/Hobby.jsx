@@ -32,7 +32,7 @@ function Hobby() {
 	const [errorMessage, setErrorMessage] = useState(false);
 	const [basicInfo, setBasicInfo] = useState({
 		...JSON.parse(localStorage?.getItem('basicInfo')),
-		hobby: localStorage?.getItem('basicInfo').hobby || [],
+		interests: localStorage?.getItem('basicInfo').interests || [],
 	});
 
 	useEffect(() => {
@@ -41,12 +41,12 @@ function Hobby() {
 
 	const { handleSubmit } = useForm();
 	const navigate = useNavigate();
-	const hobbyChange = e => {
-		let tmpArr = basicInfo.hobby || [];
-		if (basicInfo.hobby?.includes(e.target.value.toString())) {
+	const interestsChange = e => {
+		let tmpArr = basicInfo.interests || [];
+		if (basicInfo.interests?.includes(e.target.value.toString())) {
 			tmpArr = tmpArr.filter(it => it !== e.target.value.toString());
 		} else {
-			if (basicInfo.hobby?.length === 5) {
+			if (basicInfo.interests?.length === 5) {
 				alert('취미는 5개까지 선택 가능합니다.');
 			} else {
 				tmpArr.push(e.target.value);
@@ -65,7 +65,7 @@ function Hobby() {
 	};
 
 	const handleNextBtn = () => {
-		if (!basicInfo.hobby) {
+		if (!basicInfo.interests) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
@@ -83,37 +83,38 @@ function Hobby() {
 			)}
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
 				<S.Content>
-					{HOBBY_LIST.map(hobby =>
-						hobby.id % 2 === 0 ? (
-							<S.HobbySelectWrapper key={hobby.id}>
-								<S.HobbySelectInput
-									type="radio"
-									id={hobby.id}
-									name="hobby"
-									value={hobby.id}
-									onClick={hobbyChange}
-								/>
+					{HOBBY_LIST.map(interests =>
+						interests.id % 2 === 0 ? (
+							<S.HobbySelectWrapper key={interests.id}>
 								<S.HobbySelectLabel
-									htmlFor={hobby.id}
-									focused={basicInfo.hobby?.includes(hobby.id)}
+									htmlFor={interests.name}
+									focused={basicInfo.interests?.includes(interests.name)}
 								>
-									{hobby.name}
+									<S.HobbySelectInput
+										type="radio"
+										id={interests.name}
+										name="interests"
+										value={interests.name}
+										onClick={interestsChange}
+									/>
+
+									{interests.name}
 								</S.HobbySelectLabel>
 							</S.HobbySelectWrapper>
 						) : (
-							<S.HobbySelectWrapper right={true} key={hobby.id}>
+							<S.HobbySelectWrapper right={true} key={interests.id}>
 								<S.HobbySelectLabel
-									htmlFor={hobby.id}
-									focused={basicInfo.hobby?.includes(hobby.id)}
+									htmlFor={interests.name}
+									focused={basicInfo.interests?.includes(interests.name)}
 								>
-									{hobby.name}
+									{interests.name}
 								</S.HobbySelectLabel>
 								<S.HobbySelectInput
 									type="radio"
-									id={hobby.id}
-									name="hobby"
-									value={hobby.id}
-									onClick={hobbyChange}
+									id={interests.name}
+									name="interests"
+									value={interests.name}
+									onClick={interestsChange}
 								/>
 							</S.HobbySelectWrapper>
 						),

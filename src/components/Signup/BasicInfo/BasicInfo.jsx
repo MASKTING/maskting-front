@@ -62,23 +62,23 @@ function BasicInfo() {
 					) : (
 						<S.Label>성별</S.Label>
 					)}
-					<S.NarrowButton focused={basicInfo.gender === 'Male'}>
+					<S.NarrowButton focused={basicInfo.gender === 'male'}>
 						<S.NarrowInput
 							type="radio"
 							name="gender"
 							id="Male"
-							value="Male"
+							value="male"
 							onClick={radioChange}
 						/>
 						<S.RadioLabel htmlFor="Male">남자</S.RadioLabel>
 					</S.NarrowButton>
-					<S.NarrowButton focused={basicInfo.gender === 'Female'}>
+					<S.NarrowButton focused={basicInfo.gender === 'female'}>
 						<S.RadioLabel htmlFor="Female">여자</S.RadioLabel>
 						<S.NarrowInput
 							type="radio"
 							name="gender"
 							id="Female"
-							value="Female"
+							value="female"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>

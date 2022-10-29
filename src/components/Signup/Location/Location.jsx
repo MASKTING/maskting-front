@@ -44,27 +44,15 @@ const Location = () => {
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 
 	const handlePrevBtn = () => {
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				location: basicInfo.cityDetail,
-			}),
-		);
+		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		navigate('/basicInfo', { state: { basicInfo } });
 	};
 
 	const handleNextBtn = () => {
-		if (!basicInfo.cityDetail) {
+		if (!basicInfo.location) {
 			setErrorMessage(true);
 		} else {
-			localStorage.setItem(
-				'basicInfo',
-				JSON.stringify({
-					...basicInfo,
-					location: basicInfo.cityDetail,
-				}),
-			);
+			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/hobby');
 		}
 	};
@@ -101,11 +89,14 @@ const Location = () => {
 							<S.TownSelectInput
 								type="radio"
 								id={city.id}
-								name="cityDetail"
-								value={city.id}
+								name="location"
+								value={city.cityDetailName}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo?.cityDetail === city.id}>
+							<S.TownSelectLabel
+								htmlFor={city.id}
+								focused={basicInfo?.location === city.cityDetailName}
+							>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
@@ -119,11 +110,14 @@ const Location = () => {
 							<S.TownSelectInput
 								type="radio"
 								id={city.id}
-								name="cityDetail"
-								value={city.id}
+								name="location"
+								value={city.cityDetailName}
 								onClick={cityChange}
 							></S.TownSelectInput>
-							<S.TownSelectLabel htmlFor={city.id} focused={basicInfo?.cityDetail === city.id}>
+							<S.TownSelectLabel
+								htmlFor={city.id}
+								focused={basicInfo?.location === city.cityDetailName}
+							>
 								{city.cityDetailName}
 							</S.TownSelectLabel>
 						</div>
