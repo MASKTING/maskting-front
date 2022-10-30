@@ -4,14 +4,16 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
+import { atom, useRecoilState } from 'recoil';
+import imageState from '../../../recoil';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const imgRef = useRef();
 	const handlePrevButton = () => {
 		navigate('/partnerMoreInfo');
 	};
+	const [imageFile, setImageFile] = useRecoilState(imageState);
 
 	const [isModal, setIsModal] = useState(false);
 	const onOpenModal = () => {
@@ -38,7 +40,7 @@ const ProfilePhoto = () => {
 			localStorage.setItem('imageData', dataurl);
 			navigate('/profileMask');
 		});
-
+		setImageFile(e.target.files[0]);
 		// const reader = new FileReader();
 		// reader.readAsDataURL(imgRef.current.files[0]);
 		// reader.onload = async () => {

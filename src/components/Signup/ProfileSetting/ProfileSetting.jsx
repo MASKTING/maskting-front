@@ -62,7 +62,7 @@ function ProfileSetting() {
 		height: 181,
 		bodyType: 3,
 		religion: '무교',
-		nickname: '알콜쟁이 라이언',
+		nickname: '박규성',
 		partnerLocations: '경기 북부',
 		partnerDuty: 'any',
 		partnerSmoking: 'any',
