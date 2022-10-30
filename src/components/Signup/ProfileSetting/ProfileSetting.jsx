@@ -9,6 +9,18 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
+	function dataURLtoBlob(dataurl) {
+		let arr = dataurl.split(','),
+			mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]),
+			n = bstr.length,
+			u8arr = new Uint8Array(n);
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+		return new Blob([u8arr], { type: mime });
+	}
+
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(
@@ -30,21 +42,58 @@ function ProfileSetting() {
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
-	console.log(watch('nickname'));
-	const handleModalNextBtn = () => {
-		const formData = new FormData();
-		formData.append('Info', basicInfo);
 
-		axios.post(
-			'/api/user/signup',
-			{ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') },
-			{
-				headers: {
-					'Content-Type': 'multipart/form-data',
-				},
+	const testData = {
+		name: 'test',
+		email: 'test@gmail.com',
+		gender: 'male',
+		birth: '19990815',
+		location: '경기 북부',
+		occupation: '대학생',
+		phone: '01012345678',
+		providerId: 'testProviderId',
+		provider: 'google',
+		interests: '산책',
+		duty: true,
+		smoking: false,
+		drinking: 5,
+		height: 181,
+		bodyType: 3,
+		religion: '무교',
+		nickname: '알콜쟁이 라이언',
+		partnerLocations: '경기 북부',
+		partnerDuty: 'any',
+		partnerSmoking: 'any',
+		partnerReligions: '무교',
+		partnerDrinking: 1,
+		partnerMinHeight: 160,
+		partnerMaxHeight: 170,
+		partnerBodyTypes: 2,
+		bio: 'aa',
+	};
+	// readAsDataURl;
+	const handleModalNextBtn = async () => {
+		const formData = new FormData();
+		formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
+		// base64>file
+		for (let [key, value] of Object.entries(testData)) {
+			formData.append(key, value);
+		}
+		// formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
+		// const reader = new FileReader();
+
+		// console.log(new Blob([reader.readAsDataURL(localStorage.getItem('profilePreview'))]));
+
+		await axios({
+			method: 'post',
+			url: `http://ec2-43-200-206-130.ap-northeast-2.compute.amazonaws.com:8080/api/user/signup`,
+			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+			headers: {
+				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
 			},
-		);
-		// navigate('/');
+		}).then(response => {
+			console.log(response);
+		});
 	};
 
 	// 1. PHOTO

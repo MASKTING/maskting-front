@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
 import pick_example1 from '../../../assets/pic_example1.svg';
-import axios from 'axios';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
@@ -23,27 +22,22 @@ const ProfilePhoto = () => {
 		setIsModal(false);
 	};
 
+	function blobToDataURL(blob, callback) {
+		let a = new FileReader();
+		a.onload = function (e) {
+			callback(e.target.result);
+		};
+		a.readAsDataURL(blob);
+	}
 	// 이미지 업로드
 	const onUploadImage = useCallback(async e => {
 		if (!e.target.files) {
 			return;
 		}
-		const reader = new FileReader();
-		reader.readAsDataURL(imgRef.current.files[0]);
-
-		// localStorage.setItem('imageData', );
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				profiles: e.target.files[0],
-			}),
-		);
-		reader.onload = async () => {
-			console.log(e.target.files[0]);
-			localStorage.setItem('profilePreview', reader.result);
-			navigate('/profileMask');
-		};
+		blobToDataURL(e.target.files[0], dataurl => {
+			localStorage.setItem('imageData', dataurl);
+		});
+		navigate('/profileMask');
 	}, []);
 
 	return (
