@@ -9,11 +9,8 @@ const ProfileMask = () => {
 	const location = useLocation();
 	// const [profileImageSrc, setProfileImageSrc] = useState('');
 	const [isSelectMask, setIsSelectMask] = useState(false);
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-	const [profilePreview, setProfilePreview] = useState(
-		localStorage?.getItem('profilePreview') || {},
-	);
-
+	const [profilePreview, setProfilePreview] = useState(localStorage.getItem('profilePreview'));
+	console.log(profilePreview);
 	const handlePrevBtn = () => {
 		navigate('/profilePhoto');
 	};
