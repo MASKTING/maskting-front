@@ -38,6 +38,14 @@ const ProfilePhoto = () => {
 			localStorage.setItem('imageData', dataurl);
 		});
 		navigate('/profileMask');
+		const reader = new FileReader();
+		// reader.readAsDataURL(imgRef.current.files[0]);
+		localStorage.setItem('imageData', e.target.files[0]);
+
+		reader.onload = async () => {
+			localStorage.setItem('profilePreview', reader.result);
+			navigate('/profileMask');
+		};
 	}, []);
 
 	return (
