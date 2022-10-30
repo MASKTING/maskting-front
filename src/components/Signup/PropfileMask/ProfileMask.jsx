@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
 import Wrapper from '../../Wrapper';
 import { NavigateButton } from '../../Button';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	// const [profileImageSrc, setProfileImageSrc] = useState('');
 	const [isSelectMask, setIsSelectMask] = useState(false);
-	const [profilePreview, setProfilePreview] = useState(localStorage.getItem('profilePreview'));
-	console.log(profilePreview);
+	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
+
 	const handlePrevBtn = () => {
 		navigate('/profilePhoto');
 	};

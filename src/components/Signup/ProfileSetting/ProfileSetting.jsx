@@ -9,11 +9,21 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
+	function dataURLtoBlob(dataurl) {
+		let arr = dataurl.split(','),
+			mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]),
+			n = bstr.length,
+			u8arr = new Uint8Array(n);
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+		return new Blob([u8arr], { type: mime });
+	}
+
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-	const [profilePreview, setProfilePreview] = useState(
-		localStorage?.getItem('profilePreview') || {},
-	);
+	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData') || {});
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
@@ -59,31 +69,20 @@ function ProfileSetting() {
 		partnerBodyTypes: 2,
 		bio: 'aa',
 	};
-	// readAsDataURl;
 	const handleModalNextBtn = async () => {
 		const formData = new FormData();
-		// formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
-		// base64>file
+		formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
 		for (let [key, value] of Object.entries(testData)) {
 			formData.append(key, value);
 		}
-		// formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
-		// formData.append('profiles[]', JSON.stringify(testData));
-		// formData.append('profiles', dataURLtoFile(localStorage.getItem('profilePreview'), 'image.png'));
-		// formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
-
-		// const reader = new FileReader();
-
-		// console.log(new Blob([reader.readAsDataURL(localStorage.getItem('profilePreview'))]));
 
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
-			// mode: 'cors',
 			headers: {
-				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
+				'Content-Type': 'multipart/form-data',
 			},
-			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+			data: formData,
 		}).then(response => {
 			console.log(response);
 		});

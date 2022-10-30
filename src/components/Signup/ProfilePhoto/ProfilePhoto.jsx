@@ -36,15 +36,14 @@ const ProfilePhoto = () => {
 		}
 		blobToDataURL(e.target.files[0], dataurl => {
 			localStorage.setItem('imageData', dataurl);
-		});
-		navigate('/profileMask');
-		const reader = new FileReader();
-		reader.readAsDataURL(imgRef.current.files[0]);
-
-		reader.onload = async () => {
-			localStorage.setItem('profilePreview', reader.result);
 			navigate('/profileMask');
-		};
+		});
+
+		// const reader = new FileReader();
+		// reader.readAsDataURL(imgRef.current.files[0]);
+		// reader.onload = async () => {
+		// localStorage.setItem('profilePreview', reader.result);
+		// };
 	}, []);
 
 	return (
