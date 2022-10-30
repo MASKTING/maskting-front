@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
 import Wrapper from '../../Wrapper';
 import { NavigateButton } from '../../Button';
+import { useRecoilState } from 'recoil';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
 	const [isSelectMask, setIsSelectMask] = useState(false);
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
-
 	const handlePrevBtn = () => {
 		navigate('/profilePhoto');
 	};

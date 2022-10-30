@@ -7,6 +7,8 @@ import Modal from '../../Modal/Modal';
 import Wrapper from '../../Wrapper';
 import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button';
+import { useRecoilState } from 'recoil';
+import imageState from '../../../recoil';
 
 function ProfileSetting() {
 	function dataURLtoBlob(dataurl) {
@@ -20,6 +22,8 @@ function ProfileSetting() {
 		}
 		return new Blob([u8arr], { type: mime });
 	}
+	const [imageFile] = useRecoilState(imageState);
+	console.log(imageFile);
 
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
@@ -69,13 +73,13 @@ function ProfileSetting() {
 		partnerBodyTypes: 2,
 		bio: 'aa',
 	};
+
 	const handleModalNextBtn = async () => {
 		const formData = new FormData();
-		formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
+		formData.append('profiles', imageFile);
 		for (let [key, value] of Object.entries(testData)) {
 			formData.append(key, value);
 		}
-
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
