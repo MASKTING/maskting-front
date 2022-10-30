@@ -9,32 +9,6 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button';
 
 function ProfileSetting() {
-<<<<<<< HEAD
-	function dataURLtoBlob(dataurl) {
-		let arr = dataurl.split(','),
-=======
-	const dataURLtoFile = (dataurl, fileName) => {
-		var arr = dataurl.split(','),
->>>>>>> feature/18-send-image
-			mime = arr[0].match(/:(.*?);/)[1],
-			bstr = atob(arr[1]),
-			n = bstr.length,
-			u8arr = new Uint8Array(n);
-<<<<<<< HEAD
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n);
-		}
-		return new Blob([u8arr], { type: mime });
-	}
-
-=======
-
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n);
-		}
-		return new File([u8arr], fileName, { type: mime });
-	};
->>>>>>> feature/18-send-image
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(
@@ -88,32 +62,21 @@ function ProfileSetting() {
 	// readAsDataURl;
 	const handleModalNextBtn = async () => {
 		const formData = new FormData();
-<<<<<<< HEAD
-		formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
+		// formData.append('profiles', dataURLtoBlob(localStorage.getItem('imageData')));
 		// base64>file
 		for (let [key, value] of Object.entries(testData)) {
 			formData.append(key, value);
 		}
 		// formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
-=======
 		// formData.append('profiles[]', JSON.stringify(testData));
-		formData.append('profiles', dataURLtoFile(localStorage.getItem('profilePreview'), 'image.png'));
-		// base64>file
-		formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
->>>>>>> feature/18-send-image
+		// formData.append('profiles', dataURLtoFile(localStorage.getItem('profilePreview'), 'image.png'));
+		// formData.append('profiles', new Blob([JSON.stringify(testData)], { type: 'application/json' }));
+
 		// const reader = new FileReader();
 
 		// console.log(new Blob([reader.readAsDataURL(localStorage.getItem('profilePreview'))]));
 
 		await axios({
-<<<<<<< HEAD
-			method: 'post',
-			url: `http://ec2-43-200-206-130.ap-northeast-2.compute.amazonaws.com:8080/api/user/signup`,
-			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
-			headers: {
-				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
-			},
-=======
 			method: 'POST',
 			url: `/api/user/signup`,
 			// mode: 'cors',
@@ -121,7 +84,6 @@ function ProfileSetting() {
 				'Content-Type': 'multipart/form-data', // Content-Type을 반드시 이렇게 하여야 한다.
 			},
 			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
->>>>>>> feature/18-send-image
 		}).then(response => {
 			console.log(response);
 		});
