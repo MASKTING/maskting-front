@@ -3,6 +3,7 @@ const PALETTE = {
 	BLACK200: '#eeeeee',
 	WHITE: '#ffffff',
 	BLACK: '#000000',
+	BLACK600: '#757575',
 };
 
 export default PALETTE;

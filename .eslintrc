@@ -1,7 +1,5 @@
 {
 	"root": true,
-	"extends": "@react-native-community",
-	"extends": ["airbnb", "prettier"],
 	"extends": ["react-app", "plugin:prettier/recommended"],
 	"rules": {
 		"no-var": "warn", // var 금지

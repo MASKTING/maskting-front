@@ -6,10 +6,10 @@ import Wrapper from '../../../components/Wrapper/Wrapper';
 const HomeMainPage = () => {
 	return (
 		<Wrapper>
-			<Panel panelSize="small"></Panel>
+			<Panel panelSize="small">a</Panel>
 			<Panel panelSize="midium"></Panel>
 			<Panel panelSize="midium"></Panel>
-			<SideBar status="main" />
+			<SideBar status="home" />
 		</Wrapper>
 	);
 };
