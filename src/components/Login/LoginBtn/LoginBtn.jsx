@@ -5,7 +5,7 @@ import kakaoLogin from '../../../assets/kakaoLogin.png';
 import googleLogin from '../../../assets/googleLogin.png';
 import naverLogin from '../../../assets/naverLogin.png';
 
-const HOME = `http://ec2-43-200-206-130.ap-northeast-2.compute.amazonaws.com:8080`;
+const HOME = `http://ec2-3-34-75-204.ap-northeast-2.compute.amazonaws.com:8080`;
 const REDIRECT_URI = 'http://localhost:3000/oauth2/redirect';
 const Naver = `${HOME}/api/oauth2/naver?redirect_uri=${REDIRECT_URI}`;
 const Google = `${HOME}/api/oauth2/google?redirect_uri=${REDIRECT_URI}`;
