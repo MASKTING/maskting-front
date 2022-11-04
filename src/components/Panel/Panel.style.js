@@ -9,5 +9,5 @@ export const PanelWrapper = styled.section`
 	left: 0;
 	right: 0;
 	margin: auto;
-	margin-bottom: 2rem;
+	margin-bottom: 1.6rem;
 `;
