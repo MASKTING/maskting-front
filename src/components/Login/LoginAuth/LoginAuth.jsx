@@ -24,13 +24,13 @@ const LoginAuth = () => {
 	const role = new URL(window.location.href).searchParams.get('role');
 	const sort = new URL(window.location.href).searchParams.get('sort');
 	const email = new URL(window.location.href).searchParams.get('email');
-	const providerID = new URL(window.location.href).searchParams.get('providerId');
+	const providerId = new URL(window.location.href).searchParams.get('providerId');
 	const provider = new URL(window.location.href).searchParams.get('provider');
 
 	useEffect(() => {
 		localStorage.setItem(
 			'basicInfo',
-			JSON.stringify({ ...basicInfo, email, provider, providerID }),
+			JSON.stringify({ ...basicInfo, email, provider, providerId }),
 		);
 	}, []);
 
