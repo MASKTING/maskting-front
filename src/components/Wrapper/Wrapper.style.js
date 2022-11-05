@@ -30,7 +30,7 @@ const Title = styled.h1`
 	font-family: 'Pretendard';
 	font-style: normal;
 	font-weight: 700;
-	font-size: ${FONTSIZE.Title};
+	font-size: ${FONTSIZE.title};
 	width: ${props => props.titleWidth && `${props.titleWidth}rem`};
 	line-height: 4rem;
 	letter-spacing: 0.1rem;

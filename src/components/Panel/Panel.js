@@ -1,9 +1,14 @@
 import React from 'react';
 import * as S from './Panel.style';
-import { PANELSIZE } from './panelSize';
 
-const Panel = ({ panelSize, children }) => {
-	return <S.PanelWrapper panelSize={PANELSIZE[panelSize]}>{children}</S.PanelWrapper>;
+export const PANELSIZE = {
+	small: '22rem',
+	midium: '34.5rem',
+	large: '',
+};
+
+const Panel = ({ size, children }) => {
+	return <S.PanelWrapper size={PANELSIZE[size]}>{children}</S.PanelWrapper>;
 };
 
 export default Panel;

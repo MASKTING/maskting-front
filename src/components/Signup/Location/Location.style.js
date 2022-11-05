@@ -8,7 +8,7 @@ const ErrorMessage = styled.p`
 	top: 9rem;
 	left: 2rem;
 	font-weight: 700;
-	font-size: ${FONTSIZE.InfoText};
+	font-size: ${FONTSIZE.infoText};
 `;
 
 const CitySelectWrapper = styled.section`
@@ -33,7 +33,7 @@ const CitySelectLabel = styled.label`
 	background: ${props => (props.focused ? PALETTE.PINK600 : PALETTE.BLACK200)};
 	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border-radius: 0.8rem;
-	font-size: ${FONTSIZE.Text};
+	font-size: ${FONTSIZE.text};
 	font-weight: 700;
 	display: flex;
 	justify-content: center;
@@ -63,7 +63,7 @@ const TownSelectLabel = styled.label`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: ${FONTSIZE.Text};
+	font-size: ${FONTSIZE.text};
 	font-weight: 700;
 
 	cursor: pointer;
@@ -76,7 +76,7 @@ const TownInfoText = styled.p`
 	height: 12rem;
 	left: 2rem;
 	bottom: 8rem;
-	font-size: ${FONTSIZE.InfoText};
+	font-size: ${FONTSIZE.infoText};
 	line-height: 1.5rem;
 	color: gray;
 `;

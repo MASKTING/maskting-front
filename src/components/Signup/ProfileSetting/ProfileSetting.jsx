@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Modal from '../../Modal/Modal';
 import Wrapper from '../../Wrapper';
 import * as S from './ProfileSetting.style';
-import { NavigateButton } from '../../Button';
+import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
 
