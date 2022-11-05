@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-const BtnWrapper = styled.div`
+import PALETTE from '../../constants/palette';
+const NavigateBtnWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -51,5 +52,13 @@ const NextBtn = styled.button`
 	}
 	cursor: pointer;
 `;
+export const BtnWrapper = styled.button`
+	width: ${props => props.size[0]};
+	height: ${props => props.size[1]};
+	border-radius: ${props => props.size[2]};
+	background-color: ${PALETTE.PINK600};
+	color: ${PALETTE.BLACK50};
+	border: none;
+`;
 
-export { BtnWrapper, PrevBtn, NextBtn };
+export { NavigateBtnWrapper, PrevBtn, NextBtn };
