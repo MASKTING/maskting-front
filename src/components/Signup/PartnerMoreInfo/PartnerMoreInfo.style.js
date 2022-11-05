@@ -136,13 +136,18 @@ const LongLabel = styled(Label)`
 	display: inline-block;
 	width: 39rem;
 `;
+const SliderWrapper = styled.div`
+	position: relative;
+	width: 34.1rem;
+	height: 2rem;
+	margin-bottom: 3.1rem;
+`;
 const Slider = styled.input`
 	top: 2.6rem;
 	left: 2.4rem;
-	position: relative;
+	position: absolute;
 	width: 34.1rem;
 	height: 2rem;
-	margin-bottom: 3.1rem;
 	border-radius: 0.8rem;
 	background: #eeeeee;
 	outline: none;
@@ -155,13 +160,34 @@ const Slider = styled.input`
 		height: 4.8rem;
 		border-radius: 100%;
 		background: ${({ degree }) => (degree >= 0 ? `#f45e5f` : `#e0e0e0`)};
+		pointer-events: auto;
+		cursor: pointer;
 	}
 `;
-
-const FakeSlider = styled.input`
+const SliderLeft = styled.input`
 	top: 2.6rem;
 	left: 2.4rem;
-	position: relative;
+	position: absolute;
+	width: 34.1rem;
+	height: 2rem;
+	border-radius: 0.8rem;
+	background: #eeeeee;
+	outline: none;
+	-webkit-appearance: none;
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: 4.8rem;
+		height: 4.8rem;
+		border-radius: 100%;
+		background: ${({ degree }) => (degree >= 0 ? `#f45e5f` : `#e0e0e0`)};
+		pointer-events: auto;
+		cursor: pointer;
+	}
+`;
+const SliderRight = styled.input`
+	top: 2.6rem;
+	left: 2.4rem;
+	position: absolute;
 	width: 34.1rem;
 	height: 2rem;
 	margin-bottom: 3.1rem;
@@ -169,17 +195,19 @@ const FakeSlider = styled.input`
 	background: #eeeeee;
 	outline: none;
 	-webkit-appearance: none;
-	${({ degree }) =>
-		`background: linear-gradient(to right, #f45e5f 0%, #f45e5f ${degree}%, #EEEEEE ${degree}%)`};
+
+	${({ degreeLeft, degreeRight }) =>
+		`background: linear-gradient(to right, #e0e0e0 30%, #f45e5f 60%, #e0e0e0)`};
+	background: linear(to right, #e0e0e0 40%, red 50%, #e0e0e0 90%);
 	&::-webkit-slider-thumb {
-		appearance: none;
+		// appearance: none;
 		width: 4.8rem;
 		height: 4.8rem;
-		border-radius: 100%;
-		background: ${({ degree }) => (degree >= 0 ? `#f45e5f` : `#e0e0e0`)};
+		border-radius: 10%;
+		pointer-events: auto;
+		cursor: pointer;
 	}
 `;
-
 const ErrorMessage = styled.span`
 	display: block;
 	top: 0rem;
@@ -226,8 +254,10 @@ export {
 	LongLabel,
 	NarrowButton,
 	RadioLabel,
+	SliderWrapper,
 	Slider,
-	FakeSlider,
+	SliderLeft,
+	SliderRight,
 	DegreeMessage,
 	NarrowInput,
 	BasicInput,
