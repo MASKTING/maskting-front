@@ -1,5 +1,6 @@
 import * as S from './SideBar.style';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SIDEBARITEMS = [
 	{
@@ -29,10 +30,17 @@ const SIDEBARITEMS = [
 ];
 
 const SideBar = props => {
+	const navigate = useNavigate();
 	return (
-		<S.SideBarWrapper>
+		<S.SideBarList>
 			{SIDEBARITEMS.map(SideBarItem => (
-				<S.SideBarItem className="material-icons" key={SideBarItem.id}>
+				<S.SideBarItem
+					className="material-icons"
+					key={SideBarItem.id}
+					onClick={() => {
+						navigate('/' + SideBarItem.status);
+					}}
+				>
 					<S.SideBarItemIcon focus={props.status === SideBarItem.status}>
 						{SideBarItem.icon}
 					</S.SideBarItemIcon>
@@ -41,7 +49,7 @@ const SideBar = props => {
 					</S.SideBarItemMessage>
 				</S.SideBarItem>
 			))}
-		</S.SideBarWrapper>
+		</S.SideBarList>
 	);
 };
 

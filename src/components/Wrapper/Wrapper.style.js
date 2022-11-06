@@ -2,16 +2,26 @@ import styled from 'styled-components';
 import FONTSIZE from '../../constants/fontsize';
 
 const Wrapper = styled.div`
+	position: relative;
 	left: 0;
 	right: 0;
 	margin: auto;
 	width: 39rem;
 	height: 84.4rem;
 	border: #eeeeee 1px solid; // 임시용
-	position: relative;
-	/* overflow: hidden; */
 	overflow-y: scroll;
 	overflow-x: hidden;
+	::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+export const WrapperInner = styled.div`
+	width: 39rem;
+	height: 69.3rem;
+	left: 0rem;
+	top: 12rem;
+	overflow-y: scroll;
 	::-webkit-scrollbar {
 		display: none;
 	}

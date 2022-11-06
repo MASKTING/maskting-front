@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 import FONTSIZE from '../../../constants/fontsize';
+import PALETTE from '../../../constants/palette';
+
+export const ModalInner = styled.div`
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+`;
 
 export const PanelInfoInner = styled.div`
 	width: 100%;
@@ -21,8 +30,13 @@ export const InfoBig = styled.p`
 	font-weight: 700;
 `;
 
-export const InfoSmall = styled.p`
+export const InfoMidium = styled.p`
 	font-size: ${FONTSIZE.text};
+`;
+
+export const InfoSmall = styled.p`
+	color: ${PALETTE.BLACK600};
+	margin: 1rem 0;
 `;
 
 export const FeedImageList = styled.section`

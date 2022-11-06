@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 
-export const RefreshCircle = styled.nav`
+export const RefreshCircle = styled.div`
+	display: flex;
 	position: absolute;
+	right: 1rem;
 	bottom: 10.5rem;
-	right: 2rem;
 	width: 8rem;
 	height: 8rem;
 	background-color: ${PALETTE.PINK600};

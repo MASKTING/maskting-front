@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PALETTE from '../../constants/palette';
 
-export const SideBarWrapper = styled.section`
+export const SideBarList = styled.nav`
 	display: flex;
 	position: absolute;
 	left: 0;

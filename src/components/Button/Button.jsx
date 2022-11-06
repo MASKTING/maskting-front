@@ -21,7 +21,16 @@ const BUTTONSIZE = {
 // 순서대로 width, height, border-radius
 
 const MainButton = props => {
-	return <S.BtnWrapper size={BUTTONSIZE[props.size]}>{props.message}</S.BtnWrapper>;
+	return (
+		<S.MainButton
+			size={BUTTONSIZE[props.size]}
+			type="button"
+			onClick={props.onClick}
+			color={props.color}
+		>
+			{props.message}
+		</S.MainButton>
+	);
 };
 
 export { NavigateButton, MainButton };

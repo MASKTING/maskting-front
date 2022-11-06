@@ -52,13 +52,15 @@ const NextBtn = styled.button`
 	}
 	cursor: pointer;
 `;
-export const BtnWrapper = styled.button`
+export const MainButton = styled.button`
 	width: ${props => props.size[0]};
 	height: ${props => props.size[1]};
 	border-radius: ${props => props.size[2]};
-	background-color: ${PALETTE.PINK600};
-	color: ${PALETTE.BLACK50};
+	background-color: ${props => (props.color === 'white' ? PALETTE.WHITE : PALETTE.PINK600)};
+	color: ${props => (props.color === 'white' ? PALETTE.BLACK : PALETTE.BLACK50)};
+
 	border: none;
+	cursor: pointer;
 `;
 
 export { NavigateBtnWrapper, PrevBtn, NextBtn };

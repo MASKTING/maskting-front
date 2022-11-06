@@ -11,6 +11,10 @@ import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
 import LoginPage from '../pages/Login';
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
 import HomeMainPage from '../pages/Home/Main/HomeMainPage';
+import HomeNotification from '../pages/Home/Notification/HomeNotification';
+import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
+import ChattingMainPage from '../pages/Chatting/Main/ChattingMainPage';
+import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
 
 function Router() {
 	return (
@@ -27,7 +31,12 @@ function Router() {
 				<Route path="/profileMask" element={<ProfileMaskPage />} />
 				<Route path="/partnerLocation" element={<PartnerLocationPage />} />
 				<Route path="/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
-				<Route path="/homeMain" element={<HomeMainPage />} />
+
+				<Route path="/home" element={<HomeMainPage />} />
+				<Route path="/home/notification" element={<HomeNotification />} />
+				<Route path="/ticket" element={<TicketMainPage />} />
+				<Route path="/chatting" element={<ChattingMainPage />} />
+				<Route path="/myPage" element={<MyPageMainPage />} />
 			</Routes>
 		</Routers>
 	);
