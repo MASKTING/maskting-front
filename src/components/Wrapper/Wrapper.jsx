@@ -12,7 +12,7 @@ const Wrapper = ({ children, titleMessage, titleWidth }) => {
 	);
 };
 
-const WrapperInner = props => {
+export const WrapperInner = props => {
 	return <S.WrapperInner>{props.children}</S.WrapperInner>;
 };
 

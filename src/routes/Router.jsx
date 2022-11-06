@@ -15,6 +15,8 @@ import HomeNotification from '../pages/Home/Notification/HomeNotification';
 import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
 import ChattingMainPage from '../pages/Chatting/Main/ChattingMainPage';
 import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
+import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
+import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
 
 function Router() {
 	return (
@@ -34,6 +36,9 @@ function Router() {
 
 				<Route path="/home" element={<HomeMainPage />} />
 				<Route path="/home/notification" element={<HomeNotification />} />
+				<Route path="/home/picture" element={<HomePictureInfo />} />
+				<Route path="/home/picture/add" element={<HomePictureAdd />} />
+
 				<Route path="/ticket" element={<TicketMainPage />} />
 				<Route path="/chatting" element={<ChattingMainPage />} />
 				<Route path="/myPage" element={<MyPageMainPage />} />

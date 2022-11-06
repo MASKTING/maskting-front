@@ -1,18 +1,18 @@
-import * as S from './NotificationHeader.style';
+import * as S from './GoBackHeader.style';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const NotificationHeader = () => {
+const GoBackHeader = props => {
 	const navigate = useNavigate();
 	const navigateBack = () => {
 		navigate(-1);
 	};
 	return (
-		<S.NotificationHeader onClick={navigateBack}>
+		<S.GoBackHeader onClick={navigateBack}>
 			<S.BackInco className="material-icons">arrow_back_ios</S.BackInco>
-			알림
-		</S.NotificationHeader>
+			{props.children}
+		</S.GoBackHeader>
 	);
 };
 
-export default NotificationHeader;
+export default GoBackHeader;

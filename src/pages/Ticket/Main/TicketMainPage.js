@@ -16,7 +16,7 @@ const TicketMainPage = () => {
 				<Panel size="midium"></Panel>
 				<Panel size="midium"></Panel>
 			</S.WrapperInner>
-			<SideBar />
+			<SideBar status="ticket" />
 		</Wrapper>
 	);
 };

@@ -1,11 +1,11 @@
 import * as S from './HomeNotification.style';
 import React from 'react';
-import NotificationHeader from '../../../components/Home/NotificationHeader/NotificationHeader';
 import { PanelVariable } from '../../../components/Panel/Panel';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
 import Wrapper from '../../../components/Wrapper';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
+import GoBackHeader from '../../../components/Header/GoBackHeader/GoBackHeader';
 
 const NOTIFICATIONLIST = [
 	{
@@ -32,7 +32,7 @@ const HomeNotification = () => {
 	return (
 		<Wrapper>
 			<WrapperInner>
-				<NotificationHeader />
+				<GoBackHeader>알림</GoBackHeader>
 				{NOTIFICATIONLIST.map(notificationItem => (
 					<PanelVariable>
 						<S.PanelInnner>

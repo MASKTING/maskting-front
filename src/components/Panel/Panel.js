@@ -13,7 +13,7 @@ export const PanelVariable = props => {
 };
 
 const Panel = ({ size, children }) => {
-	return <S.PanelWrapper size={PANELSIZE[size]}>{children}</S.PanelWrapper>;
+	return <S.Panel size={PANELSIZE[size]}>{children}</S.Panel>;
 };
 
 export default Panel;

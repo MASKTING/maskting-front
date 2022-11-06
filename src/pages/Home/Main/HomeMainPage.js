@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { MainButton } from '../../../components/Button/Button';
 import Panel from '../../../components/Panel/Panel';
 import SideBar from '../../../components/SideBar/SideBar';
-import Wrapper from '../../../components/Wrapper/Wrapper';
+import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import * as S from './HomeMainPage.style';
 import RefreshCircle from '../../../components/RefreshCircle/RefreshCircle';
 import MainHeader from '../../../components/Home/MainHeader/MainHeader';
 import Modal from '../../../components/Modal/Modal';
-import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
+import { useNavigate } from 'react-router-dom';
+import MainButton from '../../../components/Button/MainButton/MainButton';
 
 const FEEDLIST = [
 	{
@@ -38,6 +38,7 @@ const FEEDLIST = [
 ];
 
 const HomeMainPage = () => {
+	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
 	const turnOnModal = () => {
 		setIsModal(true);
@@ -45,8 +46,9 @@ const HomeMainPage = () => {
 	const turnOffModal = () => {
 		setIsModal(false);
 	};
-	console.log(isModal);
-	// width, height, onCloseModal;
+	const navigatePicture = () => {
+		navigate('picture');
+	};
 	return (
 		<Wrapper>
 			<WrapperInner>
@@ -57,8 +59,12 @@ const HomeMainPage = () => {
 							<S.InfoBig>새로운 매칭 상대를</S.InfoBig>
 							<S.InfoBig>추천 받아보시겠어요?</S.InfoBig>
 							<S.InfoSmall>잔여 티켓:30장</S.InfoSmall>
-							<MainButton size="small" message="새로 추천받기" />
-							<MainButton size="small" message="취소" onClick={turnOffModal} color="white" />
+							<MainButton size="small" onClick={navigatePicture}>
+								새로 추천받기
+							</MainButton>
+							<MainButton size="small" onClick={turnOffModal} color="white">
+								취소
+							</MainButton>
 						</S.ModalInner>
 					</Modal>
 				)}
@@ -69,7 +75,9 @@ const HomeMainPage = () => {
 						<PictureCircle size="midium" />
 						<S.InfoBig>사진을 추가해보세요</S.InfoBig>
 						<S.InfoMidium>@@@님의 내적매력을 피드에 담아보세요</S.InfoMidium>
-						<MainButton size="small" message="사진 추가하기" onClick={turnOnModal} />
+						<MainButton size="small" onClick={turnOnModal}>
+							사진 추가하기
+						</MainButton>
 					</S.PanelInfoInner>
 				</Panel>
 				<Panel size="midium">

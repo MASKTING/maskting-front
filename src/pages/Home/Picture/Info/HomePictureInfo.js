@@ -1,0 +1,45 @@
+import * as S from './HomePictureInfo.style';
+
+import React from 'react';
+import Wrapper, { WrapperInner } from '../../../../components/Wrapper/Wrapper';
+import GoBackHeader from '../../../../components/Header/GoBackHeader/GoBackHeader';
+import ContentTitle from '../../../../components/Content/Title/ContentTitle';
+import ContentInfo from '../../../../components/Content/Info/ContentInfo';
+import MainButton from '../../../../components/Button/MainButton/MainButton';
+import SideBar from '../../../../components/SideBar/SideBar';
+import { useNavigate } from 'react-router-dom';
+
+const HomePictureInfo = () => {
+	const navigate = useNavigate();
+	const navigatePictureAdd = () => {
+		navigate('add');
+	};
+	return (
+		<Wrapper>
+			<GoBackHeader />
+			<WrapperInner>
+				<ContentTitle>
+					분당청소요정님의 <br />
+					내적매력을 피드에 담아보세요
+				</ContentTitle>
+				<ContentInfo>
+					<br />
+					<br />
+					관심사, 취미 등 좋아하는 것들로 가득 담아 <br />
+					자신의 내면을 표현할 수 있는 사진들을 추가해보세요! <br />
+					<br />
+					다음과 같은 사진은 통보없이 삭제될 수 있습니다 <br />
+					사람의 얼굴이 드러나는 사진 <br />
+					과도하게 선정적인 사진
+				</ContentInfo>
+
+				<SideBar status="home" />
+			</WrapperInner>
+			<MainButton size="big" onClick={navigatePictureAdd}>
+				확인했어요
+			</MainButton>
+		</Wrapper>
+	);
+};
+
+export default HomePictureInfo;
