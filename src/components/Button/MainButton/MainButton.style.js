@@ -11,4 +11,7 @@ export const MainButton = styled.button`
 	cursor: pointer;
 	position: ${props => props.size[3] && 'absolute'};
 	bottom: ${props => props.size[3] && '8.4rem'};
+	left: ${props => props.size[3] && '0'};
+	right: ${props => props.size[3] && '0'};
+	margin: ${props => props.size[3] && 'auto'};
 `;

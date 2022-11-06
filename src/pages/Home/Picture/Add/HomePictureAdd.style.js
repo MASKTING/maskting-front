@@ -14,17 +14,27 @@ export const Profile = styled.article`
 export const ProfileText = styled.article`
 	padding: 0 3rem;
 `;
+export const PictureCircleWrapper = styled.div`
+	margin-right: 2rem;
+`;
 
 export const PictureList = styled.article`
+	/* position: absolute; */
 	display: flex;
 	flex-wrap: wrap;
-	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
 	bottom: 0;
-	position: absolute;
+	background-color: Red;
+	z-index: 5;
 `;
+
 export const PictureItem = styled.div`
 	width: 11.4rem;
 	height: 11.4rem;
+	/* border: 1px solid ${PALETTE.BLACK200}; */
+	box-sizing: border-box;
+	/* border: none; */
 `;
 
 export const PictureImage = styled.img`
@@ -32,15 +42,28 @@ export const PictureImage = styled.img`
 	height: 11.4rem;
 	background-color: ${PALETTE.BLACK50};
 	margin: 0;
+	border: 1px solid ${PALETTE.BLACK200};
+	border: none;
+	box-sizing: border-box;
+	display: block;
+	border-collapse: collapse;
+	border: 0px;
 `;
 
-export const PictureAdd = styled.span`
-	width: 11.4rem;
-	height: 11.4rem;
-	margin: 0;
-	color: ${PALETTE.BLACK600};
-	font-size: 6rem;
+export const PictureAddBox = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
+	height: 100%;
+`;
+
+export const PictureAddBoxInner = styled.span`
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	color: ${PALETTE.BLACK600};
+	font-size: 6rem;
 `;

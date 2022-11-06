@@ -8,7 +8,7 @@ import RefreshCircle from '../../../components/RefreshCircle/RefreshCircle';
 import MainHeader from '../../../components/Home/MainHeader/MainHeader';
 import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
-import MainButton from '../../../components/Button/MainButton/MainButton';
+import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 
 const FEEDLIST = [
 	{
@@ -59,12 +59,10 @@ const HomeMainPage = () => {
 							<S.InfoBig>새로운 매칭 상대를</S.InfoBig>
 							<S.InfoBig>추천 받아보시겠어요?</S.InfoBig>
 							<S.InfoSmall>잔여 티켓:30장</S.InfoSmall>
-							<MainButton size="small" onClick={navigatePicture}>
-								새로 추천받기
-							</MainButton>
-							<MainButton size="small" onClick={turnOffModal} color="white">
+							<SmallButton onClick={navigatePicture}>새로 추천받기</SmallButton>
+							<SmallButton size="small" onClick={turnOffModal} color="white">
 								취소
-							</MainButton>
+							</SmallButton>
 						</S.ModalInner>
 					</Modal>
 				)}
@@ -75,9 +73,9 @@ const HomeMainPage = () => {
 						<PictureCircle size="midium" />
 						<S.InfoBig>사진을 추가해보세요</S.InfoBig>
 						<S.InfoMidium>@@@님의 내적매력을 피드에 담아보세요</S.InfoMidium>
-						<MainButton size="small" onClick={turnOnModal}>
+						<SmallButton size="small" onClick={turnOnModal}>
 							사진 추가하기
-						</MainButton>
+						</SmallButton>
 					</S.PanelInfoInner>
 				</Panel>
 				<Panel size="midium">

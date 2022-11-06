@@ -8,6 +8,7 @@ import ContentInfo from '../../../../components/Content/Info/ContentInfo';
 import MainButton from '../../../../components/Button/MainButton/MainButton';
 import SideBar from '../../../../components/SideBar/SideBar';
 import { useNavigate } from 'react-router-dom';
+import BigButton from '../../../../components/Button/BigButton/BigButton';
 
 const HomePictureInfo = () => {
 	const navigate = useNavigate();
@@ -35,9 +36,7 @@ const HomePictureInfo = () => {
 
 				<SideBar status="home" />
 			</WrapperInner>
-			<MainButton size="big" onClick={navigatePictureAdd}>
-				확인했어요
-			</MainButton>
+			<BigButton onClick={navigatePictureAdd}>확인했어요</BigButton>
 		</Wrapper>
 	);
 };

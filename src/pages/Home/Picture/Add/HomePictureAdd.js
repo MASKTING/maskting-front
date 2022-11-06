@@ -5,13 +5,12 @@ import Wrapper, { WrapperInner } from '../../../../components/Wrapper/Wrapper';
 import GoBackHeader from '../../../../components/Header/GoBackHeader/GoBackHeader';
 import ContentTitle from '../../../../components/Content/Title/ContentTitle';
 import ContentInfo from '../../../../components/Content/Info/ContentInfo';
-import MainButton from '../../../../components/Button/MainButton/MainButton';
 import SideBar from '../../../../components/SideBar/SideBar';
 import ContentRed from '../../../../components/Content/ContentRed/ContentRed';
 import Panel from '../../../../components/Panel/Panel';
 import PictureCircle from '../../../../components/PictureCircle/PictureCircle';
 import ContentSubTitle from '../../../../components/Content/ContentSubTitle/ContentSubTitle';
-import plus from '../../../../assets/svg/plus.svg';
+import BigButton from '../../../../components/Button/BigButton/BigButton';
 
 const PICTURELIST = [
 	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
@@ -24,9 +23,9 @@ if (PICTURELIST.length < 6) {
 		PICTURELIST.push({ id: i });
 	}
 }
-console.log(PICTURELIST);
 
 const HomePictureAdd = () => {
+	const handleAddButton = () => {};
 	return (
 		<Wrapper>
 			<WrapperInner>
@@ -43,7 +42,7 @@ const HomePictureAdd = () => {
 				<Panel size="midium">
 					<S.PanelInner>
 						<S.Profile>
-							<PictureCircle size="small" />
+							<PictureCircle size="small" css="margin-right:2rem" />
 							<ContentSubTitle>분당청소요정</ContentSubTitle>
 						</S.Profile>
 						<S.ProfileText>
@@ -53,7 +52,11 @@ const HomePictureAdd = () => {
 							{PICTURELIST.map(pictureItem => (
 								<S.PictureItem key={pictureItem.id}>
 									{pictureItem.src === 'plus' ? (
-										<S.PictureAdd className="material-icons">add</S.PictureAdd>
+										<S.PictureAddBox>
+											<S.PictureAddBoxInner className="material-icons" onClick={handleAddButton}>
+												add
+											</S.PictureAddBoxInner>
+										</S.PictureAddBox>
 									) : (
 										<S.PictureImage src={pictureItem.src} />
 									)}
@@ -63,7 +66,7 @@ const HomePictureAdd = () => {
 					</S.PanelInner>
 				</Panel>
 
-				<MainButton size="big">사진을 추가해주세요</MainButton>
+				<BigButton color="gray">사진을 추가해주세요</BigButton>
 				<SideBar status="home" />
 			</WrapperInner>
 		</Wrapper>

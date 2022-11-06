@@ -11,6 +11,7 @@ const PictureCircle = props => {
 		<S.PictureCircle
 			size={PICTURESIZE[props.size]}
 			src="http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg"
+			css={props.css}
 		/>
 	);
 };

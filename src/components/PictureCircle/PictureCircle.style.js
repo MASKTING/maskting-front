@@ -5,4 +5,5 @@ export const PictureCircle = styled.img`
 	height: ${props => props.size};
 	border-radius: 50%;
 	background-color: yellow;
+	${props => props.css};
 `;
