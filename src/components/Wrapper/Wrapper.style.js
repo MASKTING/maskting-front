@@ -25,6 +25,7 @@ export const WrapperInner = styled.div`
 	::-webkit-scrollbar {
 		display: none;
 	}
+	padding: 0 2rem;
 `;
 const TitleWrapper = styled.div`
 	top: 0rem;

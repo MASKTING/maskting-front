@@ -2,7 +2,7 @@ import * as S from './TicketMainPage.style';
 import React from 'react';
 import Wrapper from '../../../components/Wrapper/Wrapper';
 import SideBar from '../../../components/SideBar/SideBar';
-import MainHeader from '../../../components/MainHeader/MainHeader';
+import MainHeader from '../../../components/Home/MainHeader/MainHeader';
 import Panel from '../../../components/Panel/Panel';
 
 const TicketMainPage = () => {

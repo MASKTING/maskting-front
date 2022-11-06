@@ -6,7 +6,7 @@ import Wrapper from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import * as S from './HomeMainPage.style';
 import RefreshCircle from '../../../components/RefreshCircle/RefreshCircle';
-import MainHeader from '../../../components/MainHeader/MainHeader';
+import MainHeader from '../../../components/Home/MainHeader/MainHeader';
 import Modal from '../../../components/Modal/Modal';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 

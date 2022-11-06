@@ -26,7 +26,7 @@ export const PanelFeedInner = styled.div`
 `;
 
 export const InfoBig = styled.p`
-	font-size: ${FONTSIZE.middleTitle};
+	font-size: ${FONTSIZE.subTitle};
 	font-weight: 700;
 `;
 
@@ -55,7 +55,7 @@ export const FeedProfile = styled.article`
 	padding: 2rem 3rem;
 `;
 export const FeedProfileInfo = styled.p`
-	font-size: ${FONTSIZE.middleTitle};
+	font-size: ${FONTSIZE.subTitle};
 	font-weight: 700;
 
 	margin-left: 2rem;
