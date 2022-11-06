@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PALETTE from '../../constants/palette';
+import PALETTE from '../../../constants/palette';
 
 export const RefreshCircle = styled.div`
 	display: flex;

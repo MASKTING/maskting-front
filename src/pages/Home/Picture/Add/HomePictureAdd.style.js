@@ -19,35 +19,37 @@ export const PictureCircleWrapper = styled.div`
 `;
 
 export const PictureList = styled.article`
-	/* position: absolute; */
+	position: absolute;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	bottom: 0;
-	background-color: Red;
 	z-index: 5;
 `;
 
 export const PictureItem = styled.div`
 	width: 11.4rem;
 	height: 11.4rem;
-	/* border: 1px solid ${PALETTE.BLACK200}; */
 	box-sizing: border-box;
-	/* border: none; */
 `;
 
-export const PictureImage = styled.img`
+export const PictureImage = styled.div`
 	width: 11.4rem;
 	height: 11.4rem;
 	background-color: ${PALETTE.BLACK50};
 	margin: 0;
-	border: 1px solid ${PALETTE.BLACK200};
-	border: none;
+	border: 0.5px solid ${PALETTE.BLACK200};
 	box-sizing: border-box;
 	display: block;
 	border-collapse: collapse;
-	border: 0px;
+
+	background-image: url(${props => props.src});
+	background-repeat: 1;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover; // 화면 꽉채움
 `;
 
 export const PictureAddBox = styled.div`
@@ -66,4 +68,26 @@ export const PictureAddBoxInner = styled.span`
 	cursor: pointer;
 	color: ${PALETTE.BLACK600};
 	font-size: 6rem;
+`;
+
+export const ModalInner = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+
+export const ModalSelectLabel = styled.label`
+	height: 3.1rem;
+	font-size: 1.6rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 2.5rem;
+	letter-spacing: -0.1rem;
+	margin-top: 0.5rem;
+	cursor: pointer;
+`;
+
+export const ModalSelectInput = styled.input`
+	display: none;
 `;

@@ -5,4 +5,11 @@ const imageState = atom({
 	default: {},
 });
 
+export const imageRecoil = atom({
+	key: 'imageRecoil',
+	default: {
+		feedbackImage: '',
+	},
+});
+
 export default imageState;

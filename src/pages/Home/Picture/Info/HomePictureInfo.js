@@ -2,7 +2,7 @@ import * as S from './HomePictureInfo.style';
 
 import React from 'react';
 import Wrapper, { WrapperInner } from '../../../../components/Wrapper/Wrapper';
-import GoBackHeader from '../../../../components/Header/GoBackHeader/GoBackHeader';
+import HeaderGoBack from '../../../../components/Header/HeaderGoBack/HeaderGoBack';
 import ContentTitle from '../../../../components/Content/Title/ContentTitle';
 import ContentInfo from '../../../../components/Content/Info/ContentInfo';
 import MainButton from '../../../../components/Button/MainButton/MainButton';
@@ -17,7 +17,7 @@ const HomePictureInfo = () => {
 	};
 	return (
 		<Wrapper>
-			<GoBackHeader />
+			<HeaderGoBack />
 			<WrapperInner>
 				<ContentTitle>
 					분당청소요정님의 <br />

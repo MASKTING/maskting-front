@@ -4,11 +4,11 @@ import SideBar from '../../../components/SideBar/SideBar';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import * as S from './HomeMainPage.style';
-import RefreshCircle from '../../../components/RefreshCircle/RefreshCircle';
 import MainHeader from '../../../components/Home/MainHeader/MainHeader';
 import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
+import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 
 const FEEDLIST = [
 	{
