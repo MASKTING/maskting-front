@@ -11,6 +11,8 @@ import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
 import LoginPage from '../pages/Login';
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
 import WaitingPage from '../pages/SignUp/Waiting';
+import HomeMainPage from '../pages/Home/Main/HomeMainPage';
+
 
 function Router() {
 	return (
@@ -28,6 +30,7 @@ function Router() {
 				<Route path="/partnerLocation" element={<PartnerLocationPage />} />
 				<Route path="/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
 				<Route path="/wait" element={<WaitingPage />} />
+				<Route path="/homeMain" element={<HomeMainPage />} />
 			</Routes>
 		</Routers>
 	);

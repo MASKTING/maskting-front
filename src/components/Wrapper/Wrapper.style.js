@@ -9,6 +9,12 @@ const Wrapper = styled.div`
 	height: 84.4rem;
 	border: #eeeeee 1px solid; // 임시용
 	position: relative;
+	/* overflow: hidden; */
+	overflow-y: scroll;
+	overflow-x: hidden;
+	::-webkit-scrollbar {
+		display: none;
+	}
 `;
 const TitleWrapper = styled.div`
 	top: 0rem;
