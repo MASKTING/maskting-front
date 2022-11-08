@@ -7,7 +7,7 @@ export const SideBarList = styled.nav`
 	left: 0;
 	right: 0;
 	bottom: 0;
-	width: 34.2rem;
+	width: 39rem;
 	height: 8.4rem;
 	margin: auto;
 	background-color: ${PALETTE.WHITE};

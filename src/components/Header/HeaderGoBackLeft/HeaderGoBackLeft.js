@@ -12,8 +12,10 @@ const HeaderGoBackLeft = props => {
 		}
 	};
 	return (
-		<S.HeaderGoBackLeft onClick={navigateBack}>
-			<S.BackInco className="material-icons">arrow_back_ios</S.BackInco>
+		<S.HeaderGoBackLeft>
+			<S.BackInco className="material-icons" onClick={navigateBack}>
+				arrow_back_ios
+			</S.BackInco>
 			{props.children}
 		</S.HeaderGoBackLeft>
 	);

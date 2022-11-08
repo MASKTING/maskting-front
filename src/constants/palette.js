@@ -1,4 +1,5 @@
 const PALETTE = {
+	PINK50: '#FFEBEE',
 	PINK600: '#F45E5F',
 	BLACK200: '#eeeeee',
 	WHITE: '#ffffff',
