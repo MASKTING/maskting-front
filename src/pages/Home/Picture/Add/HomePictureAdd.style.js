@@ -32,6 +32,7 @@ export const PictureItem = styled.div`
 	width: 11.4rem;
 	height: 11.4rem;
 	box-sizing: border-box;
+	cursor: pointer;
 `;
 
 export const PictureImage = styled.div`
@@ -49,7 +50,7 @@ export const PictureImage = styled.div`
 	background-size: 24px 24px;
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: cover; // 화면 꽉채움
+	background-size: cover;
 `;
 
 export const PictureAddBox = styled.div`
@@ -75,6 +76,7 @@ export const ModalInner = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	line-height: 2.5rem;
 `;
 
 export const ModalSelectLabel = styled.label`
@@ -91,3 +93,5 @@ export const ModalSelectLabel = styled.label`
 export const ModalSelectInput = styled.input`
 	display: none;
 `;
+
+export const ContentInfo = styled.p``;

@@ -18,6 +18,7 @@ import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
 import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
 import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
 import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
+import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
 
 function Router() {
 	return (
@@ -40,6 +41,7 @@ function Router() {
 				<Route path="/home/picture" element={<HomePictureInfo />} />
 				<Route path="/home/picture/add" element={<HomePictureAdd />} />
 				<Route path="/home/picture/resize" element={<HomePictureResize />} />
+				<Route path="/home/feed" element={<HomeFeedPage />} />
 
 				<Route path="/ticket" element={<TicketMainPage />} />
 				<Route path="/chatting" element={<ChattingMainPage />} />

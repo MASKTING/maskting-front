@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 
-const FEEDLIST = [
+const FEEDPHOTOLIST = [
 	{
 		id: '1',
 		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
@@ -37,6 +37,27 @@ const FEEDLIST = [
 	},
 ];
 
+const FEEDLIST = [
+	{
+		id: '1',
+		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
+		nickname: '분당청소요정',
+		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
+	},
+	{
+		id: '2',
+		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
+		nickname: '분당청소요정',
+		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
+	},
+	{
+		id: '3',
+		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
+		nickname: '분당청소요정',
+		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
+	},
+];
+
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
@@ -48,6 +69,9 @@ const HomeMainPage = () => {
 	};
 	const navigatePicture = () => {
 		navigate('picture');
+	};
+	const handleFeedButton = () => {
+		navigate(`feed`);
 	};
 	return (
 		<Wrapper>
@@ -78,23 +102,24 @@ const HomeMainPage = () => {
 						</SmallButton>
 					</S.PanelInfoInner>
 				</Panel>
-				<Panel size="midium">
-					<S.PanelFeedInner>
-						<S.FeedProfile>
-							<PictureCircle size="small" />
-							<S.FeedProfileInfo>분당청소요정</S.FeedProfileInfo>
-						</S.FeedProfile>
-						<S.FeedInfo>
-							<S.InfoMidium>베이킹과 라이딩을 좋아하고 청소를 잘해요💫</S.InfoMidium>
-						</S.FeedInfo>
-						<S.FeedImageList>
-							{FEEDLIST.map(FeedItem => (
-								<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
-							))}
-						</S.FeedImageList>
-					</S.PanelFeedInner>
-				</Panel>
-				<Panel size="midium"></Panel>
+				{FEEDLIST.map(feedItem => (
+					<Panel size="midium" key={feedItem.id}>
+						<S.PanelFeedInner onClick={handleFeedButton} id={feedItem.id}>
+							<S.FeedProfile>
+								<PictureCircle size="small" src={feedItem.id} />
+								<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
+							</S.FeedProfile>
+							<S.FeedInfo>
+								<S.InfoMidium>{feedItem.info}</S.InfoMidium>
+							</S.FeedInfo>
+							<S.FeedImageList>
+								{FEEDPHOTOLIST.map(FeedItem => (
+									<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
+								))}
+							</S.FeedImageList>
+						</S.PanelFeedInner>
+					</Panel>
+				))}
 			</WrapperInner>
 			<SideBar status="home" />
 			<RefreshCircle />

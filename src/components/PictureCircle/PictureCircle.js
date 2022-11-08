@@ -4,6 +4,7 @@ import * as S from './PictureCircle.style';
 const PICTURESIZE = {
 	small: '5rem',
 	midium: '7.8rem',
+	large: '10rem',
 };
 
 const PictureCircle = props => {
