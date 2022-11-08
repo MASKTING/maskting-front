@@ -10,6 +10,7 @@ import PartnerLocationPage from '../pages/SignUp/PartnerLocation';
 import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
 import LoginPage from '../pages/Login';
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
+import WaitingPage from '../pages/SignUp/Waiting';
 import HomeMainPage from '../pages/Home/Main/HomeMainPage';
 import HomeNotification from '../pages/Home/Notification/HomeNotification';
 import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
@@ -19,6 +20,7 @@ import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
 import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
 import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
 import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
+
 
 function Router() {
 	return (
@@ -46,6 +48,8 @@ function Router() {
 				<Route path="/ticket" element={<TicketMainPage />} />
 				<Route path="/chatting" element={<ChattingMainPage />} />
 				<Route path="/myPage" element={<MyPageMainPage />} />
+				<Route path="/wait" element={<WaitingPage />} />
+				<Route path="/homeMain" element={<HomeMainPage />} />
 			</Routes>
 		</Routers>
 	);

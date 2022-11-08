@@ -9,6 +9,7 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
+import { parse } from 'request/lib/cookies';
 
 function ProfileSetting() {
 	function dataURLtoBlob(dataurl) {
@@ -23,8 +24,6 @@ function ProfileSetting() {
 		return new Blob([u8arr], { type: mime });
 	}
 	const [imageFile] = useRecoilState(imageState);
-	console.log(imageFile);
-
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData') || {});
@@ -45,39 +44,22 @@ function ProfileSetting() {
 		setIsModal(false);
 	};
 
-	const testData = {
-		name: 'test',
-		email: 'test@gmail.com',
-		gender: 'male',
-		birth: '19990815',
-		location: '경기 북부',
-		occupation: '대학생',
-		phone: '01012345678',
-		providerId: 'testProviderId',
-		provider: 'google',
-		interests: '산책',
-		duty: true,
-		smoking: false,
-		drinking: 5,
-		height: 181,
-		bodyType: 3,
-		religion: '무교',
-		nickname: '박규성',
-		partnerLocations: '경기 북부',
-		partnerDuty: 'any',
-		partnerSmoking: 'any',
-		partnerReligions: '무교',
-		partnerDrinking: 1,
-		partnerMinHeight: 160,
-		partnerMaxHeight: 170,
-		partnerBodyTypes: 2,
-		bio: 'aa',
-	};
-
 	const handleModalNextBtn = async () => {
+		delete basicInfo.partnerBodyTypesLeft;
+		delete basicInfo.partnerBodyTypesRight;
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({
+				...basicInfo,
+				nickname: watch('nickname'),
+				bio: watch('introduce'),
+				partnerBodyTypes: [3, 4], // 데이터 전송 실패를 대비한 임의 데이터
+			}),
+		);
+
 		const formData = new FormData();
 		formData.append('profiles', imageFile);
-		for (let [key, value] of Object.entries(testData)) {
+		for (let [key, value] of Object.entries(basicInfo)) {
 			formData.append(key, value);
 		}
 		await axios({
@@ -87,9 +69,13 @@ function ProfileSetting() {
 				'Content-Type': 'multipart/form-data',
 			},
 			data: formData,
-		}).then(response => {
-			console.log(response);
-		});
+		})
+			.then(response => {
+				console.log(response);
+			})
+			.finally(() => {
+				navigate('/wait');
+			});
 	};
 
 	// 1. PHOTO
@@ -133,7 +119,6 @@ function ProfileSetting() {
 	};
 	const onValid = data => {
 		if (!isThereImage()) return;
-
 		localStorage.setItem(
 			'basicInfo',
 			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
@@ -147,7 +132,103 @@ function ProfileSetting() {
 		);
 		navigate('/profileMask');
 	};
-	// console.log(basicInfo.profiles);
+
+	useEffect(() => {
+		let bodyArr = [];
+		const userHeight = parseInt(basicInfo.height);
+		let minHeight = parseInt(basicInfo.partnerMinHeight);
+		let maxHeight = parseInt(basicInfo.partnerMaxHeight);
+
+		switch (minHeight) {
+			case 1:
+			case 2:
+				minHeight = userHeight - 20 / minHeight;
+				break;
+			case 3:
+				minHeight = userHeight;
+				break;
+			case 4:
+				minHeight = userHeight + 10;
+				break;
+			case 5:
+				minHeight = userHeight + 20;
+				break;
+			default:
+		}
+		switch (maxHeight) {
+			case 1:
+			case 2:
+				maxHeight = userHeight - 20 / maxHeight;
+				break;
+			case 3:
+				maxHeight = userHeight;
+				break;
+			case 4:
+				maxHeight = userHeight + 10;
+				break;
+			case 5:
+				maxHeight = userHeight + 20;
+				break;
+			default:
+		}
+		for (const [key, value] of Object.entries(basicInfo)) {
+			switch (key) {
+				case 'drinking':
+					basicInfo.drinking = parseInt(value);
+					break;
+				case 'height':
+					basicInfo.height = parseInt(value);
+					break;
+				case 'bodyType':
+					basicInfo.bodyType = parseInt(value);
+					break;
+				case 'partnerDrinking':
+					basicInfo.partnerDrinking = parseInt(value);
+					break;
+				case 'partnerMinHeight':
+					basicInfo.partnerMinHeight = parseInt(value);
+					break;
+				case 'partnerMaxHeight':
+					basicInfo.partnerMaxHeight = parseInt(value);
+					break;
+				case 'duty':
+					if (basicInfo.duty === 'true') basicInfo.duty = true;
+					else basicInfo.duty = false;
+					break;
+				case 'smoking':
+					if (basicInfo.smoking === 'true') basicInfo.smoking = true;
+					else basicInfo.smoking = false;
+					break;
+				case 'partnerSmoking':
+					if (basicInfo.partnerSmoking === 'true') basicInfo.partnerSmoking = true;
+					else basicInfo.partnerSmoking = false;
+					break;
+				case 'partnerDuty':
+					if (basicInfo.partnerDuty === 'true') basicInfo.partnerDuty = true;
+					else basicInfo.partnerDuty = false;
+					break;
+				default:
+			}
+		}
+
+		for (
+			let i = parseInt(basicInfo.partnerBodyTypesLeft);
+			i < parseInt(basicInfo.partnerBodyTypesRight) + 1;
+			i++
+		) {
+			bodyArr.push(i);
+		}
+
+		localStorage.setItem(
+			'basicInfo',
+			JSON.stringify({
+				...basicInfo,
+				partnerBodyTypes: bodyArr,
+				partnerMinHeight: minHeight,
+				partnerMaxHeight: maxHeight,
+			}),
+		);
+	}, []);
 
 	return (
 		<Wrapper>
