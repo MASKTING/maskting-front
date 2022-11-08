@@ -9,20 +9,9 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
-import { parse } from 'request/lib/cookies';
+// import { parse } from 'request/lib/cookies';
 
 function ProfileSetting() {
-	function dataURLtoBlob(dataurl) {
-		let arr = dataurl.split(','),
-			mime = arr[0].match(/:(.*?);/)[1],
-			bstr = atob(arr[1]),
-			n = bstr.length,
-			u8arr = new Uint8Array(n);
-		while (n--) {
-			u8arr[n] = bstr.charCodeAt(n);
-		}
-		return new Blob([u8arr], { type: mime });
-	}
 	const [imageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
