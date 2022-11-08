@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
 import Wrapper from '../../Wrapper';
-import { NavigateButton } from '../../Button';
+import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 
 const ProfileMask = () => {

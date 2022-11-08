@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-const BtnWrapper = styled.div`
+import PALETTE from '../../constants/palette';
+const NavigateBtnWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -52,4 +53,4 @@ const NextBtn = styled.button`
 	cursor: pointer;
 `;
 
-export { BtnWrapper, PrevBtn, NextBtn };
+export { NavigateBtnWrapper, PrevBtn, NextBtn };

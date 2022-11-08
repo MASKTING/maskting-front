@@ -99,7 +99,7 @@ const NarrowButton = styled.button`
 	top: 1.2rem;
 	border: none;
 	border-radius: 0.8rem;
-	font-size: ${FONTSIZE.Text};
+	font-size: ${FONTSIZE.text};
 `;
 const RadioLabel = styled.label`
 	position: relative;
@@ -115,7 +115,6 @@ const NarrowInput = styled.input`
 `;
 const Form = styled.form``;
 const BtnWrapper = styled.div`
-	position: fixed;
 	display: flex;
 	justify-content: center;
 	position: absolute;

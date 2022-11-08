@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 const Modal = styled.div`
+	position: absolute;
 	width: 39rem;
 	height: 84.4rem;
-	position: relative;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -12,7 +12,7 @@ const Modal = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 1;
+	z-index: 10;
 `;
 
 const ModalInner = styled.div`

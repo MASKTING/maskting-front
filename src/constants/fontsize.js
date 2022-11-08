@@ -1,7 +1,10 @@
 const FONTSIZE = {
-	Title: '2.4rem',
-	Text: '1.5rem', // 일단 임의로 지정
-	InfoText: '1.2rem',
+	title: '2.4rem',
+	subTitle: '1.8rem',
+	bigText: '1.6rem',
+	text: '1.5rem',
+	smallText: '1.2rem',
+	infoText: '1.2rem',
 };
 
 export default FONTSIZE;
