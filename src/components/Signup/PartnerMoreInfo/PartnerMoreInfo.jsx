@@ -26,7 +26,6 @@ const msg = {
 		3: '보통',
 		4: '볼륨감 있는',
 		5: '통통한',
-		6: '모든',
 	},
 };
 
@@ -45,12 +44,13 @@ const PartnerMoreInfo = () => {
 
 	const radioChange = e => {
 		e.preventDefault();
+		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
-
+	console.log(basicInfo);
 	return (
 		<Wrapper titleMessage="원하는 조건을 입력해주세요" titleWidth="39rem">
 			<S.InfoMessage>
@@ -210,7 +210,7 @@ const PartnerMoreInfo = () => {
 							{parseInt(basicInfo.partnerDrinking) >= 2 &&
 							parseInt(basicInfo.partnerDrinking) <= 4 ? (
 								<S.DegreeMessage>
-									<S.Red>{msg.partnerDrinking[basicInfo.partnerDrinking]}</S.Red> 가 좋아요
+									<S.Red>{msg.partnerDrinking[basicInfo.partnerDrinking]}</S.Red>가 좋아요
 								</S.DegreeMessage>
 							) : null}
 							{basicInfo.partnerDrinking === '6' ? (
@@ -220,38 +220,53 @@ const PartnerMoreInfo = () => {
 							) : null}
 						</S.LongLabel>
 					)}
-					<S.Slider
-						type="range"
-						name="partnerDrinking"
-						min="1"
-						max="6"
-						// radio="1"
-						step="1"
-						degree={(parseInt(basicInfo.partnerDrinking) - 1) * 20}
-						onChange={radioChange}
-					/>
+					<S.SliderWrapper>
+						<S.Slider
+							type="range"
+							name="partnerDrinking"
+							min="1"
+							max="6"
+							// radio="1"
+							step="1"
+							degree={(parseInt(basicInfo.partnerDrinking) - 1) * 20}
+							onChange={radioChange}
+						/>
+					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit &&
-					(basicInfo.partnerMinHeight === null || basicInfo.partnerMaxHeight === null) ? (
+					{submit && basicInfo.partnerMinHeight === null ? (
 						<S.ErrorMessage>키를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel htmlFor="height">
 							키
 							{basicInfo.partnerMinHeight !== null || basicInfo.partnerMaxHeight !== null ? (
-								<S.DegreeMessage>{msg.height[basicInfo.partnerMinHeight]}</S.DegreeMessage>
+								<S.DegreeMessage>
+									내 키에서 <S.Red>{msg.height[basicInfo.partnerMinHeight]}</S.Red>
+									부터 <S.Red>{msg.height[basicInfo.partnerMaxHeight]}</S.Red>가 좋아요
+								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
 					)}
-					<S.Slider
-						type="range"
-						name="height"
-						min="1"
-						max="6"
-						step="1"
-						degree={(parseInt(basicInfo.partnerMinHeight) - 1) * 20}
-						onChange={radioChange}
-					/>
+					<S.SliderWrapper>
+						<S.SliderLeft
+							type="range"
+							name="partnerMinHeight"
+							min="1"
+							max="5"
+							step="1"
+							degree={(parseInt(basicInfo.partnerMinHeight) - 1) * 25}
+							onChange={radioChange}
+						/>
+						<S.SliderRight
+							type="range"
+							name="partnerMaxHeight"
+							min="1"
+							max="5"
+							step="1"
+							degree={(parseInt(basicInfo.partnerMaxHeight) - 1) * 25}
+							onChange={radioChange}
+						/>
+					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
 					{submit && basicInfo.partnerBodyTypes === null ? (
@@ -259,22 +274,36 @@ const PartnerMoreInfo = () => {
 					) : (
 						<S.LongLabel htmlFor="partnerBodyTypes">
 							체형
-							{basicInfo.partnerBodyTypes !== null ? (
+							{basicInfo.partnerBodyTypesLeft !== null ? (
 								<S.DegreeMessage>
-									<S.Red>{msg.partnerBodyTypes[basicInfo.partnerBodyTypes]}</S.Red> 체형이 좋아요
+									<S.Red>{msg.partnerBodyTypes[basicInfo.partnerBodyTypesLeft]}</S.Red> 체형부터
+									<S.Red> {msg.partnerBodyTypes[basicInfo.partnerBodyTypesRight]}</S.Red> 체형이
+									좋아요
 								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
 					)}
-					<S.Slider
-						type="range"
-						name="partnerBodyTypes"
-						min="1"
-						max="6"
-						step="1"
-						degree={(parseInt(basicInfo.partnerBodyTypes) - 1) * 20}
-						onChange={radioChange}
-					/>
+					<S.SliderWrapper>
+						<S.SliderLeft
+							type="range"
+							name="partnerBodyTypesLeft"
+							min="1"
+							max="5"
+							step="1"
+							degree={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
+							onChange={radioChange}
+						/>
+						<S.SliderRight
+							type="range"
+							name="partnerBodyTypesRight"
+							min="1"
+							max="5"
+							step="1"
+							degreeLeft={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
+							degreeRight={(parseInt(basicInfo.partnerBodyTypesRight) - 1) * 25}
+							onChange={radioChange}
+						/>
+					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 			</S.Content>
 			<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={handleNextBtn} />
