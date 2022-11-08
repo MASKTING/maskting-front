@@ -10,6 +10,8 @@ import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
+import { useCookies } from 'react-cookie';
+import { getCookie } from '../../../cookie';
 
 const FEEDPHOTOLIST = [
 	{
@@ -58,12 +60,7 @@ const FEEDLIST = [
 		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
 	},
 ];
-function getCookie(name) {
-	let matches = document.cookie.match(
-		new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
-	);
-	return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
@@ -82,22 +79,22 @@ const HomeMainPage = () => {
 	const x = document.cookie;
 	console.log(document.cookie);
 
-	// alert(document.cookie);
+	const [cookies, setCookie, removeCookie] = useCookies('refreshToken');
+	console.log(getCookie('cookies'));
 
-	// useEffect(() => {
-	// 	axios({
-	// 		method: 'get',
-	// 		url: '/admin',
-	// 		// responseType: 'stream',
-	// 		headers: {
-	// 			Authorization:
-	// 				'Bearer ' +
-	// 				'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pblByb3ZpZGVySWQiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2MTYwMDIzMSwiZXhwIjoxNjYxNjAyMDMxfQ.odnZT0oZeFweZ66eqpweouRGg5wCwcH_iGwI_TnIOJs',
-	// 		},
-	// 	}).then(function (response) {
-	// 		console.log(response);
-	// 	});
-	// });
+	useEffect(() => {
+		axios({
+			method: 'post',
+			url: '/api/auth/silent-refresh',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${getCookie('refreshToken')}`,
+			},
+		}).then(function (response) {
+			console.log(response);
+		});
+	});
+
 	return (
 		<Wrapper>
 			<WrapperInner>
