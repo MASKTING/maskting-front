@@ -4,7 +4,7 @@ import PALETTE from '../../constants/palette';
 export const Panel = styled.section`
 	position: relative;
 	width: 34.2rem;
-	height: ${props => props.size};
+	height: ${props => (props.sizeNum ? props.sizeNum + 'rem' : props.size)};
 	background-color: ${PALETTE.BLACK200};
 	border-radius: ${props => (props.size === '34.5rem' ? '2.4rem 2.4rem 0 0' : '2.4rem')};
 	left: 0;

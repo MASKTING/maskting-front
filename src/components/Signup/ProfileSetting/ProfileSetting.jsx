@@ -48,7 +48,12 @@ function ProfileSetting() {
 
 		const formData = new FormData();
 		formData.append('profiles', imageFile);
-		for (let [key, value] of Object.entries(basicInfo)) {
+		for (let [key, value] of Object.entries({
+			...basicInfo,
+			nickname: watch('nickname'),
+			bio: watch('introduce'),
+			partnerBodyTypes: [3, 4],
+		})) {
 			formData.append(key, value);
 		}
 		await axios({
@@ -58,13 +63,10 @@ function ProfileSetting() {
 				'Content-Type': 'multipart/form-data',
 			},
 			data: formData,
-		})
-			.then(response => {
-				console.log(response);
-			})
-			.finally(() => {
-				navigate('/wait');
-			});
+		}).then(response => {
+			localStorage.setItem('accessToken', response.headers.accesstoken);
+			navigate('/home');
+		});
 	};
 
 	// 1. PHOTO

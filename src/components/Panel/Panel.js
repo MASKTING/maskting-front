@@ -12,8 +12,12 @@ export const PanelVariable = props => {
 	return <S.PanelVariable>{props.children}</S.PanelVariable>;
 };
 
-const Panel = ({ size, children }) => {
-	return <S.Panel size={PANELSIZE[size]}>{children}</S.Panel>;
+const Panel = ({ size, children, sizeNum }) => {
+	return (
+		<S.Panel size={PANELSIZE[size]} sizeNum={sizeNum}>
+			{children}
+		</S.Panel>
+	);
 };
 
 export default Panel;

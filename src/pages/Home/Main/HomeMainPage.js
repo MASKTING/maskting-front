@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Panel from '../../../components/Panel/Panel';
 import SideBar from '../../../components/SideBar/SideBar';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
@@ -57,7 +58,12 @@ const FEEDLIST = [
 		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
 	},
 ];
-
+function getCookie(name) {
+	let matches = document.cookie.match(
+		new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
+	);
+	return matches ? decodeURIComponent(matches[1]) : undefined;
+}
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
@@ -73,6 +79,25 @@ const HomeMainPage = () => {
 	const handleFeedButton = () => {
 		navigate(`feed`);
 	};
+	const x = document.cookie;
+	console.log(document.cookie);
+
+	// alert(document.cookie);
+
+	// useEffect(() => {
+	// 	axios({
+	// 		method: 'get',
+	// 		url: '/admin',
+	// 		// responseType: 'stream',
+	// 		headers: {
+	// 			Authorization:
+	// 				'Bearer ' +
+	// 				'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pblByb3ZpZGVySWQiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTY2MTYwMDIzMSwiZXhwIjoxNjYxNjAyMDMxfQ.odnZT0oZeFweZ66eqpweouRGg5wCwcH_iGwI_TnIOJs',
+	// 		},
+	// 	}).then(function (response) {
+	// 		console.log(response);
+	// 	});
+	// });
 	return (
 		<Wrapper>
 			<WrapperInner>
