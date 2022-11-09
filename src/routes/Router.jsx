@@ -20,6 +20,8 @@ import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
 import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
 import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
 import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
+import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
+import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 
 function Router() {
 	return (
@@ -45,6 +47,9 @@ function Router() {
 				<Route path="/home/feed" element={<HomeFeedPage />} />
 
 				<Route path="/ticket" element={<TicketMainPage />} />
+				<Route path="/ticket/answer" element={<TicketAnswer />} />
+				<Route path="/ticket/suggest" element={<TicketSuggest />} />
+
 				<Route path="/chatting" element={<ChattingMainPage />} />
 				<Route path="/myPage" element={<MyPageMainPage />} />
 				{/* <Route path="/wait" element={<WaitingPage />} /> */}

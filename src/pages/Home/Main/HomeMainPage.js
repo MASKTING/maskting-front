@@ -12,6 +12,7 @@ import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 import { useCookies } from 'react-cookie';
 import { getCookie } from '../../../cookie';
+// import { customAxios } from '../../../api/customAxios';
 
 const FEEDPHOTOLIST = [
 	{
@@ -91,9 +92,25 @@ const HomeMainPage = () => {
 				Authorization: `Bearer ${getCookie('refreshToken')}`,
 			},
 		}).then(function (response) {
-			console.log(response);
+			localStorage.setItem('accessToken', response.headers.accesstoken);
+			// console.log(response);
 		});
 	});
+
+	// const requestPost = async postDto => {
+	// 	const res = await customAxios.post('/');
+	// };
+
+	// axios({
+	// 	method: 'get',
+	// 	url: '/admin',
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 		accessToken: localStorage.getItem('accessToken'),
+	// 	},
+	// }).then(function (response) {
+	// 	console.log(response);
+	// });
 
 	return (
 		<Wrapper>

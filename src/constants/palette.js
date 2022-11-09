@@ -7,6 +7,7 @@ const PALETTE = {
 	BLACK50: '#FAFAFA',
 	BLACK300: 'E0E0E0',
 	BLACK600: '#757575',
+	BLACK800: '#424242',
 };
 
 export default PALETTE;
