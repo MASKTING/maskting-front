@@ -8,7 +8,6 @@ const PICTURESIZE = {
 };
 
 const PictureCircle = props => {
-	console.log(props.src);
 	return (
 		<S.PictureCircle
 			size={PICTURESIZE[props.size]}

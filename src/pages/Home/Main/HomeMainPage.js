@@ -10,6 +10,9 @@ import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
+import { useRecoilState } from 'recoil';
+import { AuthInfo } from '../../../recoil/Auth';
+import api, { getAccessToken, getAccessToken2 } from '../../../api/api';
 
 const FEEDPHOTOLIST = [
 	{
@@ -78,31 +81,20 @@ const HomeMainPage = () => {
 	};
 
 	const getUserInfo = async () => {
-		const response = await axios.get('/api/user', {
-			headers: {
-				'Content-Type': 'application/json',
-				accesstoken: `${localStorage.getItem('accesstoken')}`,
-			},
+		const response = await api({
+			url: '/api/user',
 		});
 		localStorage.setItem('profile', response.data.profile);
 		localStorage.setItem('nickname', response.data.nickname);
 		setUserInfo({ profile: response.data.profile, nickname: response.data.nickname });
 		return;
 	};
+
 	useEffect(() => {
 		getUserInfo();
 	}, []);
 
-	// axios({
-	// 	method: 'get',
-	// 	url: '/admin',
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		accessToken: localStorage.getItem('accessToken'),
-	// 	},
-	// }).then(function (response) {
-	// 	console.log(response);
-	// });
+	// getAccessToken2();
 
 	return (
 		<Wrapper>
