@@ -81,13 +81,30 @@ const HomeMainPage = () => {
 	};
 
 	const getUserInfo = async () => {
-		const response = await api({
-			url: '/api/user',
-		});
-		localStorage.setItem('profile', response.data.profile);
-		localStorage.setItem('nickname', response.data.nickname);
-		setUserInfo({ profile: response.data.profile, nickname: response.data.nickname });
-		return;
+		if (localStorage.getItem('profile') && localStorage.getItem('nickname')) {
+			setUserInfo({
+				profile: localStorage?.getItem('profile'),
+				nickname: localStorage?.getItem('nickname'),
+			});
+		} else {
+			try {
+				const response = await api({
+					url: '/api/user',
+				});
+				console.log(response.data);
+				const profile = response.data.profile;
+				const nickname = response.data.nickname;
+				localStorage.setItem('profile', profile);
+				localStorage.setItem('nickname', nickname);
+				setUserInfo({
+					profile: profile,
+					nickname: nickname,
+				});
+				return response;
+			} catch (error) {
+				console.log(error);
+			}
+		}
 	};
 
 	useEffect(() => {
