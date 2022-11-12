@@ -10,9 +10,6 @@ import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
-import { useCookies } from 'react-cookie';
-import { getCookie } from '../../../cookie';
-// import { customAxios } from '../../../api/customAxios';
 
 const FEEDPHOTOLIST = [
 	{
@@ -65,6 +62,8 @@ const FEEDLIST = [
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
+	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
+
 	const turnOnModal = () => {
 		setIsModal(true);
 	};
@@ -77,29 +76,22 @@ const HomeMainPage = () => {
 	const handleFeedButton = () => {
 		navigate(`feed`);
 	};
-	const x = document.cookie;
-	console.log(document.cookie);
 
-	const [cookies, setCookie, removeCookie] = useCookies('refreshToken');
-	console.log(getCookie('cookies'));
-
-	useEffect(() => {
-		axios({
-			method: 'post',
-			url: '/api/auth/silent-refresh',
+	const getUserInfo = async () => {
+		const response = await axios.get('/api/user', {
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${getCookie('refreshToken')}`,
+				accesstoken: `${localStorage.getItem('accesstoken')}`,
 			},
-		}).then(function (response) {
-			localStorage.setItem('accessToken', response.headers.accesstoken);
-			// console.log(response);
 		});
-	});
-
-	// const requestPost = async postDto => {
-	// 	const res = await customAxios.post('/');
-	// };
+		localStorage.setItem('profile', response.data.profile);
+		localStorage.setItem('nickname', response.data.nickname);
+		setUserInfo({ profile: response.data.profile, nickname: response.data.nickname });
+		return;
+	};
+	useEffect(() => {
+		getUserInfo();
+	}, []);
 
 	// axios({
 	// 	method: 'get',
@@ -133,9 +125,9 @@ const HomeMainPage = () => {
 				<MainHeader />
 				<Panel size="small">
 					<S.PanelInfoInner>
-						<PictureCircle size="midium" />
+						<PictureCircle size="midium" src={userInfo.profile} />
 						<S.InfoBig>사진을 추가해보세요</S.InfoBig>
-						<S.InfoMidium>@@@님의 내적매력을 피드에 담아보세요</S.InfoMidium>
+						<S.InfoMidium>{userInfo.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
 						<SmallButton size="small" onClick={turnOnModal}>
 							사진 추가하기
 						</SmallButton>
@@ -145,7 +137,7 @@ const HomeMainPage = () => {
 					<Panel size="midium" key={feedItem.id}>
 						<S.PanelFeedInner onClick={handleFeedButton} id={feedItem.id}>
 							<S.FeedProfile>
-								<PictureCircle size="small" src={feedItem.id} />
+								<PictureCircle size="small" />
 								<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
 							</S.FeedProfile>
 							<S.FeedInfo>
