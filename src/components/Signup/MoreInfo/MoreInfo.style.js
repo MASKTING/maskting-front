@@ -3,7 +3,7 @@ import FONTSIZE from '../../../constants/fontsize';
 import PALETTE from '../../../constants/palette';
 
 const InfoMessage = styled.p`
-	font-size: ${FONTSIZE.InfoText};
+	font-size: ${FONTSIZE.infoText};
 	font-weight: 700;
 	line-height: 1.5rem;
 	position: absolute;
@@ -77,7 +77,7 @@ const NarrowButton = styled.button`
 	color: ${props => (props.focused ? PALETTE.WHITE : PALETTE.BLACK)};
 	border: none;
 	border-radius: 0.8rem;
-	font-size: ${FONTSIZE.Text};
+	font-size: ${FONTSIZE.text};
 `;
 const NarrowInput = styled.input`
 	display: none;

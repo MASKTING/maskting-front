@@ -32,12 +32,12 @@ const LoginWrapper = styled.div`
 `;
 const LoginImg = styled.img`
 	height: 5rem;
-`;
-const LoginBtn = styled.button`
-	position: relative;
-	border: none;
-	background-color: inherit;
-	margin-bottom: 2rem;
+	width: 30rem;
 `;
 
-export { Title, Logo, LoginWrapper, LoginBtn, LoginImg };
+export const LoginButton = styled.a`
+	margin-bottom: 1rem;
+	display: block;
+`;
+
+export { Title, Logo, LoginWrapper, LoginImg };

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './MoreInfo.style';
 import Wrapper from '../../Wrapper';
-import { NavigateButton } from '../../Button';
+import { NavigateButton } from '../../Button/Button';
 
 const msg = {
 	drinking: {

@@ -2,13 +2,30 @@ import styled from 'styled-components';
 import FONTSIZE from '../../constants/fontsize';
 
 const Wrapper = styled.div`
+	position: relative;
 	left: 0;
 	right: 0;
 	margin: auto;
 	width: 39rem;
 	height: 84.4rem;
 	border: #eeeeee 1px solid; // 임시용
-	position: relative;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	::-webkit-scrollbar {
+		display: none;
+	}
+`;
+
+export const WrapperInner = styled.div`
+	left: 0rem;
+	top: 12rem;
+	width: 39rem;
+	height: 69.3rem;
+	overflow-y: scroll;
+	::-webkit-scrollbar {
+		display: none;
+	}
+	padding: 0 2rem;
 `;
 const TitleWrapper = styled.div`
 	top: 0rem;
@@ -24,7 +41,7 @@ const Title = styled.h1`
 	font-family: 'Pretendard';
 	font-style: normal;
 	font-weight: 700;
-	font-size: ${FONTSIZE.Title};
+	font-size: ${FONTSIZE.title};
 	width: ${props => props.titleWidth && `${props.titleWidth}rem`};
 	line-height: 4rem;
 	letter-spacing: 0.1rem;

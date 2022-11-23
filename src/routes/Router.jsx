@@ -10,7 +10,18 @@ import PartnerLocationPage from '../pages/SignUp/PartnerLocation';
 import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
 import LoginPage from '../pages/Login';
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
-import WaitingPage from '../pages/SignUp/Waiting';
+// import WaitingPage from '../pages/SignUp/Waiting';
+import HomeMainPage from '../pages/Home/Main/HomeMainPage';
+import HomeNotification from '../pages/Home/Notification/HomeNotification';
+import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
+import ChattingMainPage from '../pages/Chatting/Main/ChattingMainPage';
+import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
+import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
+import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
+import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
+import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
+import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
+import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 
 function Router() {
 	return (
@@ -27,7 +38,22 @@ function Router() {
 				<Route path="/profileMask" element={<ProfileMaskPage />} />
 				<Route path="/partnerLocation" element={<PartnerLocationPage />} />
 				<Route path="/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
-				<Route path="/wait" element={<WaitingPage />} />
+
+				<Route path="/home" element={<HomeMainPage />} />
+				<Route path="/home/notification" element={<HomeNotification />} />
+				<Route path="/home/picture" element={<HomePictureInfo />} />
+				<Route path="/home/picture/add" element={<HomePictureAdd />} />
+				<Route path="/home/picture/resize" element={<HomePictureResize />} />
+				<Route path="/home/feed" element={<HomeFeedPage />} />
+
+				<Route path="/ticket" element={<TicketMainPage />} />
+				<Route path="/ticket/answer" element={<TicketAnswer />} />
+				<Route path="/ticket/suggest" element={<TicketSuggest />} />
+
+				<Route path="/chatting" element={<ChattingMainPage />} />
+				<Route path="/myPage" element={<MyPageMainPage />} />
+				{/* <Route path="/wait" element={<WaitingPage />} /> */}
+				<Route path="/homeMain" element={<HomeMainPage />} />
 			</Routes>
 		</Routers>
 	);

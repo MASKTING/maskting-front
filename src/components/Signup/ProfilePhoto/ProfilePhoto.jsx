@@ -24,28 +24,18 @@ const ProfilePhoto = () => {
 		setIsModal(false);
 	};
 
-	function blobToDataURL(blob, callback) {
-		let a = new FileReader();
-		a.onload = function (e) {
-			callback(e.target.result);
-		};
-		a.readAsDataURL(blob);
-	}
 	// 이미지 업로드
 	const onUploadImage = useCallback(async e => {
 		if (!e.target.files) {
 			return;
 		}
-		blobToDataURL(e.target.files[0], dataurl => {
-			localStorage.setItem('imageData', dataurl);
-			navigate('/profileMask');
-		});
 		setImageFile(e.target.files[0]);
-		// const reader = new FileReader();
-		// reader.readAsDataURL(imgRef.current.files[0]);
-		// reader.onload = async () => {
-		// localStorage.setItem('profilePreview', reader.result);
-		// };
+		const reader = new FileReader();
+		reader.readAsDataURL(imgRef.current.files[0]);
+		reader.onload = async () => {
+			localStorage.setItem('imageData', reader.result);
+			navigate('/profileMask');
+		};
 	}, []);
 
 	return (
