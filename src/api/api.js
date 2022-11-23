@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 import { getCookie } from '../cookie';
 
 const api = axios.create({
@@ -34,11 +35,12 @@ api.interceptors.response.use(
 				if (response) {
 					localStorage.setItem('accesstoken', response.headers.accesstoken);
 					localStorage.setItem('expiresIn', response.headers.expiresIn);
-
 					return api.request(originalRequest);
 				}
 			} catch (error) {
+				const navigate = useNavigate();
 				alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
+				navigate('/home');
 			}
 		}
 	},

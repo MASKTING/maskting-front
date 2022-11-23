@@ -13,6 +13,8 @@ import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle'
 import { useRecoilState } from 'recoil';
 import { AuthInfo } from '../../../recoil/Auth';
 import api, { getAccessToken, getAccessToken2 } from '../../../api/api';
+import { getProfile } from '../../../api/getProfile';
+import { useQuery } from 'react-query';
 
 const FEEDPHOTOLIST = [
 	{
@@ -80,38 +82,14 @@ const HomeMainPage = () => {
 		navigate(`feed`);
 	};
 
-	const getUserInfo = async () => {
-		if (localStorage.getItem('profile') && localStorage.getItem('nickname')) {
-			setUserInfo({
-				profile: localStorage?.getItem('profile'),
-				nickname: localStorage?.getItem('nickname'),
-			});
-		} else {
-			try {
-				const response = await api({
-					url: '/api/user',
-				});
-				console.log(response.data);
-				const profile = response.data.profile;
-				const nickname = response.data.nickname;
-				localStorage.setItem('profile', profile);
-				localStorage.setItem('nickname', nickname);
-				setUserInfo({
-					profile: profile,
-					nickname: nickname,
-				});
-				return response;
-			} catch (error) {
-				console.log(error);
-			}
-		}
-	};
-
 	useEffect(() => {
-		getUserInfo();
+		getProfile().then(response => {
+			setUserInfo({
+				profile: response.profile,
+				nickname: response.nickname,
+			});
+		});
 	}, []);
-
-	// getAccessToken2();
 
 	return (
 		<Wrapper>

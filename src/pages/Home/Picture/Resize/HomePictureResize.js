@@ -11,13 +11,21 @@ import { useNavigate } from 'react-router-dom';
 import SideBar from '../../../../components/SideBar/SideBar';
 import { useRecoilState } from 'recoil';
 import { imageRecoil } from '../../../../recoil';
+import { addFeed } from '../../../../api/addFeed';
 
 const HomePictureResize = () => {
 	const navigate = useNavigate();
-	const handleAddButton = () => {
+	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
+	const handleAddButton = async () => {
+		try {
+			console.log(imageFile.feedbackImageList[0]);
+			const response = await addFeed(imageFile.selectedImage);
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+		}
 		navigate('/home/picture/add');
 	};
-	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
 
 	return (
 		<Wrapper>
