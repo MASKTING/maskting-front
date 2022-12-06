@@ -15,6 +15,7 @@ import { AuthInfo } from '../../../recoil/Auth';
 import api, { getAccessToken, getAccessToken2 } from '../../../api/api';
 import { getProfile } from '../../../api/getProfile';
 import { useQuery } from 'react-query';
+import { useGetProfile } from '../../../hooks/query/useGetProfile';
 
 const FEEDPHOTOLIST = [
 	{
@@ -69,6 +70,17 @@ const HomeMainPage = () => {
 	const [isModal, setIsModal] = useState(false);
 	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
 
+	const getProfiles = async () => {
+		try {
+			const response = await api({
+				url: '/api/user',
+			});
+			return response.data;
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const turnOnModal = () => {
 		setIsModal(true);
 	};
@@ -90,6 +102,8 @@ const HomeMainPage = () => {
 			});
 		});
 	}, []);
+	const response = useGetProfile().data;
+	console.log(response);
 
 	return (
 		<Wrapper>
