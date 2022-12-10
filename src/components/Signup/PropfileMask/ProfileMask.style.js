@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 const Wrapper = styled.div`
 	width: 39rem;
@@ -118,7 +119,7 @@ const NextBtn = styled.button`
 
 const ImageWrapper = styled.section`
 	width: 39rem;
-	height: 42.2;
+	height: 42.2rem;
 	display: flex;
 	justify-content: center;
 	align-content: center;
@@ -131,12 +132,27 @@ const Image = styled.img`
 	background-color: #eee;
 `;
 
+// const Cropper = styled.Cropper`
+// 	position: absolute;
+// 	${({ visible }) => (visible ? `position: absolute` : `display: none`)};
+// `;
+
+const Mask = styled.img`
+	width: 20rem;
+	${({ visible }) => (visible ? `position: absolute` : `display: none`)};
+`;
+
 const MaskListWrapper = styled.section`
 	width: 39rem;
 	height: 10rem;
 	display: flex;
 	justify-content: center;
 	margin-top: 4rem;
+`;
+
+const MaskItemWrapper = styled.div`
+	border: 2px solid ${PALETTE.PINK600};
+	border-radius: 1.2rem;
 `;
 
 const MaskList = styled.ul`
@@ -149,11 +165,11 @@ const MaskList = styled.ul`
 	align-items: center;
 `;
 
-const MaskItem = styled.li`
+const MaskItem = styled.img`
 	width: 8rem;
 	height: 8rem;
 	border-radius: 1.2rem;
-	background-color: #bdbdbd;
+	cursor: pointer;
 `;
 
 const InfoMessage = styled.p`
@@ -166,7 +182,7 @@ const InfoMessage = styled.p`
 	position: absolute;
 	left: 0rem;
 	right: 0;
-	top: 38rem;
+	top: 46rem;
 	margin: auto;
 `;
 
@@ -182,7 +198,10 @@ export {
 	NextBtn,
 	ImageWrapper,
 	Image,
+	// Cropper,
+	Mask,
 	MaskListWrapper,
+	MaskItemWrapper,
 	MaskList,
 	MaskItem,
 	InfoMessage,

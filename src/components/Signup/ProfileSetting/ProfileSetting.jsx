@@ -9,6 +9,7 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
+import { parse } from 'request/lib/cookies';
 
 function ProfileSetting() {
 	const [imageFile] = useRecoilState(imageState);
