@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+<p align="middle" >
+  <img width="200px;" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/06562c28-30d9-427e-9bb1-06f5eadd7c39/acme-logo-vert-preview.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221206%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221206T075538Z&X-Amz-Expires=86400&X-Amz-Signature=65b1392e88a5f98e533e70a8195267954d2a8a36d79db05f9644d20134293fcb&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22acme-logo-vert-preview.png%22&x-id=GetObject"/>
+</p>
+<h1 align="middle">벚꽃 오프닝</h1>
+<p align="middle">공간을 한 눈에, 예약은 한 번에! 맞춤형 공간예약 서비스 제작 플랫폼 찜꽁입니다!</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 프로젝트 소개 📝
 
-## Available Scripts
+마스크를 쓰고 소개팅을 하자!
 
-In the project directory, you can run:
+사용자는 질문을 제안하여 받은 티켓으로 매칭을 할 수 있습니다. 그리고 질문에 답변하여 본인의 프로필을 꾸밀 수 있습니다. 매칭된 사용자는 마스크를 쓰고 소개팅을 진행합니다!
 
-### `npm start`
+## 프로젝트 결과물
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<img src="https://user-images.githubusercontent.com/62178788/205849899-81abadf7-cece-4974-91f3-70bcc9c1dc94.gif" width="300px">
+<img src="https://user-images.githubusercontent.com/62178788/205851449-e0c3f0b7-ab3d-4cf9-87fe-fd7169eed666.png" width="300px">
+<img src="https://user-images.githubusercontent.com/62178788/205851890-795745a0-644b-4b85-94da-2473e8a53935.png" width="300px">
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 프로젝트 기술스택 💡
 
-### `npm test`
+![image](https://user-images.githubusercontent.com/43775108/137436131-9e698239-1a93-4696-946e-02e9baef56c8.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 팀 문화 🏠
 
-### `npm run build`
+#### 1. 인정? 인정!
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 상호 존중과 수평적 관계는 기본입니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 2. 수미상관식 미팅
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 매일 출근 직후 '데일리 미팅'을, 퇴근 전에는 '마무리 미팅'을 진행합니다.
+  - 데일리 미팅: 월 1시, 화수목금 10시
+  - 마무리 미팅: 매일 6시
+- 데일리 미팅에서는 그 날 작업할 이슈들을 짧게 공유해요.
+- 마무리 미팅에서는 그 날 작업한 이슈들을 브리핑합니다.
 
-### `npm run eject`
+#### 3. 한 주의 마무리는 찐한 회고와 함께
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+매주 금요일 오후 5시에 만나서 찐~하게 회고를 진행합니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- 아쉬웠던 점도 감추지 않고 드러내도록 합니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 4. 몸이 멀어지면 마음도 멀어진다고...
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- 회의는 가능하면 오프라인으로 진행합니다.
 
-## Learn More
+#### 5. 나만 알지 않기
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 프로젝트를 진행하면서 알게 된 지식을 당신 혼자 갖지 마세요.
+- 나누면 배가 됩니다!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 6. 나만 모르지 않기
 
-### Code Splitting
+- 프로젝트를 진행하면서 만나게 되는 문제를 혼자 고민하지 마세요.
+- 나누면 반이 됩니다!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### 7. 나홀로 머지.. 뭐지?
 
-### Analyzing the Bundle Size
+- PR은 모두에게 approve를 받은 후 머지 합니다. 혼자서 머지하지 마세요.
+- PR의 의미를 되새겨봅시다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 8. 지각과 "내가 쏜다"는 동의어다.
 
-### Making a Progressive Web App
+- '10시 1분은 10시가 아니다.'
+- 시간 준수는 서로 간의 기본적인 예의입니다.
+- 지각의 패널티는 커피로 받습니다!
+  - 5분에 한 잔(메머드 커피 기준)
+  - 7잔 모이면 커피 회식
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### 9. 기억보단 기록을
 
-### Advanced Configuration
+- 개발자는 기억을 믿지 않아요. 기록을 믿습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### 10. 무대뽀 의견, 멈춰✋!
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 의견을 제시할 때는 논리적으로!
+- 합리적인 근거와 정중한 말투로 부탁드려요.

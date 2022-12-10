@@ -9,7 +9,7 @@ import BigButton from '../../../components/Button/BigButton/BigButton';
 import ContentRed from '../../../components/Content/ContentRed/ContentRed';
 
 const TicketAnswer = () => {
-	const [inputState, setInputState] = useState(null);
+	const [inputState, setInputState] = useState('');
 	const handleSubmitButton = e => {};
 	const handleInput = e => {
 		setInputState(e.target.value);
