@@ -35,15 +35,7 @@ const NotifyTitle = styled.p`
 const NotifyInfo = styled.p`
 	font-size: ${FONTSIZE.infoText};
 `;
-const NotifyInfoIfNoRoom = styled.p`
-	font-size: ${FONTSIZE.infoText};
-	display: flex;
-	justify-content: center;
-	font-size: 1.3rem;
-	text-align: center;
-	padding: 6rem;
-	font-weight: 700;
-`;
+
 const ChattingRoomList = styled.section``;
 const ChattingRoomItem = styled.article`
 	width: 34.2rem;
@@ -73,7 +65,6 @@ export {
 	NotifyTitle,
 	NotifyTextBox,
 	NotifyInfo,
-	NotifyInfoIfNoRoom,
 	NotifyPictureBox,
 	ChattingRoomList,
 	ChattingRoomItem,
