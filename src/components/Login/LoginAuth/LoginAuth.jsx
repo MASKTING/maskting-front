@@ -7,8 +7,16 @@ const LoginAuth = () => {
 	const role = searchParams.getAll('role')[0];
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
+	console.log(provider, providerId, email);
+	localStorage.setItem(
+		'basicInfo',
+		JSON.stringify({
+			provider: provider,
+			providerId: providerId,
+			email: email,
+		}),
+	);
 
-	console.log(1);
 	if (role === 'guest') {
 		if (sort === 'true') {
 			// 아직 심사 대기 상태인 경우 -> 대기 화면
