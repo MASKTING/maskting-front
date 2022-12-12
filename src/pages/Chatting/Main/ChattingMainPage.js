@@ -5,6 +5,7 @@ import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
 import { getChattingRoom } from '../../../api/chatting';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const CHATTINGROOMLIST = [
 	{ id: 1, sender: '분당청소요정', message: '안녕하세요?' },
@@ -19,8 +20,15 @@ const CHATTINGROOMLIST = [
 ];
 
 const ChattingMainPage = () => {
-	const chattingRoom = getChattingRoom();
-	console.log(chattingRoom);
+	const getchattingRoomMethod = async () => {
+		const chattingRoomList = await getChattingRoom();
+		console.log(chattingRoomList);
+	};
+
+	useEffect(() => {
+		getchattingRoomMethod();
+	}, []);
+
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
 		navigate('request');
@@ -42,7 +50,7 @@ const ChattingMainPage = () => {
 				</S.NotifyBox>
 				<S.ChattingRoomList>
 					{CHATTINGROOMLIST.map(chattingRoom => (
-						<S.ChattingRoomItem onClick={handleNavigateRoom}>
+						<S.ChattingRoomItem onClick={handleNavigateRoom} key={chattingRoom.id}>
 							<S.ChattingProfileBox>
 								<PictureCircle size="small"></PictureCircle>
 							</S.ChattingProfileBox>
