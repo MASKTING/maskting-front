@@ -32,17 +32,17 @@ const Title = styled.h1`
 const InfoText = styled.p`
 	top: 7rem;
 	left: 2.4rem;
-	position: absolute;
+	position: relative;
 	width: 33.5rem;
 	height: 2rem;
-	font-family: 'Pretendard';
-	font-style: normal;
+	color: ${PALETTE.BLACK800};
 	font-weight: 700;
 	font-size: 0.8rem;
+	line-height: 20px;
 `;
 
 const Red = styled.span`
-	color: red;
+	color: ${PALETTE.PINK600};
 `;
 
 const Content = styled.div`
@@ -132,11 +132,6 @@ const Image = styled.img`
 	background-color: #eee;
 `;
 
-// const Cropper = styled.Cropper`
-// 	position: absolute;
-// 	${({ visible }) => (visible ? `position: absolute` : `display: none`)};
-// `;
-
 const Mask = styled.img`
 	width: 20rem;
 	${({ visible }) => (visible ? `position: absolute` : `display: none`)};
@@ -147,11 +142,9 @@ const MaskListWrapper = styled.section`
 	height: 10rem;
 	display: flex;
 	justify-content: center;
-	margin-top: 4rem;
 `;
 
 const MaskItemWrapper = styled.div`
-	border: 2px solid ${PALETTE.PINK600};
 	border-radius: 1.2rem;
 `;
 
@@ -182,7 +175,7 @@ const InfoMessage = styled.p`
 	position: absolute;
 	left: 0rem;
 	right: 0;
-	top: 46rem;
+	top: 40rem;
 	margin: auto;
 `;
 
