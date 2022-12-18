@@ -2,7 +2,6 @@
   <img width="200px;" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/06562c28-30d9-427e-9bb1-06f5eadd7c39/acme-logo-vert-preview.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221206%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221206T075538Z&X-Amz-Expires=86400&X-Amz-Signature=65b1392e88a5f98e533e70a8195267954d2a8a36d79db05f9644d20134293fcb&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22acme-logo-vert-preview.png%22&x-id=GetObject"/>
 </p>
 <h1 align="middle">벚꽃 오프닝</h1>
-<p align="middle">공간을 한 눈에, 예약은 한 번에! 맞춤형 공간예약 서비스 제작 플랫폼 찜꽁입니다!</p>
 
 ## 프로젝트 소개 📝
 
