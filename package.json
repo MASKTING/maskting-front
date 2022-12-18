@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"@stomp/stompjs": "^6.1.2",
 		"@testing-library/jest-dom": "^5.16.4",
 		"@testing-library/react": "^13.3.0",
 		"@testing-library/user-event": "^13.5.0",
@@ -50,5 +51,13 @@
 		"eslint-plugin-prettier": "^4.2.1",
 		"prettier": "^2.7.1"
 	},
-	"proxy": "http://ec2-3-34-75-204.ap-northeast-2.compute.amazonaws.com:8080"
+	"proxy": {
+		"/api": {
+			"target": "http://ec2-3-34-75-204.ap-northeast-2.compute.amazonaws.com:8080"
+		},
+		"/app": {
+			"target": "ws://ec2-3-34-75-204.ap-northeast-2.compute.amazonaws.com:8080",
+			"ws": true
+		}
+	}
 }

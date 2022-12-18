@@ -3,7 +3,7 @@ import React from 'react';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
-import { getChattingRoom } from '../../../api/chatting';
+import { getChattingRooms } from '../../../api/chatting';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -20,13 +20,13 @@ const CHATTINGROOMLIST = [
 ];
 
 const ChattingMainPage = () => {
-	const getchattingRoomMethod = async () => {
-		const chattingRoomList = await getChattingRoom();
+	const getchattingRoomsMethod = async () => {
+		const chattingRoomList = await getChattingRooms();
 		console.log(chattingRoomList);
 	};
 
 	useEffect(() => {
-		getchattingRoomMethod();
+		getchattingRoomsMethod();
 	}, []);
 
 	const navigate = useNavigate();
