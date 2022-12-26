@@ -18,13 +18,12 @@ const HomePictureResize = () => {
 	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
 	const handleAddButton = async () => {
 		try {
-			console.log(imageFile.feedbackImageList[0]);
-			const response = await addFeed(imageFile.selectedImage);
+			const response = await addFeed(imageFile.feedbackImageList[0]);
 			console.log(response);
 		} catch (error) {
 			console.log(error);
 		}
-		navigate('/home/picture/add');
+		// navigate('/home/picture/add');
 	};
 
 	return (

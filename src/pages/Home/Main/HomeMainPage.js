@@ -16,6 +16,7 @@ import api, { getAccessToken, getAccessToken2 } from '../../../api/api';
 import { getProfile } from '../../../api/getProfile';
 import { useQuery } from 'react-query';
 import { useGetProfile } from '../../../hooks/query/useGetProfile';
+import { getPartner } from '../../../api/getPartner';
 
 const FEEDPHOTOLIST = [
 	{
@@ -69,18 +70,6 @@ const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
 	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
-
-	const getProfiles = async () => {
-		try {
-			const response = await api({
-				url: '/api/user',
-			});
-			return response.data;
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const turnOnModal = () => {
 		setIsModal(true);
 	};
@@ -93,7 +82,6 @@ const HomeMainPage = () => {
 	const handleFeedButton = () => {
 		navigate(`feed`);
 	};
-
 	useEffect(() => {
 		getProfile().then(response => {
 			setUserInfo({
@@ -101,9 +89,10 @@ const HomeMainPage = () => {
 				nickname: response.nickname,
 			});
 		});
+		getPartner().then(response => {
+			// console.log(response);
+		});
 	}, []);
-	const response = useGetProfile().data;
-	console.log(response);
 
 	return (
 		<Wrapper>

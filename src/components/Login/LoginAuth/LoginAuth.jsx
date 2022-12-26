@@ -7,7 +7,6 @@ const LoginAuth = () => {
 	const role = searchParams.getAll('role')[0];
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
-	console.log(provider, providerId, email);
 	localStorage.setItem(
 		'basicInfo',
 		JSON.stringify({
@@ -28,6 +27,7 @@ const LoginAuth = () => {
 	} else {
 		// 모든 가입 완료한 상태 -> 피드 화면
 		window.location.href = `http://localhost:3000/home`;
+		console.log('로그인에 성공하였습니다.');
 	}
 };
 
