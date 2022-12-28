@@ -126,10 +126,18 @@ const ImageWrapper = styled.section`
 `;
 
 const Image = styled.img`
+	position: absolute;
 	width: 34.2rem;
 	height: 34.2rem;
 	border-radius: 5rem;
 	background-color: #eee;
+`;
+
+const captureDiv = styled.div`
+	position: absolute;
+	width: 34.2rem;
+	height: 34.2rem;
+	border-radius: 5rem;
 `;
 
 const Mask = styled.img`
@@ -191,7 +199,7 @@ export {
 	NextBtn,
 	ImageWrapper,
 	Image,
-	// Cropper,
+	captureDiv,
 	Mask,
 	MaskListWrapper,
 	MaskItemWrapper,
