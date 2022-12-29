@@ -1,76 +1,87 @@
-/* eslint-disable no-nested-ternary */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './ProfileMask.style';
 import Wrapper from '../../Wrapper';
-import Cropper from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
+import { Rnd } from 'react-rnd';
+import html2canvas from 'html2canvas';
 import { NavigateButton } from '../../Button/Button';
-import { useRecoilState } from 'recoil';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
-	const [mask, setMask] = useState(false);
-	const cropperRef = useRef(null);
+	const [mask, setMask] = useState('');
+	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
 	const maskList = [
 		{ id: 1, name: 'mask1.png' },
 		{ id: 2, name: 'mask2.png' },
 		{ id: 3, name: 'mask3.png' },
 	];
-	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
+
 	const handlePrevBtn = () => {
 		navigate('/profilePhoto');
 	};
+
+	const captureImg = async () => {
+		window.scrollTo(0, 0);
+		let url = '';
+		await html2canvas(document.getElementById('captureDiv')).then(async canvas => {
+			url = canvas.toDataURL('image/png').split(',')[1];
+			localStorage.setItem('maskImageData', url);
+		});
+	};
+
 	const handleNextBtn = () => {
+		captureImg();
 		navigate('/profileSetting');
 	};
-	const onCrop = () => {
-		const imageElement = cropperRef?.current;
-		const cropper = imageElement?.cropper;
-		// console.log(cropper.getCroppedCanvas().toDataURL());
-	};
+
 	return (
 		<Wrapper>
 			<S.TitleWrapper>
-				<S.Title>가면을 씌어주세요</S.Title>
+				<S.Title>가면을 씌워주세요</S.Title>
 				<S.InfoText>
-					가면은 <S.Red>자신이 원할 때에만</S.Red> 벗어 상대방에게 공개할 수 있습니다
+					가면은 <S.Red>자신이 원할 때에만</S.Red> 벗을 수 있으며, 그 전까지는
 				</S.InfoText>
+				<S.InfoText>가면을 쓴 상태로 유지됩니다.</S.InfoText>
 			</S.TitleWrapper>
 			<S.Content>
 				<S.ImageWrapper>
-					<Cropper
-						src={profilePreview}
-						style={{
-							width: '39rem',
-							height: '42.2rem',
-							position: 'absolute',
-							// backgroundImage: `url(${maskImg1})`,
-						}}
-						initialAspectRatio={16 / 9}
-						ref={cropperRef}
-						crop={onCrop}
-					/>
-					{/* {mask === 1 ? (
-						
-					) : mask === 2 ? (
-						<S.Mask visible={mask === false ? `false` : `true`} src={maskImg2} />
-					) : (
-						<S.Mask visible={mask === false ? `false` : `true`} src={maskImg3} />
-					)} */}
+					<S.captureDiv id="captureDiv">
+						<S.Image src={profilePreview} />
+						{mask !== '' ? (
+							<Rnd
+								default={{
+									x: 75,
+									y: 75,
+									width: 250,
+									height: 70,
+								}}
+								minWidth={20}
+								minHeight={10}
+								bounds="window"
+							>
+								<S.MaskItem
+									alt="마스크 이미지"
+									src={require(`../../../assets/${mask}`).default}
+									style={{ width: '100%', height: '100%' }}
+								/>
+							</Rnd>
+						) : (
+							''
+						)}
+					</S.captureDiv>
 				</S.ImageWrapper>
 				<S.InfoMessage>
-					<S.Red>가면을 선택하여 사진을 눌러보세요</S.Red>
+					<S.Red>얼굴에 맞게 가면의 위치와 크기를 조절해보세요</S.Red>
 				</S.InfoMessage>
 				<S.MaskListWrapper>
 					<S.MaskList>
 						{maskList.map(Item => {
 							return (
-								<S.MaskItemWrapper>
+								<S.MaskItemWrapper key={Item.id}>
 									<S.MaskItem
 										value={Item.name}
-										key={Item.id}
 										src={require(`../../../assets/${Item.name}`).default}
+										onClick={() => setMask(Item.name)}
 									/>
 								</S.MaskItemWrapper>
 							);
