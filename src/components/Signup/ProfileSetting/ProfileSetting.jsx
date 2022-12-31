@@ -9,13 +9,13 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
-import { parse } from 'request/lib/cookies';
 
 function ProfileSetting() {
 	const [imageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData') || {});
+	const [maskImage, setMaskImage] = useState(localStorage?.getItem('maskImageData') || {});
 	const { register, handleSubmit, formState, watch, setError } = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
@@ -48,6 +48,7 @@ function ProfileSetting() {
 
 		const formData = new FormData();
 		formData.append('profiles', imageFile);
+		formData.append('maskImage', maskImage);
 		for (let [key, value] of Object.entries({
 			...basicInfo,
 			nickname: watch('nickname'),
