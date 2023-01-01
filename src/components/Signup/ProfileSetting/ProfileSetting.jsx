@@ -246,7 +246,7 @@ function ProfileSetting() {
 					<S.PhotoInfoWrapper>
 						{photoErrorMessage && <S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>}
 						<S.PhotoBox>
-							<S.PhotoImage htmlFor="ProfilePhoto" src={profilePreview} />
+							<S.PhotoImage htmlFor="ProfilePhoto" src={maskImage} />
 							<S.PhotoLogo className="material-icons" onClick={handlePhoto}>
 								edit
 							</S.PhotoLogo>

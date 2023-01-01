@@ -24,9 +24,11 @@ const ProfileMask = () => {
 		window.scrollTo(0, 0);
 		let url = '';
 		await html2canvas(document.getElementById('captureDiv')).then(async canvas => {
-			url = canvas.toDataURL('image/png').split(',')[1];
+			url = canvas.toDataURL('image/png').split(',');
+			url = url[0] + url[1];
 			localStorage.setItem('maskImageData', url);
 		});
+		// console.log(url);
 	};
 
 	const handleNextBtn = () => {
