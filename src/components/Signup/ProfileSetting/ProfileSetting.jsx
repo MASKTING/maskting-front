@@ -64,7 +64,7 @@ function ProfileSetting() {
 			data: formData,
 		}).then(response => {
 			localStorage.setItem('accessToken', response.headers.accesstoken);
-			navigate('/home');
+			navigate('/wait');
 		});
 	};
 
@@ -74,7 +74,16 @@ function ProfileSetting() {
 	};
 
 	// 2. NICKNAME
-	const handleCheckNickname = () => {
+	const handleCheckNickname = async () => {
+		const response = await axios({
+			method: 'GET',
+			url: `/api/user/check-nickname?nickname=t2est`,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		console.log(response);
+
 		const nicknameInput = watch('nickname');
 		if (nicknameInput === '박규성') {
 			//이미 사용중이라면

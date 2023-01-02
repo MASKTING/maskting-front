@@ -23,6 +23,7 @@ import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
 import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 import ChattingRequestPage from '../pages/Chatting/Request/ChattingRequestPage';
 import ChattingRoomPage from '../pages/Chatting/Room/ChattingRoomPage';
+import Wait from '../pages/Wait';
 
 function Router() {
 	return (
@@ -57,6 +58,7 @@ function Router() {
 
 				<Route path="/myPage" element={<MyPageMainPage />} />
 				<Route path="/homeMain" element={<HomeMainPage />} />
+				<Route path="/wait" element={<Wait />} />
 			</Routes>
 		</Routers>
 	);
