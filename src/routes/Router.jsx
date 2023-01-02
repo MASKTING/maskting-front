@@ -24,6 +24,8 @@ import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 import ChattingRequestPage from '../pages/Chatting/Request/ChattingRequestPage';
 import ChattingRoomPage from '../pages/Chatting/Room/ChattingRoomPage';
 import Wait from '../pages/Wait';
+import WaitFail from '../pages/WaitFail';
+import WaitSuccess from '../pages/WaitSuccess';
 
 function Router() {
 	return (
@@ -59,6 +61,8 @@ function Router() {
 				<Route path="/myPage" element={<MyPageMainPage />} />
 				<Route path="/homeMain" element={<HomeMainPage />} />
 				<Route path="/wait" element={<Wait />} />
+				<Route path="/wait/fail" element={<WaitFail />} />
+				<Route path="/wait/success" element={<WaitSuccess />} />
 			</Routes>
 		</Routers>
 	);

@@ -6,6 +6,8 @@ import * as StompJs from '@stomp/stompjs';
 import { useRef, useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Client, Stomp } from '@stomp/stompjs';
+import Chatting from '../Main/Chatting';
+import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 
 const ChattingRoomPage = () => {
 	// const getChattingRoomMethod = n => {
@@ -75,13 +77,22 @@ const ChattingRoomPage = () => {
 
 	return (
 		<Wrapper>
-			<div className={'chat-list'}>{chatList}</div>
+			<WrapperInner>
+				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
+				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
+				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요" isMy date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" isMy date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+			</WrapperInner>
+			{/* <div className={'chat-list'}>{chatList}</div>
 			<form onSubmit={event => handleSubmit(event, chat)}>
 				<div>
 					<input type={'text'} name={'chatInput'} onChange={handleChange} value={chat} />
 				</div>
 				<input type={'submit'} value={'의견 보내기'} />
-			</form>
+			</form> */}
 		</Wrapper>
 	);
 };

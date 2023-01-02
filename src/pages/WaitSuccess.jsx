@@ -17,38 +17,28 @@ const Content = styled.div`
 	line-height: 1.3;
 `;
 const InfoTitle = styled.ul`
-	margin-top: 3rem;
+	margin-top: 7rem;
 `;
 const Line = styled.li``;
 
-const Wait = () => {
+const WaitSuccess = () => {
 	return (
 		<Wrapper>
 			<WrapperInner>
-				<Title>
-					분당청소요정님!
-					<br />
-					승인 신청이 완료됐어요
-				</Title>
+				<Title>분당청소요정님, 환영합니다!</Title>
 
 				<Content>
 					<InfoTitle>
-						<p>
-							승인 완료는 <Red>24시간 이내</Red> 완료되며,
-						</p>
-						<p>금요일 5시 이후 신청 시 승인이 늦어질 수 있어요</p>
+						<p>분당청소요정님의 가입 승인이 완료되었어요!</p>
+						<br />
+						<p>개인정보 관련 사항 & 서비스 사용방법 안내</p>
 					</InfoTitle>
-					<br />
-					다음과 같은 경우 승인이 거부될 수 있습니다
-					<Line>선정적이거나 부적절한 내용을 포함한 프로필</Line>
-					<Line>사용할 수 없는 닉네임 </Line>
-					<Line>선정적이거나 부적절한 내용을 포함한 한줄 자기소개</Line>
 				</Content>
-				<BigButton color="gray">HH시간 안에 승인이 완료돼</BigButton>
+				<BigButton>확인했어요</BigButton>
 			</WrapperInner>
 			<SideBar status="home" />
 		</Wrapper>
 	);
 };
 
-export default Wait;
+export default WaitSuccess;

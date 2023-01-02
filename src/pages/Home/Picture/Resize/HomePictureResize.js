@@ -23,7 +23,7 @@ const HomePictureResize = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		// navigate('/home/picture/add');
+		navigate('/home/picture/add');
 	};
 
 	return (

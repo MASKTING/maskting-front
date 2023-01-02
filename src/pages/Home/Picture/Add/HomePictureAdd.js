@@ -16,6 +16,7 @@ import { useRecoilState } from 'recoil';
 import { imageRecoil } from '../../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../../components/Button/SmallButton/SmallButton';
+import api from '../../../../api/api';
 
 const PICTURELIST = [
 	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
@@ -38,6 +39,17 @@ const HomePictureAdd = () => {
 	const [deleteId, setDeleteId] = useState(null);
 	const [pictureList, setPictureList] = useState(PICTURELIST);
 
+	const getFeed = async () => {
+		const response = await api({
+			url: '/api/feed',
+			method: 'POST',
+		});
+		console.log(response);
+	};
+
+	useEffect(() => {
+		getFeed();
+	}, []);
 	const handleCloseModal = () => {
 		setIsModal(null);
 	};
