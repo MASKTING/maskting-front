@@ -77,7 +77,7 @@ function ProfileSetting() {
 	const handleCheckNickname = async () => {
 		const response = await axios({
 			method: 'GET',
-			url: `/api/user/check-nickname?nickname=t2est`,
+			url: `/api/user/check-nickname?nickname=박규성`,
 			headers: {
 				'Content-Type': 'application/json',
 			},

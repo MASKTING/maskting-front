@@ -88,6 +88,7 @@ const HomeMainPage = () => {
 				profile: response.profile,
 				nickname: response.nickname,
 			});
+			localStorage.setItem('nickname', response.nickname);
 		});
 		getPartner().then(response => {
 			console.log(response);

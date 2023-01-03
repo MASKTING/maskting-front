@@ -41,9 +41,13 @@ const HomePictureAdd = () => {
 
 	const getFeed = async () => {
 		const response = await api({
+			headers: {
+				'Content-Type': 'application/json',
+			},
 			url: '/api/feed',
-			method: 'POST',
+			method: 'GET',
 		});
+
 		console.log(response);
 	};
 
@@ -159,7 +163,7 @@ const HomePictureAdd = () => {
 			<WrapperInner>
 				<HeaderGoBackLeft onClick={handleGoBackButton} />
 				<ContentTitle>
-					분당청소요정님의 <br />
+					{localStorage.getItem('nickname')}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
