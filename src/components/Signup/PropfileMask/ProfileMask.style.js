@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PALETTE from '../../../constants/palette';
 
 const Wrapper = styled.div`
 	width: 39rem;
@@ -31,17 +32,17 @@ const Title = styled.h1`
 const InfoText = styled.p`
 	top: 7rem;
 	left: 2.4rem;
-	position: absolute;
+	position: relative;
 	width: 33.5rem;
 	height: 2rem;
-	font-family: 'Pretendard';
-	font-style: normal;
+	color: ${PALETTE.BLACK800};
 	font-weight: 700;
 	font-size: 0.8rem;
+	line-height: 20px;
 `;
 
 const Red = styled.span`
-	color: red;
+	color: ${PALETTE.PINK600};
 `;
 
 const Content = styled.div`
@@ -118,17 +119,30 @@ const NextBtn = styled.button`
 
 const ImageWrapper = styled.section`
 	width: 39rem;
-	height: 42.2;
+	height: 42.2rem;
 	display: flex;
 	justify-content: center;
 	align-content: center;
 `;
 
 const Image = styled.img`
+	position: absolute;
 	width: 34.2rem;
 	height: 34.2rem;
 	border-radius: 5rem;
 	background-color: #eee;
+`;
+
+const captureDiv = styled.div`
+	position: absolute;
+	width: 34.2rem;
+	height: 34.2rem;
+	border-radius: 5rem;
+`;
+
+const Mask = styled.img`
+	width: 20rem;
+	${({ visible }) => (visible ? `position: absolute` : `display: none`)};
 `;
 
 const MaskListWrapper = styled.section`
@@ -136,7 +150,10 @@ const MaskListWrapper = styled.section`
 	height: 10rem;
 	display: flex;
 	justify-content: center;
-	margin-top: 4rem;
+`;
+
+const MaskItemWrapper = styled.div`
+	border-radius: 1.2rem;
 `;
 
 const MaskList = styled.ul`
@@ -149,11 +166,11 @@ const MaskList = styled.ul`
 	align-items: center;
 `;
 
-const MaskItem = styled.li`
+const MaskItem = styled.img`
 	width: 8rem;
 	height: 8rem;
 	border-radius: 1.2rem;
-	background-color: #bdbdbd;
+	cursor: pointer;
 `;
 
 const InfoMessage = styled.p`
@@ -166,7 +183,7 @@ const InfoMessage = styled.p`
 	position: absolute;
 	left: 0rem;
 	right: 0;
-	top: 38rem;
+	top: 40rem;
 	margin: auto;
 `;
 
@@ -182,7 +199,10 @@ export {
 	NextBtn,
 	ImageWrapper,
 	Image,
+	captureDiv,
+	Mask,
 	MaskListWrapper,
+	MaskItemWrapper,
 	MaskList,
 	MaskItem,
 	InfoMessage,
