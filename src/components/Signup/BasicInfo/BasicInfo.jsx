@@ -15,7 +15,6 @@ function BasicInfo() {
 			privateCheck: false,
 		},
 	);
-	console.log(basicInfo);
 	const radioChange = e => {
 		e.preventDefault();
 		setBasicInfo({

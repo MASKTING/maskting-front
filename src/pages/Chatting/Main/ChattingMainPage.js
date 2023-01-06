@@ -48,19 +48,26 @@ const ChattingMainPage = () => {
 						<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
 					</S.NotifyTextBox>
 				</S.NotifyBox>
-				<S.ChattingRoomList>
-					{CHATTINGROOMLIST.map(chattingRoom => (
-						<S.ChattingRoomItem onClick={handleNavigateRoom} key={chattingRoom.id}>
-							<S.ChattingProfileBox>
-								<PictureCircle size="small"></PictureCircle>
-							</S.ChattingProfileBox>
-							<S.ChattingMainBox>
-								<S.ChattingSender>{chattingRoom.sender}</S.ChattingSender>
-								<S.ChattingMessage>{chattingRoom.message}</S.ChattingMessage>
-							</S.ChattingMainBox>
-						</S.ChattingRoomItem>
-					))}
-				</S.ChattingRoomList>
+				{!!CHATTINGROOMLIST.length ? (
+					<S.ChattingRoomList>
+						{CHATTINGROOMLIST.map(chattingRoom => (
+							<S.ChattingRoomItem onClick={handleNavigateRoom} key={chattingRoom.id}>
+								<S.ChattingProfileBox>
+									<PictureCircle size="small"></PictureCircle>
+								</S.ChattingProfileBox>
+								<S.ChattingMainBox>
+									<S.ChattingSender>{chattingRoom.sender}</S.ChattingSender>
+									<S.ChattingMessage>{chattingRoom.message}</S.ChattingMessage>
+								</S.ChattingMainBox>
+							</S.ChattingRoomItem>
+						))}
+					</S.ChattingRoomList>
+				) : (
+					<S.NoChattingRoom>
+						<S.NoChattingEmo className="material-icons">chat_bubble</S.NoChattingEmo>
+						<S.NoChattingMessage>요청받은 메세지가 없어요</S.NoChattingMessage>
+					</S.NoChattingRoom>
+				)}
 			</WrapperInner>
 			<SideBar status="chatting" />
 		</Wrapper>

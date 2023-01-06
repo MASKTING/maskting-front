@@ -36,11 +36,14 @@ const NotifyInfo = styled.p`
 	font-size: ${FONTSIZE.infoText};
 `;
 
-const ChattingRoomList = styled.section``;
+const ChattingRoomList = styled.section`
+	margin-top: 1rem;
+`;
 const ChattingRoomItem = styled.article`
 	width: 34.2rem;
 	height: 7.4rem;
 	display: flex;
+	margin-top: 0.2rem;
 `;
 const ChattingProfileBox = styled.div`
 	flex-grow: 1.4;
@@ -56,9 +59,26 @@ const ChattingMainBox = styled.div`
 	line-height: 2.5rem;
 `;
 const ChattingSender = styled.div`
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 	font-weight: 700;
 `;
+
+const NoChattingRoom = styled.div`
+	height: 55rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+`;
+const NoChattingEmo = styled.div`
+	font-size: 5rem;
+`;
+const NoChattingMessage = styled.div`
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-top: 2rem;
+`;
+
 const ChattingMessage = styled.div``;
 export {
 	NotifyBox,
@@ -72,4 +92,7 @@ export {
 	ChattingMainBox,
 	ChattingSender,
 	ChattingMessage,
+	NoChattingRoom,
+	NoChattingEmo,
+	NoChattingMessage,
 };
