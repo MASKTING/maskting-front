@@ -16,7 +16,7 @@ function ProfileSetting() {
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData') || {});
-	const { register, handleSubmit, formState, watch, setError } = useForm({
+	const { register, handleSubmit, formState, watch, setError, clearErrors } = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
 			introduce: basicInfo?.introduce,
@@ -65,7 +65,7 @@ function ProfileSetting() {
 			data: formData,
 		}).then(response => {
 			localStorage.setItem('accessToken', response.headers.accesstoken);
-			navigate('/home');
+			navigate('/wait');
 		});
 	};
 
@@ -75,18 +75,22 @@ function ProfileSetting() {
 	};
 
 	// 2. NICKNAME
-	const handleCheckNickname = () => {
-		const nicknameInput = watch('nickname');
-		if (nicknameInput === '박규성') {
+	const handleCheckNickname = async () => {
+		const response = await axios({
+			method: 'GET',
+			url: `/api/user/check-nickname?nickname=${watch('nickname')}`,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		if (!response.data) {
 			//이미 사용중이라면
 			setError('nickname', { message: '이미 사용 중인 닉네임입니다' }, { shouldFocus: true });
 			return;
+		} else {
+			clearErrors('nickname');
 		}
-		if (false) {
-			// 사용할 수 없는 닉네임이라면
-			setError('nickname', { message: '사용할 수 없는 닉네임입니다' }, { shouldFocus: true });
-			return;
-		}
+
 		setError('nickname', { message: null });
 	};
 
@@ -251,7 +255,6 @@ function ProfileSetting() {
 							</S.PhotoLogo>
 						</S.PhotoBox>
 					</S.PhotoInfoWrapper>
-
 					{/* 닉네임 */}
 					<S.HalfInfoWrapper>
 						{formState.errors?.nickname?.message ? (

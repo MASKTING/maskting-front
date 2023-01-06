@@ -16,18 +16,7 @@ import { useRecoilState } from 'recoil';
 import { imageRecoil } from '../../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../../components/Button/SmallButton/SmallButton';
-
-const PICTURELIST = [
-	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-];
-const l = PICTURELIST.length;
-if (PICTURELIST.length < 6) {
-	PICTURELIST.push({ id: l + 1, src: 'plus' });
-	for (let i = l + 2; i <= 6; i++) {
-		PICTURELIST.push({ id: i });
-	}
-}
+import api from '../../../../api/api';
 
 const HomePictureAdd = () => {
 	const [isModal, setIsModal] = useState(null);
@@ -36,7 +25,30 @@ const HomePictureAdd = () => {
 	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
 	const [isAddPicture, setIsAddPicture] = useState(imageFile.feedbackImageList.length > 0);
 	const [deleteId, setDeleteId] = useState(null);
-	const [pictureList, setPictureList] = useState(PICTURELIST);
+	const [pictureList, setPictureList] = useState([]);
+	const [bio, setBio] = useState('');
+
+	const getFeed = async () => {
+		const response = await api({
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			url: '/api/feed',
+			method: 'GET',
+		});
+		const newArray = response.data.feeds.map(feed => {
+			return { src: feed, id: Math.random() * 10 + '' };
+		});
+
+		if (newArray.length < 6) newArray.push({ src: 'plus', id: Math.random() * 10 + '' });
+		setPictureList(newArray);
+		setBio(response.data.bio);
+		console.log(newArray);
+	};
+
+	useEffect(() => {
+		getFeed();
+	}, []);
 
 	const handleCloseModal = () => {
 		setIsModal(null);
@@ -100,7 +112,9 @@ const HomePictureAdd = () => {
 	const handleSubmitButton = () => {
 		setIsModal('submit');
 	};
-	const handleSubmit = () => {};
+	const handleSubmit = () => {
+		navigate('/home');
+	};
 	const submitModal = isModal === 'submit' && (
 		<Modal onCloseModal={handleCloseModal} width={24.5} height={18.2}>
 			<S.ModalInner>
@@ -117,21 +131,21 @@ const HomePictureAdd = () => {
 		</Modal>
 	);
 	//----------------------------------------------------------------
-	const handleDeleteButton = e => {
-		setDeleteId(e.target.id);
-		setIsModal('delete');
-	};
-	const handleDelete = () => {
-		setPictureList(pictureList.filter(it => +it.id !== +deleteId));
-		console.log(pictureList);
-		setIsModal(null);
-	};
+	// const handleDeleteButton = e => {
+	// 	setDeleteId(e.target.id);
+	// 	setIsModal('delete');
+	// };
+	// const handleDelete = () => {
+	// 	setPictureList(pictureList.filter(it => +it.id !== +deleteId));
+	// 	console.log(pictureList);
+	// 	setIsModal(null);
+	// };
 	const deleteModal = isModal === 'delete' && (
 		<Modal onCloseModal={handleCloseModal} width={18.5} height={16.2}>
 			<S.ModalInner>
 				<ContentSubTitle>추가한 사진을</ContentSubTitle>
 				<ContentSubTitle>삭제하시겠어요?</ContentSubTitle>
-				<SmallButton onClick={handleDelete}>삭제하기</SmallButton>
+				{/* <SmallButton onClick={handleDelete}>삭제하기</SmallButton> */}
 				<SmallButton color="white" onClick={handleCloseModal}>
 					취소
 				</SmallButton>
@@ -147,7 +161,7 @@ const HomePictureAdd = () => {
 			<WrapperInner>
 				<HeaderGoBackLeft onClick={handleGoBackButton} />
 				<ContentTitle>
-					분당청소요정님의 <br />
+					{localStorage.getItem('nickname')}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
@@ -159,10 +173,10 @@ const HomePictureAdd = () => {
 					<S.PanelInner>
 						<S.Profile>
 							<PictureCircle size="small" css="margin-right:2rem" />
-							<ContentSubTitle>분당청소요정</ContentSubTitle>
+							<ContentSubTitle>{localStorage.getItem('nickname')}</ContentSubTitle>
 						</S.Profile>
 						<S.ProfileText>
-							<ContentInfo>베이킹과 라이딩을 좋아하고 청소를 잘해요💫</ContentInfo>
+							<ContentInfo>{bio}</ContentInfo>
 						</S.ProfileText>
 						<S.PictureList>
 							{pictureList.map(pictureItem => (
@@ -173,14 +187,14 @@ const HomePictureAdd = () => {
 												add
 											</S.PictureAddBoxInner>
 										</S.PictureAddBox>
-									) : pictureItem.src ? (
-										<S.PictureImage
-											src={pictureItem.src}
-											onClick={handleDeleteButton}
-											id={pictureItem.id}
-										/>
 									) : (
-										<S.PictureImage src={pictureItem.src} />
+										pictureItem.src && (
+											<S.PictureImage
+												src={pictureItem.src}
+												// onClick={handleDeleteButton}
+												id={pictureItem.id}
+											/>
+										)
 									)}
 								</S.PictureItem>
 							))}

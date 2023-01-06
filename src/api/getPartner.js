@@ -1,9 +1,9 @@
 import api from './api';
 
-export const getProfile = async () => {
+export const getPartner = async () => {
 	try {
 		const response = await api({
-			url: '/api/user',
+			url: '/api/partner',
 			method: 'GET',
 		});
 		return response.data;

@@ -7,8 +7,15 @@ const LoginAuth = () => {
 	const role = searchParams.getAll('role')[0];
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
+	localStorage.setItem(
+		'basicInfo',
+		JSON.stringify({
+			provider: provider,
+			providerId: providerId,
+			email: email,
+		}),
+	);
 
-	console.log(1);
 	if (role === 'guest') {
 		if (sort === 'true') {
 			// 아직 심사 대기 상태인 경우 -> 대기 화면
@@ -19,7 +26,8 @@ const LoginAuth = () => {
 		}
 	} else {
 		// 모든 가입 완료한 상태 -> 피드 화면
-		window.location.href = `http://localhost:3000/home`;
+		// window.location.href = `http://localhost:3000/home`;
+		console.log('로그인에 성공하였습니다.');
 	}
 };
 

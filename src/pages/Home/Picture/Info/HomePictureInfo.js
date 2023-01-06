@@ -20,7 +20,7 @@ const HomePictureInfo = () => {
 			<HeaderGoBackLeft />
 			<WrapperInner>
 				<ContentTitle>
-					분당청소요정님의 <br />
+					{localStorage.getItem('nickname')}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
