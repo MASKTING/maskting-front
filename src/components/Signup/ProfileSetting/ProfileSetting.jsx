@@ -9,7 +9,7 @@ import * as S from './ProfileSetting.style';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import imageState from '../../../recoil';
-// import { parse } from 'request/lib/cookies';
+import { checkNicknameApi } from '../../../api/signup';
 
 function ProfileSetting() {
 	const [imageFile] = useRecoilState(imageState);
@@ -71,26 +71,19 @@ function ProfileSetting() {
 
 	// 1. PHOTO
 	const handlePhoto = () => {
-		navigate('/profilePhoto');
+		navigate('/signup/profilePhoto');
 	};
 
 	// 2. NICKNAME
 	const handleCheckNickname = async () => {
-		const response = await axios({
-			method: 'GET',
-			url: `/api/user/check-nickname?nickname=${watch('nickname')}`,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
-		if (!response.data) {
+		const data = await checkNicknameApi(watch('nickname'));
+		if (!data) {
 			//이미 사용중이라면
 			setError('nickname', { message: '이미 사용 중인 닉네임입니다' }, { shouldFocus: true });
 			return;
 		} else {
 			clearErrors('nickname');
 		}
-
 		setError('nickname', { message: null });
 	};
 
@@ -110,7 +103,6 @@ function ProfileSetting() {
 	};
 	const onInvalid = e => {
 		isThereImage();
-		console.log(e);
 	};
 	const onValid = data => {
 		if (!isThereImage()) return;
@@ -125,7 +117,7 @@ function ProfileSetting() {
 			'basicInfo',
 			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
 		);
-		navigate('/profileMask');
+		navigate('/signup/profileMask');
 	};
 
 	useEffect(() => {

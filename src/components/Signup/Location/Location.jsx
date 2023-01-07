@@ -45,7 +45,7 @@ const Location = () => {
 
 	const handlePrevBtn = () => {
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-		navigate('/basicInfo', { state: { basicInfo } });
+		navigate('/signup/basicInfo', { state: { basicInfo } });
 	};
 
 	const handleNextBtn = () => {
@@ -53,7 +53,7 @@ const Location = () => {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-			navigate('/hobby');
+			navigate('/signup/hobby');
 		}
 	};
 	const cityChange = e => {

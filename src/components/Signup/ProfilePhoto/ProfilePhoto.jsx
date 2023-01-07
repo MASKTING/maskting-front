@@ -34,7 +34,7 @@ const ProfilePhoto = () => {
 		reader.readAsDataURL(imgRef.current.files[0]);
 		reader.onload = async () => {
 			localStorage.setItem('imageData', reader.result);
-			navigate('/profileMask');
+			navigate('/signup/profileMask');
 		};
 	}, []);
 

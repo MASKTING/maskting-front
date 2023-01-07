@@ -33,15 +33,15 @@ function Router() {
 			<Routes>
 				<Route exact path="/" element={<LoginPage />} />
 				<Route path="/oauth2/redirect" element={<LoginAuth />} />
-				<Route exact path="/basicInfo" element={<BasicInfoPage />} />
-				<Route path="/location" element={<LocationPage />} />
-				<Route path="/hobby" element={<HobbyPage />} />
-				<Route path="/moreInfo" element={<MoreInfoPage />} />
-				<Route path="/profileSetting" element={<ProfileSettingPage />} />
-				<Route path="/profilePhoto" element={<ProfilePhotoPage />} />
-				<Route path="/profileMask" element={<ProfileMaskPage />} />
-				<Route path="/partnerLocation" element={<PartnerLocationPage />} />
-				<Route path="/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
+				<Route exact path="/signup/basicInfo" element={<BasicInfoPage />} />
+				<Route path="/signup/location" element={<LocationPage />} />
+				<Route path="/signup/hobby" element={<HobbyPage />} />
+				<Route path="/signup/moreInfo" element={<MoreInfoPage />} />
+				<Route path="/signup/profileSetting" element={<ProfileSettingPage />} />
+				<Route path="/signup/profilePhoto" element={<ProfilePhotoPage />} />
+				<Route path="/signup/profileMask" element={<ProfileMaskPage />} />
+				<Route path="/signup/partnerLocation" element={<PartnerLocationPage />} />
+				<Route path="/signup/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
 
 				<Route path="/home" element={<HomeMainPage />} />
 				<Route path="/home/notification" element={<HomeNotification />} />

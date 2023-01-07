@@ -17,7 +17,7 @@ const ProfileMask = () => {
 	];
 
 	const handlePrevBtn = () => {
-		navigate('/profilePhoto');
+		navigate('/signup/profilePhoto');
 	};
 
 	const captureImg = async () => {
@@ -31,7 +31,7 @@ const ProfileMask = () => {
 
 	const handleNextBtn = () => {
 		captureImg();
-		navigate('/profileSetting');
+		navigate('/signup/profileSetting');
 	};
 
 	return (
