@@ -32,6 +32,16 @@ const msg = {
 const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
+	const [rangeMinHeightValue, setLeftSlider] = useState(0);
+	const [rangeMaxHeightValue, setRightSlider] = useState(40);
+	const [rangeMinHeightPercent, setrangeMinHeightPercent] = useState(0);
+	const [rangeMaxHeightPercent, setrangeMaxHeightPercent] = useState(0);
+
+	const twoRangeHandler = () => {
+		setrangeMinHeightPercent((rangeMinHeightValue / 40) * 100);
+		setrangeMaxHeightPercent(100 - (rangeMaxHeightValue / 40) * 100);
+	};
+
 	const handlePrevBtn = () => {
 		navigate('/partnerLocation');
 	};
@@ -41,6 +51,15 @@ const PartnerMoreInfo = () => {
 		navigate('/profilePhoto');
 	};
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+
+	const leftSlideChange = event => {
+		setLeftSlider(event.target.value);
+		console.log(event.target.value);
+	};
+
+	const rightSlideChange = event => {
+		setRightSlider(event.target.value);
+	};
 
 	const radioChange = e => {
 		e.preventDefault();
@@ -241,31 +260,40 @@ const PartnerMoreInfo = () => {
 							키
 							{basicInfo.partnerMinHeight !== null || basicInfo.partnerMaxHeight !== null ? (
 								<S.DegreeMessage>
-									내 키에서 <S.Red>{msg.height[basicInfo.partnerMinHeight]}</S.Red>
-									부터 <S.Red>{msg.height[basicInfo.partnerMaxHeight]}</S.Red>가 좋아요
+									내 키에서 <S.Red>{rangeMinHeightValue - 20}</S.Red>cm 부터{' '}
+									<S.Red>{rangeMaxHeightValue - 20}</S.Red>cm가 좋아요
 								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
 					)}
 					<S.SliderWrapper>
-						<S.SliderLeft
-							type="range"
-							name="partnerMinHeight"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerMinHeight) - 1) * 25}
-							onChange={radioChange}
-						/>
-						<S.SliderRight
-							type="range"
-							name="partnerMaxHeight"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerMaxHeight) - 1) * 25}
-							onChange={radioChange}
-						/>
+						<S.CustomRangeWrap>
+							<S.CustomRangeMin
+								type="range"
+								value={rangeMinHeightValue}
+								min="0"
+								max="40"
+								onChange={e => {
+									leftSlideChange(e);
+									twoRangeHandler();
+								}}
+							/>
+							<S.CustomRangeMax
+								type="range"
+								value={rangeMaxHeightValue}
+								min="0"
+								max="40"
+								onChange={e => {
+									rightSlideChange(e);
+									twoRangeHandler();
+								}}
+							/>
+						</S.CustomRangeWrap>
+						<S.CustomSlide></S.CustomSlide>
+						<S.CustomSlideInner
+							rangeMinPercent={rangeMinHeightPercent}
+							rangeMaxPercent={rangeMaxHeightPercent}
+						></S.CustomSlideInner>
 					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
@@ -284,25 +312,29 @@ const PartnerMoreInfo = () => {
 						</S.LongLabel>
 					)}
 					<S.SliderWrapper>
-						<S.SliderLeft
-							type="range"
-							name="partnerBodyTypesLeft"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
-							onChange={radioChange}
-						/>
-						<S.SliderRight
-							type="range"
-							name="partnerBodyTypesRight"
-							min="1"
-							max="5"
-							step="1"
-							degreeLeft={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
-							degreeRight={(parseInt(basicInfo.partnerBodyTypesRight) - 1) * 25}
-							onChange={radioChange}
-						/>
+						<S.CustomRangeWrap>
+							<S.CustomRangeMin
+								type="range"
+								value={rangeMinHeightValue}
+								onChange={e => {
+									leftSlideChange(e);
+									twoRangeHandler();
+								}}
+							/>
+							<S.CustomRangeMax
+								type="range"
+								value={rangeMaxHeightValue}
+								onChange={e => {
+									rightSlideChange(e);
+									twoRangeHandler();
+								}}
+							/>
+						</S.CustomRangeWrap>
+						<S.CustomSlide></S.CustomSlide>
+						<S.CustomSlideInner
+							rangeMinHeightPercent={rangeMinHeightPercent}
+							rangeMaxHeightPercent={rangeMaxHeightPercent}
+						></S.CustomSlideInner>
 					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 			</S.Content>

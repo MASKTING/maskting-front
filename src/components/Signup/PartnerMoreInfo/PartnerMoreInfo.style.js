@@ -164,6 +164,7 @@ const Slider = styled.input`
 		cursor: pointer;
 	}
 `;
+
 const SliderLeft = styled.input`
 	top: 2.6rem;
 	left: 2.4rem;
@@ -173,6 +174,7 @@ const SliderLeft = styled.input`
 	border-radius: 0.8rem;
 	background: #eeeeee;
 	outline: none;
+	visible: hidden;
 	-webkit-appearance: none;
 	&::-webkit-slider-thumb {
 		appearance: none;
@@ -189,6 +191,7 @@ const SliderRight = styled.input`
 	left: 2.4rem;
 	position: absolute;
 	width: 34.1rem;
+	visible: hidden;
 	height: 2rem;
 	margin-bottom: 3.1rem;
 	border-radius: 0.8rem;
@@ -243,6 +246,52 @@ const BtnWrapper = styled.div`
 	height: 7.8rem;
 	background: white;
 `;
+
+const CustomSlide = styled.div`
+	top: 2.6rem;
+	left: 2.6rem;
+	position: absolute;
+	width: 34.1rem;
+	height: 2rem;
+	border-radius: 10px;
+	background-color: #dddddd;
+`;
+
+const CustomSlideInner = styled.div`
+	top: 2.6rem;
+	position: absolute;
+	height: 2rem;
+	left: ${props => props.rangeMinPercent + 8}%;
+	right: ${props => props.rangeMaxPercent - 8}%;
+	border-radius: 10px;
+	background: #f45e5f;
+`;
+
+const CustomRangeWrap = styled.div`
+	position: relative;
+`;
+
+const CustomRangeMin = styled.input`
+	top: 1.3rem;
+	left: 2.4rem;
+	position: absolute;
+	width: 100%;
+	-webkit-appearance: none;
+	background: none;
+	z-index: 1;
+	pointer-events: none;
+	&::-webkit-slider-thumb {
+		appearance: none;
+		width: 4.8rem;
+		height: 4.8rem;
+		border-radius: 100%;
+		background: #f45e5f;
+		pointer-events: auto;
+		cursor: pointer;
+`;
+
+const CustomRangeMax = styled(CustomRangeMin)``;
+
 export {
 	ErrorMessage,
 	InfoMessage,
@@ -263,4 +312,9 @@ export {
 	BasicInput,
 	WideButton,
 	BtnWrapper,
+	CustomSlide,
+	CustomSlideInner,
+	CustomRangeMin,
+	CustomRangeMax,
+	CustomRangeWrap,
 };
