@@ -24,6 +24,7 @@ const msg = {
 function MoreInfo() {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
+	const [errorMessage, setErrorMessage] = useState(false);
 
 	useEffect(() => {
 		setBasicInfo(JSON.parse(localStorage.getItem('basicInfo')));
@@ -33,7 +34,6 @@ function MoreInfo() {
 
 	const radioChange = e => {
 		e.preventDefault();
-		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
@@ -41,11 +41,15 @@ function MoreInfo() {
 	};
 
 	const handlePrevBtn = () => {
-		navigate('/hobby');
+		navigate('/signup/hobby');
 	};
 
 	const handleNextBtn = () => {
 		setSubmit(true);
+		if (!basicInfo.height || !basicInfo.bodyType) {
+			setErrorMessage(true);
+		}
+
 		if (
 			basicInfo?.duty &&
 			basicInfo?.smoking &&
@@ -55,13 +59,21 @@ function MoreInfo() {
 			basicInfo?.bodyType
 		) {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-			navigate('/partnerLocation');
+			navigate('/signup/partnerLocation');
 		}
 	};
 	return (
 		<Wrapper titleMessage="마지막 질문이에요!">
 			<S.InfoMessage>
-				<S.Red>매칭 시에만 활용</S.Red>되며, 상대방에게는 정보가 공개되지 않아요
+				{errorMessage ? (
+					<>
+						<S.Red>스크롤을 내려</S.Red>추가 정보를 입력해주세요
+					</>
+				) : (
+					<>
+						<S.Red>매칭 시에만 활용</S.Red>되며, 상대방에게는 정보가 공개되지 않아요
+					</>
+				)}
 			</S.InfoMessage>
 			<S.Content>
 				<S.BasicInfoWrapper>

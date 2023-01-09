@@ -18,17 +18,18 @@ const LoginAuth = () => {
 
 	if (role === 'guest') {
 		if (sort === 'true') {
-			// 아직 심사 대기 상태인 경우 -> 대기 화면
-			window.location.href = `http://localhost:3000/wait`;
+			// 심사 중 -> /signup/wait
+			// window.location.href = `http://localhost:3000/wait`;
 		} else {
-			// 가입이 필요한 경우
-			window.location.href = `http://localhost:3000/basicInfo`;
+			// 심사 거절 -> /signup/basicInfo
+			// window.location.href = `http://localhost:3000/signup/basicInfo`;
 		}
 	} else {
-		// 모든 가입 완료한 상태 -> 피드 화면
-		// window.location.href = `http://localhost:3000/home`;
-		console.log('로그인에 성공하였습니다.');
+		// 가입 완료 -> /home
+		// window.location.href = `http://localhost:3000/signup/home`;
+		// console.log('로그인에 성공하였습니다.');
 	}
 };
+// http://www.maskting.site/oauth2/redirect?role=guest&sort=false&providerId=2493698225
 
 export default LoginAuth;

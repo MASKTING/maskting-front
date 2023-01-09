@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Panel from '../../../components/Panel/Panel';
 import SideBar from '../../../components/SideBar/SideBar';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
@@ -10,12 +9,7 @@ import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
-import { useRecoilState } from 'recoil';
-import { AuthInfo } from '../../../recoil/Auth';
-import api, { getAccessToken, getAccessToken2 } from '../../../api/api';
 import { getProfile } from '../../../api/getProfile';
-import { useQuery } from 'react-query';
-import { useGetProfile } from '../../../hooks/query/useGetProfile';
 import { getPartner } from '../../../api/getPartner';
 
 const FEEDPHOTOLIST = [
@@ -144,7 +138,11 @@ const HomeMainPage = () => {
 				))}
 			</WrapperInner>
 			<SideBar status="home" />
-			<RefreshCircle />
+			<RefreshCircle
+				onClick={() => {
+					window.location.replace('/home');
+				}}
+			/>
 		</Wrapper>
 	);
 };

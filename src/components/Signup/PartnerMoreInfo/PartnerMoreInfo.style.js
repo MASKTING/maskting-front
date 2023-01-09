@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import FONTSIZE from '../../../constants/fontsize';
 import PALETTE from '../../../constants/palette';
 
@@ -71,13 +72,12 @@ const RadioLabel = styled.label`
 
 export const RadioMediumLabel = styled.label`
 	position: relative;
-	width: 16rem;
 	height: 4.8rem;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 16rem;
+	width: 13rem;
 	height: 4.8rem;
 `;
 const NarrowButton = styled.button`
