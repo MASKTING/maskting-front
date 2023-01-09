@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
 import * as S from './PartnerMoreInfo.style';
@@ -33,12 +34,12 @@ const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
 	const handlePrevBtn = () => {
-		navigate('/partnerLocation');
+		navigate('/signup/partnerLocation');
 	};
 	const handleNextBtn = () => {
 		setSubmit(true);
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-		navigate('/profilePhoto');
+		navigate('/signup/profilePhoto');
 	};
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 

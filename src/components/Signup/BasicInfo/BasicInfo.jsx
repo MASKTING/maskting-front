@@ -35,7 +35,7 @@ function BasicInfo() {
 			} else {
 				localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			}
-			navigate('/location', { state: { basicInfo } });
+			navigate('/signup/location', { state: { basicInfo } });
 		}
 	};
 

@@ -54,14 +54,14 @@ const PartnerLocation = () => {
 
 	const handlePrevBtn = () => {
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-		navigate('/moreInfo');
+		navigate('/signup/moreInfo');
 	};
 	const handleNextBtn = () => {
 		if (!basicInfo.partnerLocations) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-			navigate('/partnerMoreInfo');
+			navigate('/signup/partnerMoreInfo');
 		}
 	};
 	const cityChange = e => {
