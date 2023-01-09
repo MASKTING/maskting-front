@@ -1,17 +1,18 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
-import * as S from './ProfilePhoto.style';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import pick_example1 from '../../../assets/pic_example1.svg';
+import imageState from '../../../recoil';
 import Modal from '../../Modal';
 import Wrapper from '../../Wrapper';
-import pick_example1 from '../../../assets/pic_example1.svg';
-import { atom, useRecoilState } from 'recoil';
-import imageState from '../../../recoil';
+import * as S from './ProfilePhoto.style';
 
 const ProfilePhoto = () => {
 	const navigate = useNavigate();
 	const imgRef = useRef();
 	const handlePrevButton = () => {
-		navigate('/partnerMoreInfo');
+		navigate(-1);
 	};
 	const [imageFile, setImageFile] = useRecoilState(imageState);
 

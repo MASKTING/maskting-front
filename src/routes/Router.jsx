@@ -1,28 +1,29 @@
-import { BrowserRouter as Routers, Routes, Route } from 'react-router-dom';
-import BasicInfoPage from '../pages/SignUp/BasicInfo';
-import HobbyPage from '../pages/SignUp/Hobby';
-import MoreInfoPage from '../pages/SignUp/MoreInfo';
-import LocationPage from '../pages/SignUp/Location';
-import ProfilePhotoPage from '../pages/SignUp/ProfilePhoto';
-import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
-import ProfileMaskPage from '../pages/SignUp/ProfileMask';
-import PartnerLocationPage from '../pages/SignUp/PartnerLocation';
-import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo';
-import LoginPage from '../pages/Login';
+import { BrowserRouter as Routers, Route, Routes } from 'react-router-dom';
+
 import LoginAuth from '../components/Login/LoginAuth/LoginAuth';
-import HomeMainPage from '../pages/Home/Main/HomeMainPage';
-import HomeNotification from '../pages/Home/Notification/HomeNotification';
-import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
 import ChattingMainPage from '../pages/Chatting/Main/ChattingMainPage';
-import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
-import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
-import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
-import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
-import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
-import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
-import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 import ChattingRequestPage from '../pages/Chatting/Request/ChattingRequestPage';
 import ChattingRoomPage from '../pages/Chatting/Room/ChattingRoomPage';
+import HomeFeedPage from '../pages/Home/Feed/HomeFeedPage';
+import HomeMainPage from '../pages/Home/Main/HomeMainPage';
+import HomeNotification from '../pages/Home/Notification/HomeNotification';
+import HomePictureAdd from '../pages/Home/Picture/Add/HomePictureAdd';
+import HomePictureInfo from '../pages/Home/Picture/Info/HomePictureInfo';
+import HomePictureResize from '../pages/Home/Picture/Resize/HomePictureResize';
+import LoginPage from '../pages/Login';
+import MyPageMainPage from '../pages/MyPage/Main/MyPageMainPage';
+import BasicInfoPage from '../pages/SignUp/BasicInfo';
+import HobbyPage from '../pages/SignUp/Hobby';
+import LocationPage from '../pages/SignUp/Location';
+import MoreInfoPage from '../pages/SignUp/MoreInfo';
+import PartnerLocationPage from '../pages/SignUp/PartnerLocation';
+import PartnerMoreInfoPage from '../pages/SignUp/PartnerMoreInfo/PartnerMoreInfoPage';
+import ProfileMaskPage from '../pages/SignUp/ProfileMask';
+import ProfilePhotoPage from '../pages/SignUp/ProfilePhoto/ProfilePhotoPage';
+import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
+import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
+import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
+import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 import Wait from '../pages/Wait';
 import WaitFail from '../pages/WaitFail';
 import WaitSuccess from '../pages/WaitSuccess';
@@ -37,11 +38,11 @@ function Router() {
 				<Route path="/signup/location" element={<LocationPage />} />
 				<Route path="/signup/hobby" element={<HobbyPage />} />
 				<Route path="/signup/moreInfo" element={<MoreInfoPage />} />
-				<Route path="/signup/profileSetting" element={<ProfileSettingPage />} />
-				<Route path="/signup/profilePhoto" element={<ProfilePhotoPage />} />
-				<Route path="/signup/profileMask" element={<ProfileMaskPage />} />
 				<Route path="/signup/partnerLocation" element={<PartnerLocationPage />} />
 				<Route path="/signup/partnerMoreInfo" element={<PartnerMoreInfoPage />} />
+				<Route path="/signup/profilePhoto" element={<ProfilePhotoPage />} />
+				<Route path="/signup/profileMask" element={<ProfileMaskPage />} />
+				<Route path="/signup/profileSetting" element={<ProfileSettingPage />} />
 
 				<Route path="/home" element={<HomeMainPage />} />
 				<Route path="/home/notification" element={<HomeNotification />} />

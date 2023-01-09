@@ -60,7 +60,9 @@ const Content = styled.div`
 	}
 `;
 
-const Form = styled.form``;
+const Form = styled.form`
+	/* background-color: red; */
+`;
 
 const ProfilePhotoWrapper = styled.div`
 	height: 18rem;

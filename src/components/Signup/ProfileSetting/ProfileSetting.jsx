@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { useState } from 'react';
 import { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+
+import { checkNicknameApi } from '../../../api/signup';
+import imageState from '../../../recoil';
+import { NavigateButton } from '../../Button/Button';
 import Modal from '../../Modal/Modal';
 import Wrapper from '../../Wrapper';
 import * as S from './ProfileSetting.style';
-import { NavigateButton } from '../../Button/Button';
-import { useRecoilState } from 'recoil';
-import imageState from '../../../recoil';
-import { checkNicknameApi } from '../../../api/signup';
 
 function ProfileSetting() {
 	const [imageFile] = useRecoilState(imageState);
@@ -48,6 +49,8 @@ function ProfileSetting() {
 
 		const formData = new FormData();
 		formData.append('profiles', imageFile);
+		formData.append('email', 'aa@naver.com');
+		formData.append('provider', 'kakao');
 		for (let [key, value] of Object.entries({
 			...basicInfo,
 			nickname: watch('nickname'),
