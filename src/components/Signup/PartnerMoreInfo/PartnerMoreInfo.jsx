@@ -33,6 +33,7 @@ const msg = {
 const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+	console.log(basicInfo);
 	const [submit, setSubmit] = useState(false);
 	const [rangeMinHeightValue, setLeftSlider] = useState(
 		20 - (basicInfo.height - basicInfo.partnerMinHeight),
@@ -161,7 +162,7 @@ const PartnerMoreInfo = () => {
 							type="radio"
 							name="partnerDuty"
 							id="군필"
-							value={true}
+							value="true"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
@@ -171,7 +172,7 @@ const PartnerMoreInfo = () => {
 							type="radio"
 							name="partnerDuty"
 							id="미필"
-							value={false}
+							value="false"
 							onClick={radioChange}
 						/>
 					</S.NarrowButton>
@@ -201,7 +202,7 @@ const PartnerMoreInfo = () => {
 								type="radio"
 								name="partnerSmoking"
 								id="흡연"
-								value={true}
+								value="true"
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>
@@ -213,7 +214,7 @@ const PartnerMoreInfo = () => {
 								type="radio"
 								name="partnerSmoking"
 								id="비흡연"
-								value={false}
+								value="false"
 								onClick={radioChange}
 							/>
 						</S.RadioLabel>

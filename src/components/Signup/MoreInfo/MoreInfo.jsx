@@ -31,7 +31,6 @@ function MoreInfo() {
 	}, []);
 
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-
 	const radioChange = e => {
 		e.preventDefault();
 		setBasicInfo({
@@ -41,7 +40,7 @@ function MoreInfo() {
 	};
 
 	const handlePrevBtn = () => {
-		navigate('/signup/hobby');
+		navigate(-1);
 	};
 
 	const handleNextBtn = () => {
