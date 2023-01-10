@@ -75,6 +75,7 @@ const PartnerMoreInfo = () => {
 		setSubmit(true);
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		navigate('/signup/profilePhoto');
+
 	};
 
 	const leftSlideChange = event => {
@@ -130,6 +131,7 @@ const PartnerMoreInfo = () => {
 				partnerBodyTypesRight: parseInt(event.target.value) + 1,
 			});
 		}
+
 	};
 
 	const radioChange = e => {
