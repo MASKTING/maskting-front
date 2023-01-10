@@ -12,7 +12,7 @@ import image7 from '../../../assets/image/hobby/film-frames_1f39e-fe0f.png';
 import image8 from '../../../assets/image/hobby/sake_1f376.png';
 import image9 from '../../../assets/image/hobby/world-map_1f5fa-fe0f.png';
 import image10 from '../../../assets/image/hobby/musical-note_1f3b5.png';
-import image11 from '../../../assets/image/hobby/flexed-biceps_1f4aa.png';
+import image11 from '../../../assets/image/hobby/people-holding-hands_1f9d1-200d-1f91d-200d-1f9d1.png';
 import image12 from '../../../assets/image/hobby/video-game_1f3ae.png';
 import image13 from '../../../assets/image/hobby/house_1f3e0.png';
 import image14 from '../../../assets/image/hobby/glasses_1f453.png';
@@ -26,7 +26,6 @@ import * as S from './Hobby.style';
 
 const HOBBY_LIST = [
 	{ id: '1', name: '운동', src: image1 },
-
 	{ id: '2', name: '요리', src: image2 },
 	{ id: '3', name: '자기계발', src: image3 },
 	{ id: '4', name: '맛집/카페탐방', src: image4 },
@@ -81,11 +80,11 @@ function Hobby() {
 	const handlePrevBtn = () => {
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		setErrorMessage(false);
-		navigate('/signup/location');
+		navigate(-1);
 	};
 
 	const handleNextBtn = () => {
-		if (!basicInfo.interests) {
+		if (basicInfo.interests.length === 0) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
@@ -98,7 +97,7 @@ function Hobby() {
 		<Wrapper titleMessage="무엇에 관심이 있으신가요?" titleWidth={40}>
 			{/* <img src={image1} /> */}
 			{errorMessage ? (
-				<S.ErrorMessage>관심사를 선택해주세요</S.ErrorMessage>
+				<S.ErrorMessage>1개 이상의 관심사를 선택해주세요</S.ErrorMessage>
 			) : (
 				<S.SmallTitle>취미를 최대 5개까지 선택해주세요</S.SmallTitle>
 			)}
