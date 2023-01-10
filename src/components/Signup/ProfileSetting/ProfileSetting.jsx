@@ -84,6 +84,7 @@ function ProfileSetting() {
 		// })) {
 		// 	formData.append(key, value);
 		// }
+
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
@@ -105,7 +106,7 @@ function ProfileSetting() {
 	// 2. NICKNAME
 	const handleCheckNickname = async () => {
 		const data = await checkNicknameApi(watch('nickname'));
-		console.log(data);
+
 		if (!data) {
 			//이미 사용중이라면
 			setError('nickname', { message: '이미 사용 중인 닉네임입니다' }, { shouldFocus: true });

@@ -32,7 +32,41 @@ const msg = {
 
 const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
+	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [submit, setSubmit] = useState(false);
+	const [rangeMinHeightValue, setLeftSlider] = useState(
+		20 - (basicInfo.height - basicInfo.partnerMinHeight),
+	);
+	const [rangeMaxHeightValue, setRightSlider] = useState(
+		basicInfo.partnerMaxHeight - basicInfo.height + 20,
+	);
+	const [rangeMinHeightPercent, setrangeMinHeightPercent] = useState(
+		(rangeMinHeightValue / 41) * 100,
+	);
+	const [rangeMaxHeightPercent, setrangeMaxHeightPercent] = useState(
+		100 - (rangeMaxHeightValue / 41) * 100,
+	);
+
+	const [rangeMinWeightValue, setWeightMin] = useState(basicInfo.partnerBodyTypesLeft - 1);
+	const [rangeMaxWeightValue, setWeightMax] = useState(basicInfo.partnerBodyTypesRight - 1);
+
+	const [rangeMinWeightPercent, setrangeMinWeightPercent] = useState(
+		(rangeMinWeightValue / 4) * 100,
+	);
+	const [rangeMaxWeightPercent, setrangeMaxWeightPercent] = useState(
+		100 - (rangeMaxWeightValue / 4) * 100,
+	);
+
+	const twoRangeHandler = fixedValue => {
+		setrangeMinHeightPercent((rangeMinHeightValue / fixedValue) * 100);
+		setrangeMaxHeightPercent(100 - (rangeMaxHeightValue / fixedValue) * 100);
+	};
+
+	const twoRangeHandlerWeight = fixedValue => {
+		setrangeMinWeightPercent((rangeMinWeightValue / fixedValue) * 100);
+		setrangeMaxWeightPercent(100 - (rangeMaxWeightValue / fixedValue) * 100);
+	};
+
 	const handlePrevBtn = () => {
 		navigate('/signup/partnerLocation');
 	};
@@ -40,18 +74,77 @@ const PartnerMoreInfo = () => {
 		setSubmit(true);
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		navigate('/signup/profilePhoto');
+
 	};
-	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
+
+	const leftSlideChange = event => {
+		if (parseInt(event.target.value) < rangeMaxHeightValue) {
+			setLeftSlider(event.target.value);
+			event.preventDefault();
+			setBasicInfo({
+				...basicInfo,
+				[event.target.name]: basicInfo.height + parseInt(event.target.value) - 20,
+			});
+		}
+	};
+
+	const rightSlideChange = event => {
+		if (parseInt(event.target.value) > rangeMinHeightValue) {
+			setRightSlider(event.target.value);
+			event.preventDefault();
+			setBasicInfo({
+				...basicInfo,
+				[event.target.name]: basicInfo.height + parseInt(event.target.value) - 20,
+			});
+		}
+	};
+
+	const partnerMinWeightChange = event => {
+		if (parseInt(event.target.value) < rangeMaxWeightValue) {
+			setWeightMin(parseInt(event.target.value));
+			event.preventDefault();
+			const tempBodyTypeArr = [];
+
+			for (let i = parseInt(event.target.value) + 1; i <= rangeMaxWeightValue + 1; i++)
+				tempBodyTypeArr.push(i);
+
+			setBasicInfo({
+				...basicInfo,
+				[event.target.name]: tempBodyTypeArr,
+				partnerBodyTypesLeft: parseInt(event.target.value) + 1,
+			});
+		}
+	};
+
+	const partnerMaxWeightChange = event => {
+		if (parseInt(event.target.value) > rangeMinWeightValue) {
+			setWeightMax(parseInt(event.target.value));
+			event.preventDefault();
+			const tempBodyTypeArr = [];
+			for (let i = rangeMinWeightValue + 1; i <= parseInt(event.target.value) + 1; i++)
+				tempBodyTypeArr.push(i);
+
+			setBasicInfo({
+				...basicInfo,
+				[event.target.name]: tempBodyTypeArr,
+				partnerBodyTypesRight: parseInt(event.target.value) + 1,
+			});
+		}
+
+	};
 
 	const radioChange = e => {
 		e.preventDefault();
-		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
-	console.log(basicInfo);
+
+	useEffect(() => {
+		twoRangeHandlerWeight(4);
+	}, [rangeMaxWeightValue, rangeMinWeightValue]);
+
 	return (
 		<Wrapper titleMessage="원하는 조건을 입력해주세요" titleWidth="39rem">
 			<S.InfoMessage>
@@ -229,6 +322,7 @@ const PartnerMoreInfo = () => {
 							max="6"
 							// radio="1"
 							step="1"
+							value={basicInfo.partnerDrinking}
 							degree={(parseInt(basicInfo.partnerDrinking) - 1) * 20}
 							onChange={radioChange}
 						/>
@@ -242,31 +336,42 @@ const PartnerMoreInfo = () => {
 							키
 							{basicInfo.partnerMinHeight !== null || basicInfo.partnerMaxHeight !== null ? (
 								<S.DegreeMessage>
-									내 키에서 <S.Red>{msg.height[basicInfo.partnerMinHeight]}</S.Red>
-									부터 <S.Red>{msg.height[basicInfo.partnerMaxHeight]}</S.Red>가 좋아요
+									내 키에서 <S.Red>{rangeMinHeightValue - 20}</S.Red>cm 부터{' '}
+									<S.Red>{rangeMaxHeightValue - 20}</S.Red>cm가 좋아요
 								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
 					)}
 					<S.SliderWrapper>
-						<S.SliderLeft
-							type="range"
-							name="partnerMinHeight"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerMinHeight) - 1) * 25}
-							onChange={radioChange}
-						/>
-						<S.SliderRight
-							type="range"
-							name="partnerMaxHeight"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerMaxHeight) - 1) * 25}
-							onChange={radioChange}
-						/>
+						<S.CustomRangeWrap>
+							<S.CustomRangeMin
+								type="range"
+								value={rangeMinHeightValue}
+								name="partnerMinHeight"
+								min="0"
+								max="40"
+								onChange={e => {
+									leftSlideChange(e);
+									twoRangeHandler(41);
+								}}
+							/>
+							<S.CustomRangeMax
+								type="range"
+								value={rangeMaxHeightValue}
+								min="0"
+								max="40"
+								name="partnerMaxHeight"
+								onChange={e => {
+									rightSlideChange(e);
+									twoRangeHandler(41);
+								}}
+							/>
+						</S.CustomRangeWrap>
+						<S.CustomSlide></S.CustomSlide>
+						<S.CustomSlideInner
+							rangeMinPercent={rangeMinHeightPercent}
+							rangeMaxPercent={rangeMaxHeightPercent}
+						></S.CustomSlideInner>
 					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
@@ -285,25 +390,33 @@ const PartnerMoreInfo = () => {
 						</S.LongLabel>
 					)}
 					<S.SliderWrapper>
-						<S.SliderLeft
-							type="range"
-							name="partnerBodyTypesLeft"
-							min="1"
-							max="5"
-							step="1"
-							degree={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
-							onChange={radioChange}
-						/>
-						<S.SliderRight
-							type="range"
-							name="partnerBodyTypesRight"
-							min="1"
-							max="5"
-							step="1"
-							degreeLeft={(parseInt(basicInfo.partnerBodyTypesLeft) - 1) * 25}
-							degreeRight={(parseInt(basicInfo.partnerBodyTypesRight) - 1) * 25}
-							onChange={radioChange}
-						/>
+						<S.CustomRangeWrap>
+							<S.CustomRangeMin
+								type="range"
+								value={rangeMinWeightValue}
+								name="partnerBodyTypes"
+								min="0"
+								max="4"
+								onChange={e => {
+									partnerMinWeightChange(e);
+								}}
+							/>
+							<S.CustomRangeMax
+								type="range"
+								value={rangeMaxWeightValue}
+								name="partnerBodyTypes"
+								min="0"
+								max="4"
+								onChange={e => {
+									partnerMaxWeightChange(e);
+								}}
+							/>
+						</S.CustomRangeWrap>
+						<S.CustomSlide></S.CustomSlide>
+						<S.CustomSlideInner
+							rangeMinPercent={rangeMinWeightPercent}
+							rangeMaxPercent={rangeMaxWeightPercent}
+						></S.CustomSlideInner>
 					</S.SliderWrapper>
 				</S.BasicInfoWrapper>
 			</S.Content>
