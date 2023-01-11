@@ -49,8 +49,7 @@ function ProfileSetting() {
 
 		const formData = new FormData();
 		formData.append('profiles', imageFile);
-		formData.append('email', 'aa@naver.com');
-		formData.append('provider', 'kakao');
+
 		for (let [key, value] of Object.entries({
 			...basicInfo,
 			nickname: watch('nickname'),

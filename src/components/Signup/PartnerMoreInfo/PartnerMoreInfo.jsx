@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { NavigateButton } from '../../Button/Button';
 import Wrapper from '../../Wrapper/Wrapper';
+import BasicInfo from '../BasicInfo';
 import * as S from './PartnerMoreInfo.style';
 
 const msg = {
@@ -34,12 +35,8 @@ const PartnerMoreInfo = () => {
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
 	const [submit, setSubmit] = useState(false);
-	const [rangeMinHeightValue, setLeftSlider] = useState(
-		20 - (basicInfo.height - basicInfo.partnerMinHeight),
-	);
-	const [rangeMaxHeightValue, setRightSlider] = useState(
-		basicInfo.partnerMaxHeight - basicInfo.height + 20,
-	);
+	const [rangeMinHeightValue, setLeftSlider] = useState(10);
+	const [rangeMaxHeightValue, setRightSlider] = useState(30);
 	const [rangeMinHeightPercent, setrangeMinHeightPercent] = useState(
 		(rangeMinHeightValue / 41) * 100,
 	);
@@ -47,8 +44,8 @@ const PartnerMoreInfo = () => {
 		100 - (rangeMaxHeightValue / 41) * 100,
 	);
 
-	const [rangeMinWeightValue, setWeightMin] = useState(basicInfo.partnerBodyTypesLeft - 1);
-	const [rangeMaxWeightValue, setWeightMax] = useState(basicInfo.partnerBodyTypesRight - 1);
+	const [rangeMinWeightValue, setWeightMin] = useState(1);
+	const [rangeMaxWeightValue, setWeightMax] = useState(3);
 
 	const [rangeMinWeightPercent, setrangeMinWeightPercent] = useState(
 		(rangeMinWeightValue / 4) * 100,
@@ -82,7 +79,7 @@ const PartnerMoreInfo = () => {
 			event.preventDefault();
 			setBasicInfo({
 				...basicInfo,
-				[event.target.name]: basicInfo.height + parseInt(event.target.value) - 20,
+				[event.target.name]: parseInt(basicInfo.height) + parseInt(event.target.value) - 20,
 			});
 		}
 	};
@@ -93,7 +90,7 @@ const PartnerMoreInfo = () => {
 			event.preventDefault();
 			setBasicInfo({
 				...basicInfo,
-				[event.target.name]: basicInfo.height + parseInt(event.target.value) - 20,
+				[event.target.name]: parseInt(basicInfo.height) + parseInt(event.target.value) - 20,
 			});
 		}
 	};
@@ -140,8 +137,36 @@ const PartnerMoreInfo = () => {
 	};
 
 	useEffect(() => {
+		if (basicInfo.partnerBodyTypes) {
+			setWeightMin(basicInfo.partnerBodyTypesLeft - 1);
+			setWeightMax(basicInfo.partnerBodyTypesRight - 1);
+		}
+
+		if (basicInfo.partnerMaxHeight) {
+			setLeftSlider(20 - (basicInfo.height - basicInfo.partnerMinHeight));
+			setRightSlider(basicInfo.partnerMaxHeight - basicInfo.height + 20);
+		}
+	}, []);
+
+	useEffect(() => {
 		twoRangeHandlerWeight(4);
 	}, [rangeMaxWeightValue, rangeMinWeightValue]);
+
+	useEffect(() => {
+		twoRangeHandler(41);
+	}, [rangeMaxHeightValue, rangeMinHeightValue]);
+
+	useEffect(() => {
+		setBasicInfo({
+			...basicInfo,
+			partnerBodyTypes: [2, 4],
+			partnerBodyTypesLeft: 2,
+			partnerBodyTypesRight: 4,
+
+			partnerMinHeight: parseInt(basicInfo.height) - 10,
+			partnerMaxHeight: parseInt(basicInfo.height) + 10,
+		});
+	}, []);
 
 	return (
 		<Wrapper titleMessage="원하는 조건을 입력해주세요" titleWidth="39rem">
@@ -318,7 +343,6 @@ const PartnerMoreInfo = () => {
 							name="partnerDrinking"
 							min="1"
 							max="6"
-							// radio="1"
 							step="1"
 							value={basicInfo.partnerDrinking}
 							degree={(parseInt(basicInfo.partnerDrinking) - 1) * 20}
@@ -350,7 +374,6 @@ const PartnerMoreInfo = () => {
 								max="40"
 								onChange={e => {
 									leftSlideChange(e);
-									twoRangeHandler(41);
 								}}
 							/>
 							<S.CustomRangeMax
@@ -361,7 +384,6 @@ const PartnerMoreInfo = () => {
 								name="partnerMaxHeight"
 								onChange={e => {
 									rightSlideChange(e);
-									twoRangeHandler(41);
 								}}
 							/>
 						</S.CustomRangeWrap>
@@ -380,9 +402,8 @@ const PartnerMoreInfo = () => {
 							체형
 							{basicInfo.partnerBodyTypesLeft !== null ? (
 								<S.DegreeMessage>
-									<S.Red>{msg.partnerBodyTypes[basicInfo.partnerBodyTypesLeft]}</S.Red> 체형부터
-									<S.Red> {msg.partnerBodyTypes[basicInfo.partnerBodyTypesRight]}</S.Red> 체형이
-									좋아요
+									<S.Red>{msg.partnerBodyTypes[rangeMinWeightValue + 1]}</S.Red> 체형부터
+									<S.Red> {msg.partnerBodyTypes[rangeMaxWeightValue + 1]}</S.Red> 체형이 좋아요
 								</S.DegreeMessage>
 							) : null}
 						</S.LongLabel>
