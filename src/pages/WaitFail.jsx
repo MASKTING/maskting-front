@@ -88,17 +88,7 @@ const WaitFail = () => {
 								</Line2>
 							</List>
 						)}
-						{rejectReason === '사용할 수 없는 닉네임' && (
-							<List>
-								<div>다음과 같은 사유로 가입 승인이 반려되었어요 </div>
-								<Line1>
-									<Red>* 사용할 수 없는 닉네임</Red>
-								</Line1>
-								<Line2>* 욕설이나 비하, 비속어 및 선정적인 표현은 안돼요</Line2>
-								<Line2>* 상대방도 기분이 좋아지는 닉네임을 작성해주세요!</Line2>
-							</List>
-						)}
-						{rejectReason === '사용할 수 없는 닉네임' && (
+						{rejectReason === '사용할 수 없는 자기소개' && (
 							<List>
 								<div>다음과 같은 사유로 가입 승인이 반려되었어요 </div>
 								<Line1>
