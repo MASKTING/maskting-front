@@ -16,18 +16,21 @@ function ProfileSetting() {
 	const [imageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
 	const [basicInfo, setBasicInfo] = useState(JSON.parse(localStorage?.getItem('basicInfo')) || {});
-	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData') || {});
-	const { register, handleSubmit, formState, watch, setError, clearErrors } = useForm({
+	const [profilePreview, setProfilePreview] = useState(
+		localStorage?.getItem('maskImageData') || {},
+	);
+	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
+	const [isModal, setIsModal] = useState(false);
+	const [isDuplicate, setIsDuplicate] = useState(false);
+	const { register, handleSubmit, formState, watch, setError, clearErrors, errors } = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
 			introduce: basicInfo?.introduce,
 		},
 	});
-	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
-
 	// MODAL
-	const [isModal, setIsModal] = useState(false);
 	const onOpenModal = () => {
+		// 중복체크
 		setIsModal(true);
 	};
 	const onCloseModal = () => {
@@ -48,8 +51,8 @@ function ProfileSetting() {
 		);
 
 		const formData = new FormData();
-		formData.append('profiles', imageFile);
-
+		formData.append('profiles', imageFile.originalImage);
+		formData.append('profiles', imageFile.maskedImage);
 
 		for (let [key, value] of Object.entries({
 			...basicInfo,
@@ -60,33 +63,6 @@ function ProfileSetting() {
 			formData.append(key, value);
 		}
 
-		// formData.append('name', 'kakao');
-		// formData.append('email', 'aa@naver.com');
-		// formData.append('gender', 'kakao');
-		// formData.append('birth', 'kakao');
-		// formData.append('location', 'kakao');
-		// formData.append('occupation', 'kakao');
-		// formData.append('providerId', 'kakao');
-		// formData.append('provider', 'kakao');
-		// formData.append('interests', 'kakao');
-		// formData.append('duty', true);
-		// formData.append('smoking', false);
-		// formData.append('drinking', 3);
-		// formData.append('height', 2);
-		// formData.append('phone', 13234242);
-		// formData.append('bodyType', 3);
-		// formData.append('religion', 'kakao');
-		// formData.append('bio', 'kakao');
-		// formData.append('nickname', 'kakao');
-		// formData.append('partnerLocations', 'kakao');
-		// formData.append('partnerDuty', 'kakao');
-		// formData.append('partnerSmoking', 'kakao');
-		// formData.append('partnerReligions', 'kakao');
-		// formData.append('partnerDrinking', 1);
-		// formData.append('partnerMinHeight', 4);
-		// formData.append('partnerMaxHeight', 170);
-		// formData.append('partnerBodyTypes', 2);
-    
 		await axios({
 			method: 'POST',
 			url: `/api/user/signup`,
@@ -111,10 +87,10 @@ function ProfileSetting() {
 
 		if (!data) {
 			//이미 사용중이라면
-			setError('nickname', { message: '이미 사용 중인 닉네임입니다' }, { shouldFocus: true });
+			setIsDuplicate(true);
 			return;
 		} else {
-			clearErrors('nickname');
+			setIsDuplicate(false);
 		}
 		setError('nickname', { message: null });
 	};
@@ -281,8 +257,8 @@ function ProfileSetting() {
 					</S.PhotoInfoWrapper>
 					{/* 닉네임 */}
 					<S.HalfInfoWrapper>
-						{formState.errors?.nickname?.message ? (
-							<S.ErrorMessage>{formState.errors?.nickname?.message}</S.ErrorMessage>
+						{isDuplicate ? (
+							<S.ErrorMessage>중복하는 닉네임입니다.</S.ErrorMessage>
 						) : (
 							<S.Label htmlFor="NickName">닉네임</S.Label>
 						)}
