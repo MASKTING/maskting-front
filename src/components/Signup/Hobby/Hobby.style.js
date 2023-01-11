@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import FONTSIZE from '../../../constants/fontsize';
+
 import PALETTE from '../../../constants/palette';
 
 const Content = styled.div`
@@ -10,7 +10,7 @@ const Content = styled.div`
 	position: absolute;
 	width: 39rem;
 	height: 58.2rem;
-	overflow-y: scroll;
+	overflow-y: scrolsl;
 	overflow-x: hidden;
 	::-webkit-scrollbar {
 		display: none;
@@ -30,6 +30,7 @@ const SmallTitle = styled.h1`
 	line-height: 2rem;
 	letter-spacing: 0.05rem;
 `;
+
 const ErrorMessage = styled.h1`
 	top: 9.3rem;
 	left: 2.7rem;
@@ -47,11 +48,20 @@ const HobbySelectWrapper = styled.button`
 	top: 0rem;
 	left: 2.4rem;
 	position: relative;
-	margin-right: ${props => (props.right ? `1.6rem` : null)};
-	margin-bottom: 3rem;
+	margin-right: ${props => (props.right ? `0.8rem` : null)};
+	margin-bottom: 2rem;
 	border: none;
 	background: none;
 	cursor: pointer;
+`;
+export const Image = styled.img`
+	width: 2.5rem;
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	left: 1.5rem;
 `;
 const HobbySelectLabel = styled.label`
 	display: flex;
@@ -65,8 +75,10 @@ const HobbySelectLabel = styled.label`
 	justify-content: center;
 	align-items: center;
 	padding: 0 4.2rem;
+	font-size: 1.5rem;
 	cursor: pointer;
 `;
+
 const HobbySelectInput = styled.input`
 	display: none;
 `;
