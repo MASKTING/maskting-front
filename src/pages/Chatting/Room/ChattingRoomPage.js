@@ -1,5 +1,6 @@
 import * as S from './ChattingRoomPage.style';
 import React from 'react';
+import * as SockJS from 'sockjs-client';
 import Wrapper from '../../../components/Wrapper/Wrapper';
 import { getChattingRoom } from '../../../api/chatting';
 import * as StompJs from '@stomp/stompjs';
@@ -104,12 +105,19 @@ const ChattingRoomPage = () => {
 
 	const connect = () => {
 		client.current = new StompJs.Client({
-			brokerURL: 'ws://ec2-3-34-75-204.ap-northeast-2.compute.amazonaws.com:8080/app',
-			onConnect: () => {
-				console.log('success');
-				subscribe();
+			brokerURL: 'ws://localhost:8080/app',
+			connectHeaders: {
+				login: 'user',
+				passcode: 'password',
 			},
+			debug: function (str) {
+				console.log(str);
+			},
+			reconnectDelay: 5000,
+			heartbeatIncoming: 4000,
+			heartbeatOutgoing: 4000,
 		});
+
 		client.current.activate();
 	};
 

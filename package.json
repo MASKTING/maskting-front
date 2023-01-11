@@ -23,6 +23,8 @@
 		"react-scripts": "^4.0.0",
 		"recoil": "^0.7.5",
 		"sass": "^1.54.2",
+		"sockjs": "^0.3.24",
+		"sockjs-client": "^1.6.1",
 		"styled-components": "^5.3.5",
 		"web-vitals": "^2.1.4"
 	},
