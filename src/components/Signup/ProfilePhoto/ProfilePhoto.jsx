@@ -30,7 +30,7 @@ const ProfilePhoto = () => {
 		if (!e.target.files) {
 			return;
 		}
-		setImageFile(e.target.files[0]);
+		setImageFile({ originalImage: e.target.files[0] });
 		const reader = new FileReader();
 		reader.readAsDataURL(imgRef.current.files[0]);
 		reader.onload = async () => {

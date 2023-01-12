@@ -8,9 +8,8 @@ const imageState = atom({
 export const imageRecoil = atom({
 	key: 'imageRecoil',
 	default: {
-		selectedImage: '',
-		feedbackImageList: [],
-		cntImage: 2,
+		originalImage: '',
+		maskedImage: '',
 	},
 });
 

@@ -5,6 +5,8 @@ import Wrapper from '../../Wrapper';
 import { Rnd } from 'react-rnd';
 import html2canvas from 'html2canvas';
 import { NavigateButton } from '../../Button/Button';
+import { useRecoilState } from 'recoil';
+import imageState from '../../../recoil';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
@@ -20,17 +22,36 @@ const ProfileMask = () => {
 		navigate('/signup/profilePhoto');
 	};
 
+	const [imageFile, setImageFile] = useRecoilState(imageState);
+
 	const captureImg = async () => {
 		window.scrollTo(0, 0);
 		let url = '';
 		await html2canvas(document.getElementById('captureDiv')).then(async canvas => {
-			url = canvas.toDataURL('image/png').split(',')[1];
-			localStorage.setItem('maskImageData', url);
+			setImageFile({
+				...imageFile,
+				maskedImage: dataURLtoFile(canvas.toDataURL('image/png'), 'maskedImage.jpg'),
+			});
+			localStorage.setItem('maskImageData', canvas.toDataURL('image/png'));
 		});
 	};
 
-	const handleNextBtn = () => {
-		captureImg();
+	const dataURLtoFile = (dataurl, fileName) => {
+		var arr = dataurl.split(','),
+			mime = arr[0].match(/:(.*?);/)[1],
+			bstr = atob(arr[1]),
+			n = bstr.length,
+			u8arr = new Uint8Array(n);
+
+		while (n--) {
+			u8arr[n] = bstr.charCodeAt(n);
+		}
+
+		return new File([u8arr], fileName, { type: mime });
+	};
+
+	const handleNextBtn = async () => {
+		await captureImg();
 		navigate('/signup/profileSetting');
 	};
 

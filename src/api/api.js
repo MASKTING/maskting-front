@@ -28,12 +28,7 @@ api.interceptors.response.use(
 	async error => {
 		if (error?.response?.status === 401) {
 			try {
-				console.log(getCookie('refreshToken'));
-				// const originalRequest = error.config;
-				// const response = await axios.post('/api/auth/silent-refresh', {
-				// 	Authorization: `Bearer ${getCookie('refreshToken')}`,
-				// 	'Content-Type': 'application/json',
-				// });
+				const originalRequest = error.config;
 				const response = await axios({
 					method: 'post',
 					url: '/api/auth/silent-refresh',
@@ -42,15 +37,13 @@ api.interceptors.response.use(
 						Authorization: `Bearer ${getCookie('refreshToken')}`,
 					},
 				});
-				console.log(response);
 				if (response) {
 					localStorage.setItem('accesstoken', response.headers.accesstoken);
 					localStorage.setItem('expiresIn', response.headers.expiresIn);
-					// return api.request(originalRequest);
+					return api.request(originalRequest);
 				}
 			} catch (error) {
-				// console.log('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
-				// alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
+				alert('세션이 만료되었습니다. 다시 로그인해 주시기 바랍니다.');
 			}
 		}
 	},
