@@ -10,6 +10,7 @@ import { Client, Stomp } from '@stomp/stompjs';
 import Chatting from '../Main/Chatting';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 import styled from 'styled-components';
+import cli from 'nodemon/lib/cli';
 
 const Top = styled.header`
 	position: absolute;
@@ -106,38 +107,48 @@ const ChattingRoomPage = () => {
 	const connect = () => {
 		client.current = new StompJs.Client({
 			brokerURL: 'ws://localhost:8080/app',
-			connectHeaders: {
-				login: 'user',
-				passcode: 'password',
-			},
-			debug: function (str) {
-				console.log(str);
-			},
-			reconnectDelay: 5000,
-			heartbeatIncoming: 4000,
-			heartbeatOutgoing: 4000,
+			onConnect: onConnected,
 		});
+
+		client.current.webSocketFactory = () => {
+			const socketIn = new SockJS('http://localhost:8080/app');
+			return socketIn;
+		};
 
 		client.current.activate();
 	};
 
 	const publish = chat => {
+		console.log(client.current.connected);
 		if (!client.current.connected) return;
 		client.current.publish({
-			destination: '/pub/chat',
+			destination: '/pub/chat/message',
 			body: JSON.stringify({
-				applyId: apply_id,
-				chat: chat,
+				roomId: 5,
+				sender: '알콜중독라이언',
+				message: '안녕하세요! 채팅입니다.',
 			}),
 		});
+
+		console.log(
+			JSON.stringify({
+				roomId: 5,
+				sender: '알콜중독라이언',
+				message: '안녕하세요! 채팅입니다.',
+			}),
+		);
 
 		setChat('');
 	};
 
+	const onConnected = () => {
+		console.log('연결성공');
+		subscribe();
+	};
+
 	const subscribe = () => {
-		client.current.subscribe('/sub/chat/' + apply_id, body => {
-			const json_body = JSON.parse(body.body);
-			setChatList(_chat_list => [..._chat_list, json_body]);
+		client.current.subscribe(`/sub/chat/room/${5}`, body => {
+			console.log('채팅내용: ', body);
 		});
 	};
 
@@ -166,7 +177,8 @@ const ChattingRoomPage = () => {
 	};
 
 	const handleSend = () => {
-		// 전송 API
+		publish();
+		console.log('전송');
 	};
 
 	return (
