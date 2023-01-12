@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Wrapper from '../components/Wrapper';
 import { WrapperInner } from '../components/Wrapper/Wrapper.style';
 import styled from 'styled-components';
@@ -31,6 +32,7 @@ const Line2 = styled.div`
 `;
 
 const WaitFail = () => {
+	const navigate = useNavigate();
 	const [rejectReason, setRejectReason] = useState('');
 	const getRejection = async () => {
 		try {
@@ -47,6 +49,9 @@ const WaitFail = () => {
 	useEffect(() => {
 		getRejection();
 	}, []);
+	const handleEdit = () => {
+		navigate('/wait/fail/edit');
+	};
 	return (
 		<Wrapper>
 			<WrapperInner>
@@ -100,7 +105,7 @@ const WaitFail = () => {
 						)}
 					</InfoTitle>
 				</Content>
-				<BigButton>수정하러 가기</BigButton>
+				<BigButton onClick={handleEdit}>수정하러 가기</BigButton>
 			</WrapperInner>
 			<SideBar status="home" />
 		</Wrapper>

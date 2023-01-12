@@ -26,6 +26,7 @@ import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
 import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
 import Wait from '../pages/Wait';
 import WaitFail from '../pages/WaitFail';
+import WaitFailEdit from '../pages/WaitFailEdit';
 import WaitSuccess from '../pages/WaitSuccess';
 
 function Router() {
@@ -63,6 +64,7 @@ function Router() {
 				<Route path="/homeMain" element={<HomeMainPage />} />
 				<Route path="/wait" element={<Wait />} />
 				<Route path="/wait/fail" element={<WaitFail />} />
+				<Route path="/wait/fail/edit" element={<WaitFailEdit />} />
 				<Route path="/wait/success" element={<WaitSuccess />} />
 			</Routes>
 		</Routers>
