@@ -1,5 +1,6 @@
 import * as S from './ChattingMainPage.style';
 import React from 'react';
+import { useState } from 'react';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
@@ -20,9 +21,12 @@ const CHATTINGROOMLIST = [
 ];
 
 const ChattingMainPage = () => {
+	const [chattingRoomList, setChattingRoomList] = useState([]);
+
 	const getchattingRoomsMethod = async () => {
-		const chattingRoomList = await getChattingRooms();
-		console.log(chattingRoomList);
+		const data = await getChattingRooms();
+		console.log(data);
+		setChattingRoomList(data);
 	};
 
 	useEffect(() => {
@@ -33,8 +37,8 @@ const ChattingMainPage = () => {
 	const handleNavigateRequest = () => {
 		navigate('request');
 	};
-	const handleNavigateRoom = () => {
-		navigate('room');
+	const handleNavigateRoom = e => {
+		navigate(`/chatting/room/${e.currentTarget.dataset.roomid}`);
 	};
 	return (
 		<Wrapper titleMessage="채팅">
@@ -48,16 +52,20 @@ const ChattingMainPage = () => {
 						<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
 					</S.NotifyTextBox>
 				</S.NotifyBox>
-				{!!CHATTINGROOMLIST.length ? (
+				{!!chattingRoomList.length ? (
 					<S.ChattingRoomList>
-						{CHATTINGROOMLIST.map(chattingRoom => (
-							<S.ChattingRoomItem onClick={handleNavigateRoom} key={chattingRoom.id}>
+						{chattingRoomList?.map(chattingRoom => (
+							<S.ChattingRoomItem
+								onClick={handleNavigateRoom}
+								data-roomid={chattingRoom?.roomId}
+								key={chattingRoom.roomId}
+							>
 								<S.ChattingProfileBox>
-									<PictureCircle size="small"></PictureCircle>
+									<PictureCircle src={chattingRoom.profile} size="small"></PictureCircle>
 								</S.ChattingProfileBox>
 								<S.ChattingMainBox>
-									<S.ChattingSender>{chattingRoom.sender}</S.ChattingSender>
-									<S.ChattingMessage>{chattingRoom.message}</S.ChattingMessage>
+									<S.ChattingSender>{chattingRoom.roomName}</S.ChattingSender>
+									<S.ChattingMessage>{chattingRoom.lastMessage}</S.ChattingMessage>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>
 						))}

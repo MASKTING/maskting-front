@@ -11,6 +11,7 @@ import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 import { getProfile } from '../../../api/getProfile';
 import { getPartner } from '../../../api/getPartner';
+import { getFeed } from '../../../api/getFeed';
 
 const FEEDPHOTOLIST = [
 	{
@@ -39,31 +40,11 @@ const FEEDPHOTOLIST = [
 	},
 ];
 
-const FEEDLIST = [
-	{
-		id: '1',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		nickname: '분당청소요정',
-		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
-	},
-	{
-		id: '2',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		nickname: '분당청소요정',
-		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
-	},
-	{
-		id: '3',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		nickname: '분당청소요정',
-		info: '베이킹과 라이딩을 좋아하고 청소를 잘해요💫',
-	},
-];
-
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
 	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
+	const [feedList, setFeedList] = useState([]);
 	const turnOnModal = () => {
 		setIsModal(true);
 	};
@@ -85,6 +66,7 @@ const HomeMainPage = () => {
 			localStorage.setItem('nickname', response.nickname);
 		});
 		getPartner().then(response => {
+			setFeedList(response);
 			console.log(response);
 		});
 	}, []);
@@ -118,15 +100,15 @@ const HomeMainPage = () => {
 						</SmallButton>
 					</S.PanelInfoInner>
 				</Panel>
-				{FEEDLIST.map(feedItem => (
-					<Panel size="midium" key={feedItem.id}>
-						<S.PanelFeedInner onClick={handleFeedButton} id={feedItem.id}>
+				{feedList.map((feedItem, idx) => (
+					<Panel size="midium" key={idx}>
+						<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
 							<S.FeedProfile>
-								<PictureCircle size="small" />
+								<PictureCircle src={feedItem.profile} size="small" />
 								<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
 							</S.FeedProfile>
 							<S.FeedInfo>
-								<S.InfoMidium>{feedItem.info}</S.InfoMidium>
+								<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
 							</S.FeedInfo>
 							<S.FeedImageList>
 								{FEEDPHOTOLIST.map(FeedItem => (

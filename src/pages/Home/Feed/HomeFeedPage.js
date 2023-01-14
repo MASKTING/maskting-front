@@ -10,6 +10,7 @@ import BigButton from '../../../components/Button/BigButton/BigButton';
 import Modal from '../../../components/Modal/Modal';
 import styled from 'styled-components';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
+import { sendLike } from '../../../api/sendLike';
 
 const PHOTOLIST = [
 	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
@@ -66,8 +67,11 @@ const HomeFeedPage = () => {
 	const handleCloseModal = () => {
 		setIsModal(false);
 	};
-	const handleRequestConfirm = () => {
+	const handleRequestConfirm = async () => {
 		// 요청 API
+		const data = await sendLike('CVooodign');
+		console.log(data);
+
 		setIsRequested(true);
 		setIsModal(false);
 	};

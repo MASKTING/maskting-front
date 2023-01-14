@@ -10,7 +10,6 @@ import { Client, Stomp } from '@stomp/stompjs';
 import Chatting from '../Main/Chatting';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 import styled from 'styled-components';
-import cli from 'nodemon/lib/cli';
 
 const Top = styled.header`
 	position: absolute;
@@ -101,12 +100,19 @@ const ChattingRoomPage = () => {
 	const [chatList, setChatList] = useState([]);
 	const [chat, setChat] = useState('');
 	const navigate = useNavigate();
-	const { apply_id } = useParams();
+	const { roomId } = useParams();
 	const client = useRef({});
 
 	const connect = () => {
 		client.current = new StompJs.Client({
 			brokerURL: 'ws://localhost:8080/app',
+			connectHeaders: {
+				Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+			},
+
+			debug: function (str) {
+				console.log(str);
+			},
 			onConnect: onConnected,
 		});
 
@@ -118,25 +124,24 @@ const ChattingRoomPage = () => {
 		client.current.activate();
 	};
 
-	const publish = chat => {
-		console.log(client.current.connected);
+	const chatSetting = e => {
+		setChat(e.target.value);
+		console.log(e.target.value);
+	};
+
+	const publish = chatContent => {
+		console.log(chatContent);
+
 		if (!client.current.connected) return;
+
 		client.current.publish({
 			destination: '/pub/chat/message',
 			body: JSON.stringify({
-				roomId: 5,
-				sender: '알콜중독라이언',
-				message: '안녕하세요! 채팅입니다.',
+				roomId: roomId,
+				sender: 'dasd',
+				message: `${chat}`,
 			}),
 		});
-
-		console.log(
-			JSON.stringify({
-				roomId: 5,
-				sender: '알콜중독라이언',
-				message: '안녕하세요! 채팅입니다.',
-			}),
-		);
 
 		setChat('');
 	};
@@ -147,8 +152,8 @@ const ChattingRoomPage = () => {
 	};
 
 	const subscribe = () => {
-		client.current.subscribe(`/sub/chat/room/${5}`, body => {
-			console.log('채팅내용: ', body);
+		client.current.subscribe(`/sub/chat/room/${roomId}`, body => {
+			console.log('채팅내용: ', JSON.parse(body.body).message);
 		});
 	};
 
@@ -176,10 +181,7 @@ const ChattingRoomPage = () => {
 		navigate(-1);
 	};
 
-	const handleSend = () => {
-		publish();
-		console.log('전송');
-	};
+	const handleSend = () => {};
 
 	return (
 		<Wrapper>
@@ -202,6 +204,12 @@ const ChattingRoomPage = () => {
 				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" isMy date="오전 10:36" />
 				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
 				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
 			</WrapperInner>
 			{/* <div className={'chat-list'}>{chatList}</div>
 			<form onSubmit={event => handleSubmit(event, chat)}>
@@ -214,8 +222,8 @@ const ChattingRoomPage = () => {
 			<InputWrapper>
 				<InputInner>
 					<PlusButton className="material-icons">add_circle</PlusButton>
-					<Input type="text" placeholder="메세지 보내기" />
-					<SendBtn className="material-icons" onClick={handleSend}>
+					<Input type="text" onChange={chatSetting} placeholder="메세지 보내기" />
+					<SendBtn className="material-icons" onClick={handleSubmit}>
 						send
 					</SendBtn>
 				</InputInner>
