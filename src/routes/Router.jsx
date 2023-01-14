@@ -57,7 +57,7 @@ function Router() {
 
 				<Route path="/chatting" element={<ChattingMainPage />} />
 				<Route path="/chatting/request" element={<ChattingRequestPage />} />
-				<Route path="/chatting/room" element={<ChattingRoomPage />} />
+				<Route path="/chatting/room/:roomId" element={<ChattingRoomPage />} />
 
 				<Route path="/myPage" element={<MyPageMainPage />} />
 				<Route path="/homeMain" element={<HomeMainPage />} />
