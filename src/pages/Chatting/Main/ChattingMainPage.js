@@ -35,6 +35,7 @@ const ChattingMainPage = () => {
 		const targetIdx = findRoom(sender);
 		const copyRoomList = [...chattingRoomList];
 		copyRoomList[targetIdx].lastMessage = newMessage;
+		// copyRoomList[targetIdx].isChecked = false;
 		setChattingRoomList(copyRoomList);
 	};
 
@@ -99,6 +100,7 @@ const ChattingMainPage = () => {
 										<S.ChattingLastMessage>{` · ${chattingRoom.lastUpdatedAt}`}</S.ChattingLastMessage>
 									</S.ChattingMessageBox>
 									<S.NewChattingDot></S.NewChattingDot>
+									{/* {chattingRoom.isChecked ? null : <S.NewChattingDot></S.NewChattingDot>} */}
 									<S.RemainingTimeBarText>{chattingRoom.remainingTime}H</S.RemainingTimeBarText>
 									<S.RemainingTimeBar
 										min="0"
