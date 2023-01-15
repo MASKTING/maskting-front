@@ -8,18 +8,6 @@ import { getChattingRooms } from '../../../api/chatting';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const CHATTINGROOMLIST = [
-	{ id: 1, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 2, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 3, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 4, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 5, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 6, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 7, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 8, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 9, sender: '분당청소요정', message: '안녕하세요?' },
-];
-
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
 
