@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from './PictureCircle.style';
 
 const PICTURESIZE = {
+	xsmall: '3.5rem',
 	small: '5rem',
 	midium: '7.8rem',
 	large: '10rem',
