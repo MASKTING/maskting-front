@@ -94,9 +94,17 @@ const ChattingMainPage = () => {
 								</S.ChattingProfileBox>
 								<S.ChattingMainBox>
 									<S.ChattingSender>{chattingRoom.roomName}</S.ChattingSender>
-									<S.ChattingMessage>
-										{chattingRoom.lastMessage + ` · ${chattingRoom.lastUpdatedAt}`}
-									</S.ChattingMessage>
+									<S.ChattingMessageBox>
+										<S.ChattingMessage>{chattingRoom.lastMessage}</S.ChattingMessage>
+										<S.ChattingLastMessage>{` · ${chattingRoom.lastUpdatedAt}`}</S.ChattingLastMessage>
+									</S.ChattingMessageBox>
+									<S.NewChattingDot></S.NewChattingDot>
+									<S.RemainingTimeBarText>{chattingRoom.remainingTime}H</S.RemainingTimeBarText>
+									<S.RemainingTimeBar
+										min="0"
+										max="72"
+										value={chattingRoom.remainingTime}
+									></S.RemainingTimeBar>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>
 						))}

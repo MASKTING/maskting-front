@@ -79,11 +79,78 @@ const NoChattingMessage = styled.div`
 	margin-top: 2rem;
 `;
 
+const ChattingMessageBox = styled.div`
+	display: flex;
+	flex-direction: row;
+	position: relative;
+`;
+
 const ChattingMessage = styled.div`
+	height: fit-content;
+	width: 100px;
 	font-size: 13px;
 	color: #757575;
 	font-weight: 500;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 `;
+
+const ChattingLastMessage = styled.div`
+	position: absolute;
+	font-size: 13px;
+	color: #757575;
+	font-weight: 500;
+	left: 95px;
+`;
+
+const NewChattingDot = styled.div`
+	position: absolute;
+	border-radius: 1rem;
+	width: 12px;
+	height: 12px;
+	right: 88px;
+	background: #f45e5f;
+`;
+
+const RemainingTimeBarText = styled.div`
+	position: absolute;
+	width: 48px;
+	height: 28px;
+	right: 31px;
+
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 28px;
+	text-align: center;
+	color: #9e9e9e;
+	z-index: 1;
+`;
+
+const RemainingTimeBar = styled.progress`
+	appearance: none;
+	position: absolute;
+	margin-bottom: 17px;
+	right: -18px;
+	&::-webkit-progress-bar {
+		background: #f0f0f0;
+		border-radius: 12px;
+		border: 1px solid #eeeeee;
+		height: 28px;
+		width: 48px;
+		overflow: hidden;
+	}
+
+	&::-webkit-progress-value {
+		background: #fdd4d6;
+		border-radius: 0px;
+		height: 28px;
+		width: 48px;
+	}
+`;
+
 export {
 	NotifyBox,
 	NotifyTitle,
@@ -99,4 +166,9 @@ export {
 	NoChattingRoom,
 	NoChattingEmo,
 	NoChattingMessage,
+	NewChattingDot,
+	ChattingLastMessage,
+	ChattingMessageBox,
+	RemainingTimeBarText,
+	RemainingTimeBar,
 };
