@@ -69,7 +69,7 @@ const HomeFeedPage = () => {
 	};
 	const handleRequestConfirm = async () => {
 		// 요청 API
-		const data = await sendLike('CVooodign');
+		const data = await sendLike('Lakewood');
 		console.log(data);
 
 		setIsRequested(true);

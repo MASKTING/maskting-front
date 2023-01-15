@@ -79,7 +79,11 @@ const NoChattingMessage = styled.div`
 	margin-top: 2rem;
 `;
 
-const ChattingMessage = styled.div``;
+const ChattingMessage = styled.div`
+	font-size: 13px;
+	color: #757575;
+	font-weight: 500;
+`;
 export {
 	NotifyBox,
 	NotifyTitle,

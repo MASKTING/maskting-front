@@ -1,25 +1,66 @@
 import * as S from './ChattingMainPage.style';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
 import { getChattingRooms } from '../../../api/chatting';
+import { createClient, subscribe } from '../../../api/socketConnect';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
+	const [roomIdList, setRoomIdList] = useState([]);
+	const client = useRef({});
 
-	const getchattingRoomsMethod = async () => {
+	const connect = () => {
+		client.current = createClient('/app');
+		client.current.onConnect = onConnected;
+		client.current.activate();
+	};
+
+	const onConnected = () => {
+		roomIdList.forEach(roomId => {
+			subscribe(client.current, roomId, subscribeCallback);
+		});
+	};
+
+	const findRoom = sender => {
+		const targetIdx = chattingRoomList.findIndex(roomInfo => roomInfo.roomName === sender);
+		return targetIdx;
+	};
+
+	const updateLastMessage = (sender, newMessage) => {
+		const targetIdx = findRoom(sender);
+		const copyRoomList = [...chattingRoomList];
+		copyRoomList[targetIdx].lastMessage = newMessage;
+		setChattingRoomList(copyRoomList);
+	};
+
+	const subscribeCallback = response => {
+		const responseBody = JSON.parse(response.body);
+		updateLastMessage(responseBody.sender, responseBody.message);
+	};
+
+	const initialSetting = async () => {
 		const data = await getChattingRooms();
-		console.log(data);
 		setChattingRoomList(data);
+		const newRoomIdList = [];
+		data.forEach(roomInfo => {
+			newRoomIdList.push(roomInfo.roomId);
+		});
+		setRoomIdList(newRoomIdList);
 	};
 
 	useEffect(() => {
-		getchattingRoomsMethod();
+		initialSetting();
 	}, []);
+
+	useEffect(() => {
+		connect();
+		return () => client.current.deactivate();
+	}, [roomIdList]);
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
@@ -53,7 +94,9 @@ const ChattingMainPage = () => {
 								</S.ChattingProfileBox>
 								<S.ChattingMainBox>
 									<S.ChattingSender>{chattingRoom.roomName}</S.ChattingSender>
-									<S.ChattingMessage>{chattingRoom.lastMessage}</S.ChattingMessage>
+									<S.ChattingMessage>
+										{chattingRoom.lastMessage + ` · ${chattingRoom.lastUpdatedAt}`}
+									</S.ChattingMessage>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>
 						))}

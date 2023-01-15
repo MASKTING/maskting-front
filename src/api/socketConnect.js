@@ -1,6 +1,10 @@
 import * as SockJS from 'sockjs-client';
 import * as StompJs from '@stomp/stompjs';
-
+/**
+ * 소켓을 생성하는 함수
+ * @param {String} endpoint
+ * @returns
+ */
 const createClient = endpoint => {
 	const client = new StompJs.Client({
 		brokerURL: `ws://localhost:8080${endpoint}`,
@@ -14,6 +18,13 @@ const createClient = endpoint => {
 	return client;
 };
 
+/**
+ * 특정 방을 구독하는 함수
+ * @param {StompJsClient} client
+ * @param {Number} roomId
+ * @param {Function} subscribeCallback
+ *
+ */
 const subscribe = (client, roomId, subscribeCallback) => {
 	client.subscribe(`/sub/chat/room/${roomId}`, subscribeCallback);
 };
