@@ -93,7 +93,9 @@ const SendBtn = styled.div`
 const ChattingRoomPage = () => {
 	const [chatList, setChatList] = useState([]);
 	const [chat, setChat] = useState('');
+	const [profileUrl, setprofileUrl] = useState('');
 	const nickname = localStorage.getItem('nickname');
+
 	const navigate = useNavigate();
 	const { roomId } = useParams();
 	const client = useRef({});
@@ -103,6 +105,7 @@ const ChattingRoomPage = () => {
 		const data = await getChattingRoom(roomId);
 		const preChatList = data.messages;
 		setChatList(preChatList);
+		setprofileUrl(data.profile);
 	};
 	useEffect(() => {
 		getChattingRoomMethod(roomId);
@@ -137,7 +140,7 @@ const ChattingRoomPage = () => {
 		const today = new Date();
 		const AMPM = today.getHours() >= 12 ? '오후' : '오전';
 		const curHour = today.getHours() > 12 ? today.getHours() % 12 : today.getHours();
-		const curMinutes = today.getMinutes() < 10 ? `$0{today.getMinutes()}` : today.getMinutes();
+		const curMinutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
 		return `${AMPM} ${curHour}:${curMinutes}`;
 	};
 
@@ -196,9 +199,20 @@ const ChattingRoomPage = () => {
 			<WrapperInner ref={scrollRef}>
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
-						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />
+						<Chatting
+							message={chatItem.content}
+							src={profileUrl}
+							isMy
+							date={chatItem.createdAt}
+							key={idx}
+						/>
 					) : (
-						<Chatting message={chatItem.content} date={chatItem.createdAt} key={idx} />
+						<Chatting
+							message={chatItem.content}
+							src={profileUrl}
+							date={chatItem.createdAt}
+							key={idx}
+						/>
 					);
 				})}
 			</WrapperInner>

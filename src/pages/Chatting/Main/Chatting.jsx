@@ -52,7 +52,7 @@ const YourMessage = styled.div`
 	margin-left: 5px;
 `;
 
-const Chatting = ({ message, isMy, date }) => {
+const Chatting = ({ message, isMy, date, src }) => {
 	return isMy ? (
 		<MyChattingWrapper>
 			<Date>{date}</Date>
@@ -60,7 +60,7 @@ const Chatting = ({ message, isMy, date }) => {
 		</MyChattingWrapper>
 	) : (
 		<YourChattingWrapper>
-			<PictureCircle size={'xsmall'}></PictureCircle>
+			<PictureCircle src={src} size={'xsmall'}></PictureCircle>
 			<YourMessage>{message}</YourMessage>
 			<Date>{date}</Date>
 		</YourChattingWrapper>
