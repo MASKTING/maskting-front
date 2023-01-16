@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const HeaderGoBackLeft = props => {
 	const navigate = useNavigate();
 	const navigateBack = () => {
+		console.log(props.onClick);
 		if (props.onClick) {
 			props.onClick();
 		} else {

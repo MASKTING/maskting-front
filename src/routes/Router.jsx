@@ -49,7 +49,6 @@ function Router() {
 				<Route path="/home/picture" element={<HomePictureInfo />} />
 				<Route path="/home/picture/add" element={<HomePictureAdd />} />
 				<Route path="/home/picture/resize" element={<HomePictureResize />} />
-				<Route path="/home/feed" element={<HomeFeedPage />} />
 
 				<Route path="/ticket" element={<TicketMainPage />} />
 				<Route path="/ticket/answer" element={<TicketAnswer />} />

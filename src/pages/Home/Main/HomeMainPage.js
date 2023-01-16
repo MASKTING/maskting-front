@@ -12,6 +12,7 @@ import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle'
 import { getProfile } from '../../../api/getProfile';
 import { getPartner } from '../../../api/getPartner';
 import { getFeed } from '../../../api/getFeed';
+import HomeFeedPage from '../Feed/HomeFeedPage';
 
 const FEEDPHOTOLIST = [
 	{
@@ -44,6 +45,8 @@ const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
 	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
+	const [selectedFeed, setSelectedFeed] = useState(0);
+	const [feedViewState, setFeedViewState] = useState(false);
 	const [feedList, setFeedList] = useState([]);
 	const turnOnModal = () => {
 		setIsModal(true);
@@ -54,8 +57,9 @@ const HomeMainPage = () => {
 	const navigatePicture = () => {
 		navigate('picture');
 	};
-	const handleFeedButton = () => {
-		navigate(`feed`);
+	const handleFeedButton = e => {
+		setSelectedFeed(parseInt(e.currentTarget.id));
+		setFeedViewState(true);
 	};
 	useEffect(() => {
 		getProfile().then(response => {
@@ -67,66 +71,75 @@ const HomeMainPage = () => {
 		});
 		getPartner().then(response => {
 			setFeedList(response);
-			console.log(response);
 		});
 	}, []);
 
-	return (
-		<Wrapper>
-			<WrapperInner>
-				{isModal && (
-					<Modal width={27.8} height={23.5} isModal={isModal} onCloseModal={turnOffModal}>
-						<S.ModalInner>
-							<S.InfoBig>티켓을 사용해서</S.InfoBig>
-							<S.InfoBig>새로운 매칭 상대를</S.InfoBig>
-							<S.InfoBig>추천 받아보시겠어요?</S.InfoBig>
-							<S.InfoSmall>잔여 티켓:30장</S.InfoSmall>
-							<SmallButton onClick={navigatePicture}>새로 추천받기</SmallButton>
-							<SmallButton size="small" onClick={turnOffModal} color="white">
-								취소
-							</SmallButton>
-						</S.ModalInner>
-					</Modal>
-				)}
+	if (feedViewState)
+		return (
+			<>
+				<HomeFeedPage
+					setViewState={setFeedViewState}
+					userInfo={feedList[selectedFeed]}
+				></HomeFeedPage>
+			</>
+		);
+	else
+		return (
+			<Wrapper>
+				<WrapperInner>
+					{isModal && (
+						<Modal width={27.8} height={23.5} isModal={isModal} onCloseModal={turnOffModal}>
+							<S.ModalInner>
+								<S.InfoBig>티켓을 사용해서</S.InfoBig>
+								<S.InfoBig>새로운 매칭 상대를</S.InfoBig>
+								<S.InfoBig>추천 받아보시겠어요?</S.InfoBig>
+								<S.InfoSmall>잔여 티켓:30장</S.InfoSmall>
+								<SmallButton onClick={navigatePicture}>새로 추천받기</SmallButton>
+								<SmallButton size="small" onClick={turnOffModal} color="white">
+									취소
+								</SmallButton>
+							</S.ModalInner>
+						</Modal>
+					)}
 
-				<MainHeader />
-				<Panel size="small">
-					<S.PanelInfoInner>
-						<PictureCircle size="midium" src={userInfo.profile} />
-						<S.InfoBig>사진을 추가해보세요</S.InfoBig>
-						<S.InfoMidium>{userInfo.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
-						<SmallButton size="small" onClick={turnOnModal}>
-							사진 추가하기
-						</SmallButton>
-					</S.PanelInfoInner>
-				</Panel>
-				{feedList.map((feedItem, idx) => (
-					<Panel size="midium" key={idx}>
-						<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
-							<S.FeedProfile>
-								<PictureCircle src={feedItem.profile} size="small" />
-								<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
-							</S.FeedProfile>
-							<S.FeedInfo>
-								<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
-							</S.FeedInfo>
-							<S.FeedImageList>
-								{FEEDPHOTOLIST.map(FeedItem => (
-									<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
-								))}
-							</S.FeedImageList>
-						</S.PanelFeedInner>
+					<MainHeader />
+					<Panel size="small">
+						<S.PanelInfoInner>
+							<PictureCircle size="midium" src={userInfo.profile} />
+							<S.InfoBig>사진을 추가해보세요</S.InfoBig>
+							<S.InfoMidium>{userInfo.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
+							<SmallButton size="small" onClick={turnOnModal}>
+								사진 추가하기
+							</SmallButton>
+						</S.PanelInfoInner>
 					</Panel>
-				))}
-			</WrapperInner>
-			<SideBar status="home" />
-			<RefreshCircle
-				onClick={() => {
-					window.location.replace('/home');
-				}}
-			/>
-		</Wrapper>
-	);
+					{feedList.map((feedItem, idx) => (
+						<Panel size="midium" key={idx}>
+							<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
+								<S.FeedProfile>
+									<PictureCircle src={feedItem.profile} size="small" />
+									<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
+								</S.FeedProfile>
+								<S.FeedInfo>
+									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
+								</S.FeedInfo>
+								<S.FeedImageList>
+									{FEEDPHOTOLIST.map(FeedItem => (
+										<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
+									))}
+								</S.FeedImageList>
+							</S.PanelFeedInner>
+						</Panel>
+					))}
+				</WrapperInner>
+				<SideBar status="home" />
+				<RefreshCircle
+					onClick={() => {
+						window.location.replace('/home');
+					}}
+				/>
+			</Wrapper>
+		);
 };
 
 export default HomeMainPage;

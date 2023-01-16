@@ -50,7 +50,7 @@ const Info = styled.div`
 	line-height: 1.8rem;
 	text-align: center;
 `;
-const HomeFeedPage = () => {
+const HomeFeedPage = ({ userInfo, setViewState }) => {
 	const [navigateState, setNavigateState] = useState('photo');
 	const [isModal, setIsModal] = useState(false);
 	const [isRequested, setIsRequested] = useState(false);
@@ -76,6 +76,10 @@ const HomeFeedPage = () => {
 		setIsModal(false);
 	};
 
+	const back = () => {
+		setViewState(false);
+	};
+
 	return (
 		<Wrapper>
 			{isModal && (
@@ -95,7 +99,7 @@ const HomeFeedPage = () => {
 				</Modal>
 			)}
 			<S.HeaderWrapper>
-				<HeaderGoBackLeft>
+				<HeaderGoBackLeft onClick={back}>
 					<S.HeaderLeftSide className="material-icons">local_activity</S.HeaderLeftSide>30
 				</HeaderGoBackLeft>
 				<HeaderGoBackRight>
@@ -105,14 +109,11 @@ const HomeFeedPage = () => {
 			<WrapperInner>
 				<S.ProfileBox>
 					<S.ProfileImage>
-						<PictureCircle size="large" />
+						<PictureCircle src={userInfo?.profile} size="large" />
 					</S.ProfileImage>
 					<S.ProfileInfo>
-						<S.ProfileNickname>분당청소요정</S.ProfileNickname>
-						<S.ProfileIntroduce>
-							베이킹과 라이딩을 좋아하고 <br />
-							청소를 잘해요
-						</S.ProfileIntroduce>
+						<S.ProfileNickname>{userInfo?.nickname}</S.ProfileNickname>
+						<S.ProfileIntroduce>{userInfo?.bio}</S.ProfileIntroduce>
 					</S.ProfileInfo>
 				</S.ProfileBox>
 				<S.NavigateBox>

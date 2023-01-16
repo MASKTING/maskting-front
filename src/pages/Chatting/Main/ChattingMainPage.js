@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
 	const [roomIdList, setRoomIdList] = useState([]);
+
 	const client = useRef({});
 
 	const connect = () => {
@@ -70,6 +71,7 @@ const ChattingMainPage = () => {
 	const handleNavigateRoom = e => {
 		navigate(`/chatting/room/${e.currentTarget.dataset.roomid}`);
 	};
+
 	return (
 		<Wrapper titleMessage="채팅">
 			<WrapperInner>
