@@ -3,6 +3,7 @@ import React from 'react';
 import * as SockJS from 'sockjs-client';
 import Wrapper from '../../../components/Wrapper/Wrapper';
 import { getChattingRoom } from '../../../api/chatting';
+import { RemainingTimeBar, RemainingTimeBarText } from '../Main/ChattingMainPage.style';
 import * as StompJs from '@stomp/stompjs';
 import { useRef, useState, useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router';
@@ -93,7 +94,7 @@ const SendBtn = styled.div`
 const ChattingRoomPage = () => {
 	const [chatList, setChatList] = useState([]);
 	const [chat, setChat] = useState('');
-	const [profileUrl, setprofileUrl] = useState('');
+	const [roomInfo, setRoomInfo] = useState({});
 	const nickname = localStorage.getItem('nickname');
 
 	const navigate = useNavigate();
@@ -103,9 +104,8 @@ const ChattingRoomPage = () => {
 
 	const getChattingRoomMethod = async n => {
 		const data = await getChattingRoom(roomId);
-		const preChatList = data.messages;
-		setChatList(preChatList);
-		setprofileUrl(data.profile);
+		setRoomInfo(data);
+		setChatList(data.messages);
 	};
 	useEffect(() => {
 		getChattingRoomMethod(roomId);
@@ -124,12 +124,12 @@ const ChattingRoomPage = () => {
 	const sendChat = () => {
 		if (!client.current.connected) return;
 		publish(client.current, roomId, nickname, chat);
-		setChat('');
 	};
 
 	const chatListSetting = () => {
 		const newMessage = { content: chat, nickname: nickname, createdAt: timeMaker() };
 		setChatList(chatList => [...chatList, newMessage]);
+		setChat('');
 	};
 
 	const onConnected = () => {
@@ -148,13 +148,12 @@ const ChattingRoomPage = () => {
 		const receivedBody = JSON.parse(response.body);
 		const receivedMessage = receivedBody.message;
 		if (receivedBody.sender !== nickname) {
-			console.log(receivedBody.sender);
-			const newMassage = {
+			const newMessage = {
 				content: receivedMessage,
 				nickname: receivedBody.sender,
 				createdAt: timeMaker(),
 			};
-			setChatList(chatList => [...chatList, newMassage]);
+			setChatList(chatList => [...chatList, newMessage]);
 		}
 	};
 
@@ -190,26 +189,26 @@ const ChattingRoomPage = () => {
 					<Back className="material-icons" onClick={handleBack}>
 						arrow_back_ios
 					</Back>
-					<Opponent>분당청소요정</Opponent>
-					<TakenTime>36h</TakenTime>
-					<LeftTime>최종시간까지 HH시간 남았어요</LeftTime>
+					<Opponent>{roomInfo.roomName}</Opponent>
+					<RemainingTimeBarText src={'182px'}>{roomInfo.remainingTime}H</RemainingTimeBarText>
+					<RemainingTimeBar
+						min="0"
+						max="72"
+						value={roomInfo.remainingTime}
+						src={'132px'}
+					></RemainingTimeBar>
+					<LeftTime>최종시간까지 {roomInfo.remainingTime}시간 남았어요</LeftTime>
 					<Menu className="material-icons">more_vert</Menu>
 				</TopInner>
 			</Top>
 			<WrapperInner ref={scrollRef}>
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
-						<Chatting
-							message={chatItem.content}
-							src={profileUrl}
-							isMy
-							date={chatItem.createdAt}
-							key={idx}
-						/>
+						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />
 					) : (
 						<Chatting
 							message={chatItem.content}
-							src={profileUrl}
+							src={roomInfo?.profile}
 							date={chatItem.createdAt}
 							key={idx}
 						/>

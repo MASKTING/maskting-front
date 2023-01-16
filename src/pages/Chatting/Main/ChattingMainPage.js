@@ -5,6 +5,7 @@ import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
 import { getChattingRooms } from '../../../api/chatting';
+import { getLikeList } from '../../../api/getLikeList';
 import { createClient, subscribe } from '../../../api/socketConnect';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -12,7 +13,6 @@ import { useEffect } from 'react';
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
 	const [roomIdList, setRoomIdList] = useState([]);
-
 	const client = useRef({});
 
 	const connect = () => {
@@ -36,7 +36,7 @@ const ChattingMainPage = () => {
 		const targetIdx = findRoom(sender);
 		const copyRoomList = [...chattingRoomList];
 		copyRoomList[targetIdx].lastMessage = newMessage;
-		// copyRoomList[targetIdx].isChecked = false;
+		copyRoomList[targetIdx].update = true;
 		setChattingRoomList(copyRoomList);
 	};
 
@@ -46,12 +46,15 @@ const ChattingMainPage = () => {
 	};
 
 	const initialSetting = async () => {
-		const data = await getChattingRooms();
-		setChattingRoomList(data);
+		const roomList = await getChattingRooms();
+		setChattingRoomList(roomList);
+		const likeList = await getLikeList();
+		console.log('좋아요 리스트', likeList);
+		console.log('방정보 리스트', roomList);
 		const newRoomIdList = [];
-		data.forEach(roomInfo => {
+		roomList.forEach(roomInfo => {
 			newRoomIdList.push(roomInfo.roomId);
-		});
+		}); // 구독이 roomList를 받아오고 한 번만 시키기 위해서  roomIdList가 필요
 		setRoomIdList(newRoomIdList);
 	};
 
@@ -71,7 +74,6 @@ const ChattingMainPage = () => {
 	const handleNavigateRoom = e => {
 		navigate(`/chatting/room/${e.currentTarget.dataset.roomid}`);
 	};
-
 	return (
 		<Wrapper titleMessage="채팅">
 			<WrapperInner>
@@ -101,13 +103,16 @@ const ChattingMainPage = () => {
 										<S.ChattingMessage>{chattingRoom.lastMessage}</S.ChattingMessage>
 										<S.ChattingLastMessage>{` · ${chattingRoom.lastUpdatedAt}`}</S.ChattingLastMessage>
 									</S.ChattingMessageBox>
-									<S.NewChattingDot></S.NewChattingDot>
-									{/* {chattingRoom.isChecked ? null : <S.NewChattingDot></S.NewChattingDot>} */}
-									<S.RemainingTimeBarText>{chattingRoom.remainingTime}H</S.RemainingTimeBarText>
+
+									{chattingRoom.update ? <S.NewChattingDot></S.NewChattingDot> : null}
+									<S.RemainingTimeBarText src={'32px'}>
+										{chattingRoom.remainingTime}H
+									</S.RemainingTimeBarText>
 									<S.RemainingTimeBar
 										min="0"
 										max="72"
 										value={chattingRoom.remainingTime}
+										src={'-18px'}
 									></S.RemainingTimeBar>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>

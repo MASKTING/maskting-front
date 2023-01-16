@@ -117,7 +117,7 @@ const RemainingTimeBarText = styled.div`
 	position: absolute;
 	width: 48px;
 	height: 28px;
-	right: 31px;
+	right: ${props => props.src};
 
 	font-family: 'Pretendard';
 	font-style: normal;
@@ -133,7 +133,7 @@ const RemainingTimeBar = styled.progress`
 	appearance: none;
 	position: absolute;
 	margin-bottom: 17px;
-	right: -18px;
+	right: ${props => props.src};
 	&::-webkit-progress-bar {
 		background: #f0f0f0;
 		border-radius: 12px;
