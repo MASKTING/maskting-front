@@ -68,7 +68,7 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 		setIsModal(false);
 	};
 	const handleRequestConfirm = async () => {
-		// const data = await sendLike(userInfo.nickname);
+		const data = await sendLike(userInfo.nickname);
 		console.log(userInfo.nickname);
 		setIsRequested(true);
 		setIsModal(false);

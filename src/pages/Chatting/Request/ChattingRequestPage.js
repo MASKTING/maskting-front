@@ -9,22 +9,14 @@ import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import ChattingFeedPage from '../RequestFeed/ChattingFeedPage';
 import { useEffect } from 'react';
 const ChattingRequestPage = () => {
-	const [feedList, setFeedList] = useState([
-		{
-			nickname: '테스트닉네임',
-			profile:
-				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCu6isdSdhj42s-lS8LNe98m4ilRLgYPiXOQ&usqp=CAU',
-			bio: '안녕하세요',
-			feed: [],
-		},
-	]);
+	const [feedList, setFeedList] = useState([]);
 
 	const [feedViewState, setFeedViewState] = useState(false);
 	const [selectedFeed, setSelectedFeed] = useState(0);
 
 	const init = async () => {
 		const feedList = await getLikeList();
-		console.log(feedList);
+		setFeedList(feedList);
 	};
 
 	useEffect(() => {

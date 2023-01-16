@@ -13,7 +13,10 @@ import { useEffect } from 'react';
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
 	const [roomIdList, setRoomIdList] = useState([]);
+	const [likeNumber, setLikeNumber] = useState(0);
 	const client = useRef({});
+
+	console.log(document.referrer);
 
 	const connect = () => {
 		client.current = createClient('/app');
@@ -49,8 +52,7 @@ const ChattingMainPage = () => {
 		const roomList = await getChattingRooms();
 		setChattingRoomList(roomList);
 		const likeList = await getLikeList();
-		console.log('좋아요 리스트', likeList);
-		console.log('방정보 리스트', roomList);
+		setLikeNumber(likeList.length);
 		const newRoomIdList = [];
 		roomList.forEach(roomInfo => {
 			newRoomIdList.push(roomInfo.roomId);
@@ -77,15 +79,19 @@ const ChattingMainPage = () => {
 	return (
 		<Wrapper titleMessage="채팅">
 			<WrapperInner>
-				<S.NotifyBox onClick={handleNavigateRequest}>
-					<S.NotifyPictureBox>
-						<PictureCircle size="small"></PictureCircle>
-					</S.NotifyPictureBox>
-					<S.NotifyTextBox>
-						<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
-						<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
-					</S.NotifyTextBox>
-				</S.NotifyBox>
+				{likeNumber ? (
+					<S.NotifyBox onClick={handleNavigateRequest}>
+						<S.NotifyPictureBox>
+							<S.LikePeopleNumber>{likeNumber}</S.LikePeopleNumber>
+							<PictureCircle size="small"></PictureCircle>
+						</S.NotifyPictureBox>
+						<S.NotifyTextBox>
+							<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
+							<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
+						</S.NotifyTextBox>
+					</S.NotifyBox>
+				) : null}
+
 				{!!chattingRoomList.length ? (
 					<S.ChattingRoomList>
 						{chattingRoomList?.map(chattingRoom => (

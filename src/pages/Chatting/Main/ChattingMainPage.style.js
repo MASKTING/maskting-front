@@ -151,6 +151,28 @@ const RemainingTimeBar = styled.progress`
 	}
 `;
 
+const LikePeopleNumber = styled.div`
+	position: absolute;
+	width: 15px;
+	height: 45px;
+	left: 67px;
+	z-index: 1;
+	/* Title 1 */
+
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 45px;
+	/* identical to box height, or 150% */
+
+	letter-spacing: 1px;
+
+	/* Pink/500 */
+
+	color: #f67677;
+`;
+
 export {
 	NotifyBox,
 	NotifyTitle,
@@ -171,4 +193,5 @@ export {
 	ChattingMessageBox,
 	RemainingTimeBarText,
 	RemainingTimeBar,
+	LikePeopleNumber,
 };

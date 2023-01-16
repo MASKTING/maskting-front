@@ -139,7 +139,8 @@ const ChattingRoomPage = () => {
 	const timeMaker = () => {
 		const today = new Date();
 		const AMPM = today.getHours() >= 12 ? '오후' : '오전';
-		const curHour = today.getHours() > 12 ? today.getHours() % 12 : today.getHours();
+		let curHour = today.getHours() > 12 ? today.getHours() % 12 : today.getHours();
+		curHour = curHour === 0 ? 12 : curHour;
 		const curMinutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
 		return `${AMPM} ${curHour}:${curMinutes}`;
 	};
@@ -175,7 +176,10 @@ const ChattingRoomPage = () => {
 
 	useEffect(() => {
 		connect();
-		return () => disconnect();
+		return () => {
+			getChattingRoom(roomId);
+			disconnect();
+		};
 	}, []);
 
 	const handleBack = () => {
