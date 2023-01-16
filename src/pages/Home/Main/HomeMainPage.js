@@ -57,11 +57,8 @@ const HomeMainPage = () => {
 	const navigatePicture = () => {
 		navigate('picture');
 	};
-	const handleFeedButton = e => {
-		setSelectedFeed(parseInt(e.currentTarget.id));
-		setFeedViewState(true);
-	};
-	useEffect(() => {
+
+	const init = () => {
 		getProfile().then(response => {
 			setUserInfo({
 				profile: response.profile,
@@ -70,9 +67,16 @@ const HomeMainPage = () => {
 			localStorage.setItem('nickname', response.nickname);
 		});
 		getPartner().then(response => {
+			console.log(response);
 			setFeedList(response);
 		});
-	}, []);
+	};
+
+	const handleFeedButton = e => {
+		setSelectedFeed(parseInt(e.currentTarget.id));
+		setFeedViewState(true);
+	};
+	useEffect(init, []);
 
 	if (feedViewState)
 		return (

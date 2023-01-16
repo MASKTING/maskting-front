@@ -60,7 +60,7 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 	const handleAnswerItem = () => {
 		setNavigateState('answer');
 	};
-	console.log(navigateState);
+
 	const handleRequest = () => {
 		setIsModal(true);
 	};
@@ -68,10 +68,8 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 		setIsModal(false);
 	};
 	const handleRequestConfirm = async () => {
-		// 요청 API
-		const data = await sendLike('Lakewood');
-		console.log(data);
-
+		// const data = await sendLike(userInfo.nickname);
+		console.log(userInfo.nickname);
 		setIsRequested(true);
 		setIsModal(false);
 	};
