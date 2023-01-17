@@ -3,11 +3,12 @@ import React from 'react';
 import * as SockJS from 'sockjs-client';
 import Wrapper from '../../../components/Wrapper/Wrapper';
 import { getChattingRoom } from '../../../api/chatting';
+import { RemainingTimeBar, RemainingTimeBarText } from '../Main/ChattingMainPage.style';
 import * as StompJs from '@stomp/stompjs';
 import { useRef, useState, useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router';
-import { Client, Stomp } from '@stomp/stompjs';
 import Chatting from '../Main/Chatting';
+import { createClient, subscribe, publish } from '../../../api/socketConnect';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 import styled from 'styled-components';
 
@@ -91,82 +92,98 @@ const SendBtn = styled.div`
 `;
 
 const ChattingRoomPage = () => {
-	// const getChattingRoomMethod = n => {
-	// 	getChattingRoom(n);
-	// };
-	// useEffect(() => {
-	// 	getChattingRoomMethod(1);
-	// }, []);
 	const [chatList, setChatList] = useState([]);
 	const [chat, setChat] = useState('');
+	const [roomInfo, setRoomInfo] = useState({});
+	const nickname = localStorage.getItem('nickname');
+
 	const navigate = useNavigate();
-	const { apply_id } = useParams();
+	const { roomId } = useParams();
 	const client = useRef({});
+	const scrollRef = useRef({});
+
+	const getChattingRoomMethod = async n => {
+		const data = await getChattingRoom(roomId);
+		setRoomInfo(data);
+		setChatList(data.messages);
+	};
+	useEffect(() => {
+		getChattingRoomMethod(roomId);
+	}, []);
 
 	const connect = () => {
-		client.current = new StompJs.Client({
-			brokerURL: 'ws://localhost:8080/app',
-			connectHeaders: {
-				login: 'user',
-				passcode: 'password',
-			},
-			debug: function (str) {
-				console.log(str);
-			},
-			reconnectDelay: 5000,
-			heartbeatIncoming: 4000,
-			heartbeatOutgoing: 4000,
-		});
-
+		client.current = createClient('/app');
+		client.current.onConnect = onConnected;
 		client.current.activate();
 	};
 
-	const publish = chat => {
-		if (!client.current.connected) return;
-		client.current.publish({
-			destination: '/pub/chat',
-			body: JSON.stringify({
-				applyId: apply_id,
-				chat: chat,
-			}),
-		});
+	const chatSetting = e => {
+		setChat(e.target.value);
+	};
 
+	const sendChat = () => {
+		if (!client.current.connected) return;
+		publish(client.current, roomId, nickname, chat);
+	};
+
+	const chatListSetting = () => {
+		const newMessage = { content: chat, nickname: nickname, createdAt: timeMaker() };
+		setChatList(chatList => [...chatList, newMessage]);
 		setChat('');
 	};
 
-	const subscribe = () => {
-		client.current.subscribe('/sub/chat/' + apply_id, body => {
-			const json_body = JSON.parse(body.body);
-			setChatList(_chat_list => [..._chat_list, json_body]);
-		});
+	const onConnected = () => {
+		subscribe(client.current, roomId, subscribeCallback);
+	};
+
+	const timeMaker = () => {
+		const today = new Date();
+		const AMPM = today.getHours() >= 12 ? '오후' : '오전';
+		let curHour = today.getHours() > 12 ? today.getHours() % 12 : today.getHours();
+		curHour = curHour === 0 ? 12 : curHour;
+		const curMinutes = today.getMinutes() < 10 ? `0${today.getMinutes()}` : today.getMinutes();
+		return `${AMPM} ${curHour}:${curMinutes}`;
+	};
+
+	const subscribeCallback = response => {
+		const receivedBody = JSON.parse(response.body);
+		const receivedMessage = receivedBody.message;
+		if (receivedBody.sender !== nickname) {
+			const newMessage = {
+				content: receivedMessage,
+				nickname: receivedBody.sender,
+				createdAt: timeMaker(),
+			};
+			setChatList(chatList => [...chatList, newMessage]);
+		}
 	};
 
 	const disconnect = () => {
 		client.current.deactivate();
 	};
 
-	const handleChange = event => {
-		// 채팅 입력 시 state에 값 설정
-		setChat(event.target.value);
-	};
-
-	const handleSubmit = (event, chat) => {
-		// 보내기 버튼 눌렀을 때 publish
+	const handleSubmit = event => {
 		event.preventDefault();
-
-		publish(chat);
+		if (chat !== '') {
+			sendChat();
+			chatListSetting();
+		}
 	};
 
 	useEffect(() => {
+		scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+	}, [chatList]);
+
+	useEffect(() => {
 		connect();
-		return () => disconnect();
+		return () => {
+			getChattingRoom(roomId);
+			disconnect();
+		};
 	}, []);
+
 	const handleBack = () => {
 		navigate(-1);
-	};
-
-	const handleSend = () => {
-		// 전송 API
 	};
 
 	return (
@@ -176,20 +193,31 @@ const ChattingRoomPage = () => {
 					<Back className="material-icons" onClick={handleBack}>
 						arrow_back_ios
 					</Back>
-					<Opponent>분당청소요정</Opponent>
-					<TakenTime>36h</TakenTime>
-					<LeftTime>최종시간까지 HH시간 남았어요</LeftTime>
+					<Opponent>{roomInfo.roomName}</Opponent>
+					<RemainingTimeBarText src={'182px'}>{roomInfo.remainingTime}H</RemainingTimeBarText>
+					<RemainingTimeBar
+						min="0"
+						max="72"
+						value={roomInfo.remainingTime}
+						src={'132px'}
+					></RemainingTimeBar>
+					<LeftTime>최종시간까지 {roomInfo.remainingTime}시간 남았어요</LeftTime>
 					<Menu className="material-icons">more_vert</Menu>
 				</TopInner>
 			</Top>
-			<WrapperInner>
-				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
-				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
-				<Chatting message="안녕하세요?" isMy date="오전 10:36" />
-				<Chatting message="혹시 닭갈비 좋아시나요" isMy date="오전 10:36" />
-				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" isMy date="오전 10:36" />
-				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
-				<Chatting message="혹시 닭갈비 좋아시나요혹시 닭갈비 좋아시나요" date="오전 10:36" />
+			<WrapperInner ref={scrollRef}>
+				{chatList?.map((chatItem, idx) => {
+					return chatItem.nickname == nickname ? (
+						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />
+					) : (
+						<Chatting
+							message={chatItem.content}
+							src={roomInfo?.profile}
+							date={chatItem.createdAt}
+							key={idx}
+						/>
+					);
+				})}
 			</WrapperInner>
 			{/* <div className={'chat-list'}>{chatList}</div>
 			<form onSubmit={event => handleSubmit(event, chat)}>
@@ -202,8 +230,8 @@ const ChattingRoomPage = () => {
 			<InputWrapper>
 				<InputInner>
 					<PlusButton className="material-icons">add_circle</PlusButton>
-					<Input type="text" placeholder="메세지 보내기" />
-					<SendBtn className="material-icons" onClick={handleSend}>
+					<Input type="text" onChange={chatSetting} value={chat} placeholder="메세지 보내기" />
+					<SendBtn className="material-icons" onClick={handleSubmit}>
 						send
 					</SendBtn>
 				</InputInner>

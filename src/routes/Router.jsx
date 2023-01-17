@@ -49,7 +49,6 @@ function Router() {
 				<Route path="/home/picture" element={<HomePictureInfo />} />
 				<Route path="/home/picture/add" element={<HomePictureAdd />} />
 				<Route path="/home/picture/resize" element={<HomePictureResize />} />
-				<Route path="/home/feed" element={<HomeFeedPage />} />
 
 				<Route path="/ticket" element={<TicketMainPage />} />
 				<Route path="/ticket/answer" element={<TicketAnswer />} />
@@ -57,7 +56,7 @@ function Router() {
 
 				<Route path="/chatting" element={<ChattingMainPage />} />
 				<Route path="/chatting/request" element={<ChattingRequestPage />} />
-				<Route path="/chatting/room" element={<ChattingRoomPage />} />
+				<Route path="/chatting/room/:roomId" element={<ChattingRoomPage />} />
 
 				<Route path="/myPage" element={<MyPageMainPage />} />
 				<Route path="/homeMain" element={<HomeMainPage />} />
