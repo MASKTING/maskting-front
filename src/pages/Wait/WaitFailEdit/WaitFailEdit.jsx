@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import Wrapper from '../components/Wrapper';
-import { WrapperInner } from '../components/Wrapper/Wrapper.style';
-import SideBar from '../components/SideBar/SideBar';
+import Wrapper from '../../../components/Wrapper';
+import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
-import BigButton from '../components/Button/BigButton/BigButton';
+import BigButton from '../../../components/Button/BigButton/BigButton';
 import * as S from './WaitFailEdit.style';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { checkNicknameApi } from '../api/signup';
 import imageState from '../recoil';
-import Modal from '../components/Modal/Modal';
+import Modal from '../../../components/Modal/Modal';
 import { getProfile } from '../api/getProfile';
 
 const dataURLtoFile = (dataurl, fileName) => {

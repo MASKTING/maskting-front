@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BigButton } from '../components/Button/BigButton/BigButton.style';
-import SideBar from '../components/SideBar/SideBar';
-import { Red } from '../components/Signup/PartnerMoreInfo/PartnerMoreInfo.style';
-import Wrapper from '../components/Wrapper';
-import { WrapperInner } from '../components/Wrapper/Wrapper.style';
+import { BigButton } from '../../components/Button/BigButton/BigButton.style';
+import SideBar from '../../components/SideBar/SideBar';
+import { Red } from '../../components/Signup/PartnerMoreInfo/PartnerMoreInfo.style';
+import { WrapperInner } from '../../components/Wrapper/Wrapper.style';
+import Wrapper from '../../components/Wrapper';
 
 const Title = styled.section`
 	font-size: 2.6rem;
