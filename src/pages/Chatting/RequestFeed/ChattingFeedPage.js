@@ -1,4 +1,4 @@
-import * as S from './HomeFeedPage.style';
+import * as S from './ChattingFeedPage.style';
 import React, { useState } from 'react';
 import Wrapper from '../../../components/Wrapper';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper';
@@ -50,7 +50,7 @@ const Info = styled.div`
 	line-height: 1.8rem;
 	text-align: center;
 `;
-const HomeFeedPage = ({ userInfo, setViewState }) => {
+const ChattingFeedPage = ({ userInfo, setViewState }) => {
 	const [navigateState, setNavigateState] = useState('photo');
 	const [isModal, setIsModal] = useState(false);
 	const [isRequested, setIsRequested] = useState(false);
@@ -69,7 +69,6 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 	};
 	const handleRequestConfirm = async () => {
 		const data = await sendLike(userInfo.nickname);
-		console.log(userInfo.nickname);
 		setIsRequested(true);
 		setIsModal(false);
 	};
@@ -143,7 +142,7 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 			{isRequested ? (
 				<BigButton color="gray">대화요청을 전송했어요</BigButton>
 			) : (
-				<BigButton onClick={handleRequest}>대화 나눠보기</BigButton>
+				<BigButton onClick={handleRequest}>요청 수락하기</BigButton>
 			)}
 
 			<SideBar status="home" />
@@ -151,4 +150,4 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 	);
 };
 
-export default HomeFeedPage;
+export default ChattingFeedPage;

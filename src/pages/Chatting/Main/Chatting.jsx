@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 
 const MyChattingWrapper = styled.div`
 	position: relative;
@@ -18,6 +19,7 @@ const YourChattingWrapper = styled.div`
 	justify-content: start;
 	align-items: center;
 	margin: 1rem 0;
+	padding-left: 1px;
 `;
 const Date = styled.span`
 	margin: 0 0.5rem;
@@ -47,9 +49,10 @@ const YourMessage = styled.div`
 	font-size: 1.5rem;
 	right: 0;
 	line-height: 1.3;
+	margin-left: 5px;
 `;
 
-const Chatting = ({ message, isMy, date }) => {
+const Chatting = ({ message, isMy, date, src }) => {
 	return isMy ? (
 		<MyChattingWrapper>
 			<Date>{date}</Date>
@@ -57,6 +60,7 @@ const Chatting = ({ message, isMy, date }) => {
 		</MyChattingWrapper>
 	) : (
 		<YourChattingWrapper>
+			<PictureCircle src={src} size={'xsmall'}></PictureCircle>
 			<YourMessage>{message}</YourMessage>
 			<Date>{date}</Date>
 		</YourChattingWrapper>

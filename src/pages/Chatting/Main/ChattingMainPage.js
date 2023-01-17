@@ -1,63 +1,125 @@
 import * as S from './ChattingMainPage.style';
 import React from 'react';
+import { useState, useRef } from 'react';
 import Wrapper, { WrapperInner } from '../../../components/Wrapper/Wrapper';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
 import { getChattingRooms } from '../../../api/chatting';
+import { getLikeList } from '../../../api/getLikeList';
+import { createClient, subscribe } from '../../../api/socketConnect';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const CHATTINGROOMLIST = [
-	{ id: 1, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 2, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 3, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 4, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 5, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 6, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 7, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 8, sender: '분당청소요정', message: '안녕하세요?' },
-	{ id: 9, sender: '분당청소요정', message: '안녕하세요?' },
-];
-
 const ChattingMainPage = () => {
-	const getchattingRoomsMethod = async () => {
-		const chattingRoomList = await getChattingRooms();
-		console.log(chattingRoomList);
+	const [chattingRoomList, setChattingRoomList] = useState([]);
+	const [roomIdList, setRoomIdList] = useState([]);
+	const [likeNumber, setLikeNumber] = useState(0);
+	const client = useRef({});
+
+	console.log(document.referrer);
+
+	const connect = () => {
+		client.current = createClient('/app');
+		client.current.onConnect = onConnected;
+		client.current.activate();
+	};
+
+	const onConnected = () => {
+		roomIdList.forEach(roomId => {
+			subscribe(client.current, roomId, subscribeCallback);
+		});
+	};
+
+	const findRoom = sender => {
+		const targetIdx = chattingRoomList.findIndex(roomInfo => roomInfo.roomName === sender);
+		return targetIdx;
+	};
+
+	const updateLastMessage = (sender, newMessage) => {
+		const targetIdx = findRoom(sender);
+		const copyRoomList = [...chattingRoomList];
+		copyRoomList[targetIdx].lastMessage = newMessage;
+		copyRoomList[targetIdx].update = true;
+		setChattingRoomList(copyRoomList);
+	};
+
+	const subscribeCallback = response => {
+		const responseBody = JSON.parse(response.body);
+		updateLastMessage(responseBody.sender, responseBody.message);
+	};
+
+	const initialSetting = async () => {
+		const roomList = await getChattingRooms();
+		setChattingRoomList(roomList);
+		const likeList = await getLikeList();
+		setLikeNumber(likeList.length);
+		const newRoomIdList = [];
+		roomList.forEach(roomInfo => {
+			newRoomIdList.push(roomInfo.roomId);
+		}); // 구독이 roomList를 받아오고 한 번만 시키기 위해서  roomIdList가 필요
+		setRoomIdList(newRoomIdList);
 	};
 
 	useEffect(() => {
-		getchattingRoomsMethod();
+		initialSetting();
 	}, []);
+
+	useEffect(() => {
+		connect();
+		return () => client.current.deactivate();
+	}, [roomIdList]);
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
 		navigate('request');
 	};
-	const handleNavigateRoom = () => {
-		navigate('room');
+	const handleNavigateRoom = e => {
+		navigate(`/chatting/room/${e.currentTarget.dataset.roomid}`);
 	};
 	return (
 		<Wrapper titleMessage="채팅">
 			<WrapperInner>
-				<S.NotifyBox onClick={handleNavigateRequest}>
-					<S.NotifyPictureBox>
-						<PictureCircle size="small"></PictureCircle>
-					</S.NotifyPictureBox>
-					<S.NotifyTextBox>
-						<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
-						<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
-					</S.NotifyTextBox>
-				</S.NotifyBox>
-				{!!CHATTINGROOMLIST.length ? (
+				{likeNumber ? (
+					<S.NotifyBox onClick={handleNavigateRequest}>
+						<S.NotifyPictureBox>
+							<S.LikePeopleNumber>{likeNumber}</S.LikePeopleNumber>
+							<PictureCircle size="small"></PictureCircle>
+						</S.NotifyPictureBox>
+						<S.NotifyTextBox>
+							<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
+							<S.NotifyInfo>여기를 눌러 프로필을 확인해보세요</S.NotifyInfo>
+						</S.NotifyTextBox>
+					</S.NotifyBox>
+				) : null}
+
+				{!!chattingRoomList.length ? (
 					<S.ChattingRoomList>
-						{CHATTINGROOMLIST.map(chattingRoom => (
-							<S.ChattingRoomItem onClick={handleNavigateRoom} key={chattingRoom.id}>
+						{chattingRoomList?.map(chattingRoom => (
+							<S.ChattingRoomItem
+								onClick={handleNavigateRoom}
+								data-roomid={chattingRoom?.roomId}
+								key={chattingRoom.roomId}
+							>
 								<S.ChattingProfileBox>
-									<PictureCircle size="small"></PictureCircle>
+									<PictureCircle src={chattingRoom.profile} size="small"></PictureCircle>
 								</S.ChattingProfileBox>
 								<S.ChattingMainBox>
-									<S.ChattingSender>{chattingRoom.sender}</S.ChattingSender>
-									<S.ChattingMessage>{chattingRoom.message}</S.ChattingMessage>
+									<S.ChattingSender>{chattingRoom.roomName}</S.ChattingSender>
+									<S.ChattingMessageBox>
+										<S.ChattingMessage>{chattingRoom.lastMessage}</S.ChattingMessage>
+										<S.ChattingLastMessage>{` · ${chattingRoom.lastUpdatedAt}`}</S.ChattingLastMessage>
+									</S.ChattingMessageBox>
+
+									{chattingRoom.update ? <S.NewChattingDot></S.NewChattingDot> : null}
+									<S.RemainingTimeBarText src={'32px'}>
+										{chattingRoom.remainingTime}H
+									</S.RemainingTimeBarText>
+									<S.RemainingTimeBar
+										min="0"
+										max="72"
+										value={chattingRoom.remainingTime}
+										src={'-18px'}
+									></S.RemainingTimeBar>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>
 						))}

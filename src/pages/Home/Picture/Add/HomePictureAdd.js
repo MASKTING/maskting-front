@@ -23,7 +23,7 @@ const HomePictureAdd = () => {
 	const navigate = useNavigate();
 	const imgRef = useRef();
 	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
-	const [isAddPicture, setIsAddPicture] = useState(imageFile.feedbackImageList.length > 0);
+	const [isAddPicture, setIsAddPicture] = useState(false);
 	const [deleteId, setDeleteId] = useState(null);
 	const [pictureList, setPictureList] = useState([]);
 	const [bio, setBio] = useState('');
@@ -49,6 +49,10 @@ const HomePictureAdd = () => {
 	useEffect(() => {
 		getFeed();
 	}, []);
+
+	useEffect(() => {
+		setIsAddPicture(imageFile.feedbackImageList.length > 0);
+	}, [imageFile]);
 
 	const handleCloseModal = () => {
 		setIsModal(null);
