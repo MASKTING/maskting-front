@@ -1,8 +1,8 @@
 import api from './api';
 
-export const getProfile = async () => {
+export const getRejection = async () => {
 	try {
-		const response = await api('/api/user');
+		const response = await api('/api/user/rejection');
 		return response;
 	} catch (error) {
 		console.log(error);
