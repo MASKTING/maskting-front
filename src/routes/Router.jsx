@@ -24,9 +24,9 @@ import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
 import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
 import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
 import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
-import Wait from '../pages/Wait';
-import WaitFail from '../pages/WaitFail';
-import WaitSuccess from '../pages/WaitSuccess';
+import Wait from '../pages/Wait/Wait';
+import WaitFail from '../pages/Wait/WaitFail/WaitFail';
+import WaitSuccess from '../pages/Wait/WaitSuccess/WaitSuccess';
 
 function Router() {
 	return (
@@ -62,6 +62,7 @@ function Router() {
 				<Route path="/homeMain" element={<HomeMainPage />} />
 				<Route path="/wait" element={<Wait />} />
 				<Route path="/wait/fail" element={<WaitFail />} />
+				{/* <Route path="/wait/fail/edit" element={<WaitFailEdit />} /> */}
 				<Route path="/wait/success" element={<WaitSuccess />} />
 			</Routes>
 		</Routers>
