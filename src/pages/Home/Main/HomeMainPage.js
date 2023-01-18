@@ -30,6 +30,7 @@ const HomeMainPage = () => {
 
 	const { userInfo } = useGetProfile();
 	const { partnerInfo } = useGetPartner();
+	localStorage.setItem('nickname', userInfo?.nickname);
 
 	const handleFeedButton = e => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
