@@ -36,6 +36,7 @@ const HomeMainPage = () => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
 		setFeedViewState(true);
 	};
+	console.log(partnerInfo);
 
 	if (feedViewState)
 		return <HomeFeedPage setViewState={setFeedViewState} userInfo={partnerInfo[selectedFeed]} />;
@@ -80,8 +81,8 @@ const HomeMainPage = () => {
 									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
 								</S.FeedInfo>
 								<S.FeedImageList>
-									{partnerInfo?.feed?.map(FeedItem => (
-										<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
+									{feedItem?.feed?.map((feed, idx) => (
+										<S.FeedImageItem key={idx} src={feed} />
 									))}
 								</S.FeedImageList>
 							</S.PanelFeedInner>

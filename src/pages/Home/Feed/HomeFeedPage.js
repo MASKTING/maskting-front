@@ -73,7 +73,6 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 		setIsRequested(true);
 		setIsModal(false);
 	};
-
 	const back = () => {
 		setViewState(false);
 	};
@@ -126,8 +125,8 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
 					<S.MainBoxPhoto>
-						{userInfo?.feed?.map(photoItem => (
-							<S.PhotoItem key={photoItem.id} src={photoItem.src} />
+						{userInfo?.feed?.map((photoItem, idx) => (
+							<S.PhotoItem key={idx} src={photoItem} />
 						))}
 					</S.MainBoxPhoto>
 				)}
