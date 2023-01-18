@@ -17,6 +17,7 @@ import { imageRecoil } from '../../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../../components/Button/SmallButton/SmallButton';
 import api from '../../../../api/api';
+import { useGetProfile } from './../../../../hooks/query/useGetProfile';
 
 const HomePictureAdd = () => {
 	const [isModal, setIsModal] = useState(null);
@@ -40,18 +41,19 @@ const HomePictureAdd = () => {
 			return { src: feed, id: Math.random() * 10 + '' };
 		});
 
-		if (newArray.length < 6) newArray.push({ src: 'plus', id: Math.random() * 10 + '' });
+		if (newArray?.length < 6) newArray.push({ src: 'plus', id: Math.random() * 10 + '' });
 		setPictureList(newArray);
 		setBio(response.data.bio);
 		console.log(newArray);
 	};
+	const { userInfo } = useGetProfile();
 
 	useEffect(() => {
 		getFeed();
 	}, []);
 
 	useEffect(() => {
-		setIsAddPicture(imageFile.feedbackImageList.length > 0);
+		setIsAddPicture(imageFile.feedbackImageList?.length > 0);
 	}, [imageFile]);
 
 	const handleCloseModal = () => {
@@ -165,7 +167,7 @@ const HomePictureAdd = () => {
 			<WrapperInner>
 				<HeaderGoBackLeft onClick={handleGoBackButton} />
 				<ContentTitle>
-					{localStorage.getItem('nickname')}님의 <br />
+					{userInfo?.nickname}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>

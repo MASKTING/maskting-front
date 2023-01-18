@@ -9,45 +9,15 @@ import Modal from '../../../components/Modal/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
-import { getProfile } from '../../../api/getProfile';
-import { getPartner } from '../../../api/getPartner';
-import { getFeed } from '../../../api/getFeed';
 import HomeFeedPage from '../Feed/HomeFeedPage';
-
-const FEEDPHOTOLIST = [
-	{
-		id: '1',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-	{
-		id: '2',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-	{
-		id: '3',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-	{
-		id: '4',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-	{
-		id: '5',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-	{
-		id: '6',
-		src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-	},
-];
+import { useGetProfile } from './../../../hooks/query/useGetProfile';
+import { useGetPartner } from '../../../hooks/query/useGetPartner';
 
 const HomeMainPage = () => {
 	const navigate = useNavigate();
 	const [isModal, setIsModal] = useState(false);
-	const [userInfo, setUserInfo] = useState({ nickname: '', imageData: '' });
 	const [selectedFeed, setSelectedFeed] = useState(0);
 	const [feedViewState, setFeedViewState] = useState(false);
-	const [feedList, setFeedList] = useState([]);
 	const turnOnModal = () => {
 		setIsModal(true);
 	};
@@ -58,35 +28,16 @@ const HomeMainPage = () => {
 		navigate('picture');
 	};
 
-	const init = () => {
-		getProfile().then(response => {
-			setUserInfo({
-				profile: response.profile,
-				nickname: response.nickname,
-			});
-			localStorage.setItem('nickname', response.nickname);
-		});
-		getPartner().then(response => {
-			console.log(response);
-			setFeedList(response);
-		});
-	};
+	const { userInfo } = useGetProfile();
+	const { partnerInfo } = useGetPartner();
 
 	const handleFeedButton = e => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
 		setFeedViewState(true);
 	};
-	useEffect(init, []);
 
 	if (feedViewState)
-		return (
-			<>
-				<HomeFeedPage
-					setViewState={setFeedViewState}
-					userInfo={feedList[selectedFeed]}
-				></HomeFeedPage>
-			</>
-		);
+		return <HomeFeedPage setViewState={setFeedViewState} userInfo={partnerInfo[selectedFeed]} />;
 	else
 		return (
 			<Wrapper>
@@ -109,15 +60,15 @@ const HomeMainPage = () => {
 					<MainHeader />
 					<Panel size="small">
 						<S.PanelInfoInner>
-							<PictureCircle size="midium" src={userInfo.profile} />
+							<PictureCircle size="midium" src={userInfo?.profile} />
 							<S.InfoBig>사진을 추가해보세요</S.InfoBig>
-							<S.InfoMidium>{userInfo.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
+							<S.InfoMidium>{userInfo?.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
 							<SmallButton size="small" onClick={turnOnModal}>
 								사진 추가하기
 							</SmallButton>
 						</S.PanelInfoInner>
 					</Panel>
-					{feedList.map((feedItem, idx) => (
+					{partnerInfo?.map((feedItem, idx) => (
 						<Panel size="midium" key={idx}>
 							<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
 								<S.FeedProfile>
@@ -128,7 +79,7 @@ const HomeMainPage = () => {
 									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
 								</S.FeedInfo>
 								<S.FeedImageList>
-									{FEEDPHOTOLIST.map(FeedItem => (
+									{partnerInfo?.feed?.map(FeedItem => (
 										<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
 									))}
 								</S.FeedImageList>

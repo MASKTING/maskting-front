@@ -78,6 +78,8 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 		setViewState(false);
 	};
 
+	console.log(userInfo);
+
 	return (
 		<Wrapper>
 			{isModal && (
@@ -124,7 +126,7 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
 					<S.MainBoxPhoto>
-						{PHOTOLIST.map(photoItem => (
+						{userInfo?.feed?.map(photoItem => (
 							<S.PhotoItem key={photoItem.id} src={photoItem.src} />
 						))}
 					</S.MainBoxPhoto>
