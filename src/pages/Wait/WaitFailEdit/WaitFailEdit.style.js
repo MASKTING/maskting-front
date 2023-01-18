@@ -56,7 +56,6 @@ const Label = styled.label`
 	font-size: 1.7rem;
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
-	color: red;
 `;
 
 // PHOTO
@@ -134,9 +133,33 @@ const HalfInfoWrapper = styled.div`
 	flex-grow: 0;
 	margin-bottom: 0.5rem;
 `;
+export const InputWrapper = styled.div`
+	width: 100%;
+	height: 8.8rem;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	margin-bottom: 0.5rem;
+`;
 const HalfInput = styled.input`
 	position: relative;
 	width: 23rem;
+	height: 4.8rem;
+	background: #eeeeee;
+	border: none;
+	border-radius: 0.8rem;
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.3rem;
+	line-height: 2.8rem;
+	letter-spacing: 0.08rem;
+	padding-left: 1.6rem;
+	margin: 0 2.2rem;
+`;
+export const FullInput = styled.input`
+	position: relative;
+	width: 34rem;
 	height: 4.8rem;
 	background: #eeeeee;
 	border: none;
@@ -231,7 +254,6 @@ const ErrorMessage = styled.span`
 `;
 
 export const Red = styled.div`
-	color: red;
 	position: absolute;
 	left: 2rem;
 	top: 0;

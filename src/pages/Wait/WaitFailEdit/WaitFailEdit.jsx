@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Wrapper from '../../../components/Wrapper';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
-import api from '../api/api';
+import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
 import BigButton from '../../../components/Button/BigButton/BigButton';
 import * as S from './WaitFailEdit.style';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
-import { checkNicknameApi } from '../api/signup';
-import imageState from '../recoil';
+import { checkNicknameApi } from '../../../api/signup';
+import imageState from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
-import { getProfile } from '../api/getProfile';
+import { getProfile } from '../../../api/getProfile';
+import SideBar from '../../../components/SideBar/SideBar';
+import { useGetProfile } from './../../../hooks/query/useGetProfile';
+import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
 
 const dataURLtoFile = (dataurl, fileName) => {
 	var arr = dataurl.split(','),
@@ -28,7 +31,6 @@ const dataURLtoFile = (dataurl, fileName) => {
 };
 
 const WaitFailEdit = () => {
-	const [rejection, setRejection] = useState('');
 	const [imageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
 	const [profilePreview, setProfilePreview] = useState(null);
@@ -38,27 +40,15 @@ const WaitFailEdit = () => {
 	const { register, handleSubmit, formState, watch, setError, clearErrors, errors, setValue } =
 		useForm();
 	const [signupInfo, setSignupInfo] = useState({});
-	const [userInfo, setUserInfo] = useState({});
 	const profileImage = watch('profileImage');
 	const nickname = watch('nickname');
 	const introduce = watch('introduce');
 
-	const getUserInfo = async () => {
-		const resRejection = await api('/api/user/rejection');
-		const resSignupInfo = await api('/api/user/re-signup');
-		const resUserInfo = await await api('/api/user');
-		setRejection(resRejection.data.reason);
-		setSignupInfo(resSignupInfo.data);
-		setUserInfo(resUserInfo.data);
-		setProfilePreview(resUserInfo.data.profile);
-		setValue('nickname', resSignupInfo.data.nickname);
-		setValue('introduce', resSignupInfo.data.bio);
-		// const a = dataURLtoFile(resUserInfo.data.profile, 'image');
-		// console.log(resUserInfo.data);
-	};
-	useEffect(() => {
-		getUserInfo();
-	}, []);
+	const { userInfo } = useGetProfile();
+
+	const { resignupInfo } = useGetResignupInfo();
+	console.log(resignupInfo);
+
 	useEffect(() => {
 		if (profileImage?.length > 0) {
 			const reader = new FileReader();
@@ -189,10 +179,23 @@ const WaitFailEdit = () => {
 								})}
 							/>
 						</S.WideInfoWrapper>
+						<S.InputWrapper>
+							<S.Label htmlFor="name">이름</S.Label>
+							<S.FullInput {...register('name')} />
+						</S.InputWrapper>
+						<S.InputWrapper>
+							<S.Label htmlFor="name">생년월일</S.Label>
+							<S.FullInput {...register('birth')} />
+						</S.InputWrapper>
+						<S.InputWrapper>
+							<S.Label htmlFor="name">키</S.Label>
+							<S.FullInput {...register('height')} />
+						</S.InputWrapper>
 					</S.Content>
 					<BigButton onClick={handleEdit}>수정했어요</BigButton>
 				</S.Form>
 			</WrapperInner>
+
 			<SideBar status="home" />
 		</Wrapper>
 	);
