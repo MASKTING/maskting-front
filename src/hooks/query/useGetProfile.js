@@ -14,5 +14,5 @@ export const useGetProfile = () => {
 			console.log(e);
 		},
 	});
-	return { ...query, userInfo, setUserInfo };
+	return { ...query, userInfo };
 };
