@@ -6,17 +6,11 @@ import HeaderGoBackLeft from '../../../components/Header/HeaderGoBackLeft/Header
 import HeaderGoBackRight from '../../../components/Header/HeaderGoBackRight/HeaderGoBackRight';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
-import BigButton from '../../../components/Button/BigButton/BigButton';
 import Modal from '../../../components/Modal/Modal';
 import styled from 'styled-components';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
-
-const PHOTOLIST = [
-	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '3', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '4', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-];
+import { useGetProfile } from './../../../hooks/query/useGetProfile';
+import { useGetFeed } from './../../../hooks/query/useGetFeed';
 
 const ANSWERLIST = [
 	{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' },
@@ -27,69 +21,14 @@ const ANSWERLIST = [
 	{ id: '6', question: '가장 좋아하는 음식은?', answer: '감자탕' },
 	{ id: '7', question: '가장 좋아하는 음식은?', answer: '감자탕' },
 ];
-const ModalInner = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 90%;
-	padding: 2rem 0;
-`;
-const Title = styled.div`
-	font-size: 1.7rem;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	line-height: 2.6rem;
-`;
-const Info = styled.div`
-	color: #9e9e9e;
-	font-size: 1.1rem;
-	margin: 1.5rem 1rem;
-	line-height: 1.8rem;
-	text-align: center;
-`;
+
 const MyPageMainPage = () => {
 	const [navigateState, setNavigateState] = useState('photo');
-	const [isModal, setIsModal] = useState(false);
-	const [isRequested, setIsRequested] = useState(false);
-	const handlePhotoItem = () => {
-		setNavigateState('photo');
-	};
-	const handleAnswerItem = () => {
-		setNavigateState('answer');
-	};
-	console.log(navigateState);
-	const handleRequest = () => {
-		setIsModal(true);
-	};
-	const handleCloseModal = () => {
-		setIsModal(false);
-	};
-	const handleRequestConfirm = () => {
-		// 요청 API
-		setIsRequested(true);
-		setIsModal(false);
-	};
+	const { userInfo } = useGetProfile();
+	const { feed } = useGetFeed();
 
 	return (
 		<Wrapper>
-			{isModal && (
-				<Modal width="32.1" height="25.2" onCloseModal={handleCloseModal}>
-					<ModalInner>
-						<Title>
-							분당청소요정에게 <br />
-							티켓을 사용해서 <br />
-							대화를 요청하시겠어요?
-						</Title>
-						<Info>상대방이 대화 요청을 수락할 경우 알림을 보내드려요 잔여 티켓: 30장</Info>
-						<SmallButton onClick={handleRequestConfirm}>요청하기</SmallButton>
-						<SmallButton color="white" onClick={handleCloseModal}>
-							취소
-						</SmallButton>
-					</ModalInner>
-				</Modal>
-			)}
 			<S.HeaderWrapper>
 				<HeaderGoBackLeft>
 					<S.HeaderLeftSide className="material-icons">local_activity</S.HeaderLeftSide>30
@@ -101,28 +40,35 @@ const MyPageMainPage = () => {
 			<WrapperInner>
 				<S.ProfileBox>
 					<S.ProfileImage>
-						<PictureCircle size="large" />
+						<PictureCircle size="large" src={userInfo?.profile} />
 					</S.ProfileImage>
 					<S.ProfileInfo>
-						<S.ProfileNickname>분당청소요정</S.ProfileNickname>
-						<S.ProfileIntroduce>
-							베이킹과 라이딩을 좋아하고 <br />
-							청소를 잘해요
-						</S.ProfileIntroduce>
+						<S.ProfileNickname>{userInfo?.nickname}</S.ProfileNickname>
+						<S.ProfileIntroduce>{feed?.bio}</S.ProfileIntroduce>
 					</S.ProfileInfo>
 				</S.ProfileBox>
 				<S.NavigateBox>
-					<S.NavigateItem focus={navigateState === 'photo'} onClick={handlePhotoItem}>
+					<S.NavigateItem
+						focus={navigateState === 'photo'}
+						onClick={() => {
+							setNavigateState('photo');
+						}}
+					>
 						<S.NavigateItemText>사진</S.NavigateItemText>
 					</S.NavigateItem>
-					<S.NavigateItem focus={navigateState === 'answer'} onClick={handleAnswerItem}>
+					<S.NavigateItem
+						focus={navigateState === 'answer'}
+						onClick={() => {
+							setNavigateState('answer');
+						}}
+					>
 						<S.NavigateItemText>답변</S.NavigateItemText>
 					</S.NavigateItem>
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
 					<S.MainBoxPhoto>
-						{PHOTOLIST.map(photoItem => (
-							<S.PhotoItem key={photoItem.id} src={photoItem.src} />
+						{feed?.feeds?.map((feed, idx) => (
+							<S.PhotoItem key={idx} src={feed} />
 						))}
 					</S.MainBoxPhoto>
 				)}
@@ -137,13 +83,8 @@ const MyPageMainPage = () => {
 					</S.MainBoxAnswer>
 				)}
 			</WrapperInner>
-			{isRequested ? (
-				<BigButton color="gray">대화요청을 전송했어요</BigButton>
-			) : (
-				<BigButton onClick={handleRequest}>대화 나눠보기</BigButton>
-			)}
 
-			<SideBar status="home" />
+			<SideBar status="myPage" />
 		</Wrapper>
 	);
 };
