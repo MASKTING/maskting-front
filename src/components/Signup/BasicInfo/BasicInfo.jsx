@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { phoneCheck } from './errorHandler';
+import { mainErrorHandler } from './errorHandler';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
 
@@ -10,7 +10,11 @@ const validState = [];
 function BasicInfo() {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
-	const [phoneErrorState, setPhoneErrorState] = useState(0);
+	const [errorState, setErrorState] = useState({
+		phone: '',
+		birth: '',
+		name: '',
+	});
 	const [basicInfo, setBasicInfo] = useState(
 		JSON.parse(localStorage?.getItem('basicInfo')) || {
 			name: '',
@@ -20,22 +24,14 @@ function BasicInfo() {
 		},
 	);
 
-	const check = e => {
-		const phone = e.target.value;
-		const result = phoneCheck(phone);
-		setPhoneErrorState(result);
+	const errorHandle = e => {
+		setErrorState({
+			...errorState,
+			[e.target.name]: mainErrorHandler(e.target.name, e.target.value),
+		});
 	};
 
-	const validCheck = () => {
-		const phoneCheck = /\d{11}/;
-		const birthCheck = /\d{8}/;
-
-		let validity = true;
-
-		if (!phoneCheck.test(basicInfo.phone)) validity = false;
-
-		console.log(phoneCheck.test('123'));
-	};
+	const validityCheck = () => {};
 
 	const radioChange = e => {
 		e.preventDefault();
@@ -67,8 +63,8 @@ function BasicInfo() {
 		<Wrapper titleMessage="당신이 누구인지 알려주세요!" titleWidth={20}>
 			<S.Content>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo?.name === '' ? (
-						<S.ErrorMessage>이름을 입력해주세요</S.ErrorMessage>
+					{errorState.name ? (
+						<S.ErrorMessage>{errorState.name}</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Name">이름</S.Label>
 					)}
@@ -76,6 +72,7 @@ function BasicInfo() {
 						placeholder="홍길동"
 						name="name"
 						onChange={radioChange}
+						onBlur={errorHandle}
 						value={basicInfo?.name || ''}
 					/>
 				</S.BasicInfoWrapper>
@@ -107,8 +104,8 @@ function BasicInfo() {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.birth === '' ? (
-						<S.ErrorMessage>생년월일을 입력해주세요</S.ErrorMessage>
+					{errorState.birth ? (
+						<S.ErrorMessage>{errorState.birth}</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Birthday">생년월일</S.Label>
 					)}
@@ -116,6 +113,7 @@ function BasicInfo() {
 						placeholder="19000101"
 						onChange={radioChange}
 						name="birth"
+						onBlur={errorHandle}
 						value={basicInfo?.birth}
 					/>
 				</S.BasicInfoWrapper>
@@ -177,17 +175,17 @@ function BasicInfo() {
 					</S.NarrowDiv>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{phoneErrorState ? (
-						<S.ErrorMessage>{phoneErrorState}</S.ErrorMessage>
+					{submit && errorState.phone ? (
+						<S.ErrorMessage>
+							{errorState.phone === '' ? '전화번호를 입력해주세요' : errorState.phone}
+						</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
 					)}
 					<S.BasicInput
 						placeholder="01012345678"
 						onChange={radioChange}
-						onBlur={e => {
-							setPhoneErrorState(phoneCheck(e.target.value));
-						}}
+						onBlur={errorHandle}
 						name="phone"
 						value={basicInfo?.phone}
 					/>
