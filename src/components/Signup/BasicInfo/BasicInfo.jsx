@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { phoneCheck } from './errorHandler';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
+
+const validState = [];
 
 function BasicInfo() {
 	const navigate = useNavigate();
 	const [submit, setSubmit] = useState(false);
+	const [phoneErrorState, setPhoneErrorState] = useState(0);
 	const [basicInfo, setBasicInfo] = useState(
 		JSON.parse(localStorage?.getItem('basicInfo')) || {
 			name: '',
@@ -15,8 +19,27 @@ function BasicInfo() {
 			privateCheck: false,
 		},
 	);
+
+	const check = e => {
+		const phone = e.target.value;
+		const result = phoneCheck(phone);
+		setPhoneErrorState(result);
+	};
+
+	const validCheck = () => {
+		const phoneCheck = /\d{11}/;
+		const birthCheck = /\d{8}/;
+
+		let validity = true;
+
+		if (!phoneCheck.test(basicInfo.phone)) validity = false;
+
+		console.log(phoneCheck.test('123'));
+	};
+
 	const radioChange = e => {
 		e.preventDefault();
+		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
@@ -28,6 +51,7 @@ function BasicInfo() {
 			if (basicInfo) {
 				localStorage.setItem(
 					'basicInfo',
+
 					JSON.stringify({
 						...basicInfo,
 					}),
@@ -52,7 +76,7 @@ function BasicInfo() {
 						placeholder="홍길동"
 						name="name"
 						onChange={radioChange}
-						value={basicInfo?.name}
+						value={basicInfo?.name || ''}
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
@@ -153,14 +177,17 @@ function BasicInfo() {
 					</S.NarrowDiv>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.phone === '' ? (
-						<S.ErrorMessage>전화번호를 입력해주세요</S.ErrorMessage>
+					{phoneErrorState ? (
+						<S.ErrorMessage>{phoneErrorState}</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
 					)}
 					<S.BasicInput
 						placeholder="01012345678"
 						onChange={radioChange}
+						onBlur={e => {
+							setPhoneErrorState(phoneCheck(e.target.value));
+						}}
 						name="phone"
 						value={basicInfo?.phone}
 					/>

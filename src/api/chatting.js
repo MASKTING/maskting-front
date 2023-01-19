@@ -21,3 +21,15 @@ export const getChattingRoom = async n => {
 		console.log(error);
 	}
 };
+
+export const postChatClose = async roomId => {
+	try {
+		const response = await api({
+			url: `/chat/room/${roomId}/out`,
+			method: 'POST',
+		});
+		return response.data;
+	} catch (error) {
+		console.log(error);
+	}
+};
