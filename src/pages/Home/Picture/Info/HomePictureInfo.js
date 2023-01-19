@@ -9,18 +9,20 @@ import MainButton from '../../../../components/Button/MainButton/MainButton';
 import SideBar from '../../../../components/SideBar/SideBar';
 import { useNavigate } from 'react-router-dom';
 import BigButton from '../../../../components/Button/BigButton/BigButton';
+import { useGetProfile } from './../../../../hooks/query/useGetProfile';
 
 const HomePictureInfo = () => {
 	const navigate = useNavigate();
 	const navigatePictureAdd = () => {
 		navigate('add');
 	};
+	const { userInfo } = useGetProfile();
 	return (
 		<Wrapper>
 			<HeaderGoBackLeft />
 			<WrapperInner>
 				<ContentTitle>
-					{localStorage.getItem('nickname')}님의 <br />
+					{userInfo?.nickname}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
