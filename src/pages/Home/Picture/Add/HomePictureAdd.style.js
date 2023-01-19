@@ -22,10 +22,10 @@ export const PictureList = styled.article`
 	position: absolute;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
 	bottom: 0;
 	z-index: 5;
+	width: 34.2rem;
+	height: 22.8rem;
 `;
 
 export const PictureItem = styled.div`
@@ -57,8 +57,8 @@ export const PictureAddBox = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	height: 100%;
+	width: 11.4rem;
+	height: 11.4rem;
 `;
 
 export const PictureAddBoxInner = styled.span`

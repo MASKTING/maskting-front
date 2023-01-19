@@ -12,70 +12,40 @@ import PictureCircle from '../../../../components/PictureCircle/PictureCircle';
 import ContentSubTitle from '../../../../components/Content/ContentSubTitle/ContentSubTitle';
 import BigButton from '../../../../components/Button/BigButton/BigButton';
 import Modal from '../../../../components/Modal';
-import { useRecoilState } from 'recoil';
-import { imageRecoil } from '../../../../recoil';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../../components/Button/SmallButton/SmallButton';
-import api from '../../../../api/api';
+import { useGetProfile } from './../../../../hooks/query/useGetProfile';
+import { useGetFeed } from '../../../../hooks/query/useGetFeed';
+import { addFeed } from '../../../../api/addFeed';
 
 const HomePictureAdd = () => {
 	const [isModal, setIsModal] = useState(null);
 	const navigate = useNavigate();
-	const imgRef = useRef();
-	const [imageFile, setImageFile] = useRecoilState(imageRecoil);
 	const [isAddPicture, setIsAddPicture] = useState(false);
 	const [deleteId, setDeleteId] = useState(null);
-	const [pictureList, setPictureList] = useState([]);
-	const [bio, setBio] = useState('');
-
-	const getFeed = async () => {
-		const response = await api({
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			url: '/api/feed',
-			method: 'GET',
-		});
-		const newArray = response.data.feeds.map(feed => {
-			return { src: feed, id: Math.random() * 10 + '' };
-		});
-
-		if (newArray.length < 6) newArray.push({ src: 'plus', id: Math.random() * 10 + '' });
-		setPictureList(newArray);
-		setBio(response.data.bio);
-		console.log(newArray);
-	};
-
-	useEffect(() => {
-		getFeed();
-	}, []);
-
-	useEffect(() => {
-		setIsAddPicture(imageFile.feedbackImageList.length > 0);
-	}, [imageFile]);
+	const { userInfo } = useGetProfile();
+	const { feed, setFeed, refetch } = useGetFeed();
 
 	const handleCloseModal = () => {
 		setIsModal(null);
 	};
-	const handleAddButton = () => {
-		setIsModal('add');
-	};
+
 	const handleUploadImage = useCallback(async e => {
-		if (!e.target.files) {
-			return;
-		}
-		const reader = new FileReader();
-		reader.readAsDataURL(imgRef.current.files[0]);
-		reader.onload = async () => {
-			setImageFile({
-				feedbackImageList: [...imageFile.feedbackImageList, e.target.files[0]],
-				selectedImage: reader.result,
-			});
-			navigate('/home/picture/resize');
-		};
+		const formData = new FormData();
+		formData.append('feed', e.target.files[0]);
+		const res = await addFeed(formData);
+		setIsModal(null);
+		setIsAddPicture(true);
+		refetch();
 	}, []);
 	const addModal = isModal === 'add' && (
-		<Modal onCloseModal={handleCloseModal} width={22.5} height={13.2}>
+		<Modal
+			onCloseModal={() => {
+				setIsModal(false);
+			}}
+			width={22.5}
+			height={13.2}
+		>
 			<S.ModalInner>
 				<S.ModalSelectLabel>카메라로 촬영</S.ModalSelectLabel>
 				<S.ModalSelectInput
@@ -83,20 +53,12 @@ const HomePictureAdd = () => {
 					type="file"
 					accept="image/*"
 					onChange={handleUploadImage}
-					ref={imgRef}
 				/>
 				<S.ModalSelectLabel htmlFor="pick_in_gallery">갤러리에서 사진 선택</S.ModalSelectLabel>
 			</S.ModalInner>
 		</Modal>
 	);
 	//----------------------------------------------------------------
-	const handleGoBackButton = () => {
-		if (isAddPicture) {
-			setIsModal('goBack');
-		} else {
-			navigate(-1);
-		}
-	};
 	const handleGoBack = () => {
 		navigate('/home');
 	};
@@ -106,16 +68,18 @@ const HomePictureAdd = () => {
 				<ContentSubTitle>추가중인 사진을 취소하고</ContentSubTitle>
 				<ContentSubTitle>홈 화면으로 돌아갈까요?</ContentSubTitle>
 				<SmallButton onClick={handleGoBack}>돌아가기</SmallButton>
-				<SmallButton color="white" onClick={handleCloseModal}>
+				<SmallButton
+					color="white"
+					onClick={() => {
+						setIsModal(null);
+					}}
+				>
 					취소
 				</SmallButton>
 			</S.ModalInner>
 		</Modal>
 	);
 	//----------------------------------------------------------------
-	const handleSubmitButton = () => {
-		setIsModal('submit');
-	};
 	const handleSubmit = () => {
 		navigate('/home');
 	};
@@ -163,9 +127,13 @@ const HomePictureAdd = () => {
 			{submitModal}
 			{deleteModal}
 			<WrapperInner>
-				<HeaderGoBackLeft onClick={handleGoBackButton} />
+				<HeaderGoBackLeft
+					onClick={() => {
+						navigate(-1);
+					}}
+				/>
 				<ContentTitle>
-					{localStorage.getItem('nickname')}님의 <br />
+					{userInfo?.nickname}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
@@ -176,37 +144,39 @@ const HomePictureAdd = () => {
 				<Panel size="midium">
 					<S.PanelInner>
 						<S.Profile>
-							<PictureCircle size="small" css="margin-right:2rem" />
-							<ContentSubTitle>{localStorage.getItem('nickname')}</ContentSubTitle>
+							<PictureCircle size="small" css="margin-right:2rem" src={userInfo?.profile} />
+							<ContentSubTitle>{userInfo?.nickname}</ContentSubTitle>
 						</S.Profile>
 						<S.ProfileText>
-							<ContentInfo>{bio}</ContentInfo>
+							<ContentInfo>{feed?.bio}</ContentInfo>
 						</S.ProfileText>
 						<S.PictureList>
-							{pictureList.map(pictureItem => (
-								<S.PictureItem key={pictureItem.id}>
-									{pictureItem.src === 'plus' ? (
-										<S.PictureAddBox>
-											<S.PictureAddBoxInner className="material-icons" onClick={handleAddButton}>
-												add
-											</S.PictureAddBoxInner>
-										</S.PictureAddBox>
-									) : (
-										pictureItem.src && (
-											<S.PictureImage
-												src={pictureItem.src}
-												// onClick={handleDeleteButton}
-												id={pictureItem.id}
-											/>
-										)
-									)}
+							{feed?.feeds?.map((feed, idx) => (
+								<S.PictureItem key={idx}>
+									<S.PictureImage
+										src={feed}
+										// onClick={handleDeleteButton}
+									/>
 								</S.PictureItem>
 							))}
+							<S.PictureAddBox
+								onClick={() => {
+									setIsModal('add');
+								}}
+							>
+								<S.PictureAddBoxInner className="material-icons">add</S.PictureAddBoxInner>
+							</S.PictureAddBox>
 						</S.PictureList>
 					</S.PanelInner>
 				</Panel>
 				{isAddPicture ? (
-					<BigButton onClick={handleSubmitButton}>이대로 완성하기</BigButton>
+					<BigButton
+						onClick={() => {
+							navigate('home');
+						}}
+					>
+						이대로 완성하기
+					</BigButton>
 				) : (
 					<BigButton color="gray">사진을 추가해주세요</BigButton>
 				)}

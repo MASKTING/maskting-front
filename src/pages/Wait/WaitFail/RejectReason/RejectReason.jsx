@@ -19,7 +19,7 @@ const RejectReason = reason => {
 					</S.Line2>
 				</S.List>
 			)}
-			{reason?.reason?.includes('프로필 사진') && (
+			{reason?.reason?.includes('닉네임') && (
 				<S.List>
 					<S.Line1>
 						<S.Red>* 사용할 수 없는 닉네임</S.Red>
@@ -28,7 +28,7 @@ const RejectReason = reason => {
 					<S.Line2>* 상대방도 기분이 좋아지는 닉네임을 작성해주세요!</S.Line2>
 				</S.List>
 			)}
-			{reason?.reason?.includes('프로필 사진') && (
+			{reason?.reason?.includes('이름') && (
 				<S.List>
 					<S.Line1>
 						<S.Red>* 이름</S.Red>
@@ -42,7 +42,7 @@ const RejectReason = reason => {
 					</S.Line2>
 				</S.List>
 			)}
-			{reason?.reason?.includes('프로필 사진') && (
+			{reason?.reason?.includes('생년월일') && (
 				<S.List>
 					<S.Line1>
 						<S.Red>* 생년월일</S.Red>
