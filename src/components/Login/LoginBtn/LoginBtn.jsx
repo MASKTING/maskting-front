@@ -12,6 +12,8 @@ const Google = `${process.env.REACT_APP_SERVER_HOST}/api/oauth2/google?redirect_
 const Kakao = `${process.env.REACT_APP_SERVER_HOST}/api/oauth2/kakao?redirect_uri=${REDIRECT_URI}`;
 
 const LoginBtn = () => {
+	localStorage.removeItem('accesstoken');
+	localStorage.removeItem('basicInfo');
 	return (
 		<Wrapper>
 			<S.Logo />
