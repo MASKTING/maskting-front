@@ -28,6 +28,7 @@ import Wait from '../pages/Wait/Wait';
 import WaitFail from '../pages/Wait/WaitFail/WaitFail';
 import WaitSuccess from '../pages/Wait/WaitSuccess/WaitSuccess';
 import WaitFailEdit from '../pages/Wait/WaitFailEdit/WaitFailEdit';
+import WaitFailMask from './../pages/Wait/WaitFailMask/WaitFailMask';
 
 function Router() {
 	return (
@@ -64,6 +65,7 @@ function Router() {
 				<Route path="/wait" element={<Wait />} />
 				<Route path="/wait/fail" element={<WaitFail />} />
 				<Route path="/wait/fail/edit" element={<WaitFailEdit />} />
+				<Route path="/wait/fail/mask" element={<WaitFailMask />} />
 				<Route path="/wait/success" element={<WaitSuccess />} />
 			</Routes>
 		</Routers>

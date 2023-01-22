@@ -10,9 +10,11 @@ import imageState from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
 import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 const WaitFailEdit = () => {
-	const [imageFile] = useRecoilState(imageState);
+	const navigate = useNavigate();
+	const [imageFile, setImageFile] = useRecoilState(imageState);
 	const [profilePreview, setProfilePreview] = useState(null);
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
 	const [isModal, setIsModal] = useState(false);
@@ -34,12 +36,28 @@ const WaitFailEdit = () => {
 	}, [profileImage]);
 
 	useEffect(() => {
+		if (imageFile?.maskedImage) {
+			const reader = new FileReader();
+			reader.readAsDataURL(imageFile?.maskedImage);
+			reader.onloadend = () => {
+				setProfilePreview(reader.result);
+			};
+		}
+	}, []);
+
+	useEffect(() => {
 		setValue('nickname', resignupInfo?.nickname);
 		setValue('bio', resignupInfo?.bio);
 		setValue('name', resignupInfo?.name);
 		setValue('birth', resignupInfo?.birth);
 		setValue('height', resignupInfo?.height);
 	}, [resignupInfo]);
+
+	const handleGoMask = () => {
+		localStorage?.setItem('imageData', profilePreview);
+		setImageFile({ originalImage: profileImage[0] });
+		navigate('/wait/fail/mask');
+	};
 
 	// 2. NICKNAME
 	const handleCheckNickname = async () => {
@@ -67,8 +85,9 @@ const WaitFailEdit = () => {
 		formData.append('name', name);
 		formData.append('birth', birth);
 		formData.append('height', height);
-		formData.append('profiles', profileImage);
-		formData.append('profiles', profileImage);
+		formData.append('profiles', imageFile?.originalImage);
+		formData.append('profiles', imageFile?.maskedImage);
+		console.log(profileImage[0]);
 		const res = await axios.post('/api/user/re-signup', formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -121,7 +140,9 @@ const WaitFailEdit = () => {
 							{photoErrorMessage && <S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>}
 							<S.PhotoBox htmlFor="image">
 								<S.PhotoImage htmlFor="ProfilePhoto" src={profilePreview} />
-								<S.PhotoLogo className="material-icons">edit</S.PhotoLogo>
+								<S.PhotoLogo className="material-icons" onClick={handleGoMask}>
+									edit
+								</S.PhotoLogo>
 							</S.PhotoBox>
 							<S.InputImage type="file" accept="img/*" id="image" {...register('profileImage')} />
 						</S.PhotoInfoWrapper>
@@ -162,7 +183,7 @@ const WaitFailEdit = () => {
 										message: '한줄 자기소개를 입력해주세요',
 									},
 									pattern: {
-										value: /^[가-힣\sㄱ-ㅎ]{1,20}$/,
+										value: /^[가-힣\sㄱ-ㅎ!]{1,20}$/,
 										message: '20자 이내로 작성해주세요',
 									},
 								})}
