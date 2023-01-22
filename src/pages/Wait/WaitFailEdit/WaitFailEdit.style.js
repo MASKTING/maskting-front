@@ -196,11 +196,12 @@ const WideInput = styled.textarea`
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
 	padding-left: 1.6rem;
+	padding-top: 0.8rem;
 	margin: 1.2rem 2.2rem;
 	resize: none;
 `;
 
-const IntroduceCnt = styled.span`
+const BioCnt = styled.span`
 	color: ${props => (props.cnt > 20 ? '#ff0000' : '#212121')};
 `;
 
@@ -374,7 +375,7 @@ export {
 	HalfInfoWrapper,
 	WideInfoWrapper,
 	WideInput,
-	IntroduceCnt,
+	BioCnt,
 	Content,
 	Label,
 	HalfInput,
