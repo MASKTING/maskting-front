@@ -87,7 +87,6 @@ const WaitFailEdit = () => {
 		formData.append('height', height);
 		formData.append('profiles', imageFile?.originalImage);
 		formData.append('profiles', imageFile?.maskedImage);
-		console.log(profileImage[0]);
 		const res = await axios.post('/api/user/re-signup', formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
@@ -191,7 +190,18 @@ const WaitFailEdit = () => {
 						</S.WideInfoWrapper>
 						<S.InputWrapper>
 							<S.Label htmlFor="name">이름</S.Label>
-							<S.FullInput {...register('name')} />
+							<S.FullInput
+								{...register('name', {
+									required: {
+										value: true,
+										message: '이름을 입력해주세요',
+									},
+									pattern: {
+										value: /^[가-힣]+$/,
+										message: '한글만 입력해주세요.',
+									},
+								})}
+							/>
 						</S.InputWrapper>
 						<S.InputWrapper>
 							<S.Label htmlFor="name">생년월일</S.Label>
