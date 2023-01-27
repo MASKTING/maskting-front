@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
 import { BsCheckLg } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import { mainErrorHandler } from './errorHandler';
+import { mainErrorHandler, isEmpty, validCheck } from './errorHandler';
 import * as S from './BasicInfo.style';
 import Wrapper from '../../Wrapper';
 
-const validState = [];
-
 function BasicInfo() {
 	const navigate = useNavigate();
-	const [submit, setSubmit] = useState(false);
 	const [errorState, setErrorState] = useState({
 		phone: '',
 		birth: '',
 		name: '',
+		gender: '',
+		occupation: '',
 	});
 	const [basicInfo, setBasicInfo] = useState(
 		JSON.parse(localStorage?.getItem('basicInfo')) || {
@@ -24,6 +23,12 @@ function BasicInfo() {
 		},
 	);
 
+	const inputCheck = () => {
+		const temp = { phone: '', name: '', birth: '', occupation: '', gender: '' };
+		for (let key in errorState) temp[key] = mainErrorHandler(key, basicInfo[key]);
+		setErrorState(temp);
+	};
+
 	const errorHandle = e => {
 		setErrorState({
 			...errorState,
@@ -31,30 +36,18 @@ function BasicInfo() {
 		});
 	};
 
-	const validityCheck = () => {};
-
 	const radioChange = e => {
 		e.preventDefault();
-		console.log(e.target.value);
 		setBasicInfo({
 			...basicInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
 	const handleNextBtn = () => {
-		setSubmit(true);
-		if (basicInfo.privateCheck) {
-			if (basicInfo) {
-				localStorage.setItem(
-					'basicInfo',
+		inputCheck();
 
-					JSON.stringify({
-						...basicInfo,
-					}),
-				);
-			} else {
-				localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-			}
+		if (basicInfo.privateCheck && !isEmpty(basicInfo) && validCheck(errorState)) {
+			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/signup/location', { state: { basicInfo } });
 		}
 	};
@@ -77,8 +70,8 @@ function BasicInfo() {
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && !basicInfo.gender ? (
-						<S.ErrorMessage>성별을 선택해주세요</S.ErrorMessage>
+					{errorState.gender ? (
+						<S.ErrorMessage>{errorState.gender}</S.ErrorMessage>
 					) : (
 						<S.Label>성별</S.Label>
 					)}
@@ -89,6 +82,7 @@ function BasicInfo() {
 							id="Male"
 							value="male"
 							onClick={radioChange}
+							onChange={errorHandle}
 						/>
 						<S.RadioLabel htmlFor="Male">남자</S.RadioLabel>
 					</S.NarrowButton>
@@ -100,6 +94,7 @@ function BasicInfo() {
 							id="Female"
 							value="female"
 							onClick={radioChange}
+							onChange={errorHandle}
 						/>
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
@@ -118,8 +113,8 @@ function BasicInfo() {
 					/>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && !basicInfo.occupation ? (
-						<S.ErrorMessage>직업을 선택해주세요</S.ErrorMessage>
+					{errorState.occupation ? (
+						<S.ErrorMessage>{errorState.occupation}</S.ErrorMessage>
 					) : (
 						<S.Label>직업</S.Label>
 					)}
@@ -133,6 +128,7 @@ function BasicInfo() {
 									id="대학생"
 									value="대학생"
 									onClick={radioChange}
+									onChange={errorHandle}
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
@@ -145,6 +141,7 @@ function BasicInfo() {
 									id="대학원생"
 									value="대학원생"
 									onClick={radioChange}
+									onChange={errorHandle}
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
@@ -157,6 +154,7 @@ function BasicInfo() {
 									id="직장인"
 									value="직장인"
 									onClick={radioChange}
+									onChange={errorHandle}
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
@@ -169,16 +167,15 @@ function BasicInfo() {
 									id="취준생"
 									value="취준생"
 									onClick={radioChange}
+									onChange={errorHandle}
 								/>
 							</S.RadioLabel>
 						</S.NarrowButton>
 					</S.NarrowDiv>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && errorState.phone ? (
-						<S.ErrorMessage>
-							{errorState.phone === '' ? '전화번호를 입력해주세요' : errorState.phone}
-						</S.ErrorMessage>
+					{errorState.phone ? (
+						<S.ErrorMessage>{errorState.phone}</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Phone">전화번호</S.Label>
 					)}
