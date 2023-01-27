@@ -322,7 +322,7 @@ function ProfileSetting() {
 						{errors.introduce?.message ? (
 							<S.ErrorMessage>{errors.introduce?.message}</S.ErrorMessage>
 						) : (
-							<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/20)</S.Label>
+							<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/50)</S.Label>
 						)}
 						<S.WideInput
 							{...register('introduce', {
@@ -331,8 +331,8 @@ function ProfileSetting() {
 									message: '한줄 자기소개를 입력해주세요',
 								},
 								maxLength: {
-									value: 20,
-									message: '20자 이내로 작성해주세요',
+									value: 50,
+									message: '50자 이내로 작성해주세요',
 								},
 							})}
 						/>
