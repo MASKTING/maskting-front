@@ -69,8 +69,25 @@ const PartnerMoreInfo = () => {
 	};
 	const handleNextBtn = () => {
 		setSubmit(true);
-		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
-		navigate('/signup/profilePhoto');
+		if (allChecked()) {
+			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
+			navigate('/signup/profilePhoto');
+		}
+	};
+
+	/**
+	 * 입력란이 모두 체크 되었는지 확인 비어있다면 false 아니라면 true를 반환
+	 * @returns
+	 */
+	const allChecked = () => {
+		if (
+			!basicInfo.partnerDrinking ||
+			!basicInfo.partnerDuty ||
+			!basicInfo.partnerReligions ||
+			!basicInfo.partnerSmoking
+		)
+			return false;
+		return true;
 	};
 
 	const leftSlideChange = event => {
@@ -175,7 +192,7 @@ const PartnerMoreInfo = () => {
 			</S.InfoMessage>
 			<S.Content>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.partnerDuty === null ? (
+					{submit && !basicInfo.partnerDuty ? (
 						<S.ErrorMessage>군대 여부를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>군대 여부</S.Label>
@@ -214,7 +231,7 @@ const PartnerMoreInfo = () => {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.partnerSmoking === null ? (
+					{submit && !basicInfo.partnerSmoking ? (
 						<S.ErrorMessage>흡연 여부를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.Label>흡연 여부</S.Label>
@@ -257,7 +274,7 @@ const PartnerMoreInfo = () => {
 					</S.NarrowButton>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
-					{submit && basicInfo.partnerReligions === null ? (
+					{submit && !basicInfo.partnerReligions ? (
 						<S.ErrorMessage>종교를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel>종교</S.LongLabel>
@@ -314,7 +331,7 @@ const PartnerMoreInfo = () => {
 					</S.NarrowButton>
 				</S.WideInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo.partnerDrinking === null ? (
+					{submit && !basicInfo.partnerDrinking ? (
 						<S.ErrorMessage>음주 빈도를 선택해주세요</S.ErrorMessage>
 					) : (
 						<S.LongLabel htmlFor="partnerDrinking">
