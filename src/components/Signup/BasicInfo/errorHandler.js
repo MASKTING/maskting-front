@@ -1,6 +1,10 @@
-const phoneState = ['전화번호를 입력해주세요', '올바른 형식이 아닙니다.'];
-const nameState = ['이름을 입력해주세요', '올바른 형식이 아닙니다.'];
-const birthState = ['생년월일을 입력해주세요', '올바른 형식이 아닙니다.'];
+const phoneState = ['전화번호를 입력해주세요', '올바른 형식이 아닙니다'];
+const nameState = ['이름을 입력해주세요', '올바른 형식이 아닙니다'];
+const birthState = [
+	'생년월일을 입력해주세요',
+	'올바른 형식이 아닙니다',
+	'유효한 생년월일이 아닙니다',
+];
 const genderState = ['성별을 선택해주세요'];
 const jobState = ['직업을 선택해주세요'];
 
@@ -20,6 +24,16 @@ const birthCheck = birth => {
 	if (birth === undefined || birth.length === 0) return birthState[0];
 
 	if (!birthReg.test(birth) || birth.length !== 8) return birthState[1];
+
+	const year = parseInt(birth.slice(0, 4));
+	const month = parseInt(birth.slice(4, 6));
+	const day = parseInt(birth.slice(6, 8));
+
+	if (year < 1900 || year >= 2023) return birthState[2];
+
+	if (month < 1 || month > 12) return birthState[2];
+
+	if (day < 1 || day > 31) return birthState[2];
 
 	return 0;
 };
