@@ -14,10 +14,8 @@ const useInterval = (callback, delay) => {
 			savedCallback.current();
 		}
 		if (delay !== null) {
-			console.log('실행');
 			let id = setInterval(tick, delay);
 			return () => {
-				console.log(id);
 				clearInterval(id);
 			};
 		}
