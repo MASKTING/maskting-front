@@ -12,7 +12,7 @@ const ProfilePhoto = () => {
 	const navigate = useNavigate();
 	const imgRef = useRef();
 	const handlePrevButton = () => {
-		navigate(-1);
+		navigate('/signup/partnerMoreInfo');
 	};
 	const [imageFile, setImageFile] = useRecoilState(imageState);
 

@@ -128,6 +128,7 @@ const Slider = styled.input`
 	border-radius: 0.8rem;
 	background: #eeeeee;
 	outline: none;
+	cursor: pointer;
 	-webkit-appearance: none;
 	${({ degree }) =>
 		`background: linear-gradient(to right, #f45e5f 0%, #f45e5f ${degree}%, #EEEEEE ${degree}%)`};
@@ -136,6 +137,7 @@ const Slider = styled.input`
 		width: 4.8rem;
 		height: 4.8rem;
 		border-radius: 100%;
+		cursor: pointer;
 		background: ${({ degree }) => (degree >= 0 ? `#f45e5f` : `#e0e0e0`)};
 	}
 `;

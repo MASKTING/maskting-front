@@ -80,11 +80,11 @@ function Hobby() {
 	const handlePrevBtn = () => {
 		localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 		setErrorMessage(false);
-		navigate(-1);
+		navigate('/signup/location');
 	};
 
 	const handleNextBtn = () => {
-		if (basicInfo.interests.length === 0) {
+		if (!basicInfo.interests?.length) {
 			setErrorMessage(true);
 		} else {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));

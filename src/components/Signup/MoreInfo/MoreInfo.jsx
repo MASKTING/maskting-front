@@ -198,14 +198,14 @@ function MoreInfo() {
 						name="drinking"
 						min="1"
 						max="5"
-						// radio="1"
 						step="1"
+						value={parseInt(basicInfo?.drinking) || ''}
 						degree={(parseInt(basicInfo?.drinking) - 1) * 25}
 						onChange={radioChange}
 					/>
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
-					{submit && basicInfo?.height === '' ? (
+					{submit && !basicInfo?.height ? (
 						<S.ErrorMessage>키를 입력해주세요</S.ErrorMessage>
 					) : (
 						<S.Label htmlFor="Height">키</S.Label>
@@ -225,7 +225,7 @@ function MoreInfo() {
 						name="bodyType"
 						min="1"
 						max="5"
-						// radio="1"
+						value={parseInt(basicInfo?.bodyType) || ''}
 						step="1"
 						degree={(parseInt(basicInfo?.bodyType) - 1) * 25}
 						onChange={radioChange}

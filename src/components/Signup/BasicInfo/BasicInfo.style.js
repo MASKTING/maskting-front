@@ -68,6 +68,20 @@ const Label = styled.label`
 	line-height: 2.8rem;
 	letter-spacing: 0.08rem;
 `;
+const LeftTime = styled.div`
+	position: relative;
+	display: flex;
+	width: 10rem;
+	height: 2.8rem;
+	left: 31rem;
+	bottom: 2.7rem;
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: bolder;
+	font-size: 1.7rem;
+	line-height: 2.8rem;
+	letter-spacing: 0.08rem;
+`;
 const BasicInput = styled.input`
 	position: relative;
 	width: 34.2rem;
@@ -128,7 +142,8 @@ const NoticeWrapper = styled.div`
 	flex: none;
 	order: 5;
 	flex-grow: 0;
-	margin-bottom: 16.8rem;
+	margin-top: 6.8rem;
+	margin-bottom: 11.8rem;
 `;
 const NoticeText = styled.h1`
 	position: absolute;
@@ -210,7 +225,81 @@ const NextBtn = styled.button`
 		color: #000000;
 	}
 `;
+
+const HalfInfoWrapper = styled.div`
+	width: 39rem;
+	height: 8.8rem;
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+	margin-bottom: 0.5rem;
+`;
+const HalfInput = styled.input`
+	position: relative;
+	width: 23rem;
+	height: 4.8rem;
+	background: #eeeeee;
+	border: none;
+	border-radius: 0.8rem;
+	font-family: 'Pretendard';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 1.3rem;
+	line-height: 2.8rem;
+	top: 10px;
+	letter-spacing: 0.08rem;
+	padding-left: 1.6rem;
+	margin: 0 2.2rem;
+	margin-bottom: 10px;
+`;
+const BtnCheckPhone = styled.button`
+	position: absolute;
+	width: 9.5rem;
+	height: 4.8rem;
+	right: 25px;
+	margin-top: 10px;
+	background-color: rgba(244, 94, 95, 1);
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: ${props => props.fontSize};
+	line-height: 3.6rem;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	color: rgba(250, 250, 250, 1);
+	border: none;
+	border-radius: 0.8rem;
+	&:hover {
+		color: #000000;
+	}
+	cursor: pointer;
+`;
+
+const BtnCheckPhoneDisabled = styled.button`
+	position: absolute;
+	width: 9.5rem;
+	height: 4.8rem;
+	right: 25px;
+	margin-top: 10px;
+	background-color: rgba(244, 94, 95, 1);
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 700;
+	font-size: ${props => props.fontSize};
+	line-height: 3.6rem;
+	text-align: center;
+	letter-spacing: 0.1rem;
+	color: rgba(250, 250, 250, 1);
+	border: none;
+	border-radius: 0.8rem;
+`;
+
 export {
+	BtnCheckPhoneDisabled,
+	LeftTime,
+	BtnCheckPhone,
+	HalfInfoWrapper,
+	HalfInput,
 	TitleWrapper,
 	Title,
 	BasicInfoWrapper,

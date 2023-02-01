@@ -16,8 +16,6 @@ const ChattingMainPage = () => {
 	const [likeNumber, setLikeNumber] = useState(0);
 	const client = useRef({});
 
-	console.log(document.referrer);
-
 	const connect = () => {
 		client.current = createClient('/app');
 		client.current.onConnect = onConnected;

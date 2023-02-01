@@ -173,7 +173,7 @@ const WideInput = styled.textarea`
 `;
 
 const IntroduceCnt = styled.span`
-	color: ${props => (props.cnt > 20 ? '#ff0000' : '#212121')};
+	color: ${props => (props.cnt > 50 ? '#ff0000' : '#212121')};
 `;
 
 const BtnCheckNickname = styled.button`

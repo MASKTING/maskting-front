@@ -2,7 +2,7 @@ import * as S from './ChattingRoomPage.style';
 import React from 'react';
 import * as SockJS from 'sockjs-client';
 import Wrapper from '../../../components/Wrapper/Wrapper';
-import { getChattingRoom } from '../../../api/chatting';
+import { getChattingRoom, postChatClose } from '../../../api/chatting';
 import { RemainingTimeBar, RemainingTimeBarText } from '../Main/ChattingMainPage.style';
 import * as StompJs from '@stomp/stompjs';
 import { useRef, useState, useEffect } from 'react';
@@ -177,7 +177,7 @@ const ChattingRoomPage = () => {
 	useEffect(() => {
 		connect();
 		return () => {
-			getChattingRoom(roomId);
+			postChatClose(roomId);
 			disconnect();
 		};
 	}, []);

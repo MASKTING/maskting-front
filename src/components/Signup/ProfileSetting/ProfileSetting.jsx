@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
 import { checkNicknameApi } from '../../../api/signup';
 import imageState from '../../../recoil';
 import { NavigateButton } from '../../Button/Button';
@@ -21,17 +20,25 @@ function ProfileSetting() {
 	);
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
 	const [isModal, setIsModal] = useState(false);
-	const [isDuplicate, setIsDuplicate] = useState(false);
-	const { register, handleSubmit, formState, watch, setError, clearErrors, errors } = useForm({
+	const [nicknameChecked, setNicknameChecked] = useState(false);
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		watch,
+		setError,
+	} = useForm({
 		defaultValues: {
 			nickname: basicInfo?.nickname,
 			introduce: basicInfo?.introduce,
 		},
+		mode: 'all',
 	});
 	// MODAL
 	const onOpenModal = () => {
 		// 중복체크
-		setIsModal(true);
+		if (nicknameChecked) setIsModal(true);
+		else setError('nickname', { message: '중복확인을 해주세요' });
 	};
 	const onCloseModal = () => {
 		setIsModal(false);
@@ -82,44 +89,63 @@ function ProfileSetting() {
 	};
 
 	// 2. NICKNAME
-	const handleCheckNickname = async () => {
-		const data = await checkNicknameApi(watch('nickname'));
 
-		if (!data) {
-			//이미 사용중이라면
-			setIsDuplicate(true);
-			return;
-		} else {
-			setIsDuplicate(false);
+	/**
+	 * 닉네임이 유효하면 true 아니라면 false를 return
+	 * @param {string} nickname
+	 * @returns {bool}
+	 */
+	const nicknameValidating = nickname => {
+		const nicknameReg = /^[가-힣0-9A-Za-z\s]{2,10}$/g;
+		return nicknameReg.test(nickname);
+	};
+
+	const handleCheckNickname = async () => {
+		if (nicknameValidating(watch('nickname'))) {
+			const data = await checkNicknameApi(watch('nickname'));
+			if (!data) {
+				//이미 사용중이라면
+				setError('nickname', { message: '중복된 닉네임이에요' });
+				return;
+			} else {
+				setNicknameChecked(true);
+				setError('nickname', { message: '사용가능한 닉네임이에요' });
+			}
 		}
-		setError('nickname', { message: null });
 	};
 
 	// 3. INTRODUCE
 	const introduceCnt = (
-		<S.IntroduceCnt cnt={watch('introduce')?.length}>{watch('introduce')?.length}</S.IntroduceCnt>
+		<S.IntroduceCnt cnt={watch('introduce')?.length}>
+			{watch('introduce')?.length ? watch('introduce').length : 0}
+		</S.IntroduceCnt>
 	);
 
 	// 완료 버튼
 	const isThereImage = () => {
-		const imageSrc = localStorage.getItem('profiles');
+		const imageSrc = localStorage.getItem('maskImageData');
 		if (imageSrc) return true;
 		else {
 			setPhotoErrorMessage('프로필 사진을 설정해주세요');
 			return false;
 		}
 	};
+
 	const onInvalid = e => {
 		isThereImage();
+		onCloseModal();
 	};
+
 	const onValid = data => {
 		if (!isThereImage()) return;
 		localStorage.setItem(
 			'basicInfo',
 			JSON.stringify({ ...basicInfo, nickname: watch('nickname'), introduce: watch('introduce') }),
 		);
+		handleModalNextBtn();
 		onOpenModal();
 	};
+
 	const handlePrevBtn = () => {
 		localStorage.setItem(
 			'basicInfo',
@@ -225,25 +251,29 @@ function ProfileSetting() {
 		);
 	}, []);
 
+	useEffect(() => {
+		setNicknameChecked(false);
+	}, [watch('nickname')]);
+
 	return (
 		<Wrapper>
-			{isModal && (
-				<Modal onCloseModal={onCloseModal} width={27.8} height={19.7}>
-					<S.ModalMessageWrapper>
-						<S.ModalMessage>프로필이 완성되었어요!</S.ModalMessage>
-						<S.ModalMessage>승인신청을 통해 상대방을 만나보세요</S.ModalMessage>
-					</S.ModalMessageWrapper>
-					<S.ModalBtnWrapper>
-						<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
-						<S.NextBtn onClick={handleModalNextBtn}>좋아요</S.NextBtn>
-					</S.ModalBtnWrapper>
-				</Modal>
-			)}
 			<S.TitleWrapper>
 				<S.Title>당신의 프로필을 완성해주세요</S.Title>
 			</S.TitleWrapper>
 
 			<S.Form onSubmit={handleSubmit(onValid, onInvalid)}>
+				{isModal && (
+					<Modal onCloseModal={onCloseModal} width={27.8} height={19.7}>
+						<S.ModalMessageWrapper>
+							<S.ModalMessage>프로필이 완성되었어요!</S.ModalMessage>
+							<S.ModalMessage>승인신청을 통해 상대방을 만나보세요</S.ModalMessage>
+						</S.ModalMessageWrapper>
+						<S.ModalBtnWrapper>
+							<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
+							<S.NextBtn type="submit">좋아요</S.NextBtn>
+						</S.ModalBtnWrapper>
+					</Modal>
+				)}
 				<S.Content>
 					{/* 프로필 사진 */}
 					<S.PhotoInfoWrapper>
@@ -257,8 +287,8 @@ function ProfileSetting() {
 					</S.PhotoInfoWrapper>
 					{/* 닉네임 */}
 					<S.HalfInfoWrapper>
-						{isDuplicate ? (
-							<S.ErrorMessage>중복하는 닉네임입니다.</S.ErrorMessage>
+						{errors.nickname?.message ? (
+							<S.ErrorMessage>{errors.nickname?.message}</S.ErrorMessage>
 						) : (
 							<S.Label htmlFor="NickName">닉네임</S.Label>
 						)}
@@ -269,8 +299,16 @@ function ProfileSetting() {
 									message: '닉네임을 설정해주세요',
 								},
 								pattern: {
-									value: /^[가-힣0-9\s]{1,10}$/,
-									message: '10자 이내로 설정해주세요',
+									value: /^[가-힣0-9A-Za-z\s]{2,10}$/,
+									message: '유효하지 않은 닉네임이에요',
+								},
+								maxLength: {
+									value: 10,
+									message: '닉네임이 너무 길어요',
+								},
+								minLength: {
+									value: 2,
+									message: '닉네임이 너무 짧아요',
 								},
 							})}
 						/>
@@ -281,10 +319,10 @@ function ProfileSetting() {
 
 					{/* 한줄 자기소개 */}
 					<S.WideInfoWrapper>
-						{formState.errors?.introduce ? (
-							<S.ErrorMessage>{formState.errors?.introduce?.message}</S.ErrorMessage>
+						{errors.introduce?.message ? (
+							<S.ErrorMessage>{errors.introduce?.message}</S.ErrorMessage>
 						) : (
-							<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/20)</S.Label>
+							<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/50)</S.Label>
 						)}
 						<S.WideInput
 							{...register('introduce', {
@@ -292,9 +330,9 @@ function ProfileSetting() {
 									value: true,
 									message: '한줄 자기소개를 입력해주세요',
 								},
-								pattern: {
-									value: /^[가-힣\sㄱ-ㅎ]{1,20}$/,
-									message: '20자 이내로 작성해주세요',
+								maxLength: {
+									value: 50,
+									message: '50자 이내로 작성해주세요',
 								},
 							})}
 						/>

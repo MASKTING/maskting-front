@@ -8,19 +8,6 @@ const api = axios.create({
 	},
 });
 
-api.interceptors.request.use(
-	config => {
-		config.headers = {
-			'Content-Type': 'application/json',
-			accesstoken: localStorage.getItem('accesstoken'),
-		};
-		return config;
-	},
-	error => {
-		return error;
-	},
-);
-
 api.interceptors.response.use(
 	response => {
 		return response;
@@ -32,14 +19,9 @@ api.interceptors.response.use(
 				const response = await axios({
 					method: 'post',
 					url: '/api/auth/silent-refresh',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${getCookie('refreshToken')}`,
-					},
 				});
 				if (response) {
-					localStorage.setItem('accesstoken', response.headers.accesstoken);
-					localStorage.setItem('expiresIn', response.headers.expiresIn);
+					api.defaults.headers.common['accesstoken'] = response.headers.accesstoken;
 					return api.request(originalRequest);
 				}
 			} catch (error) {
