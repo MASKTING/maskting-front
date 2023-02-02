@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import FONTSIZE from '../../../constants/fontsize';
 import PALETTE from '../../../constants/palette';
 
@@ -57,20 +57,7 @@ export const NavigateItemText = styled.div`
 	font-weight: 700;
 `;
 
-export const MainBoxPhoto = styled.section`
-	width: 100%;
-	height: 100px;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-`;
 export const MainBoxAnswer = styled.section``;
-
-export const PhotoItem = styled.img`
-	margin-bottom: 0.4rem;
-	width: 11.4rem;
-	height: 11.4rem;
-`;
 
 export const AnswerItem = styled.article`
 	background-color: ${PALETTE.PINK50};
@@ -87,38 +74,25 @@ export const AnswerItemAnswer = styled.p`
 	text-indent: 2rem;
 `;
 
-export const CarouselWrapper = styled.div`
-	position: absolute;
-	width: 342px;
-	height: 342px;
-	overflow: hidden;
-`;
-
-export const CarouselFrame = styled.div`
-	position: relative;
-	width: 342px;
-	height: 342px;
-	background-color: black;
-	margin-right: 20px;
+export const ModalInner = styled.div`
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 90%;
+	padding: 2rem 0;
 `;
-
-export const ItemFrame = styled.div`
-	width: fit-content;
-	height: fit-content;
+export const Title = styled.div`
+	font-size: 1.7rem;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	line-height: 2.6rem;
 `;
-
-export const CarouselItem = styled.div`
-	position: relative;
-	float: left;
-	flex-grow: 2;
-	width: 342px;
-	height: 342px;
-
-	background: url(${props => props.src});
-	background-size: cover;
-	/* Black/50 */
-	overflow: hidden;
-	border: 1px solid #fafafa;
-	border-radius: 16px;
+export const Info = styled.div`
+	color: #9e9e9e;
+	font-size: 1.1rem;
+	margin: 1.5rem 1rem;
+	line-height: 1.8rem;
+	text-align: center;
 `;
