@@ -6,7 +6,7 @@ export const getLikeList = async () => {
 			url: '/chat/follower',
 			method: 'GET',
 		});
-		return response.data;
+		return response?.data;
 	} catch (error) {
 		console.log(error);
 	}

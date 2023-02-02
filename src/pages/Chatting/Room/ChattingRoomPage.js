@@ -15,9 +15,9 @@ const ChattingRoomPage = () => {
 	const [chatList, setChatList] = useState([]);
 	const [chat, setChat] = useState('');
 	const [delay, setDelay] = useState(1000);
-	const [hour, setHour] = useState(0);
-	const [minute, setMinute] = useState(0);
-	const [second, setSecond] = useState(0);
+	const [hour, setHour] = useState('');
+	const [minute, setMinute] = useState('');
+	const [second, setSecond] = useState('');
 	const [timeOver, setTimeOver] = useState(false);
 	const [modalInfo, setModalInfo] = useState();
 	const [roomInfo, setRoomInfo] = useState({});
@@ -32,6 +32,7 @@ const ChattingRoomPage = () => {
 		const data = await getChattingRoom(roomId);
 		setRoomInfo(data);
 		const [h, m, s] = data.remainingTime.split(':').map(val => parseInt(val));
+		if (h === 0 && m === 0 && s === 0) setDelay(null);
 		timeSetting(h, m, s);
 		setChatList(data.messages);
 	};
