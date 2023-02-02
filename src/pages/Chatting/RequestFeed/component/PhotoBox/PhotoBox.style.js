@@ -12,6 +12,7 @@ const PhotoItem = styled.img`
 	margin-bottom: 0.4rem;
 	width: 11.4rem;
 	height: 11.4rem;
+	cursor: pointer;
 `;
 
 export { MainBoxPhoto, PhotoItem };
