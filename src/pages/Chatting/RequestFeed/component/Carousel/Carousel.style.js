@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 
-const bigger = keyframes`
+const biggerEffect = keyframes`
 	0% {
 		transform: scale(0);
 	}
@@ -13,7 +13,7 @@ export const CarouselWrapper = styled.div`
 	position: absolute;
 	width: 342px;
 	height: 342px;
-	animation: ${bigger} 0.2s;
+	animation: ${biggerEffect} 0.2s;
 `;
 
 export const CarouselItem = styled.div`
