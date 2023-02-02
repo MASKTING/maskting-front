@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import * as S from './ChattingChoiceModal.style.js';
-
+import { useGetOriginalMaskImage } from '../../../../../hooks/query/useGetOriginalMaskImage.js';
+import noneImage from '../../../../../assets/svg/plus.svg';
+import { useEffect } from 'react';
 const ChattingChoiceModal = ({ info, setModalType }) => {
 	const [imageSelected, setImageSelected] = useState(0);
 
@@ -9,6 +11,7 @@ const ChattingChoiceModal = ({ info, setModalType }) => {
 		const key = parseInt(e.target.value);
 		setImageSelected(key);
 	};
+	const [profileImageStatus, profileImage, setProfileImage] = useGetOriginalMaskImage();
 
 	const maskOpen = () => {
 		/**
@@ -34,7 +37,8 @@ const ChattingChoiceModal = ({ info, setModalType }) => {
 					<S.ModalBottomBoxInner>
 						<S.ModalBottomBoxTopText>🕐 최종 결정의 시간!</S.ModalBottomBoxTopText>
 						<S.ModalBottomBoxPhotoFrame>
-							{info?.image.map((src, idx) => {
+							{profileImageStatus === 'loading' ? <S.loader></S.loader> : ''}
+							{profileImage?.map((src, idx) => {
 								return (
 									<S.Label key={idx}>
 										<S.RadioInput type="radio" name="photoes" value={idx} onChange={radioChange} />

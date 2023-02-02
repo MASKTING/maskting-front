@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const ModalBackground = styled.div`
 	position: absolute;
@@ -242,7 +242,24 @@ const RadioInput = styled.input`
 
 const Label = styled.label``;
 
+const spin = keyframes`
+	from{
+		transform:rotate(360deg);
+	}
+`;
+const loader = styled.div`
+	position: relative;
+	margin: 0 auto;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	border: 12px solid #e0e0e0;
+	border-top: 10px solid #f45e5f;
+	animation: ${spin} 1s ease-in infinite;
+`;
+
 export {
+	loader,
 	Label,
 	RadioInput,
 	ModalBottomDecideText,

@@ -19,7 +19,6 @@ const ChattingRoomPage = () => {
 	const [minute, setMinute] = useState('');
 	const [second, setSecond] = useState('');
 	const [timeOver, setTimeOver] = useState(false);
-	const [modalInfo, setModalInfo] = useState();
 	const [roomInfo, setRoomInfo] = useState({});
 	const nickname = localStorage.getItem('nickname');
 
@@ -144,19 +143,7 @@ const ChattingRoomPage = () => {
 	}, []);
 
 	useEffect(() => {
-		if (hour === 0 && minute === 0 && second === 0) {
-			/**
-			 *  API 시간이 완료되면 자신의 original, mask 사진을 받아온다.
-			 */
-			const temp = {
-				image: [
-					'https://cdn.ize.co.kr/news/photo/202208/53204_63942_515.jpg',
-					'https://cdn.ize.co.kr/news/photo/202208/53204_63942_515.jpg',
-				],
-			};
-			setModalInfo(temp);
-			setTimeOver(true);
-		}
+		if (hour === 0 && minute === 0 && second === 0) setTimeOver(true);
 	}, [hour, minute, second]);
 
 	const handleBack = () => {
@@ -178,7 +165,7 @@ const ChattingRoomPage = () => {
 				</S.TopInner>
 			</S.Top>
 			<WrapperInner ref={scrollRef}>
-				{timeOver && <ChattingFinalModal info={modalInfo}></ChattingFinalModal>}
+				{timeOver && <ChattingFinalModal></ChattingFinalModal>}
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
 						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />

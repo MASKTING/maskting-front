@@ -4,11 +4,11 @@ import ChattingChoiceModal from './ChattingChoiceModal/ChattingChoiceModal.jsx';
 import ChattingWaitModal from './ChattingWaitModal/ChattingWaitModal.jsx';
 import ChattingResultModal from './ChattingResultModal/ChattingResultModal.jsx';
 
-const ChattingFinalModal = ({ info }) => {
+const ChattingFinalModal = () => {
 	const [modalType, setModalType] = useState(0);
 
 	const modals = [
-		<ChattingChoiceModal info={info} setModalType={setModalType}></ChattingChoiceModal>,
+		<ChattingChoiceModal setModalType={setModalType}></ChattingChoiceModal>,
 		<ChattingWaitModal setModalType={setModalType}></ChattingWaitModal>,
 		<ChattingResultModal setModalType={setModalType}></ChattingResultModal>,
 	];
