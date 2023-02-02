@@ -96,3 +96,45 @@ export const Info = styled.div`
 	line-height: 1.8rem;
 	text-align: center;
 `;
+
+export const DeclineBox = styled.div`
+	position: relative;
+
+	/* Body 2 */
+	z-index: 1;
+	font-family: 'Pretendard-Regular';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 13px;
+	line-height: 20px;
+	/* identical to box height, or 154% */
+	left: 50%;
+	transform: translateX(-50%);
+	letter-spacing: 0.5px;
+	/* Black/600 */
+
+	color: #757575;
+	bottom: 135px;
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+`;
+
+export const BigButton = styled.button`
+	position: relative;
+	bottom: 15rem;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: auto;
+	width: 34.2rem;
+	height: 5.8rem;
+	border: none;
+	background-color: ${props => (props.color === 'gray' ? PALETTE.BLACK300 : PALETTE.PINK600)};
+	border-radius: 1.6rem;
+	color: ${props => (props.color === 'gray' ? PALETTE.BLACK600 : PALETTE.BLACK50)};
+	cursor: pointer;
+	font-weight: 700;
+`;

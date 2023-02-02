@@ -6,14 +6,21 @@ import HeaderGoBackLeft from '../../../components/Header/HeaderGoBackLeft/Header
 import HeaderGoBackRight from '../../../components/Header/HeaderGoBackRight/HeaderGoBackRight';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
-import BigButton from '../../../components/Button/BigButton/BigButton';
-import Modal from '../../../components/Modal/Modal';
-import SmallButton from '../../../components/Button/SmallButton/SmallButton';
-import { sendLike } from '../../../api/sendLike';
+import AcceptModal from './component/Modals/AcceptModal/AcceptModal';
+import AcceptNoticeModal from './component/Modals/AcceptNoticeModal/AcceptNoticeModal';
+import DeclineModal from './component/Modals/DeclineModal/DeclineModal';
+import DeclineNoticeModal from './component/Modals/DeclineNoticeModal/DeclineNoticeModal';
 import Carousel from './component/Carousel/Carousel';
 import PhotoBox from './component/PhotoBox/PhotoBox';
+import cancel from '../../../assets/svg/cancel.svg';
 
 const PHOTOLIST = [
+	{ id: '1', src: 'http://img.seoul.co.kr//img/upload/2022/08/23/SSI_20220823175822.jpg' },
+	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
+	{
+		id: '3',
+		src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7mC4Bjo0Qtlf8JC5jnA2YVSajo3inYm3ebA&usqp=CAU',
+	},
 	{ id: '1', src: 'http://img.seoul.co.kr//img/upload/2022/08/23/SSI_20220823175822.jpg' },
 	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
 	{
@@ -26,7 +33,7 @@ const ANSWERLIST = [{ id: '1', question: '가장 좋아하는 음식은?', answe
 
 const ChattingFeedPage = ({ userInfo, setViewState }) => {
 	const [navigateState, setNavigateState] = useState('photo');
-	const [isModal, setIsModal] = useState(false);
+	const [modalState, setModalState] = useState('');
 	const [carouselState, setCarouselState] = useState(0);
 	const [isRequested, setIsRequested] = useState(false);
 	const handlePhotoItem = () => {
@@ -37,44 +44,36 @@ const ChattingFeedPage = ({ userInfo, setViewState }) => {
 		setNavigateState('answer');
 	};
 
-	const handleCarousel = () => {
-		setNavigateState('carousel');
-	};
-
-	const handleRequest = () => {
-		setIsModal(true);
-	};
-	const handleCloseModal = () => {
-		setIsModal(false);
-	};
-	const handleRequestConfirm = async () => {
-		const data = await sendLike(userInfo.nickname);
-		setIsRequested(true);
-		setIsModal(false);
-	};
-
 	const back = () => {
 		setViewState(false);
 	};
 
+	const changeModalState = e => {
+		setModalState(e.target.dataset.state);
+	};
+
+	const modals = {
+		accept: (
+			<AcceptModal
+				userInfo={userInfo}
+				changeModalState={changeModalState}
+				setIsRequested={setIsRequested}
+			></AcceptModal>
+		),
+		acceptNotice: (
+			<AcceptNoticeModal
+				userInfo={userInfo}
+				changeModalState={changeModalState}
+				back={back}
+			></AcceptNoticeModal>
+		),
+		decline: <DeclineModal userInfo={userInfo} changeModalState={changeModalState}></DeclineModal>,
+		declineNotice: <DeclineNoticeModal userInfo={userInfo} back={back}></DeclineNoticeModal>,
+	};
+
 	return (
 		<Wrapper>
-			{isModal && (
-				<Modal width="32.1" height="25.2" onCloseModal={handleCloseModal}>
-					<S.ModalInner>
-						<S.Title>
-							분당청소요정에게 <br />
-							티켓을 사용해서 <br />
-							대화를 요청하시겠어요?
-						</S.Title>
-						<S.Info>상대방이 대화 요청을 수락할 경우 알림을 보내드려요 잔여 티켓: 30장</S.Info>
-						<SmallButton onClick={handleRequestConfirm}>요청하기</SmallButton>
-						<SmallButton color="white" onClick={handleCloseModal}>
-							취소
-						</SmallButton>
-					</S.ModalInner>
-				</Modal>
-			)}
+			{modals[modalState]}
 			<S.HeaderWrapper>
 				<HeaderGoBackLeft onClick={back}>
 					<S.HeaderLeftSide className="material-icons">local_activity</S.HeaderLeftSide>30
@@ -132,12 +131,16 @@ const ChattingFeedPage = ({ userInfo, setViewState }) => {
 				)}
 			</WrapperInner>
 			{isRequested ? (
-				<BigButton color="gray">대화요청을 전송했어요</BigButton>
+				<S.BigButton color="gray">대화요청을 전송했어요</S.BigButton>
 			) : (
-				<BigButton onClick={handleRequest}>요청 수락하기</BigButton>
+				<S.BigButton onClick={changeModalState} data-state={'accept'}>
+					요청 수락하기
+				</S.BigButton>
 			)}
-
-			<SideBar status="home" />
+			<S.DeclineBox data-state={'decline'} onClick={changeModalState}>
+				<img src={cancel}></img> &nbsp;거절할래요
+			</S.DeclineBox>
+			<SideBar status="chatting" />
 		</Wrapper>
 	);
 };
