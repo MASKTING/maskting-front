@@ -86,3 +86,39 @@ export const AnswerItemQuestion = styled.p`
 export const AnswerItemAnswer = styled.p`
 	text-indent: 2rem;
 `;
+
+export const CarouselWrapper = styled.div`
+	position: absolute;
+	width: 342px;
+	height: 342px;
+	overflow: hidden;
+`;
+
+export const CarouselFrame = styled.div`
+	position: relative;
+	width: 342px;
+	height: 342px;
+	background-color: black;
+	margin-right: 20px;
+	display: flex;
+`;
+
+export const ItemFrame = styled.div`
+	width: fit-content;
+	height: fit-content;
+`;
+
+export const CarouselItem = styled.div`
+	position: relative;
+	float: left;
+	flex-grow: 2;
+	width: 342px;
+	height: 342px;
+
+	background: url(${props => props.src});
+	background-size: cover;
+	/* Black/50 */
+	overflow: hidden;
+	border: 1px solid #fafafa;
+	border-radius: 16px;
+`;

@@ -13,10 +13,12 @@ import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import { sendLike } from '../../../api/sendLike';
 
 const PHOTOLIST = [
-	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
+	{ id: '1', src: 'http://img.seoul.co.kr//img/upload/2022/08/23/SSI_20220823175822.jpg' },
 	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '3', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '4', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
+	{
+		id: '3',
+		src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7mC4Bjo0Qtlf8JC5jnA2YVSajo3inYm3ebA&usqp=CAU',
+	},
 ];
 
 const ANSWERLIST = [
@@ -121,10 +123,28 @@ const ChattingFeedPage = ({ userInfo, setViewState }) => {
 						<S.NavigateItemText>답변</S.NavigateItemText>
 					</S.NavigateItem>
 				</S.NavigateBox>
+				<S.CarouselWrapper>
+					<S.CarouselFrame>
+						{PHOTOLIST?.map(({ src }, idx) => {
+							return (
+								<S.ItemFrame key={idx}>
+									<S.CarouselItem src={src}></S.CarouselItem>
+								</S.ItemFrame>
+							);
+						})}
+					</S.CarouselFrame>
+				</S.CarouselWrapper>
+
 				{navigateState === 'photo' && (
 					<S.MainBoxPhoto>
 						{PHOTOLIST.map(photoItem => (
-							<S.PhotoItem key={photoItem.id} src={photoItem.src} />
+							<S.PhotoItem
+								key={photoItem.id}
+								src={photoItem.src}
+								onClick={() => {
+									console.log('click');
+								}}
+							/>
 						))}
 					</S.MainBoxPhoto>
 				)}

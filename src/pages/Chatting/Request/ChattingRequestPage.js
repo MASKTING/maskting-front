@@ -16,6 +16,7 @@ const ChattingRequestPage = () => {
 
 	const init = async () => {
 		const feedList = await getLikeList();
+
 		setFeedList(feedList);
 	};
 
