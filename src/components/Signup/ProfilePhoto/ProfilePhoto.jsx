@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-
 import pick_example1 from '../../../assets/pic_example1.svg';
 import imageState from '../../../recoil';
 import Modal from '../../Modal';

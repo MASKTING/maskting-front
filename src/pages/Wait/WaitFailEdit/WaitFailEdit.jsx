@@ -1,79 +1,57 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Wrapper from '../../../components/Wrapper';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
-import api from '../../../api/api';
 import { useNavigate } from 'react-router-dom';
+import noneImage from '../../../assets/svg/noneImage.svg';
 import BigButton from '../../../components/Button/BigButton/BigButton';
 import * as S from './WaitFailEdit.style';
 import { useRecoilState } from 'recoil';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { checkNicknameApi } from '../../../api/signup';
 import imageState from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
-import { getProfile } from '../../../api/getProfile';
 import SideBar from '../../../components/SideBar/SideBar';
-import { useGetProfile } from './../../../hooks/query/useGetProfile';
 import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
-
-const dataURLtoFile = (dataurl, fileName) => {
-	var arr = dataurl.split(','),
-		mime = arr[0].match(/:(.*?);/)[1],
-		bstr = atob(arr[1]),
-		n = bstr.length,
-		u8arr = new Uint8Array(n);
-
-	while (n--) {
-		u8arr[n] = bstr.charCodeAt(n);
-	}
-
-	return new File([u8arr], fileName, { type: mime });
-};
+import { postResignup } from '../../../api/postResignup';
 
 const WaitFailEdit = () => {
-	const [imageFile] = useRecoilState(imageState);
+	const [imageFile, setImageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
-	const [profilePreview, setProfilePreview] = useState(null);
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
 	const [isModal, setIsModal] = useState(false);
 	const [isDuplicate, setIsDuplicate] = useState(false);
 	const { register, handleSubmit, formState, watch, setError, clearErrors, errors, setValue } =
-		useForm();
-	const [signupInfo, setSignupInfo] = useState({});
-	const profileImage = watch('profileImage');
-	const nickname = watch('nickname');
-	const introduce = watch('introduce');
-
-	const { userInfo } = useGetProfile();
-
-	const { resignupInfo } = useGetResignupInfo();
-	console.log(resignupInfo);
+		useForm({ mode: 'all' });
+	const { resignupInfo } = useGetResignupInfo(setValue);
+	const imgRef = useRef();
 
 	useEffect(() => {
-		if (profileImage?.length > 0) {
-			const reader = new FileReader();
-			reader.readAsDataURL(profileImage[0]);
-			reader.onloadend = () => {
-				setProfilePreview(reader.result);
-			};
+		if (isObjectEmpty(imageFile)) {
+			localStorage.setItem('maskImageData', '');
+			localStorage.setItem('imageData', '');
 		}
-	}, [profileImage]);
+	}, []);
 
 	// MODAL
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
-	const handleModalNextBtn = async () => {
-		const formData = new FormData();
-		formData.append('profiles', profileImage[0]);
-		formData.append('profiles', profileImage[0]);
-		formData.append('nickname', nickname);
-		formData.append('bio', signupInfo.bio);
-		formData.append('name', signupInfo.name);
-		formData.append('birth', signupInfo.birth);
-		formData.append('height', signupInfo.height);
 
-		const res = await api.post('/api/user/re-signup', formData);
+	const isObjectEmpty = obj => {
+		return Object.keys(obj).length === 0;
+	};
+
+	const modifyRequest = async () => {
+		const formData = new FormData();
+		formData.append('profiles', imageFile.originalImage);
+		formData.append('profiles', imageFile.maskedImage);
+		formData.append('nickname', watch('nickname'));
+		formData.append('bio', watch('bio'));
+		formData.append('name', watch('name'));
+		formData.append('birth', watch('birth'));
+		formData.append('height', watch('height'));
+
+		const res = await postResignup(formData);
 		console.log(res);
 	};
 
@@ -84,11 +62,12 @@ const WaitFailEdit = () => {
 		if (!data) {
 			//이미 사용중이라면
 			setIsDuplicate(true);
+			setError('nickname', { message: '사용할 수 없는 닉네임이에요' });
 			return;
 		} else {
 			setIsDuplicate(false);
 		}
-		setError('nickname', { message: null });
+		setError('nickname', { message: '사용가능한 닉네임이에요' });
 	};
 
 	// 3. INTRODUCE
@@ -96,51 +75,73 @@ const WaitFailEdit = () => {
 		<S.IntroduceCnt cnt={watch('introduce')?.length}>{watch('introduce')?.length}</S.IntroduceCnt>
 	);
 
+	const onUploadImage = useCallback(async e => {
+		if (!e.target.files) {
+			return;
+		}
+		setImageFile({ originalImage: e.target.files[0] });
+		const reader = new FileReader();
+		reader.readAsDataURL(imgRef.current.files[0]);
+		reader.onload = async () => {
+			localStorage.setItem('imageData', reader.result);
+			navigate('/wait/fail/edit/mask');
+		};
+	}, []);
+
 	const onSubmit = () => {
-		console.log(1);
+		modifyRequest();
 	};
+
+	const submitError = () => {
+		if (Object.keys(imageFile).length === 0) setPhotoErrorMessage('이미지를 등록해주세요');
+	};
+
 	const handleEdit = () => {
 		setIsModal(true);
 	};
 
 	return (
 		<Wrapper>
-			{isModal && (
-				<Modal onCloseModal={onCloseModal} width={23.8} height={16.8}>
-					<S.ModalMessageWrapper>
-						<S.ModalMessage>수정한 프로필로 승인을 요청할까요?</S.ModalMessage>
-					</S.ModalMessageWrapper>
-					<S.ModalBtnWrapper>
-						<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
-						<S.NextBtn onClick={handleModalNextBtn}>네</S.NextBtn>
-					</S.ModalBtnWrapper>
-				</Modal>
-			)}
 			<WrapperInner>
 				<S.TitleWrapper>
 					<S.Title>
-						{userInfo?.nickname}님
+						{resignupInfo?.nickname}님
 						<br /> 다음 항목을 수정해주세요
 					</S.Title>
 				</S.TitleWrapper>
-				<S.Form onSubmit={handleSubmit(onSubmit)}>
+				<S.Form onSubmit={handleSubmit(onSubmit, submitError)}>
 					<S.Content>
 						{/* 프로필 사진 */}
 						<S.PhotoInfoWrapper>
-							<S.Red>프로필 사진</S.Red>
-							{photoErrorMessage && <S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>}
+							{photoErrorMessage ? (
+								<S.PhotoErrorMessage>{photoErrorMessage}</S.PhotoErrorMessage>
+							) : (
+								<S.Red>프로필 사진</S.Red>
+							)}
 							<S.PhotoBox htmlFor="image">
-								<S.PhotoImage htmlFor="ProfilePhoto" src={profilePreview} />
+								<S.PhotoImage
+									htmlFor="image"
+									src={
+										isObjectEmpty(imageFile) ? noneImage : localStorage?.getItem('maskImageData')
+									}
+								/>
 								<S.PhotoLogo className="material-icons">edit</S.PhotoLogo>
 							</S.PhotoBox>
-							<S.InputImage type="file" accept="img/*" id="image" {...register('profileImage')} />
+							<S.InputImage
+								{...register('profileImage')}
+								type="file"
+								accept="image/*"
+								id="image"
+								ref={imgRef}
+								onChange={onUploadImage}
+							/>
 						</S.PhotoInfoWrapper>
 						{/* 닉네임 */}
 						<S.HalfInfoWrapper>
-							{isDuplicate ? (
-								<S.ErrorMessage>중복하는 닉네임입니다.</S.ErrorMessage>
+							{formState.errors.nickname?.message ? (
+								<S.ErrorMessage>{formState.errors?.nickname?.message}</S.ErrorMessage>
 							) : (
-								<S.Label htmlFor="NickName">닉네임</S.Label>
+								<S.Label htmlFor="Introduce">닉네임</S.Label>
 							)}
 							<S.HalfInput
 								{...register('nickname', {
@@ -149,8 +150,12 @@ const WaitFailEdit = () => {
 										message: '닉네임을 설정해주세요',
 									},
 									pattern: {
-										value: /^[가-힣0-9\s]{1,10}$/,
-										message: '10자 이내로 설정해주세요',
+										value: /^[가-힣0-9a-zA-Z\s]{1,10}$/,
+										message: '유효하지 않은 닉네임이에요',
+									},
+									maxLength: {
+										value: 10,
+										message: '닉네임이 너무 길어요',
 									},
 								})}
 							/>
@@ -164,7 +169,7 @@ const WaitFailEdit = () => {
 							{formState.errors?.introduce ? (
 								<S.ErrorMessage>{formState.errors?.introduce?.message}</S.ErrorMessage>
 							) : (
-								<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/20)</S.Label>
+								<S.Label htmlFor="Introduce">한 줄 자기소개 ({introduceCnt}/50)</S.Label>
 							)}
 							<S.WideInput
 								{...register('introduce', {
@@ -172,26 +177,82 @@ const WaitFailEdit = () => {
 										value: true,
 										message: '한줄 자기소개를 입력해주세요',
 									},
-									pattern: {
-										value: /^[가-힣\sㄱ-ㅎ]{1,20}$/,
-										message: '20자 이내로 작성해주세요',
+									maxLength: {
+										value: 50,
+										message: '50자 이내로 작성해주세요',
 									},
 								})}
 							/>
 						</S.WideInfoWrapper>
 						<S.InputWrapper>
-							<S.Label htmlFor="name">이름</S.Label>
-							<S.FullInput {...register('name')} />
+							{formState.errors?.name ? (
+								<S.ErrorMessage>{formState.errors?.name?.message}</S.ErrorMessage>
+							) : (
+								<S.Label htmlFor="Introduce">이름</S.Label>
+							)}
+							<S.FullInput
+								{...register('name', {
+									required: {
+										value: true,
+										message: '이름을 입력해주세요',
+									},
+									pattern: {
+										value: /^[가-힣]{2,6}$/,
+										message: '올바른 이름을 입력해주세요',
+									},
+								})}
+							/>
 						</S.InputWrapper>
 						<S.InputWrapper>
-							<S.Label htmlFor="name">생년월일</S.Label>
-							<S.FullInput {...register('birth')} />
+							{formState.errors?.birth ? (
+								<S.ErrorMessage>{formState.errors?.birth?.message}</S.ErrorMessage>
+							) : (
+								<S.Label htmlFor="Introduce">생년월일</S.Label>
+							)}
+							<S.FullInput
+								{...register('birth', {
+									required: {
+										value: true,
+										message: '생년월일을 입력해주세요',
+									},
+									pattern: {
+										value: /^[0-9]{8}$/,
+										message: '유효한 생년월일이 아니에요',
+									},
+								})}
+							/>
 						</S.InputWrapper>
 						<S.InputWrapper>
-							<S.Label htmlFor="name">키</S.Label>
-							<S.FullInput {...register('height')} />
+							{formState.errors?.height ? (
+								<S.ErrorMessage>{formState.errors?.height?.message}</S.ErrorMessage>
+							) : (
+								<S.Label htmlFor="Introduce">키</S.Label>
+							)}
+							<S.FullInput
+								{...register('height', {
+									required: {
+										value: true,
+										message: '키를 입력해주세요',
+									},
+									pattern: {
+										value: /^[0-9]{3}$/,
+										message: '유효한 키가 아니에요',
+									},
+								})}
+							/>
 						</S.InputWrapper>
 					</S.Content>
+					{isModal && (
+						<Modal onCloseModal={onCloseModal} width={23.8} height={16.8}>
+							<S.ModalMessageWrapper>
+								<S.ModalMessage>수정한 프로필로 승인을 요청할까요?</S.ModalMessage>
+							</S.ModalMessageWrapper>
+							<S.ModalBtnWrapper>
+								<S.PrevBtn onClick={onCloseModal}>취소</S.PrevBtn>
+								<S.NextBtn type="submit">네</S.NextBtn>
+							</S.ModalBtnWrapper>
+						</Modal>
+					)}
 					<BigButton onClick={handleEdit}>수정했어요</BigButton>
 				</S.Form>
 			</WrapperInner>

@@ -3,7 +3,7 @@ import { getProfile } from '../../api/getProfile';
 import { useState } from 'react';
 import api from '../../api/api';
 
-export const useGetResignupInfo = () => {
+export const useGetResignupInfo = setValue => {
 	const [resignupInfo, setResignupInfo] = useState(null);
 	const query = useQuery(
 		'getResignupInfo',
@@ -16,11 +16,13 @@ export const useGetResignupInfo = () => {
 			retry: 0, // 실패시 재호출 몇번 할지
 			onSuccess: res => {
 				setResignupInfo(res?.data);
+				if (setValue) for (const key in res?.data) setValue(key, res?.data[key]);
 			},
 			onError: e => {
 				console.log(e);
 			},
 		},
 	);
+
 	return { ...query, resignupInfo, setResignupInfo };
 };

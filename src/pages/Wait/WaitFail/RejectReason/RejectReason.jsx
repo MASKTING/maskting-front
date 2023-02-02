@@ -2,7 +2,6 @@ import * as S from './RejectReason.style';
 import React from 'react';
 
 const RejectReason = reason => {
-	console.log(reason.reason);
 	return (
 		<>
 			{reason?.reason?.includes('프로필 사진') && (
