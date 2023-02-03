@@ -50,7 +50,7 @@ const ChattingMainPage = () => {
 		const roomList = await getChattingRooms();
 		setChattingRoomList(roomList);
 		const likeList = await getLikeList();
-		setLikeNumber(likeList.length);
+		setLikeNumber(likeList?.length);
 		const newRoomIdList = [];
 		roomList.forEach(roomInfo => {
 			newRoomIdList.push(roomInfo.roomId);
