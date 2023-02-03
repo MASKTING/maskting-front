@@ -15,7 +15,5 @@ export const useGetOriginalMaskImage = () => {
 		},
 	});
 
-	console.log('실행');
-
 	return [query.status, profileImage, setProfileImage];
 };
