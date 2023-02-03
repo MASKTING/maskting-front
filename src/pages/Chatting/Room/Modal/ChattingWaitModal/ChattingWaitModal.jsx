@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import * as S from './ChattingWaitModal.style';
 
-const ChattingWaitModal = ({ setModalType }) => {
+const ChattingWaitModal = ({ setModalType, partnerName }) => {
 	const [imageSelected, setImageSelected] = useState(0);
 
 	const radioChange = e => {
@@ -23,7 +23,7 @@ const ChattingWaitModal = ({ setModalType }) => {
 				</S.ModalTopText>
 				<S.ModalMiddleBox>
 					<S.ModalMiddleBoxText>
-						아직 분당청소요정님이 최종 결정을 <br></br> 내리지 않았어요! 결과를 기다려주세요.
+						아직 {partnerName}님이 최종 결정을 <br></br> 내리지 않았어요! 결과를 기다려주세요.
 					</S.ModalMiddleBoxText>
 				</S.ModalMiddleBox>
 			</S.ModalWrapper>

@@ -1,26 +1,32 @@
 import React from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as S from './ChattingChoiceModal.style.js';
 import { useGetOriginalMaskImage } from '../../../../../hooks/query/useGetOriginalMaskImage.js';
-import noneImage from '../../../../../assets/svg/plus.svg';
-import { useEffect } from 'react';
+import { postDecision } from '../../../../../api/postDecision.js';
 const ChattingChoiceModal = ({ info, setModalType }) => {
 	const [imageSelected, setImageSelected] = useState(0);
-
+	const { roomId } = useParams();
 	const radioChange = e => {
 		const key = parseInt(e.target.value);
 		setImageSelected(key);
 	};
 	const [profileImageStatus, profileImage, setProfileImage] = useGetOriginalMaskImage();
 
-	const maskOpen = () => {
+	const maskOpen = async () => {
 		/**
 		 * 요청 결정 API를 보낸다음에 바로 상대방의 요청 상태를 알아야 한다.
 		 * 1. 결정 API 요청
 		 * 2. 결정 상태를 받는 API 요청
 		 * 3. 2에서 받은 데이터를 가지고 modalType 값 설정
 		 */
-		setModalType(2);
+		const decision = imageSelected === 0 ? 'NO' : 'YES';
+		try {
+			await postDecision({ decision: decision }, roomId);
+			window.location.reload();
+		} catch (e) {
+			alert(e);
+		}
 	};
 
 	return (

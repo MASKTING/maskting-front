@@ -2,29 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import * as S from './ChattingResultModal.style.js';
 
-const ChattingResultModal = ({ info, setModalType }) => {
-	const [imageSelected, setImageSelected] = useState(0);
-	const [matched, setMatched] = useState(false);
-	const radioChange = e => {
-		const key = parseInt(e.target.value);
-		setImageSelected(key);
-	};
-
-	const maskOpen = () => {
-		/**
-		 * 요청 결정 API를 보낸다음에 바로 상대방의 요청 상태를 알아야 한다.
-		 * 1. 결정 API 요청
-		 * 2. 결정 상태를 받는 API 요청
-		 * 3. 2에서 받은 데이터를 가지고 modalType 값 설정
-		 */
-		setModalType(1);
-	};
-
+const ChattingResultModal = ({ result, setModalType }) => {
 	return (
 		<>
 			<S.ModalBackground></S.ModalBackground>
 			<S.ModalTotalWrapper>
-				{matched ? (
+				{result === 'MATCH' ? (
 					<S.ModalWrapper>
 						<S.ModalInner>
 							<S.ModalFirstText>🎉 축하드립니다!</S.ModalFirstText>
