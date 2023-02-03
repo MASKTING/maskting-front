@@ -10,24 +10,9 @@ import AcceptModal from './component/Modals/AcceptModal/AcceptModal';
 import AcceptNoticeModal from './component/Modals/AcceptNoticeModal/AcceptNoticeModal';
 import DeclineModal from './component/Modals/DeclineModal/DeclineModal';
 import DeclineNoticeModal from './component/Modals/DeclineNoticeModal/DeclineNoticeModal';
-import Carousel from './component/Carousel/Carousel';
-import PhotoBox from './component/PhotoBox/PhotoBox';
+import Carousel from '../../../components/Carousel/Carousel';
+import PhotoBox from '../../../components/Carousel/PhotoBox/PhotoBox';
 import cancel from '../../../assets/svg/cancel.svg';
-
-const PHOTOLIST = [
-	{ id: '1', src: 'http://img.seoul.co.kr//img/upload/2022/08/23/SSI_20220823175822.jpg' },
-	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{
-		id: '3',
-		src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7mC4Bjo0Qtlf8JC5jnA2YVSajo3inYm3ebA&usqp=CAU',
-	},
-	{ id: '1', src: 'http://img.seoul.co.kr//img/upload/2022/08/23/SSI_20220823175822.jpg' },
-	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{
-		id: '3',
-		src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7mC4Bjo0Qtlf8JC5jnA2YVSajo3inYm3ebA&usqp=CAU',
-	},
-];
 
 const ANSWERLIST = [{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' }];
 
@@ -108,14 +93,14 @@ const ChattingFeedPage = ({ userInfo, setViewState }) => {
 					<PhotoBox
 						setNavigateState={setNavigateState}
 						setCarouselState={setCarouselState}
-						feedList={PHOTOLIST}
+						feedList={userInfo?.feed}
 					></PhotoBox>
 				)}
 				{navigateState === 'carousel' && (
 					<Carousel
 						setNavigateState={setNavigateState}
 						carouselState={carouselState}
-						feedList={PHOTOLIST}
+						feedList={userInfo?.feed}
 					></Carousel>
 				)}
 
