@@ -11,48 +11,15 @@ import Modal from '../../../components/Modal/Modal';
 import styled from 'styled-components';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import { sendLike } from '../../../api/sendLike';
+import Carousel from '../../../components/Carousel/Carousel';
+import PhotoBox from '../../../components/Carousel/PhotoBox/PhotoBox';
 
-const PHOTOLIST = [
-	{ id: '1', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '2', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '3', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-	{ id: '4', src: 'https://pbs.twimg.com/profile_images/1374979417915547648/vKspl9Et_400x400.jpg' },
-];
+const ANSWERLIST = [{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' }];
 
-const ANSWERLIST = [
-	{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '2', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '3', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '4', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '5', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '6', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-	{ id: '7', question: '가장 좋아하는 음식은?', answer: '감자탕' },
-];
-const ModalInner = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 90%;
-	padding: 2rem 0;
-`;
-const Title = styled.div`
-	font-size: 1.7rem;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	line-height: 2.6rem;
-`;
-const Info = styled.div`
-	color: #9e9e9e;
-	font-size: 1.1rem;
-	margin: 1.5rem 1rem;
-	line-height: 1.8rem;
-	text-align: center;
-`;
 const HomeFeedPage = ({ userInfo, setViewState }) => {
 	const [navigateState, setNavigateState] = useState('photo');
 	const [isModal, setIsModal] = useState(false);
+	const [carouselState, setCarouselState] = useState(0);
 	const [isRequested, setIsRequested] = useState(false);
 	const handlePhotoItem = () => {
 		setNavigateState('photo');
@@ -83,18 +50,18 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 		<Wrapper>
 			{isModal && (
 				<Modal width="32.1" height="25.2" onCloseModal={handleCloseModal}>
-					<ModalInner>
-						<Title>
+					<S.ModalInner>
+						<S.Title>
 							분당청소요정에게 <br />
 							티켓을 사용해서 <br />
 							대화를 요청하시겠어요?
-						</Title>
-						<Info>상대방이 대화 요청을 수락할 경우 알림을 보내드려요 잔여 티켓: 30장</Info>
+						</S.Title>
+						<S.Info>상대방이 대화 요청을 수락할 경우 알림을 보내드려요 잔여 티켓: 30장</S.Info>
 						<SmallButton onClick={handleRequestConfirm}>요청하기</SmallButton>
 						<SmallButton color="white" onClick={handleCloseModal}>
 							취소
 						</SmallButton>
-					</ModalInner>
+					</S.ModalInner>
 				</Modal>
 			)}
 			<S.HeaderWrapper>
@@ -124,11 +91,18 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 					</S.NavigateItem>
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
-					<S.MainBoxPhoto>
-						{userInfo?.feed?.map((photoItem, idx) => (
-							<S.PhotoItem key={idx} src={photoItem} />
-						))}
-					</S.MainBoxPhoto>
+					<PhotoBox
+						setCarouselState={setCarouselState}
+						setNavigateState={setNavigateState}
+						feedList={userInfo?.feed}
+					></PhotoBox>
+				)}
+				{navigateState === 'carousel' && (
+					<Carousel
+						setNavigateState={setNavigateState}
+						feedList={userInfo?.feed}
+						carouselState={carouselState}
+					></Carousel>
 				)}
 				{navigateState === 'answer' && (
 					<S.MainBoxAnswer>
