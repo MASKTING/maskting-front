@@ -1,4 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const biggerEffect = keyframes`
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(1);
+	}
+`;
 
 const Modal = styled.div`
 	position: absolute;
@@ -28,6 +37,7 @@ const ModalInner = styled.div`
 	z-index: 5;
 	display: flex;
 	justify-content: center;
+	animation: ${biggerEffect} 0.2s;
 `;
 
 export { Modal, ModalInner };
