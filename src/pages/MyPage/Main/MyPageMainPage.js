@@ -6,11 +6,11 @@ import HeaderGoBackLeft from '../../../components/Header/HeaderGoBackLeft/Header
 import HeaderGoBackRight from '../../../components/Header/HeaderGoBackRight/HeaderGoBackRight';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
-import Modal from '../../../components/Modal/Modal';
-import styled from 'styled-components';
-import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import { useGetProfile } from './../../../hooks/query/useGetProfile';
 import { useGetFeed } from './../../../hooks/query/useGetFeed';
+import PhotoBox from '../../../components/Carousel/PhotoBox/PhotoBox';
+import Carousel from '../../../components/Carousel/Carousel';
+import { useEffect } from 'react';
 
 const ANSWERLIST = [
 	{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' },
@@ -24,8 +24,13 @@ const ANSWERLIST = [
 
 const MyPageMainPage = () => {
 	const [navigateState, setNavigateState] = useState('photo');
+	const [carouselState, setCarouselState] = useState(0);
 	const { userInfo } = useGetProfile();
 	const { feed } = useGetFeed();
+
+	useEffect(() => {
+		console.log(userInfo);
+	}, [feed]);
 
 	return (
 		<Wrapper>
@@ -66,12 +71,20 @@ const MyPageMainPage = () => {
 					</S.NavigateItem>
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
-					<S.MainBoxPhoto>
-						{feed?.feeds?.map((feed, idx) => (
-							<S.PhotoItem key={idx} src={feed} />
-						))}
-					</S.MainBoxPhoto>
+					<PhotoBox
+						feedList={feed?.feeds}
+						setNavigateState={setNavigateState}
+						setCarouselState={setCarouselState}
+					></PhotoBox>
 				)}
+				{navigateState === 'carousel' && (
+					<Carousel
+						feedList={feed?.feeds}
+						setNavigateState={setNavigateState}
+						carouselState={carouselState}
+					></Carousel>
+				)}
+
 				{navigateState === 'answer' && (
 					<S.MainBoxAnswer>
 						{ANSWERLIST.map(answerItem => (
