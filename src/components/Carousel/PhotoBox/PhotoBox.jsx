@@ -9,8 +9,8 @@ const PhotoBox = ({ feedList, setNavigateState, setCarouselState }) => {
 
 	return (
 		<S.MainBoxPhoto>
-			{feedList?.map((photoItem, idx) => (
-				<S.PhotoItem key={idx} data-key={idx} src={photoItem.src} onClick={handleState} />
+			{feedList?.map((src, idx) => (
+				<S.PhotoItem key={idx} data-key={idx} src={src} onClick={handleState} />
 			))}
 		</S.MainBoxPhoto>
 	);

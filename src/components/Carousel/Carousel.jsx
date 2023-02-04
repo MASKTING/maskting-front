@@ -26,7 +26,7 @@ const Carousel = ({ feedList, carouselState, setNavigateState }) => {
 					}}
 					pagination={{ clickable: true }}
 				>
-					{feedList?.map(({ src }, idx) => {
+					{feedList?.map((src, idx) => {
 						return (
 							<SwiperSlide key={idx}>
 								<S.CarouselItem onClick={handleNavigate} src={src}></S.CarouselItem>
