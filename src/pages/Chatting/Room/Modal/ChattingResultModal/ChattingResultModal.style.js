@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const ModalBackground = styled.div`
 	position: absolute;
@@ -113,8 +113,7 @@ const ModalPhotoFrame = styled.div`
 const ModalPhoto = styled.div`
 	width: 140px;
 	height: 140px;
-	background-image: url(${props =>
-		props.src ? props.src : 'https://cdn.ize.co.kr/news/photo/202208/53204_63942_515.jpg'});
+	background-image: url(${props => props.src});
 	border-radius: 24px;
 	background-size: cover;
 
@@ -149,6 +148,39 @@ const ModalPhoneButton = styled.button`
 	/* Pink/600 */
 
 	background: #f45e5f;
+	border-radius: 8px;
+	border: 0px;
+	cursor: pointer;
+`;
+
+const ModalPhoneCheckedButton = styled.div`
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 16px;
+	gap: 10px;
+
+	width: fit-content;
+	height: 40px;
+
+	font-family: 'Pretendard-Regular';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 13px;
+
+	/* identical to box height, or 154% */
+
+	letter-spacing: 0.5px;
+
+	/* Black/50 */
+
+	color: #757575;
+
+	/* Pink/600 */
+
+	background: #e0e0e0;
 	border-radius: 8px;
 	border: 0px;
 `;
@@ -345,7 +377,27 @@ const ModalFailedSecondText = styled.div`
 	color: #212121;
 `;
 
+const spin = keyframes`
+	from{
+		transform:rotate(360deg);
+	}
+`;
+const loader = styled.div`
+	position: absolute;
+	margin: 0 auto;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	left: 120px;
+	top: 347px;
+	border: 12px solid #e0e0e0;
+	border-top: 10px solid #f45e5f;
+	animation: ${spin} 1s ease-in infinite;
+	z-index: 3;
+`;
+
 export {
+	loader,
 	ModalFailedSecondText,
 	ModalFailedFirstText,
 	ModalFailedWrapper,
@@ -355,6 +407,7 @@ export {
 	ModalNoticeInner,
 	ModalNoticeWrapper,
 	ModalAlertText,
+	ModalPhoneCheckedButton,
 	ModalPhoneButton,
 	ModalPhoto,
 	ModalPhotoFrame,
