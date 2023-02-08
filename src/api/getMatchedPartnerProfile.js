@@ -1,12 +1,13 @@
 import api from './api';
 
-export const getLikeList = async () => {
+export const getMatchedPartnerProfile = async roomId => {
 	try {
 		const response = await api({
-			url: '/chat/follower',
+			url: `/chat/room/${roomId}/matching`,
 			method: 'GET',
 		});
-		return response?.data;
+
+		return response.data;
 	} catch (error) {
 		console.log(error);
 	}
