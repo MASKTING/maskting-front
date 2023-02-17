@@ -8,11 +8,13 @@ import { useRef, useState, useEffect } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router';
 import useInterval from '../../../components/Signup/BasicInfo/useInterval';
 import Chatting from '../Main/Chatting';
-import { createClient, subscribe, publish } from '../../../api/socketConnect';
+import useSocket from '../../../hooks/query/useSocket';
+import { publish } from '../../../api/socketConnect';
 import { WrapperInner } from '../../../components/Wrapper/Wrapper.style';
 
 const ChattingRoomPage = () => {
 	const [chatList, setChatList] = useState([]);
+	const { client, lastMessage } = useSocket();
 	const [chat, setChat] = useState('');
 	const [delay, setDelay] = useState(1000);
 	const [hour, setHour] = useState('');
@@ -24,7 +26,6 @@ const ChattingRoomPage = () => {
 
 	const navigate = useNavigate();
 	const { roomId } = useParams();
-	const client = useRef({});
 	const scrollRef = useRef({});
 
 	const getChattingRoomMethod = async n => {
@@ -46,29 +47,19 @@ const ChattingRoomPage = () => {
 		getChattingRoomMethod(roomId);
 	}, []);
 
-	const connect = () => {
-		client.current = createClient('/app');
-		client.current.onConnect = onConnected;
-		client.current.activate();
-	};
-
 	const chatSetting = e => {
 		setChat(e.target.value);
 	};
 
 	const sendChat = () => {
-		if (!client.current.connected) return;
-		publish(client.current, roomId, nickname, chat);
+		if (!client.connected) return;
+		publish(client, roomId, nickname, chat);
 	};
 
 	const chatListSetting = () => {
 		const newMessage = { content: chat, nickname: nickname, createdAt: timeMaker() };
 		setChatList(chatList => [...chatList, newMessage]);
 		setChat('');
-	};
-
-	const onConnected = () => {
-		subscribe(client.current, roomId, subscribeCallback);
 	};
 
 	const timeMaker = () => {
@@ -88,21 +79,15 @@ const ChattingRoomPage = () => {
 		return `${_hour}:${_minute}:${_second}`;
 	};
 
-	const subscribeCallback = response => {
-		const receivedBody = JSON.parse(response.body);
-		const receivedMessage = receivedBody.message;
-		if (receivedBody.sender !== nickname) {
+	const updateMessage = lastMessage => {
+		if (lastMessage.sender !== nickname) {
 			const newMessage = {
-				content: receivedMessage,
-				nickname: receivedBody.sender,
+				content: lastMessage.message,
+				nickname: lastMessage.sender,
 				createdAt: timeMaker(),
 			};
 			setChatList(chatList => [...chatList, newMessage]);
 		}
-	};
-
-	const disconnect = () => {
-		client.current.deactivate();
 	};
 
 	const handleSubmit = event => {
@@ -135,16 +120,18 @@ const ChattingRoomPage = () => {
 	}, [chatList]);
 
 	useEffect(() => {
-		connect();
 		return () => {
 			postChatClose(roomId);
-			disconnect();
 		};
 	}, []);
 
 	useEffect(() => {
 		if (hour === 0 && minute === 0 && second === 0) setTimeOver(true);
 	}, [hour, minute, second]);
+
+	useEffect(() => {
+		if (lastMessage?.sender !== '') updateMessage(lastMessage);
+	}, [lastMessage]);
 
 	const handleBack = () => {
 		navigate(-1);
@@ -165,7 +152,7 @@ const ChattingRoomPage = () => {
 				</S.TopInner>
 			</S.Top>
 			<WrapperInner ref={scrollRef}>
-				{timeOver && <ChattingFinalModal roomInfo={roomInfo}></ChattingFinalModal>}
+				{/* {timeOver && <ChattingFinalModal roomInfo={roomInfo}></ChattingFinalModal>} */}
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
 						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />

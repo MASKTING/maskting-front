@@ -9,24 +9,11 @@ import { getLikeList } from '../../../api/getLikeList';
 import { createClient, subscribe } from '../../../api/socketConnect';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import useSocket from '../../../hooks/query/useSocket';
 const ChattingMainPage = () => {
 	const [chattingRoomList, setChattingRoomList] = useState([]);
-	const [roomIdList, setRoomIdList] = useState([]);
 	const [likeNumber, setLikeNumber] = useState(0);
-	const client = useRef({});
-
-	const connect = () => {
-		client.current = createClient('/app');
-		client.current.onConnect = onConnected;
-		client.current.activate();
-	};
-
-	const onConnected = () => {
-		roomIdList.forEach(roomId => {
-			subscribe(client.current, roomId, subscribeCallback);
-		});
-	};
+	const { client, lastMessage } = useSocket();
 
 	const findRoom = sender => {
 		const targetIdx = chattingRoomList.findIndex(roomInfo => roomInfo.roomName === sender);
@@ -41,32 +28,21 @@ const ChattingMainPage = () => {
 		setChattingRoomList(copyRoomList);
 	};
 
-	const subscribeCallback = response => {
-		const responseBody = JSON.parse(response.body);
-		updateLastMessage(responseBody.sender, responseBody.message);
-	};
-
 	const initialSetting = async () => {
 		const roomList = await getChattingRooms();
-		console.log(roomList);
 		setChattingRoomList(roomList);
 		const likeList = await getLikeList();
 		setLikeNumber(likeList?.length);
-		const newRoomIdList = [];
-		roomList.forEach(roomInfo => {
-			newRoomIdList.push(roomInfo.roomId);
-		}); // 구독이 roomList를 받아오고 한 번만 시키기 위해서  roomIdList가 필요
-		setRoomIdList(newRoomIdList);
 	};
 
 	useEffect(() => {
 		initialSetting();
+		return () => client?.deactivate();
 	}, []);
 
 	useEffect(() => {
-		connect();
-		return () => client.current.deactivate();
-	}, [roomIdList]);
+		if (lastMessage?.sender !== '') updateLastMessage(lastMessage?.sender, lastMessage?.message);
+	}, [lastMessage]);
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
