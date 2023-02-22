@@ -7,7 +7,7 @@ import html2canvas from 'html2canvas';
 import { NavigateButton } from '../../../components/Button/Button';
 import BigButton from '../../../components/Button/BigButton/BigButton';
 import { useRecoilState } from 'recoil';
-import imageState from '../../../recoil';
+import { imageState, imageUrlState } from '../../../recoil';
 
 const WaitMaskEdit = () => {
 	const navigate = useNavigate();
@@ -20,7 +20,7 @@ const WaitMaskEdit = () => {
 	];
 
 	const [imageFile, setImageFile] = useRecoilState(imageState);
-
+	const [imageUrl, setImageUrl] = useRecoilState(imageUrlState);
 	const captureImg = async () => {
 		window.scrollTo(0, 0);
 		let url = '';
@@ -29,7 +29,7 @@ const WaitMaskEdit = () => {
 				...imageFile,
 				maskedImage: dataURLtoFile(canvas.toDataURL('image/png'), 'maskedImage.jpg'),
 			});
-			localStorage.setItem('maskImageData', canvas.toDataURL('image/png'));
+			setImageUrl(canvas.toDataURL('image/png'));
 		});
 	};
 

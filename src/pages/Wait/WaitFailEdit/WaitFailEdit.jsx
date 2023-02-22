@@ -8,7 +8,7 @@ import * as S from './WaitFailEdit.style';
 import { useRecoilState } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { checkNicknameApi } from '../../../api/signup';
-import imageState from '../../../recoil';
+import { imageState, imageUrlState } from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
 import SideBar from '../../../components/SideBar/SideBar';
 import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
@@ -30,44 +30,50 @@ const dataURLtoFile = (dataurl, fileName) => {
 
 const WaitFailEdit = () => {
 	const [imageFile, setImageFile] = useRecoilState(imageState);
+	const [imageUrl, setImageUrl] = useRecoilState(imageUrlState);
 	const navigate = useNavigate();
 	const [photoErrorMessage, setPhotoErrorMessage] = useState(null);
 	const [isModal, setIsModal] = useState(false);
 	const [isDuplicate, setIsDuplicate] = useState(false);
+
 	const { register, handleSubmit, formState, watch, setError, clearErrors, errors, setValue } =
 		useForm({ mode: 'all' });
 	const { resignupInfo } = useGetResignupInfo(setValue);
 	const imgRef = useRef();
 
 	useEffect(() => {
-		if (isObjectEmpty(imageFile)) {
-			localStorage.setItem('maskImageData', '');
-			localStorage.setItem('imageData', '');
+		if (resignupInfo) {
+			for (const key in resignupInfo) setValue(key, resignupInfo[key]);
+			setImageFile({
+				originalImage: dataURLtoFile(resignupInfo.profile, resignupInfo.profilePath),
+				maskedImage: dataURLtoFile(resignupInfo.maskProfile, resignupInfo.maskProfilePath),
+			});
+
+			if (!imageUrl) setImageUrl(resignupInfo?.maskedProfilePath);
 		}
-	}, []);
+	}, [resignupInfo]);
 
 	// MODAL
 	const onCloseModal = () => {
 		setIsModal(false);
 	};
 
-	const isObjectEmpty = obj => {
-		return Object.keys(obj).length === 0;
-	};
-
 	const modifyRequest = async () => {
 		const formData = new FormData();
-		formData.append('profiles', dataURLtoFile(watch('profile'), '승기햄1'));
-		formData.append('profiles', dataURLtoFile(watch('maskProfile'), '승기햄2'));
+		formData.append('profiles', dataURLtoFile(watch('profile'), 'test1'));
+		formData.append('profiles', dataURLtoFile(watch('maskProfile'), 'test2'));
 		formData.append('nickname', watch('nickname'));
 		formData.append('bio', watch('bio'));
 		formData.append('name', watch('name'));
 		formData.append('birth', watch('birth'));
 		formData.append('height', watch('height'));
 
-		const res = await postResignup(formData);
-
-		console.log(res.status);
+		try {
+			const res = await postResignup(formData);
+			return res.status;
+		} catch (e) {
+			alert(e);
+		}
 	};
 
 	// 2. NICKNAME
@@ -103,12 +109,13 @@ const WaitFailEdit = () => {
 		};
 	}, []);
 
-	const onSubmit = () => {
-		modifyRequest();
+	const onSubmit = async () => {
+		if ((await modifyRequest()) === 200) navigate('/wait');
 	};
 
 	const submitError = () => {
 		if (Object.keys(imageFile).length === 0) setPhotoErrorMessage('이미지를 등록해주세요');
+		setIsModal(false);
 	};
 
 	const handleEdit = () => {
@@ -134,12 +141,7 @@ const WaitFailEdit = () => {
 								<S.Red>프로필 사진</S.Red>
 							)}
 							<S.PhotoBox htmlFor="image">
-								<S.PhotoImage
-									htmlFor="image"
-									src={
-										isObjectEmpty(imageFile) ? noneImage : localStorage?.getItem('maskImageData')
-									}
-								/>
+								<S.PhotoImage htmlFor="image" src={imageUrl} />
 								<S.PhotoLogo className="material-icons">edit</S.PhotoLogo>
 							</S.PhotoBox>
 							<S.InputImage

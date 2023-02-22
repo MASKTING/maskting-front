@@ -5,6 +5,11 @@ const imageState = atom({
 	default: {},
 });
 
+const imageUrlState = atom({
+	key: 'imageUrlState',
+	default: {},
+});
+
 export const imageRecoil = atom({
 	key: 'imageRecoil',
 	default: {
@@ -13,4 +18,4 @@ export const imageRecoil = atom({
 	},
 });
 
-export default imageState;
+export { imageState, imageUrlState };

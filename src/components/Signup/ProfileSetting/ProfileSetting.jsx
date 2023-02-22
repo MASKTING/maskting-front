@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { checkNicknameApi } from '../../../api/signup';
-import imageState from '../../../recoil';
+import { imageState } from '../../../recoil';
 import { NavigateButton } from '../../Button/Button';
 import Modal from '../../Modal/Modal';
 import Wrapper from '../../Wrapper';

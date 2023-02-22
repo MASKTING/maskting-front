@@ -6,7 +6,7 @@ import { Rnd } from 'react-rnd';
 import html2canvas from 'html2canvas';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
-import imageState from '../../../recoil';
+import { imageState } from '../../../recoil';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
