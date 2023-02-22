@@ -14,6 +14,20 @@ import SideBar from '../../../components/SideBar/SideBar';
 import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
 import { postResignup } from '../../../api/postResignup';
 
+const dataURLtoFile = (dataurl, fileName) => {
+	var arr = dataurl.split(','),
+		mime = 'image/jpg',
+		bstr = atob(arr[0]),
+		n = bstr.length,
+		u8arr = new Uint8Array(n);
+
+	while (n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+
+	return new File([u8arr], fileName, { type: mime });
+};
+
 const WaitFailEdit = () => {
 	const [imageFile, setImageFile] = useRecoilState(imageState);
 	const navigate = useNavigate();
@@ -43,8 +57,8 @@ const WaitFailEdit = () => {
 
 	const modifyRequest = async () => {
 		const formData = new FormData();
-		formData.append('profiles', imageFile.originalImage);
-		formData.append('profiles', imageFile.maskedImage);
+		formData.append('profiles', dataURLtoFile(watch('profile'), '승기햄1'));
+		formData.append('profiles', dataURLtoFile(watch('maskProfile'), '승기햄2'));
 		formData.append('nickname', watch('nickname'));
 		formData.append('bio', watch('bio'));
 		formData.append('name', watch('name'));
@@ -52,7 +66,8 @@ const WaitFailEdit = () => {
 		formData.append('height', watch('height'));
 
 		const res = await postResignup(formData);
-		console.log(res);
+
+		console.log(res.status);
 	};
 
 	// 2. NICKNAME
