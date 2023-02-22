@@ -48,9 +48,10 @@ const ChattingMainPage = () => {
 
 	const initialSetting = async () => {
 		const roomList = await getChattingRooms();
+		console.log(roomList);
 		setChattingRoomList(roomList);
 		const likeList = await getLikeList();
-		setLikeNumber(likeList.length);
+		setLikeNumber(likeList?.length);
 		const newRoomIdList = [];
 		roomList.forEach(roomInfo => {
 			newRoomIdList.push(roomInfo.roomId);
@@ -110,12 +111,12 @@ const ChattingMainPage = () => {
 
 									{chattingRoom.update ? <S.NewChattingDot></S.NewChattingDot> : null}
 									<S.RemainingTimeBarText src={'32px'}>
-										{chattingRoom.remainingTime}H
+										{parseInt(chattingRoom.remainingTime.split(':')[0])}H
 									</S.RemainingTimeBarText>
 									<S.RemainingTimeBar
 										min="0"
 										max="72"
-										value={chattingRoom.remainingTime}
+										value={parseInt(chattingRoom.remainingTime.split(':')[0])}
 										src={'-18px'}
 									></S.RemainingTimeBar>
 								</S.ChattingMainBox>

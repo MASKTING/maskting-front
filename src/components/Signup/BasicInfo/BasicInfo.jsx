@@ -93,6 +93,7 @@ function BasicInfo() {
 	const checkVerificationNumber = async () => {
 		const phoneData = { phoneNumber: basicInfo?.phone, verificationNumber: verificationNumber };
 		const isValid = await postPhoneAuthCheck(phoneData);
+		setBasicInfo({ ...basicInfo, certification: isValid });
 		return isValid.data;
 	};
 
