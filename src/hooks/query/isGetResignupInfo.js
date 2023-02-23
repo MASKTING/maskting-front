@@ -3,7 +3,7 @@ import { getProfile } from '../../api/getProfile';
 import { useState } from 'react';
 import api from '../../api/api';
 
-export const useGetResignupInfo = () => {
+export const useGetResignupInfo = setValue => {
 	const [resignupInfo, setResignupInfo] = useState(null);
 	const query = useQuery(
 		'getResignupInfo',
@@ -22,5 +22,6 @@ export const useGetResignupInfo = () => {
 			},
 		},
 	);
+
 	return { ...query, resignupInfo, setResignupInfo };
 };
