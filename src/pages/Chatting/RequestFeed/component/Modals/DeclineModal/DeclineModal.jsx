@@ -2,10 +2,16 @@ import React from 'react';
 import Modal from '../../../../../../components/Modal';
 import SmallButton from '../../../../../../components/Button/SmallButton/SmallButton';
 import * as S from './DeclineModal.style';
+import { postRejectLike } from '../../../../../../api/postRejectLike';
 
 const DeclineModal = ({ changeModalState, userInfo }) => {
 	const handleDeclineConfirm = async e => {
-		changeModalState(e);
+		try {
+			const response = await postRejectLike(userInfo.nickname);
+			if (response.status === 200) changeModalState(e);
+		} catch (e) {
+			alert(e);
+		}
 	};
 
 	return (

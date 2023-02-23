@@ -2,16 +2,10 @@ import React from 'react';
 import Modal from '../../../../../../components/Modal';
 import SmallButton from '../../../../../../components/Button/SmallButton/SmallButton';
 import * as S from './DeclineNoticeModal.style';
-import { postRejectLike } from '../../../../../../api/postRejectLike';
 
 const DeclineNoticeModal = ({ userInfo, back }) => {
 	const handleDeclineNoticeConfirm = async () => {
-		try {
-			await postRejectLike(userInfo.nickname);
-			back();
-		} catch (e) {
-			alert(e);
-		}
+		back();
 	};
 
 	return (
