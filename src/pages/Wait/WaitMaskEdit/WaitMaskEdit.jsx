@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as S from './ProfileMask.style';
-import Wrapper from '../../Wrapper';
+import * as S from './WaitMaskEdit.style';
+import Wrapper from '../../../components/Wrapper/Wrapper';
 import { Rnd } from 'react-rnd';
 import html2canvas from 'html2canvas';
-import { NavigateButton } from '../../Button/Button';
+import { NavigateButton } from '../../../components/Button/Button';
+import BigButton from '../../../components/Button/BigButton/BigButton';
 import { useRecoilState } from 'recoil';
-import { imageState } from '../../../recoil';
+import { imageState, imageUrlState } from '../../../recoil';
 
-const ProfileMask = () => {
+const WaitMaskEdit = () => {
 	const navigate = useNavigate();
 	const [mask, setMask] = useState('');
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
@@ -18,12 +19,8 @@ const ProfileMask = () => {
 		{ id: 3, name: 'mask3.png' },
 	];
 
-	const handlePrevBtn = () => {
-		navigate('/signup/profilePhoto');
-	};
-
 	const [imageFile, setImageFile] = useRecoilState(imageState);
-
+	const [imageUrl, setImageUrl] = useRecoilState(imageUrlState);
 	const captureImg = async () => {
 		window.scrollTo(0, 0);
 		let url = '';
@@ -32,7 +29,7 @@ const ProfileMask = () => {
 				...imageFile,
 				maskedImage: dataURLtoFile(canvas.toDataURL('image/png'), 'maskedImage.jpg'),
 			});
-			localStorage.setItem('maskImageData', canvas.toDataURL('image/png'));
+			setImageUrl(canvas.toDataURL('image/png'));
 		});
 	};
 
@@ -50,9 +47,9 @@ const ProfileMask = () => {
 		return new File([u8arr], fileName, { type: mime });
 	};
 
-	const handleNextBtn = async () => {
+	const handleEdit = async () => {
 		await captureImg();
-		navigate('/signup/profileSetting');
+		navigate('/wait/fail/edit');
 	};
 
 	return (
@@ -110,9 +107,9 @@ const ProfileMask = () => {
 					</S.MaskList>
 				</S.MaskListWrapper>
 			</S.Content>
-			<NavigateButton handlePrevBtn={handlePrevBtn} handleNextBtn={handleNextBtn} />
+			<BigButton onClick={handleEdit}>수정했어요</BigButton>
 		</Wrapper>
 	);
 };
 
-export default ProfileMask;
+export default WaitMaskEdit;

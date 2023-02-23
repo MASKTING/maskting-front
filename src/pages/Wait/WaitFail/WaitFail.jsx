@@ -7,6 +7,7 @@ import { useGetRejection } from '../../../hooks/query/useGetRejection';
 import BigButton from '../../../components/Button/BigButton/BigButton';
 import SideBar from '../../../components/SideBar/SideBar';
 import { useGetProfile } from '../../../hooks/query/useGetProfile';
+import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
 import * as S from './WaitFail.style';
 import RejectReason from './RejectReason/RejectReason';
 
@@ -17,15 +18,14 @@ const WaitFail = () => {
 		navigate('/wait/fail/edit');
 	};
 
-	const { userInfo } = useGetProfile();
+	const { resignupInfo } = useGetResignupInfo();
 	const { rejection } = useGetRejection();
-	// console.log(userInfo, rejection?.reason);
 
 	return (
 		<Wrapper>
 			<WrapperInner>
 				<S.Title>
-					{userInfo?.nickname}님
+					{resignupInfo?.nickname}님
 					<br />
 					다시 한번 확인해주세요
 				</S.Title>

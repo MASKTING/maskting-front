@@ -31,10 +31,10 @@ const Content = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	padding: 2rem 0rem;
-	gap: 3rem;
+	gap: 1rem;
 	position: absolute;
 	width: 39rem;
-	height: 69.3rem;
+	height: 60.3rem;
 	left: 0rem;
 	top: 12rem;
 	overflow-y: scroll;
@@ -104,9 +104,13 @@ export const InputImage = styled.input`
 `;
 
 const PhotoImage = styled.img`
-	width: 100%;
-	height: 100%;
+	position: relative;
+	width: 16rem;
+	height: 16rem;
+	background: #eeeeee;
 	border-radius: 50%;
+	border: none;
+	cursor: pointer;
 `;
 
 const PhotoLogo = styled.div`
