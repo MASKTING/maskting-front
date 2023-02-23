@@ -8,7 +8,6 @@ const AcceptNoticeModal = ({ userInfo }) => {
 	const navigate = useNavigate();
 
 	const handleDeclineNoticeConfirm = async () => {
-		// api
 		navigate('/chatting');
 	};
 

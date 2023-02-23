@@ -6,8 +6,12 @@ import * as S from './AcceptModal.style';
 
 const AcceptModal = ({ changeModalState, userInfo }) => {
 	const handleRequestConfirm = async e => {
-		const data = await sendLike(userInfo.nickname);
-		changeModalState(e);
+		try {
+			const response = await sendLike(userInfo.nickname);
+			if (response.status === 200) changeModalState(e);
+		} catch (e) {
+			alert(e);
+		}
 	};
 
 	return (
