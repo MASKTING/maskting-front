@@ -1,13 +1,23 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router';
-import { getCookie } from '../cookie';
 
 const api = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
-		accesstoken: localStorage.getItem('accesstoken'),
 	},
 });
+
+api.interceptors.request.use(
+	config => {
+		config.headers = {
+			...config.headers,
+			accesstoken: localStorage.getItem('accesstoken'),
+		};
+		return config;
+	},
+	error => {
+		Promise.reject(error);
+	},
+);
 
 api.interceptors.response.use(
 	response => {
