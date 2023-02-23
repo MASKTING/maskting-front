@@ -36,7 +36,6 @@ const HomeMainPage = () => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
 		setFeedViewState(true);
 	};
-	console.log(partnerInfo);
 
 	if (feedViewState)
 		return <HomeFeedPage setViewState={setFeedViewState} userInfo={partnerInfo[selectedFeed]} />;

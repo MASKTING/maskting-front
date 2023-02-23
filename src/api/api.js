@@ -5,6 +5,7 @@ import { getCookie } from '../cookie';
 const api = axios.create({
 	headers: {
 		'Content-Type': 'application/json',
+		accesstoken: localStorage.getItem('accesstoken'),
 	},
 });
 
@@ -21,6 +22,7 @@ api.interceptors.response.use(
 					url: '/api/auth/silent-refresh',
 				});
 				if (response) {
+					localStorage.setItem('accesstoken', response.headers.accesstoken);
 					api.defaults.headers.common['accesstoken'] = response.headers.accesstoken;
 					return api.request(originalRequest);
 				}
