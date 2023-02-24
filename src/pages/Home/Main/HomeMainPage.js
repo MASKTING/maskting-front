@@ -22,6 +22,15 @@ const HomeMainPage = () => {
 	const { data: userInfo } = useQuery('getProfile', () => getProfile());
 	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api.get('/api/partner'));
 
+	useEffect(() => {
+		if (feedViewState) {
+			setFeedViewState(false);
+			return () => {
+				setFeedViewState(false);
+			};
+		}
+	}, [feedViewState]);
+
 	const handleFeedButton = e => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
 		setFeedViewState(true);
