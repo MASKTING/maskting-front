@@ -1,9 +1,9 @@
 import React from 'react';
 import Wrapper from '../../Wrapper';
 import * as S from './LoginBtn.style';
-import kakaoLogin from '../../../assets/kakaoLogin.png';
-import googleLogin from '../../../assets/googleLogin.png';
-import naverLogin from '../../../assets/naverLogin.png';
+import kakaoLogin from '../../../assets/svg/login_kakao.svg';
+import googleLogin from '../../../assets/svg/login_google.svg';
+import naverLogin from '../../../assets/svg/login_naver.svg';
 
 const REDIRECT_URI = 'http://localhost:3000/oauth2/redirect';
 
