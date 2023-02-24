@@ -61,9 +61,11 @@ const HomeMainPage = () => {
 					<MainHeader />
 					<Panel size="small">
 						<S.PanelInfoInner>
-							<PictureCircle size="midium" src={userInfo?.profile} />
+							<PictureCircle size="midium" src={userInfo?.data?.profile} />
 							<S.InfoBig>사진을 추가해보세요</S.InfoBig>
-							<S.InfoMidium>{userInfo?.nickname}님의 내적매력을 피드에 담아보세요</S.InfoMidium>
+							<S.InfoMidium>
+								{userInfo?.data?.nickname}님의 내적매력을 피드에 담아보세요
+							</S.InfoMidium>
 							<SmallButton size="small" onClick={turnOnModal}>
 								사진 추가하기
 							</SmallButton>

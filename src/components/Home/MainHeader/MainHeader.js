@@ -3,7 +3,6 @@ import * as S from './MainHeader.style';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import WaitingModal from '../../common/WaitingModal';
-
 import ticketIcon from '../../../assets/svg/icon_ticket.svg';
 
 const MainHeader = () => {
