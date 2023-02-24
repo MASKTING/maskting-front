@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { BigButton } from '../../components/Button/BigButton/BigButton.style';
 import SideBar from '../../components/SideBar/SideBar';
 import { Red } from '../../components/Signup/PartnerMoreInfo/PartnerMoreInfo.style';
@@ -27,11 +26,10 @@ const Wait = () => {
 		<Wrapper>
 			<WrapperInner>
 				<Title>
-					분당청소요정님!
+					{localStorage.getItem('nickname')}님!
 					<br />
 					승인 신청이 완료됐어요
 				</Title>
-
 				<Content>
 					<InfoTitle>
 						<p>
@@ -45,7 +43,7 @@ const Wait = () => {
 					<Line>사용할 수 없는 닉네임 </Line>
 					<Line>선정적이거나 부적절한 내용을 포함한 한줄 자기소개</Line>
 				</Content>
-				<BigButton color="gray">HH시간 안에 승인이 완료돼</BigButton>
+				<BigButton color="gray">24시간 안에 승인이 완료됩니다</BigButton>
 			</WrapperInner>
 			<SideBar status="home" />
 		</Wrapper>

@@ -110,7 +110,10 @@ const WaitFailEdit = () => {
 	}, []);
 
 	const onSubmit = async () => {
-		if ((await modifyRequest()) === 200) navigate('/wait');
+		if ((await modifyRequest()) === 200) {
+			localStorage.setItem('nickname', watch('nickname'));
+			navigate('/wait');
+		}
 	};
 
 	const submitError = () => {
