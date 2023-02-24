@@ -10,8 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 import HomeFeedPage from '../Feed/HomeFeedPage';
-import { useGetProfile } from './../../../hooks/query/useGetProfile';
 import { useGetPartner } from '../../../hooks/query/useGetPartner';
+import { useQuery } from 'react-query';
+import { getProfile } from '../../../api/getProfile';
 
 const HomeMainPage = () => {
 	const navigate = useNavigate();
@@ -28,9 +29,8 @@ const HomeMainPage = () => {
 		navigate('picture');
 	};
 
-	const { userInfo } = useGetProfile();
+	const { data: userInfo } = useQuery('getProfile', () => getProfile());
 	const { partnerInfo } = useGetPartner();
-	localStorage.setItem('nickname', userInfo?.nickname);
 
 	const handleFeedButton = e => {
 		setSelectedFeed(parseInt(e.currentTarget.id));
