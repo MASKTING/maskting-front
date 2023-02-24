@@ -14,18 +14,19 @@ import BigButton from '../../../../components/Button/BigButton/BigButton';
 import Modal from '../../../../components/Modal';
 import { useNavigate } from 'react-router-dom';
 import SmallButton from '../../../../components/Button/SmallButton/SmallButton';
-import { useGetProfile } from './../../../../hooks/query/useGetProfile';
 import { useGetFeed } from '../../../../hooks/query/useGetFeed';
 import { addFeed } from '../../../../api/addFeed';
+import { useQuery } from 'react-query';
+import { getProfile } from '../../../../api/getProfile';
 
 const HomePictureAdd = () => {
 	const [isModal, setIsModal] = useState(null);
 	const navigate = useNavigate();
 	const [isAddPicture, setIsAddPicture] = useState(false);
 	const [deleteId, setDeleteId] = useState(null);
-	const { userInfo } = useGetProfile();
-	const { feed, setFeed, refetch } = useGetFeed();
+	const { data: userInfo } = useQuery('getProfile', () => getProfile());
 
+	const { feed, setFeed, refetch } = useGetFeed();
 	const handleCloseModal = () => {
 		setIsModal(null);
 	};
@@ -133,7 +134,7 @@ const HomePictureAdd = () => {
 					}}
 				/>
 				<ContentTitle>
-					{userInfo?.nickname}님의 <br />
+					{userInfo?.data?.nickname}님의 <br />
 					내적매력을 피드에 담아보세요
 				</ContentTitle>
 				<ContentInfo>
@@ -144,8 +145,8 @@ const HomePictureAdd = () => {
 				<Panel size="midium">
 					<S.PanelInner>
 						<S.Profile>
-							<PictureCircle size="small" css="margin-right:2rem" src={userInfo?.profile} />
-							<ContentSubTitle>{userInfo?.nickname}</ContentSubTitle>
+							<PictureCircle size="small" css="margin-right:2rem" src={userInfo?.data?.profile} />
+							<ContentSubTitle>{userInfo?.data?.nickname}</ContentSubTitle>
 						</S.Profile>
 						<S.ProfileText>
 							<ContentInfo>{feed?.bio}</ContentInfo>
