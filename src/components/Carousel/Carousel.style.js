@@ -16,7 +16,7 @@ export const CarouselWrapper = styled.div`
 	animation: ${biggerEffect} 0.2s;
 `;
 
-export const CarouselItem = styled.div`
+export const CarouselItem = styled.img`
 	position: relative;
 	float: left;
 	flex-grow: 2;
@@ -24,11 +24,11 @@ export const CarouselItem = styled.div`
 	height: 342px;
 
 	background: url(${props => props.src});
-	background-size: cover;
 	/* Black/50 */
 	overflow: hidden;
 	border: 1px solid #fafafa;
 	border-radius: 16px;
+	cursor: pointer;
 `;
 
 export const NavigatePrev = styled.img`
