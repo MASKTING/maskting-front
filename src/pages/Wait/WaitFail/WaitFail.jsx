@@ -36,7 +36,6 @@ const WaitFail = () => {
 					수정하러 가기
 				</BigButton>
 			</WrapperInner>
-			<SideBar status="home" />
 		</Wrapper>
 	);
 };
