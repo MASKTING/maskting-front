@@ -5,7 +5,7 @@ import kakaoLogin from '../../../assets/kakaoLogin.png';
 import googleLogin from '../../../assets/googleLogin.png';
 import naverLogin from '../../../assets/naverLogin.png';
 
-const REDIRECT_URI = 'http://localhost:3000/oauth2/redirect';
+const REDIRECT_URI = `${process.env.REACT_APP_CLIENT_HOST}/oauth2/redirect`;
 
 const Naver = `${process.env.REACT_APP_SERVER_HOST}/api/oauth2/naver?redirect_uri=${REDIRECT_URI}`;
 const Google = `${process.env.REACT_APP_SERVER_HOST}/api/oauth2/google?redirect_uri=${REDIRECT_URI}`;
