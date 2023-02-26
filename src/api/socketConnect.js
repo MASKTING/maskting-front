@@ -7,11 +7,11 @@ import * as StompJs from '@stomp/stompjs';
  */
 const createClient = endpoint => {
 	const client = new StompJs.Client({
-		brokerURL: `ws://localhost:8080${endpoint}`,
+		brokerURL: `${process.env.REACT_APP_SOCKET_HOST}${endpoint}`,
 	});
 
 	client.webSocketFactory = () => {
-		const socketIn = new SockJS(`http://localhost:8080${endpoint}`);
+		const socketIn = new SockJS(`${process.env.REACT_APP_SERVER_HOST}${endpoint}`);
 		return socketIn;
 	};
 
