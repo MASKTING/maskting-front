@@ -99,24 +99,25 @@ const HomeMainPage = () => {
 							</SmallButton>
 						</S.PanelInfoInner>
 					</Panel>
-					{partnerInfo?.data?.map((feedItem, idx) => (
-						<Panel size="midium" key={idx}>
-							<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
-								<S.FeedProfile>
-									<PictureCircle src={feedItem.profile} size="small" />
-									<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
-								</S.FeedProfile>
-								<S.FeedInfo>
-									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
-								</S.FeedInfo>
-								<S.FeedImageList>
-									{feedItem?.feed?.map((feed, idx) => (
-										<S.FeedImageItem key={idx} src={feed} />
-									))}
-								</S.FeedImageList>
-							</S.PanelFeedInner>
-						</Panel>
-					))}
+					{partnerInfo &&
+						partnerInfo?.data?.map((feedItem, idx) => (
+							<Panel size="midium" key={idx}>
+								<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
+									<S.FeedProfile>
+										<PictureCircle src={feedItem.profile} size="small" />
+										<S.FeedProfileInfo>{feedItem.nickname}</S.FeedProfileInfo>
+									</S.FeedProfile>
+									<S.FeedInfo>
+										<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
+									</S.FeedInfo>
+									<S.FeedImageList>
+										{feedItem?.feed?.map((feed, idx) => (
+											<S.FeedImageItem key={idx} src={feed} />
+										))}
+									</S.FeedImageList>
+								</S.PanelFeedInner>
+							</Panel>
+						))}
 				</WrapperInner>
 				<SideBar status="home" />
 				<RefreshCircle
