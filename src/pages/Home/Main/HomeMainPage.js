@@ -99,7 +99,7 @@ const HomeMainPage = () => {
 							</SmallButton>
 						</S.PanelInfoInner>
 					</Panel>
-					{partnerInfo &&
+					{partnerInfo?.data.length > 0 &&
 						partnerInfo?.data?.map((feedItem, idx) => (
 							<Panel size="midium" key={idx}>
 								<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
