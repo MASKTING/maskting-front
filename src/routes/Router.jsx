@@ -24,11 +24,11 @@ import ProfileSettingPage from '../pages/SignUp/ProfileSetting';
 import TicketAnswer from '../pages/Ticket/Answer/TicketAnswer';
 import TicketMainPage from '../pages/Ticket/Main/TicketMainPage';
 import TicketSuggest from '../pages/Ticket/Suggest/TicketSuggest';
-import Wait from '../pages/Wait/Wait';
 import WaitFail from '../pages/Wait/WaitFail/WaitFail';
 import WaitSuccess from '../pages/Wait/WaitSuccess/WaitSuccess';
 import WaitFailEdit from '../pages/Wait/WaitFailEdit/WaitFailEdit';
 import WaitMaskEdit from '../pages/Wait/WaitMaskEdit/WaitMaskEdit';
+import Wait from '../pages/Wait/Wait/Wait';
 
 function Router() {
 	return (

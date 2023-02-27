@@ -11,7 +11,6 @@ import { checkNicknameApi } from '../../../api/signup';
 import { imageState, imageUrlState } from '../../../recoil';
 import Modal from '../../../components/Modal/Modal';
 import SideBar from '../../../components/SideBar/SideBar';
-import { useGetResignupInfo } from '../../../hooks/query/isGetResignupInfo';
 import { postResignup } from '../../../api/postResignup';
 
 const dataURLtoFile = (dataurl, fileName) => {
@@ -38,7 +37,7 @@ const WaitFailEdit = () => {
 
 	const { register, handleSubmit, formState, watch, setError, clearErrors, errors, setValue } =
 		useForm({ mode: 'all' });
-	const { resignupInfo } = useGetResignupInfo(setValue);
+	const { resignupInfo } = '';
 	const imgRef = useRef();
 
 	useEffect(() => {

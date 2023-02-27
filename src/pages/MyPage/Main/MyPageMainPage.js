@@ -6,11 +6,11 @@ import HeaderGoBackLeft from '../../../components/Header/HeaderGoBackLeft/Header
 import HeaderGoBackRight from '../../../components/Header/HeaderGoBackRight/HeaderGoBackRight';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import SideBar from '../../../components/SideBar/SideBar';
-import { useGetProfile } from './../../../hooks/query/useGetProfile';
-import { useGetFeed } from './../../../hooks/query/useGetFeed';
 import PhotoBox from '../../../components/Carousel/PhotoBox/PhotoBox';
 import Carousel from '../../../components/Carousel/Carousel';
-import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import { getProfile } from '../../../api/getProfile';
+import api from '../../../api/api';
 
 const ANSWERLIST = [
 	{ id: '1', question: '가장 좋아하는 음식은?', answer: '감자탕' },
@@ -25,12 +25,8 @@ const ANSWERLIST = [
 const MyPageMainPage = () => {
 	const [navigateState, setNavigateState] = useState('photo');
 	const [carouselState, setCarouselState] = useState(0);
-	const { userInfo } = useGetProfile();
-	const { feed } = useGetFeed();
-
-	useEffect(() => {
-		console.log(userInfo);
-	}, [feed]);
+	const { data: userInfo } = useQuery('getProfile', () => getProfile());
+	const { data: feedList } = useQuery('getFeedList', () => api.get('/api/feed'));
 
 	return (
 		<Wrapper>
@@ -45,11 +41,11 @@ const MyPageMainPage = () => {
 			<WrapperInner>
 				<S.ProfileBox>
 					<S.ProfileImage>
-						<PictureCircle size="large" src={userInfo?.profile} />
+						<PictureCircle size="large" src={userInfo?.data?.profile} />
 					</S.ProfileImage>
 					<S.ProfileInfo>
-						<S.ProfileNickname>{userInfo?.nickname}</S.ProfileNickname>
-						<S.ProfileIntroduce>{feed?.bio}</S.ProfileIntroduce>
+						<S.ProfileNickname>{userInfo?.data?.nickname}</S.ProfileNickname>
+						<S.ProfileIntroduce>{feedList?.data?.bio}</S.ProfileIntroduce>
 					</S.ProfileInfo>
 				</S.ProfileBox>
 				<S.NavigateBox>
@@ -72,14 +68,14 @@ const MyPageMainPage = () => {
 				</S.NavigateBox>
 				{navigateState === 'photo' && (
 					<PhotoBox
-						feedList={feed?.feeds}
+						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						setCarouselState={setCarouselState}
 					></PhotoBox>
 				)}
 				{navigateState === 'carousel' && (
 					<Carousel
-						feedList={feed?.feeds}
+						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						carouselState={carouselState}
 					></Carousel>
