@@ -8,7 +8,6 @@ const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
 			retry: 0,
-			suspense: true,
 			useErrorBoundary: true,
 		},
 		mutations: { retry: 0, useErrorBoundary: true },

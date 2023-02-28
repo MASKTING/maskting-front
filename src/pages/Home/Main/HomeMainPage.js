@@ -11,7 +11,6 @@ import SmallButton from '../../../components/Button/SmallButton/SmallButton';
 import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle';
 import HomeFeedPage from '../Feed/HomeFeedPage';
 import { useQuery } from 'react-query';
-import { getProfile } from '../../../api/getProfile';
 import api from '../../../api/api';
 
 const HomeMainPage = () => {
@@ -19,8 +18,8 @@ const HomeMainPage = () => {
 	const [isModal, setIsModal] = useState(false);
 	const [selectedFeed, setSelectedFeed] = useState(0);
 	const [feedViewState, setFeedViewState] = useState(false);
-	const { data: userInfo } = useQuery('getProfile', () => getProfile());
-	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api.get('/api/partner'));
+	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
+	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api('/api/partner'));
 
 	useEffect(() => {
 		if (feedViewState) {
