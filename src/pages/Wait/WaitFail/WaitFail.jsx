@@ -11,7 +11,6 @@ import api from '../../../api/api';
 
 const WaitFail = () => {
 	const navigate = useNavigate();
-
 	const { data: resignUpInfo } = useQuery('getResignupInfo', () => api('/api/user/re-signup'));
 	const { data: rejection } = useQuery('getRejection', () => api('/api/user/rejection'));
 	return (
@@ -24,7 +23,7 @@ const WaitFail = () => {
 				</S.Title>
 				<S.Content>
 					<S.InfoTitle>
-						<RejectReason reason={rejection.data?.reason} />
+						<RejectReason reason={rejection?.data?.reason} />
 						<div>다음과 같은 사유로 가입 승인이 반려되었어요 </div>
 					</S.InfoTitle>
 				</S.Content>
