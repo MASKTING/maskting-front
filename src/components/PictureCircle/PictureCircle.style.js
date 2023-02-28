@@ -6,4 +6,5 @@ export const PictureCircle = styled.img`
 	border-radius: 50%;
 	background-color: yellow;
 	${props => props.css};
+	object-fit: cover;
 `;
