@@ -48,14 +48,13 @@ const ChattingMainPage = () => {
 
 	const initialSetting = async () => {
 		const roomList = await getChattingRooms();
-		console.log(roomList);
 		setChattingRoomList(roomList);
 		const likeList = await getLikeList();
 		setLikeNumber(likeList?.length);
 		const newRoomIdList = [];
 		roomList.forEach(roomInfo => {
 			newRoomIdList.push(roomInfo.roomId);
-		}); // 구독이 roomList를 받아오고 한 번만 시키기 위해서  roomIdList가 필요
+		});
 		setRoomIdList(newRoomIdList);
 	};
 
@@ -66,7 +65,7 @@ const ChattingMainPage = () => {
 	useEffect(() => {
 		connect();
 		return () => client.current.deactivate();
-	}, [roomIdList]);
+	}, [connect, roomIdList]);
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
@@ -82,7 +81,7 @@ const ChattingMainPage = () => {
 					<S.NotifyBox onClick={handleNavigateRequest}>
 						<S.NotifyPictureBox>
 							<S.LikePeopleNumber>{likeNumber}</S.LikePeopleNumber>
-							<PictureCircle size="small"></PictureCircle>
+							<PictureCircle size="small" />
 						</S.NotifyPictureBox>
 						<S.NotifyTextBox>
 							<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
@@ -118,14 +117,14 @@ const ChattingMainPage = () => {
 										max="72"
 										value={parseInt(chattingRoom.remainingTime.split(':')[0])}
 										src={'-18px'}
-									></S.RemainingTimeBar>
+									/>
 								</S.ChattingMainBox>
 							</S.ChattingRoomItem>
 						))}
 					</S.ChattingRoomList>
 				) : (
 					<S.NoChattingRoom>
-						<S.NoChattingEmo className="material-icons">chat_bubble</S.NoChattingEmo>
+						<S.NoChattingEmo className="material-icons">chat_bubble_outline</S.NoChattingEmo>
 						<S.NoChattingMessage>요청받은 메세지가 없어요</S.NoChattingMessage>
 					</S.NoChattingRoom>
 				)}
