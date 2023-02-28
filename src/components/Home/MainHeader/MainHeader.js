@@ -7,10 +7,17 @@ import ticketIcon from '../../../assets/svg/icon_ticket.svg';
 
 const MainHeader = () => {
 	const navigate = useNavigate();
-	const [waitingModal, setWaitingModal] = useState(false);
+	const [isWaitingModal, setIsWaitingModal] = useState(false);
 	return (
 		<S.MainHeader>
-			{waitingModal && <WaitingModal isModal={WaitingModal} />}
+			{isWaitingModal && (
+				<WaitingModal
+					isModal={WaitingModal}
+					onCloseModal={() => {
+						setIsWaitingModal(false);
+					}}
+				/>
+			)}
 			<S.TicketSection>
 				<img
 					src={ticketIcon}
@@ -26,7 +33,7 @@ const MainHeader = () => {
 					className="material-icons"
 					onClick={() => {
 						// navigate('notification');
-						setWaitingModal(true);
+						setIsWaitingModal(true);
 					}}
 				>
 					notifications
