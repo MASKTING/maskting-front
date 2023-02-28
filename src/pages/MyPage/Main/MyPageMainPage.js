@@ -70,14 +70,14 @@ const MyPageMainPage = () => {
 						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						setCarouselState={setCarouselState}
-					></PhotoBox>
+					/>
 				)}
 				{navigateState === 'carousel' && (
 					<Carousel
 						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						carouselState={carouselState}
-					></Carousel>
+					/>
 				)}
 
 				{navigateState === 'answer' && (
