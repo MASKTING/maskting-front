@@ -100,14 +100,14 @@ function BasicInfo() {
 	const checkVerificationNumber = async () => {
 		const phoneData = { phoneNumber: basicInfo?.phone, verificationNumber: verificationNumber };
 		const isValid = await postPhoneAuthCheck(phoneData);
-		setBasicInfo({ ...basicInfo, certification: isValid });
+		setBasicInfo({ ...basicInfo, certification: isValid.data });
 		return isValid.data;
 	};
 
 	const timerCallback = () => {
-		if (second == 0) setSecond(59);
+		if (second === 0) setSecond(59);
 		else setSecond(second - 1);
-		if (second == 0) setMinute(minute - 1);
+		if (second === 0) setMinute(minute - 1);
 		if (second === 1 && minute === 0) setDelay(null);
 	};
 

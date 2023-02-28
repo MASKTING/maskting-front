@@ -36,10 +36,9 @@ function MoreInfo() {
 		e.preventDefault();
 		setBasicInfo({
 			...basicInfo,
-			[e.target.name]: e.target.value,
+			[e.target.name]: e.target.value + '',
 		});
 	};
-
 	const handlePrevBtn = () => {
 		navigate('/signup/hobby');
 	};
@@ -49,7 +48,6 @@ function MoreInfo() {
 		if (!basicInfo.height || !basicInfo.bodyType) {
 			setErrorMessage(true);
 		}
-
 		if (
 			basicInfo?.duty &&
 			basicInfo?.smoking &&

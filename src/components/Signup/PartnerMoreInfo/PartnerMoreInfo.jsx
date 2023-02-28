@@ -167,11 +167,11 @@ const PartnerMoreInfo = () => {
 
 	useEffect(() => {
 		twoRangeHandlerWeight(4);
-	}, [rangeMaxWeightValue, rangeMinWeightValue]);
+	}, [rangeMaxWeightValue, rangeMinWeightValue, twoRangeHandlerWeight]);
 
 	useEffect(() => {
 		twoRangeHandler(41);
-	}, [rangeMaxHeightValue, rangeMinHeightValue]);
+	}, [rangeMaxHeightValue, rangeMinHeightValue, twoRangeHandler]);
 
 	useEffect(() => {
 		setBasicInfo({
