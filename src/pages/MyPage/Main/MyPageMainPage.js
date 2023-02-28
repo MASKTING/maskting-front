@@ -9,7 +9,6 @@ import SideBar from '../../../components/SideBar/SideBar';
 import PhotoBox from '../../../components/Carousel/PhotoBox/PhotoBox';
 import Carousel from '../../../components/Carousel/Carousel';
 import { useQuery } from 'react-query';
-import { getProfile } from '../../../api/getProfile';
 import api from '../../../api/api';
 
 const ANSWERLIST = [
@@ -25,8 +24,8 @@ const ANSWERLIST = [
 const MyPageMainPage = () => {
 	const [navigateState, setNavigateState] = useState('photo');
 	const [carouselState, setCarouselState] = useState(0);
-	const { data: userInfo } = useQuery('getProfile', () => getProfile());
-	const { data: feedList } = useQuery('getFeedList', () => api.get('/api/feed'));
+	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
+	const { data: feedList } = useQuery('getFeedList', () => api('/api/feed'));
 
 	return (
 		<Wrapper>
@@ -71,14 +70,14 @@ const MyPageMainPage = () => {
 						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						setCarouselState={setCarouselState}
-					></PhotoBox>
+					/>
 				)}
 				{navigateState === 'carousel' && (
 					<Carousel
 						feedList={feedList?.data?.feeds}
 						setNavigateState={setNavigateState}
 						carouselState={carouselState}
-					></Carousel>
+					/>
 				)}
 
 				{navigateState === 'answer' && (

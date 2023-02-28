@@ -18,6 +18,7 @@ export const Title = styled.p`
 	font-weight: 700;
 	padding: 2rem;
 `;
+export const ContentTitle = styled.p``;
 
 export const PanelInner = styled.section`
 	width: 100%;
@@ -33,13 +34,13 @@ export const Icon = styled.p`
 	margin-bottom: 2rem;
 `;
 export const ContentSubTitle = styled.p`
-	font-size: ${FONTSIZE.text};
+	font-size: 1.7rem;
 	font-weight: 700;
 	line-height: 3rem; ;
 `;
 export const ContentInfo = styled.p`
-	/* font-size: ${FONTSIZE.smallText}; */
-	line-height: 1.8rem;
+	font-size: 1.3rem;
+	line-height: 2rem;
 `;
 export const ButtonWrapper = styled.div`
 	padding: 2rem;

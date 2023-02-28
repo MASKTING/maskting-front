@@ -7,15 +7,18 @@ import html2canvas from 'html2canvas';
 import { NavigateButton } from '../../Button/Button';
 import { useRecoilState } from 'recoil';
 import { imageState } from '../../../recoil';
+import mask1 from '../../../assets/mask1.png';
+import mask2 from '../../../assets/mask2.png';
+import mask3 from '../../../assets/mask3.png';
 
 const ProfileMask = () => {
 	const navigate = useNavigate();
 	const [mask, setMask] = useState('');
 	const [profilePreview, setProfilePreview] = useState(localStorage?.getItem('imageData'));
 	const maskList = [
-		{ id: 1, name: 'mask1.png' },
-		{ id: 2, name: 'mask2.png' },
-		{ id: 3, name: 'mask3.png' },
+		{ id: 1, name: 'mask1' },
+		{ id: 2, name: 'mask2' },
+		{ id: 3, name: 'mask3' },
 	];
 
 	const handlePrevBtn = () => {
@@ -68,7 +71,7 @@ const ProfileMask = () => {
 				<S.ImageWrapper>
 					<S.captureDiv id="captureDiv">
 						<S.Image src={profilePreview} />
-						{mask !== '' ? (
+						{!!mask && (
 							<Rnd
 								default={{
 									x: 75,
@@ -82,12 +85,11 @@ const ProfileMask = () => {
 							>
 								<S.MaskItem
 									alt="마스크 이미지"
-									src={require(`../../../assets/${mask}`).default}
+									// src={`../../../assets/mask1.png`}
+									src={mask === 'mask1' ? mask1 : mask === 'mask2' ? mask2 : mask3}
 									style={{ width: '100%', height: '100%' }}
 								/>
 							</Rnd>
-						) : (
-							''
 						)}
 					</S.captureDiv>
 				</S.ImageWrapper>
@@ -101,7 +103,7 @@ const ProfileMask = () => {
 								<S.MaskItemWrapper key={Item.id}>
 									<S.MaskItem
 										value={Item.name}
-										src={require(`../../../assets/${Item.name}`).default}
+										src={Item.name === 'mask1' ? mask1 : Item.name === 'mask2' ? mask2 : mask3}
 										onClick={() => setMask(Item.name)}
 									/>
 								</S.MaskItemWrapper>

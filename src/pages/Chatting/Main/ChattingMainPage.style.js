@@ -71,10 +71,10 @@ const NoChattingRoom = styled.div`
 	flex-direction: column;
 `;
 const NoChattingEmo = styled.div`
-	font-size: 5rem;
+	font-size: 9rem;
 `;
 const NoChattingMessage = styled.div`
-	font-size: 1.1rem;
+	font-size: 1.7rem;
 	font-weight: bold;
 	margin-top: 2rem;
 `;
@@ -164,11 +164,7 @@ const LikePeopleNumber = styled.div`
 	font-weight: 700;
 	font-size: 30px;
 	line-height: 45px;
-	/* identical to box height, or 150% */
-
 	letter-spacing: 1px;
-
-	/* Pink/500 */
 
 	color: #f67677;
 `;

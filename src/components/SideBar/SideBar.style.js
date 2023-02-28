@@ -12,6 +12,7 @@ export const SideBarList = styled.nav`
 	margin: auto;
 	background-color: ${PALETTE.WHITE};
 	justify-content: space-evenly;
+	z-index: 20;
 `;
 export const SideBarItem = styled.article`
 	display: flex;

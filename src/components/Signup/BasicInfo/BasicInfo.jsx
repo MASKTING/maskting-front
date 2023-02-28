@@ -45,7 +45,7 @@ function BasicInfo() {
 	const inputCheck = () => {
 		const temp = { phone: '', name: '', birth: '', occupation: '', gender: '' };
 		for (let key in errorState) temp[key] = mainErrorHandler(key, basicInfo[key]);
-		setErrorState(temp);
+		setErrorState(temp + '');
 	};
 
 	const errorHandle = e => {
@@ -66,15 +66,22 @@ function BasicInfo() {
 	const handleNextBtn = async () => {
 		inputCheck();
 		const verified = await checkVerificationNumber();
-		if (basicInfo.privateCheck && !isEmpty(basicInfo) && validCheck(errorState) && verified) {
+		if (verified) {
+			setVerifyErrorMessage('');
+		} else {
+			setVerifyErrorMessage('인증번호를 확인해주세요');
+			return;
+		}
+
+		if (basicInfo.privateCheck && !isEmpty(basicInfo)) {
+			// if (basicInfo.privateCheck && !isEmpty(basicInfo) && validCheck(errorState)) {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/signup/location', { state: { basicInfo } });
 		}
-		if (!verified) setVerifyErrorMessage('인증번호를 확인해주세요');
 	};
 
 	const sendVerifyNumber = () => {
-		// postReceiveVerificationNumber(basicInfo?.phone);
+		postReceiveVerificationNumber(basicInfo?.phone);
 		initTimer();
 		setShowLeftTime(true);
 		setVerifyButtonActivate(false);
@@ -93,14 +100,14 @@ function BasicInfo() {
 	const checkVerificationNumber = async () => {
 		const phoneData = { phoneNumber: basicInfo?.phone, verificationNumber: verificationNumber };
 		const isValid = await postPhoneAuthCheck(phoneData);
-		setBasicInfo({ ...basicInfo, certification: isValid });
+		setBasicInfo({ ...basicInfo, certification: isValid.data });
 		return isValid.data;
 	};
 
 	const timerCallback = () => {
-		if (second == 0) setSecond(59);
+		if (second === 0) setSecond(59);
 		else setSecond(second - 1);
-		if (second == 0) setMinute(minute - 1);
+		if (second === 0) setMinute(minute - 1);
 		if (second === 1 && minute === 0) setDelay(null);
 	};
 
@@ -168,7 +175,7 @@ function BasicInfo() {
 						onChange={radioChange}
 						name="birth"
 						onBlur={errorHandle}
-						value={basicInfo?.birth}
+						value={basicInfo?.birth || ''}
 					/>
 				</S.BasicInfoWrapper>
 				<S.WideInfoWrapper>
@@ -243,7 +250,7 @@ function BasicInfo() {
 						onChange={radioChange}
 						onBlur={errorHandle}
 						name="phone"
-						value={basicInfo?.phone}
+						value={basicInfo?.phone || ''}
 					/>
 
 					<S.BtnCheckPhone onClick={getVerificationNumber} fontSize={'1.1rem'}>

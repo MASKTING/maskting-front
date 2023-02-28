@@ -33,7 +33,6 @@ api.interceptors.response.use(
 				});
 				if (response) {
 					localStorage.setItem('accesstoken', response.headers.accesstoken);
-					api.defaults.headers.common['accesstoken'] = response.headers.accesstoken;
 					return api.request(originalRequest);
 				}
 			} catch (error) {

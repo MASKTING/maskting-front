@@ -173,7 +173,7 @@ const HomePictureAdd = () => {
 				{isAddPicture ? (
 					<BigButton
 						onClick={() => {
-							navigate('home');
+							navigate('/home');
 						}}
 					>
 						이대로 완성하기

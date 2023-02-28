@@ -17,7 +17,7 @@ const Modal = styled.div`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.8);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -38,6 +38,12 @@ const ModalInner = styled.div`
 	display: flex;
 	justify-content: center;
 	animation: ${biggerEffect} 0.2s;
+	font-size: 1.7rem;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+	width: 90%;
+	line-height: 2.8rem;
+	color: #212121;
 `;
 
 export { Modal, ModalInner };
