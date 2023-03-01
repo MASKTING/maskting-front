@@ -56,7 +56,6 @@ function ProfileSetting() {
 			...basicInfo,
 			nickname: watch('nickname'),
 			bio: watch('introduce'),
-			partnerBodyTypes: [3, 4],
 		})) {
 			formData.append(key, value);
 		}

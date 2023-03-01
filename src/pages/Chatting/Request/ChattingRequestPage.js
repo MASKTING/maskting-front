@@ -8,15 +8,17 @@ import Panel from '../../../components/Panel/Panel';
 import PictureCircle from '../../../components/PictureCircle/PictureCircle';
 import ChattingFeedPage from '../RequestFeed/ChattingFeedPage';
 import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import api from '../../../api/api';
 const ChattingRequestPage = () => {
 	const [feedList, setFeedList] = useState([]);
 
 	const [feedViewState, setFeedViewState] = useState(false);
 	const [selectedFeed, setSelectedFeed] = useState(0);
+	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
 
 	const init = async () => {
 		const feedList = await getLikeList();
-
 		setFeedList(feedList);
 	};
 
@@ -57,12 +59,7 @@ const ChattingRequestPage = () => {
 	];
 
 	if (feedViewState)
-		return (
-			<ChattingFeedPage
-				setViewState={setFeedViewState}
-				userInfo={feedList[selectedFeed]}
-			></ChattingFeedPage>
-		);
+		return <ChattingFeedPage setViewState={setFeedViewState} userInfo={feedList[selectedFeed]} />;
 	else
 		return (
 			<Wrapper titleMessage="채팅">
@@ -70,7 +67,8 @@ const ChattingRequestPage = () => {
 					<S.NotifyBox>
 						<S.NotifyTextBox>
 							<S.NotifyInfoIfNoRoom>
-								분당청소요정님의 피드를 추천받고 대화를 나누고 싶어하시는 분들이에요
+								{userInfo?.data.nickname}님의 피드를 추천받고 <br />
+								대화를 나누고 싶어하시는 분들이에요
 							</S.NotifyInfoIfNoRoom>
 						</S.NotifyTextBox>
 					</S.NotifyBox>

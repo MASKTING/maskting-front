@@ -36,15 +36,12 @@ const HomeFeedPage = ({ userInfo, setViewState }) => {
 	};
 	const handleRequestConfirm = async () => {
 		const data = await sendLike(userInfo.nickname);
-		console.log(userInfo.nickname);
 		setIsRequested(true);
 		setIsModal(false);
 	};
 	const back = () => {
 		setViewState(false);
 	};
-
-	console.log(userInfo);
 
 	return (
 		<Wrapper>

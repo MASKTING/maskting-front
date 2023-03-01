@@ -69,7 +69,7 @@ const ChattingMainPage = () => {
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
-		navigate('request');
+		navigate('/chatting/request');
 	};
 	const handleNavigateRoom = e => {
 		navigate(`/chatting/room/${e.currentTarget.dataset.roomid}`);
@@ -81,7 +81,6 @@ const ChattingMainPage = () => {
 					<S.NotifyBox onClick={handleNavigateRequest}>
 						<S.NotifyPictureBox>
 							<S.LikePeopleNumber>{likeNumber}</S.LikePeopleNumber>
-							<PictureCircle size="small" />
 						</S.NotifyPictureBox>
 						<S.NotifyTextBox>
 							<S.NotifyTitle>새로운 대화요청이 도착했습니다</S.NotifyTitle>
@@ -99,7 +98,7 @@ const ChattingMainPage = () => {
 								key={chattingRoom.roomId}
 							>
 								<S.ChattingProfileBox>
-									<PictureCircle src={chattingRoom.profile} size="small"></PictureCircle>
+									<PictureCircle src={chattingRoom.profile} size="small" />
 								</S.ChattingProfileBox>
 								<S.ChattingMainBox>
 									<S.ChattingSender>{chattingRoom.roomName}</S.ChattingSender>
@@ -108,7 +107,7 @@ const ChattingMainPage = () => {
 										<S.ChattingLastMessage>{` · ${chattingRoom.lastUpdatedAt}`}</S.ChattingLastMessage>
 									</S.ChattingMessageBox>
 
-									{chattingRoom.update ? <S.NewChattingDot></S.NewChattingDot> : null}
+									{chattingRoom.update && <S.NewChattingDot />}
 									<S.RemainingTimeBarText src={'32px'}>
 										{parseInt(chattingRoom.remainingTime.split(':')[0])}H
 									</S.RemainingTimeBarText>
