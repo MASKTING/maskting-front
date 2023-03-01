@@ -47,19 +47,10 @@ function ProfileSetting() {
 	const handleModalNextBtn = async () => {
 		delete basicInfo.partnerBodyTypesLeft;
 		delete basicInfo.partnerBodyTypesRight;
-		localStorage.setItem(
-			'basicInfo',
-			JSON.stringify({
-				...basicInfo,
-				nickname: watch('nickname'),
-				bio: watch('introduce'),
-				partnerBodyTypes: [3, 4], // 데이터 전송 실패를 대비한 임의 데이터
-			}),
-		);
-
 		const formData = new FormData();
 		formData.append('profiles', imageFile.originalImage);
 		formData.append('profiles', imageFile.maskedImage);
+		formData.append('certification', true);
 
 		for (let [key, value] of Object.entries({
 			...basicInfo,

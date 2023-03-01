@@ -74,7 +74,6 @@ function BasicInfo() {
 		}
 
 		if (basicInfo.privateCheck && !isEmpty(basicInfo)) {
-			// if (basicInfo.privateCheck && !isEmpty(basicInfo) && validCheck(errorState)) {
 			localStorage.setItem('basicInfo', JSON.stringify(basicInfo));
 			navigate('/signup/location', { state: { basicInfo } });
 		}
