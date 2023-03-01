@@ -208,7 +208,7 @@ function MoreInfo() {
 					) : (
 						<S.Label htmlFor="Height">키</S.Label>
 					)}
-					<S.BasicInput name="height" onChange={radioChange} value={basicInfo?.height} />
+					<S.BasicInput name="height" onChange={radioChange} value={basicInfo?.height || ''} />
 				</S.BasicInfoWrapper>
 				<S.BasicInfoWrapper>
 					{submit && basicInfo?.bodyType === undefined ? (

@@ -21,26 +21,23 @@ const HomeMainPage = () => {
 	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
 	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api('/api/partner'));
 
-	useEffect(() => {
-		if (feedViewState) {
-			setFeedViewState(false);
-			return () => {
-				setFeedViewState(false);
-			};
-		}
-	}, [feedViewState]);
+	// useEffect(() => {
+	// 	if (feedViewState) {
+	// 		setFeedViewState(false);
+	// 		return () => {
+	// 			setFeedViewState(false);
+	// 		};
+	// 	}
+	// }, [feedViewState]);
 
 	const handleFeedButton = e => {
-		setSelectedFeed(parseInt(e.currentTarget.id));
+		setSelectedFeed(+e.currentTarget.id);
 		setFeedViewState(true);
 	};
 
 	if (feedViewState)
 		return (
-			<HomeFeedPage
-				setViewState={setFeedViewState}
-				userInfo={partnerInfo?.data?.data[selectedFeed]}
-			/>
+			<HomeFeedPage setViewState={setFeedViewState} userInfo={partnerInfo?.data[selectedFeed]} />
 		);
 	else
 		return (
@@ -100,7 +97,7 @@ const HomeMainPage = () => {
 					</Panel>
 					{partnerInfo?.data.length > 0 &&
 						partnerInfo?.data?.map((feedItem, idx) => (
-							<Panel size="midium" key={idx}>
+							<Panel size="large" key={idx}>
 								<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
 									<S.FeedProfile>
 										<PictureCircle src={feedItem.profile} size="small" />

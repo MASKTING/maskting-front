@@ -60,7 +60,7 @@ const Chatting = ({ message, isMy, date, src }) => {
 		</MyChattingWrapper>
 	) : (
 		<YourChattingWrapper>
-			<PictureCircle src={src} size={'xsmall'}></PictureCircle>
+			<PictureCircle src={src} size={'xsmall'} />
 			<YourMessage>{message}</YourMessage>
 			<Date>{date}</Date>
 		</YourChattingWrapper>

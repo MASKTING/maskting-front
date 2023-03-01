@@ -24,13 +24,12 @@ const Opponent = styled.div`
 const TakenTime = styled.div`
 	position: absolute;
 	left: 16rem;
-	background-color:#FDD4D6
+	background-color: #fdd4d6;
 	/* width:3.9rem;height:2rem; */
-
 	font-size: 1.7rem;
 	font-weight: bold;
 	color: #9e9e9e;
-	top:1.2rem;
+	top: 1.2rem;
 `;
 const LeftTime = styled.div`
 	position: absolute;
@@ -44,13 +43,13 @@ const Menu = styled.div`
 	right: 2rem;
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.form`
 	position: absolute;
-	bottom: 0;
+	bottom: 2rem;
 	width: 100%;
 `;
 const InputInner = styled.div`
-width:100%
+	width: 100%;
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -59,6 +58,7 @@ const PlusButton = styled.div`
 	position: absolute;
 	left: 2rem;
 	top: 0.5rem;
+	font-size: 3.2rem;
 `;
 const Input = styled.input`
 	background-color: #e0e0e0;

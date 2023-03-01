@@ -41,13 +41,13 @@ export const InfoSmall = styled.p`
 `;
 
 export const FeedImageList = styled.section`
-	bottom: 0;
-	position: absolute;
+	margin-top: 2rem;
 `;
 
 export const FeedImageItem = styled.img`
 	width: 11.4rem;
 	height: 11.4rem;
+	object-fit: cover;
 `;
 
 export const FeedProfile = styled.article`

@@ -4,18 +4,23 @@ import PALETTE from '../../../constants/palette';
 
 const NotifyBox = styled.section`
 	display: flex;
-	justify-content: center;
+	align-items: center;
 	width: 34.2rem;
 	height: 10rem;
 	border-radius: 2rem;
 	background-color: ${PALETTE.BLACK200};
-	display: flex;
-	align-items: center;
 `;
 
 const NotifyPictureBox = styled.div`
 	width: 5rem;
 	height: 5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #fafafa;
+	border-radius: 50%;
+	margin-left: 2rem;
+	margin-right: 1rem;
 `;
 
 const NotifyTextBox = styled.div`
@@ -152,12 +157,13 @@ const RemainingTimeBar = styled.progress`
 `;
 
 const LikePeopleNumber = styled.div`
-	position: absolute;
 	width: 15px;
 	height: 45px;
 	left: 67px;
 	z-index: 1;
-	/* Title 1 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	font-family: 'Pretendard';
 	font-style: normal;

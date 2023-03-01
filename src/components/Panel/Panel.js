@@ -5,7 +5,7 @@ export const PANELSIZE = {
 	light: '15rem',
 	small: '22rem',
 	midium: '34.5rem',
-	large: '',
+	large: '40rem',
 };
 
 export const PanelVariable = props => {

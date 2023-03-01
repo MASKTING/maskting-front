@@ -1,8 +1,9 @@
+import axios from 'axios';
 import api from './api';
 
 export const postPhoneAuthCheck = async phoneData => {
 	try {
-		const response = await api({
+		const response = await axios({
 			headers: {
 				'Content-Type': 'application/json',
 			},
