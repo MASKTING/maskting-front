@@ -27,9 +27,8 @@ const NotifyInfoIfNoRoom = styled.p`
 	font-size: ${FONTSIZE.infoText};
 	display: flex;
 	justify-content: center;
-	font-size: 1.3rem;
+	font-size: 1.7rem;
 	text-align: center;
-	padding: 6rem;
 	font-weight: 700;
 `;
 

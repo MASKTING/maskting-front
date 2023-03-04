@@ -114,12 +114,12 @@ const ChattingRoomPage = () => {
 	};
 
 	const timerCallback = () => {
-		if (second == 0) setSecond(59);
+		if (second === 0) setSecond(59);
 		else setSecond(second - 1);
 
-		if (second == 0) {
+		if (second === 0) {
 			setMinute(minute - 1);
-			if (minute == 0) {
+			if (minute === 0) {
 				setHour(hour - 1);
 				setMinute(59);
 			}
@@ -140,7 +140,7 @@ const ChattingRoomPage = () => {
 			postChatClose(roomId);
 			disconnect();
 		};
-	}, []);
+	}, [connect, roomId]);
 
 	useEffect(() => {
 		if (hour === 0 && minute === 0 && second === 0) setTimeOver(true);
@@ -159,13 +159,13 @@ const ChattingRoomPage = () => {
 					</S.Back>
 					<S.Opponent>{roomInfo.roomName}</S.Opponent>
 					<RemainingTimeBarText src={'182px'}>{hour}H</RemainingTimeBarText>
-					<RemainingTimeBar min="0" max="72" value={hour} src={'132px'}></RemainingTimeBar>
+					<RemainingTimeBar min="0" max="72" value={hour} src={'132px'} />
 					<S.LeftTime>최종시간까지 {timeMakerHourMinSec(hour, minute, second)} 남았어요</S.LeftTime>
 					<S.Menu className="material-icons">more_vert</S.Menu>
 				</S.TopInner>
 			</S.Top>
 			<WrapperInner ref={scrollRef}>
-				{/* {timeOver && <ChattingFinalModal roomInfo={roomInfo}></ChattingFinalModal>} */}
+				{timeOver && <ChattingFinalModal roomInfo={roomInfo} />}
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
 						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />
@@ -187,13 +187,11 @@ const ChattingRoomPage = () => {
 				<input type={'submit'} value={'의견 보내기'} />
 			</form> */}
 
-			<S.InputWrapper>
+			<S.InputWrapper onSubmit={handleSubmit}>
 				<S.InputInner>
-					<S.PlusButton className="material-icons">add_circle</S.PlusButton>
+					<S.PlusButton className="material-icons">add_circle_outline</S.PlusButton>
 					<S.Input type="text" onChange={chatSetting} value={chat} placeholder="메세지 보내기" />
-					<S.SendBtn className="material-icons" onClick={handleSubmit}>
-						send
-					</S.SendBtn>
+					<S.SendBtn className="material-icons">send</S.SendBtn>
 				</S.InputInner>
 			</S.InputWrapper>
 		</Wrapper>
