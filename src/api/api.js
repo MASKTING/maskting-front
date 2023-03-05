@@ -24,7 +24,7 @@ api.interceptors.response.use(
 		return response;
 	},
 	async error => {
-		if (error?.response?.status === 401) {
+		if (error?.response?.status !== 200) {
 			try {
 				const originalRequest = error.config;
 				const response = await axios({
