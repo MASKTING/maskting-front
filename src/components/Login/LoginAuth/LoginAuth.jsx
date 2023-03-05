@@ -8,15 +8,16 @@ const LoginAuth = () => {
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
 	const accessToken = searchParams.getAll('accessToken')[0];
+	localStorage.setItem('accessToken', accessToken);
 	localStorage.setItem(
 		'basicInfo',
 		JSON.stringify({
 			provider: provider,
 			providerId: providerId,
 			email: email,
-			accessToken: accessToken,
 		}),
 	);
+  
 	if (role === 'guest') {
 		if (sort === 'true') {
 			// 아직 심사 대기 상태인 경우 -> 대기 화면
