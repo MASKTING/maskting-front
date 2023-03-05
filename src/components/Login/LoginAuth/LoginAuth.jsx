@@ -7,12 +7,14 @@ const LoginAuth = () => {
 	const role = searchParams.getAll('role')[0];
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
+	const accessToken = searchParams.getAll('accessToken')[0];
 	localStorage.setItem(
 		'basicInfo',
 		JSON.stringify({
 			provider: provider,
 			providerId: providerId,
 			email: email,
+			accessToken: accessToken,
 		}),
 	);
 	if (role === 'guest') {
@@ -30,7 +32,7 @@ const LoginAuth = () => {
 		}
 	} else {
 		// 모든 가입 완료한 상태 -> 피드 화면
-		// window.location.href = '/home';
+		window.location.href = '/home';
 	}
 };
 
