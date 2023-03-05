@@ -12,7 +12,7 @@ import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle'
 import HomeFeedPage from '../Feed/HomeFeedPage';
 import { useQuery } from 'react-query';
 import api from '../../../api/api';
-import { getPartner } from '../../../api/getPartner';
+import { getPartner, getProfile } from '../../../api/getPartner';
 
 const HomeMainPage = () => {
 	const navigate = useNavigate();
@@ -24,7 +24,9 @@ const HomeMainPage = () => {
 
 	const test = async () => {
 		const data = await getPartner();
+		const data2 = await getUser();
 		console.log('파트너 정보 그냥 : ', data);
+		console.log('유저정보', data2);
 	};
 
 	useEffect(() => {
