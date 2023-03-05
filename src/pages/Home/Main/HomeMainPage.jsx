@@ -12,7 +12,8 @@ import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle'
 import HomeFeedPage from '../Feed/HomeFeedPage';
 import { useQuery } from 'react-query';
 import api from '../../../api/api';
-import { getPartner, getProfile } from '../../../api/getPartner';
+import { getPartner } from '../../../api/getPartner';
+import { getProfile } from '../../../api/getProfile';
 
 const HomeMainPage = () => {
 	const navigate = useNavigate();
