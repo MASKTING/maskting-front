@@ -7,7 +7,7 @@ import * as StompJs from '@stomp/stompjs';
  */
 const createClient = endpoint => {
 	const client = new StompJs.Client({
-		brokerURL: `${process.env.REACT_APP_SOCKET_HOST}${endpoint}`,
+		brokerURL: `wss://maskting.site${endpoint}`,
 	});
 
 	client.webSocketFactory = () => {
