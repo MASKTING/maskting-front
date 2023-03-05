@@ -17,7 +17,7 @@ const LoginAuth = () => {
 			email: email,
 		}),
 	);
-  
+
 	if (role === 'guest') {
 		if (sort === 'true') {
 			// 아직 심사 대기 상태인 경우 -> 대기 화면
