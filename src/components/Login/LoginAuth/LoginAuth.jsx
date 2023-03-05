@@ -8,7 +8,7 @@ const LoginAuth = () => {
 	const sort = searchParams.getAll('sort')[0];
 	const providerId = searchParams.getAll('providerId')[0];
 	const accessToken = searchParams.getAll('accessToken')[0];
-	localStorage.setItem('accessToken', accessToken);
+	localStorage.setItem('accesstoken', accessToken);
 	localStorage.setItem(
 		'basicInfo',
 		JSON.stringify({
