@@ -30,6 +30,11 @@ const HomeMainPage = () => {
 	// 	}
 	// }, [feedViewState]);
 
+	useEffect(() => {
+		console.log(process.env.REACT_APP_SERVER_HOST);
+		console.log(partnerInfo.data);
+	}, [partnerInfo.data]);
+
 	const handleFeedButton = e => {
 		setSelectedFeed(+e.currentTarget.id);
 		setFeedViewState(true);
