@@ -24,7 +24,7 @@ const HomeMainPage = () => {
 
 	const test = async () => {
 		const data = await getPartner();
-		const data2 = await getUser();
+		const data2 = await getProfile();
 		console.log('파트너 정보 그냥 : ', data);
 		console.log('유저정보', data2);
 	};
