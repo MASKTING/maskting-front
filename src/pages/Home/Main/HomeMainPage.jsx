@@ -12,6 +12,7 @@ import RefreshCircle from '../../../components/Home/RefreshCircle/RefreshCircle'
 import HomeFeedPage from '../Feed/HomeFeedPage';
 import { useQuery } from 'react-query';
 import api from '../../../api/api';
+import { getPartner } from '../../../api/getPartner';
 
 const HomeMainPage = () => {
 	const navigate = useNavigate();
@@ -20,6 +21,15 @@ const HomeMainPage = () => {
 	const [feedViewState, setFeedViewState] = useState(false);
 	const { data: userInfo } = useQuery('getProfile', () => api('/api/user'));
 	const { data: partnerInfo } = useQuery('getPartnerInfo', () => api('/api/partner'));
+
+	const test = async () => {
+		const data = await getPartner();
+		console.log('파트너 정보 그냥 : ', data);
+	};
+
+	useEffect(() => {
+		test();
+	}, []);
 
 	// useEffect(() => {
 	// 	if (feedViewState) {
