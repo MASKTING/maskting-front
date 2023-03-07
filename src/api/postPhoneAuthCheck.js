@@ -3,11 +3,11 @@ import api from './api';
 
 export const postPhoneAuthCheck = async phoneData => {
 	try {
-		const response = await api({
+		const response = await axios({
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			url: '/api/user/check-sms',
+			url: `${prcoess.env.REACT_APP_SERVER_HOST}/api/user/check-sms`,
 			method: 'POST',
 			data: JSON.stringify(phoneData),
 		});
