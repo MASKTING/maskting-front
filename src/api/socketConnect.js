@@ -11,7 +11,7 @@ const createClient = endpoint => {
 	});
 
 	client.webSocketFactory = () => {
-		const socketIn = new SockJS(`https://maskting.site${endpoint}`);
+		const socketIn = new SockJS(`http://maskting.site${endpoint}`);
 		return socketIn;
 	};
 
