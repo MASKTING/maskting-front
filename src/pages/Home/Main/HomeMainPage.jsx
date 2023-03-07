@@ -95,7 +95,7 @@ const HomeMainPage = () => {
 							</SmallButton>
 						</S.PanelInfoInner>
 					</Panel>
-					{/* {partnerInfo?.data.length > 0 &&
+					{partnerInfo?.data.length > 0 &&
 						partnerInfo?.data?.map((feedItem, idx) => (
 							<Panel size="large" key={idx}>
 								<S.PanelFeedInner onClick={handleFeedButton} id={idx}>
@@ -113,7 +113,7 @@ const HomeMainPage = () => {
 									</S.FeedImageList>
 								</S.PanelFeedInner>
 							</Panel>
-						))} */}
+						))}
 				</WrapperInner>
 				<SideBar status="home" />
 				<RefreshCircle
