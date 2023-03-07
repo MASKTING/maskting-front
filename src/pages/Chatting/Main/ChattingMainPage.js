@@ -65,7 +65,7 @@ const ChattingMainPage = () => {
 	useEffect(() => {
 		connect();
 		return () => client.current.deactivate();
-	}, [connect, roomIdList]);
+	}, [roomIdList]);
 
 	const navigate = useNavigate();
 	const handleNavigateRequest = () => {
