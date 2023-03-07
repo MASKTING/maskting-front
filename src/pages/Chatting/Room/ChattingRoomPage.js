@@ -68,7 +68,6 @@ const ChattingRoomPage = () => {
 	};
 
 	const onConnected = () => {
-		console.log('채팅방에 연결되었습니다.');
 		subscribe(client.current, roomId, subscribeCallback);
 	};
 

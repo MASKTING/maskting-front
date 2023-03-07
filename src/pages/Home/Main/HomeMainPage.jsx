@@ -30,6 +30,10 @@ const HomeMainPage = () => {
 	// 	}
 	// }, [feedViewState]);
 
+	useEffect(() => {
+		localStorage.setItem('nickname', userInfo?.data.nickname);
+	}, [userInfo?.data]);
+
 	const handleFeedButton = e => {
 		setSelectedFeed(+e.currentTarget.id);
 		setFeedViewState(true);
