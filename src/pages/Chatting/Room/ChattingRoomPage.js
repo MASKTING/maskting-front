@@ -165,7 +165,7 @@ const ChattingRoomPage = () => {
 				</S.TopInner>
 			</S.Top>
 			<WrapperInner ref={scrollRef}>
-				{timeOver && <ChattingFinalModal roomInfo={roomInfo} />}
+				{/* {timeOver && <ChattingFinalModal roomInfo={roomInfo} />} */}
 				{chatList?.map((chatItem, idx) => {
 					return chatItem.nickname == nickname ? (
 						<Chatting message={chatItem.content} isMy date={chatItem.createdAt} key={idx} />
