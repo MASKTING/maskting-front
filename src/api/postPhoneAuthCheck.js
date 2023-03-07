@@ -3,7 +3,7 @@ import api from './api';
 
 export const postPhoneAuthCheck = async phoneData => {
 	try {
-		const response = await axios({
+		const response = await api({
 			headers: {
 				'Content-Type': 'application/json',
 			},

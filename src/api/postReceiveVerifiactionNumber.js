@@ -5,7 +5,7 @@ export const postReceiveVerificationNumber = async phoneNumber => {
 	try {
 		const formData = new FormData();
 		formData.append('phoneNumber', phoneNumber);
-		const response = await axios({
+		const response = await api({
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},

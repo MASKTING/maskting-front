@@ -65,13 +65,13 @@ function BasicInfo() {
 
 	const handleNextBtn = async () => {
 		inputCheck();
-		// const verified = await checkVerificationNumber();
-		// if (verified) {
-		// 	setVerifyErrorMessage('');
-		// } else {
-		// 	setVerifyErrorMessage('인증번호를 확인해주세요');
-		// 	return;
-		// }
+		const verified = await checkVerificationNumber();
+		if (verified) {
+			setVerifyErrorMessage('');
+		} else {
+			setVerifyErrorMessage('인증번호를 확인해주세요');
+			return;
+		}
 
 		if (basicInfo.privateCheck && !isEmpty(basicInfo)) {
 			localStorage.setItem('basicInfo', JSON.stringify({ ...basicInfo, certification: true }));
