@@ -62,7 +62,7 @@ function ProfileSetting() {
 
 		await axios({
 			method: 'POST',
-			url: `/api/user/signup`,
+			url: `${process.env.REACT_APP_SERVER_HOST}/api/user/signup`,
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
