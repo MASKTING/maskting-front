@@ -33,8 +33,7 @@ api.interceptors.response.use(
 					url: '/api/auth/silent-refresh',
 				});
 				if (response) {
-					console.log(response.config.baseURL);
-					// localStorage.setItem('accesstoken', response.headers.accesstoken);
+					localStorage.setItem('accesstoken', response.headers.accesstoken);
 					return api.request(originalRequest);
 				}
 			} catch (error) {

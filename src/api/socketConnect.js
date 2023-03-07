@@ -7,11 +7,11 @@ import * as StompJs from '@stomp/stompjs';
  */
 const createClient = endpoint => {
 	const client = new StompJs.Client({
-		brokerURL: `ws://maskting.site${endpoint}`,
+		brokerURL: `wss://maskting.site${endpoint}`,
 	});
 
 	client.webSocketFactory = () => {
-		const socketIn = new SockJS(`http://maskting.site${endpoint}`);
+		const socketIn = new SockJS(`https://maskting.site${endpoint}`);
 		return socketIn;
 	};
 
