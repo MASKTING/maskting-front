@@ -7,7 +7,7 @@ export const postPhoneAuthCheck = async phoneData => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			url: `${prcoess.env.REACT_APP_SERVER_HOST}/api/user/check-sms`,
+			url: `${process.env.REACT_APP_SERVER_HOST}/api/user/check-sms`,
 			method: 'POST',
 			data: JSON.stringify(phoneData),
 		});
