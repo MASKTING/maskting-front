@@ -11,10 +11,6 @@ const ChattingResultModal = ({ roomId, result, setModalType }) => {
 		setPhoneNumberChecked(true);
 	};
 
-	useEffect(() => {
-		console.log(matchedInfo);
-	}, [matchedInfo]);
-
 	return (
 		<>
 			<S.ModalBackground></S.ModalBackground>

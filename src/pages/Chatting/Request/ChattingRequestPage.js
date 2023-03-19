@@ -31,33 +31,6 @@ const ChattingRequestPage = () => {
 		setFeedViewState(true);
 	};
 
-	const FEEDPHOTOLIST = [
-		{
-			id: '1',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-		{
-			id: '2',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-		{
-			id: '3',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-		{
-			id: '4',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-		{
-			id: '5',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-		{
-			id: '6',
-			src: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/8.jpg',
-		},
-	];
-
 	if (feedViewState)
 		return <ChattingFeedPage setViewState={setFeedViewState} userInfo={feedList[selectedFeed]} />;
 	else
@@ -83,7 +56,7 @@ const ChattingRequestPage = () => {
 									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
 								</S.FeedInfo>
 								<S.FeedImageList>
-									{FEEDPHOTOLIST.map(FeedItem => (
+									{feedItem?.feed.map(FeedItem => (
 										<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
 									))}
 								</S.FeedImageList>
