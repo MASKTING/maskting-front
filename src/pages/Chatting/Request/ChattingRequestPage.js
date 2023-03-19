@@ -56,8 +56,8 @@ const ChattingRequestPage = () => {
 									<S.InfoMidium>{feedItem.bio}</S.InfoMidium>
 								</S.FeedInfo>
 								<S.FeedImageList>
-									{feedItem?.feed.map(FeedItem => (
-										<S.FeedImageItem key={FeedItem.id} src={FeedItem.src} />
+									{feedItem?.feed.map((src, idx) => (
+										<S.FeedImageItem key={idx} src={src} />
 									))}
 								</S.FeedImageList>
 							</S.PanelFeedInner>
